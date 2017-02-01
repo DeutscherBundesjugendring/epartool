@@ -1,6 +1,6 @@
 <?php
     $linkToInputs = null;
-    if ($this->consultation->inp_show === 'y'
+    if ($this->consultation->is_input_phase_showed
         && (new Zend_Date($this->consultation->inp_fr, Zend_Date::ISO_8601))->isEarlier(Zend_Date::now())
     ) {
         $linkToInputs = (new Zend_Date($this->consultation->inp_to, Zend_Date::ISO_8601))->isLater(Zend_Date::now())

@@ -95,7 +95,7 @@ class Service_Notification_InputCreatedNotification extends Service_Notification
     protected function sendConfirmationEmailRequest($userId, $ntfId, array $params)
     {
         $user = (new Model_Users())->find($userId)->current();
-        if ($user->block !== 'u') {
+        if ($user->is_confirmed !== null) {
             $template = Model_Mail_Template::SYSTEM_TEMPLATE_QUESTION_SUBSCRIPTION_CONFIRMATION_NEW_USER;
         } else {
             $template = Model_Mail_Template::SYSTEM_TEMPLATE_QUESTION_SUBSCRIPTION_CONFIRMATION;

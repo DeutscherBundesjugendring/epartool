@@ -12,7 +12,7 @@ class NewConsultationPage
     public static $fieldContributionPhaseEnd = '#inp_to';
     public static $fieldVotingPhaseStart = '#vot_fr';
     public static $fieldVotingPhaseEnd = '#vot_to';
-    public static $checkboxAllowSupport = '#spprt_show';
+    public static $checkboxAllowSupport = '#is_support_phase_showed';
     public static $checkboxAllowDiscussion = '#is_discussion_active';
     public static $checkboxMakePublic = '#public';
     public static $saveButton = '#submit';

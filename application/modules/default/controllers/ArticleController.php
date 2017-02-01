@@ -47,7 +47,7 @@ class ArticleController extends Zend_Controller_Action
                     ->select()
                     ->where('kid=?', $this->_consultation->kid)
                     ->where('ref_nm=?', Model_ArticleRefNames::ARTICLE_EXPLANATION)
-                    ->where('hid=?', 'n')
+                    ->where('is_showed = ?', true)
             );
         }
 

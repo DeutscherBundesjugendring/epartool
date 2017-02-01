@@ -233,7 +233,7 @@ class Admin_VotingController extends Zend_Controller_Action
     {
         $this->view->inputs = (new Model_Inputs())->getCountByConsultationFiltered(
             $this->_consultation->kid,
-            [['field' => 'vot', 'operator' => '=', 'value' => 'y']]
+            [['field' => 'is_votable', 'operator' => '=', 'value' => true]]
         );
         $this->view->groups = (new Model_Votes_Groups())->getByConsultation($this->_consultation->kid);
         $this->view->form = new Admin_Form_ListControl();
@@ -435,7 +435,7 @@ class Admin_VotingController extends Zend_Controller_Action
             } else {
                 $values = $form->getValues();
 
-                $this->_settings->btn_important = $values['btn_important'];
+                $this->_settings->is_btn_important = $values['is_btn_important'];
                 $this->_settings->btn_no_opinion = $values['btn_no_opinion'];
                 $this->_settings->btn_important_label = $values['btn_important_label'];
                 $this->_settings->btn_numbers = $values['btn_numbers'];

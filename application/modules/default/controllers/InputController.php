@@ -427,7 +427,7 @@ class InputController extends Zend_Controller_Action
                 foreach ($sessInputs->inputs as $input) {
                     $input['uid'] = $auth->hasIdentity() ? $auth->getIdentity()->uid : null;
                     $input['confirmation_key'] = $confirmKey;
-                    $input['user_conf'] = $auth->hasIdentity() ? 'c' : 'u';
+                    $input['is_confirmed_by_user'] = $auth->hasIdentity() ? true : null;
                     $inputModel->add($input);
                 }
                 $inputModel->getAdapter()->commit();
@@ -757,7 +757,7 @@ class InputController extends Zend_Controller_Action
 
                             $user = (new Model_Users())->find($userId)->current();
                             $template = Model_Mail_Template::SYSTEM_TEMPLATE_INPUT_DISCUSSION_CONTRIB_CONFIRMATION;
-                            if ($isNew && $user->block === 'u') {
+                            if ($isNew && $user->is_confirmed === null) {
                                 $template = Model_Mail_Template::SYSTEM_TEMPLATE_INPUT_DISCUSSION_CONTRIB_CONFIRMATION_NEW_USER;
                             }
 
@@ -814,7 +814,7 @@ class InputController extends Zend_Controller_Action
                     ['user_id', 'time_created', 'body', 'is_visible', 'video_service', 'video_id', 'id']
                 )
                 ->where('input_id=?', $inputId)
-                ->where('is_user_confirmed=?', 1)
+                ->where('is_user_confirmed = ?', true)
                 ->join(
                     (new Model_Users())->info(Model_Users::NAME),
                     (new Model_Users())->info(Model_Users::NAME) . '.uid = i.user_id',

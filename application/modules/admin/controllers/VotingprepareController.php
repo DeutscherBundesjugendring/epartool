@@ -67,16 +67,16 @@ class Admin_VotingprepareController extends Zend_Controller_Action
                 $this->_flashMessenger->addMessage('Contribution has been deleted.', 'success');
             } elseif ($inputIds) {
                 if ($this->getRequest()->getPost('releaseBulk', null)) {
-                    $count = $inputModel->editBulk($inputIds, ['block' => 'n']);
+                    $count = $inputModel->editBulk($inputIds, ['is_confirmed' => true]);
                     $msg = sprintf($this->view->translate('%d contributions have been released.'), $count);
                 } elseif ($this->getRequest()->getPost('blockBulk', null)) {
-                    $count = $inputModel->editBulk($inputIds, ['block' => 'y']);
+                    $count = $inputModel->editBulk($inputIds, ['is_confirmed' => false]);
                     $msg = sprintf($this->view->translate('%d contributions have been blocked.'), $count);
                 } elseif ($this->getRequest()->getPost('enableVotingBulk', null)) {
-                    $count = $inputModel->editBulk($inputIds, ['vot' => 'y']);
+                    $count = $inputModel->editBulk($inputIds, ['is_votable' => true]);
                     $msg = sprintf($this->view->translate('%d contributions have been sent to voting.'), $count);
                 } elseif ($this->getRequest()->getPost('blockVotingBulk', null)) {
-                    $count = $inputModel->editBulk($inputIds, ['vot' => 'n']);
+                    $count = $inputModel->editBulk($inputIds, ['is_votable' => false]);
                     $msg = sprintf($this->view->translate('%d contributions have been removed from voting.'), $count);
                 } elseif ($this->getRequest()->getPost('deleteBulk', null)) {
                     $count = $inputModel->deleteBulk($inputIds);
@@ -131,9 +131,9 @@ class Admin_VotingprepareController extends Zend_Controller_Action
         } else {
             $form->populate([
                 'qi' => $origInputData['qi'],
-                'user_conf' => $origInputData['user_conf'],
-                'block' => $origInputData['block'],
-                'vot' => 'y',
+                'is_confirmed_by_user' => $origInputData['is_confirmed_by_user'],
+                'is_confirmed' => $origInputData['is_confirmed'],
+                'is_votable' => true,
             ]);
         }
 

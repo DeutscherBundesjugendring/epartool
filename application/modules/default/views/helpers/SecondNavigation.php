@@ -10,12 +10,12 @@ class Module_Default_View_Helper_SecondNavigation extends Zend_View_Helper_Abstr
             'article' => false,
             'question' => false,
             'input' => ($nowDate->isEarlier(new Zend_Date($con->inp_fr, Zend_Date::ISO_8601))),
-            'follow-up' => (!$nowDate->isLater(new Zend_Date($con->vot_to, Zend_Date::ISO_8601)) || $con->follup_show == 'n'),
+            'follow-up' => (!$nowDate->isLater(new Zend_Date($con->vot_to, Zend_Date::ISO_8601)) || !$con->is_followup_phase_showed),
             'voting' => ($nowDate->isEarlier(new Zend_Date($con->vot_fr, Zend_Date::ISO_8601)) || $con->vot_to == '0000-00-00 00:00:00'),
         );
 
         // Voting disable result
-        if ($con->vot_to != '0000-00-00 00:00:00' && $nowDate->isLater($con->vot_to) && $con->vot_res_show == 'n') {
+        if ($con->vot_to != '0000-00-00 00:00:00' && $nowDate->isLater($con->vot_to) && !$con->is_voting_result_phase_showed) {
             $disabled['voting'] = true;
         }
 
@@ -48,14 +48,14 @@ class Module_Default_View_Helper_SecondNavigation extends Zend_View_Helper_Abstr
         );
 
         // Add dates
-        if ($con->inp_show == 'y') {
+        if ($con->is_input_phase_showed) {
             $items['input']['info'] = $this->view->translate('from') . ' '
                 . $this->view->formatDate($con->inp_fr, Zend_Date::DATE_MEDIUM)
                 . '<br />'
                 . $this->view->translate('until') . ' '
                 . $this->view->formatDate($con->inp_to, Zend_Date::DATE_MEDIUM);
         }
-        if ($con->vot_show == 'y') {
+        if ($con->is_voting_phase_showed) {
             $items['voting']['info'] = $this->view->translate('from') . ' '
                 . $this->view->formatDate($con->vot_fr, Zend_Date::DATE_MEDIUM)
                 . '<br />'
@@ -66,13 +66,13 @@ class Module_Default_View_Helper_SecondNavigation extends Zend_View_Helper_Abstr
         // Add bubbles
         if ($nowDate->isLater(new Zend_Date($con->inp_fr, Zend_Date::ISO_8601))
             && $nowDate->isEarlier(new Zend_Date($con->inp_to, Zend_Date::ISO_8601))
-            && $con->inp_show == 'y'
+            && $con->is_input_phase_showed
         ) {
             $items['input']['showBubble'] = true;
         }
         if ($nowDate->isLater(new Zend_Date($con->vot_fr, Zend_Date::ISO_8601))
             && $nowDate->isEarlier(new Zend_Date($con->vot_to, Zend_Date::ISO_8601))
-            && $con->vot_show == 'y'
+            && $con->is_voting_phase_showed
         ) {
             $items['voting']['showBubble'] = true;
         }

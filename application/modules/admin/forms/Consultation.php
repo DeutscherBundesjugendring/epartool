@@ -65,7 +65,7 @@ class Admin_Form_Consultation extends Dbjr_Form_Admin
             ->setAttrib('rows', 5);
         $this->addElement($explShort);
 
-        $inputShow = $this->createElement('checkbox', 'inp_show');
+        $inputShow = $this->createElement('checkbox', 'is_input_phase_showed');
         $inputShow
             ->setLabel('Enable contribution phase')
             ->setRequired(true)
@@ -94,7 +94,7 @@ class Admin_Form_Consultation extends Dbjr_Form_Admin
         self::addCssClass($inputTo, 'js-input-dates');
         $this->addElement($inputTo);
 
-        $supportShow = $this->createElement('checkbox', 'spprt_show');
+        $supportShow = $this->createElement('checkbox', 'is_support_phase_showed');
         $supportShow
             ->setLabel('Enable support phase')
             ->setRequired(true)
@@ -123,7 +123,7 @@ class Admin_Form_Consultation extends Dbjr_Form_Admin
         self::addCssClass($supportTo, 'js-support-dates');
         $this->addElement($supportTo);
 
-        $voteShow = $this->createElement('checkbox', 'vot_show');
+        $voteShow = $this->createElement('checkbox', 'is_voting_phase_showed');
         $voteShow
             ->setLabel('Enable voting phase')
             ->setRequired(true)
@@ -152,7 +152,7 @@ class Admin_Form_Consultation extends Dbjr_Form_Admin
         self::addCssClass($voteTo, 'js-vote-dates');
         $this->addElement($voteTo);
 
-        $voteResShow = $this->createElement('checkbox', 'vot_res_show');
+        $voteResShow = $this->createElement('checkbox', 'is_voting_result_phase_showed');
         $voteResShow
             ->setLabel('Make voting results public')
             ->setRequired(true)
@@ -202,7 +202,7 @@ class Admin_Form_Consultation extends Dbjr_Form_Admin
             ->setRequired(false);
         $this->addElement($enableVideo);
 
-        $followupShow = $this->createElement('checkbox', 'follup_show');
+        $followupShow = $this->createElement('checkbox', 'is_followup_phase_showed');
         $followupShow
             ->setLabel('Enable follow-ups')
             ->setRequired(true)
@@ -224,7 +224,7 @@ class Admin_Form_Consultation extends Dbjr_Form_Admin
             ->setAttrib('rows', 5);
         $this->addElement($licenseAgreement);
 
-        $isPublic = $this->createElement('checkbox', 'public');
+        $isPublic = $this->createElement('checkbox', 'is_public');
         $isPublic
             ->setLabel('Make public')
             ->setRequired(true)
@@ -299,19 +299,19 @@ class Admin_Form_Consultation extends Dbjr_Form_Admin
 
     public function isValid($data)
     {
-        if ($data['inp_show'] === 'n') {
+        if (!$data['is_input_phase_showed']) {
             $this->getElement('inp_fr')->setOptions(['required'=>false]);
             $data['inp_fr'] = null;
             $this->getElement('inp_to')->setOptions(['required'=>false]);
             $data['inp_to'] = null;
         }
-        if ($data['spprt_show'] === 'n') {
+        if (!$data['is_support_phase_showed']) {
             $this->getElement('spprt_fr')->setOptions(['required'=>false]);
             $data['spprt_fr'] = null;
             $this->getElement('spprt_to')->setOptions(['required'=>false]);
             $data['spprt_to'] = null;
         }
-        if ($data['vot_show'] === 'n') {
+        if (!$data['is_voting_phase_showed']) {
             $this->getElement('vot_fr')->setOptions(['required'=>false]);
             $data['vot_fr'] = null;
             $this->getElement('vot_to')->setOptions(['required'=>false]);
@@ -329,15 +329,15 @@ class Admin_Form_Consultation extends Dbjr_Form_Admin
 
     public function populate(array $values)
     {
-        if ($values['inp_show'] === 'n') {
+        if (!$values['is_input_phase_showed']) {
             $this->getElement('inp_fr')->setAttrib('disabled', 'disabled');
             $this->getElement('inp_to')->setAttrib('disabled', 'disabled');
         }
-        if ($values['spprt_show'] === 'n') {
+        if (!$values['is_support_phase_showed']) {
             $this->getElement('spprt_fr')->setAttrib('disabled', 'disabled');
             $this->getElement('spprt_to')->setAttrib('disabled', 'disabled');
         }
-        if ($values['vot_show'] === 'n') {
+        if (!$values['is_voting_phase_showed']) {
             $this->getElement('vot_fr')->setAttrib('disabled', 'disabled');
             $this->getElement('vot_to')->setAttrib('disabled', 'disabled');
         }

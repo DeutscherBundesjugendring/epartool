@@ -237,7 +237,7 @@ class Model_Followups extends Zend_Db_Table_Abstract
                 ->join(
                     array('ff' => 'fowup_fls'),
                     'f.ffid = ff.ffid',
-                    array('titl', 'who', 'kid', 'ffid', 'show_no_day', 'ref_doc', 'when', 'gfx_who')
+                    array('titl', 'who', 'kid', 'ffid', 'is_only_month_year_showed', 'ref_doc', 'when', 'gfx_who')
                 )
                 ->where('LOWER(expl) LIKE ?', '%' . $needle . '%')
                 ->order(array('ff.when', 'f.docorg ASC'))
@@ -257,7 +257,7 @@ class Model_Followups extends Zend_Db_Table_Abstract
                     'title' => $followUp['titl'],
                     'releasedBy' => $followUp['who'],
                     'timeReleased' => $followUp['when'],
-                    'showNoDay' => $followUp['show_no_day'],
+                    'isOnlyMonthYearShowed' => $followUp['is_only_month_year_showed'],
                     'filename' => $followUp['ref_doc'],
                     'filenameThumb' => $followUp['gfx_who'],
                     'consultationId' => $followUp['kid'],

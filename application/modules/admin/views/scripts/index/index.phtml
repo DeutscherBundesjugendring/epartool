@@ -58,21 +58,21 @@
                                 <ul class="nav nav-pills nav-stacked">
                                     <li><a href="<?=$this->url(['controller' => 'article', 'kid' => $kid]);?>"><?=$this->translate('Info');?></a></li>
                                     <li><a href="<?=$this->url(['controller' => 'question', 'kid' => $kid]);?>"><?=$this->translate('Questions');?></a></li>
-                                    <?php if ($consultation['inp_show'] === 'y'): ?>
+                                    <?php if ($consultation['is_input_phase_showed']): ?>
                                         <li>
                                             <a href="<?=$this->url(['controller' => 'input', 'kid' => $kid]);?>">
                                                 <?=$this->translate('Contributions');?>
                                             </a>
                                         </li>
                                     <?php endif; ?>
-                                    <?php if ($consultation['vot_show'] === 'y'): ?>
+                                    <?php if ($consultation['is_voting_phase_showed']): ?>
                                         <li>
                                             <a href="<?=$this->url(['controller' => 'votingprepare', 'kid' => $kid]);?>">
                                                 <?=$this->translate('Voting');?>
                                             </a>
                                         </li>
                                     <?php endif; ?>
-                                    <?php if ($consultation['follup_show'] === 'y'): ?>
+                                    <?php if ($consultation['is_followup_phase_showed']): ?>
                                         <li>
                                             <a href="<?=$this->url(['controller' => 'followup', 'kid' => $kid]);?>">
                                                 <?=$this->translate('Follow Up');?>

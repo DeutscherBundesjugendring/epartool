@@ -61,7 +61,7 @@
                                 </div>
                             <?php endif; ?>
 
-                            <?php if ($this->input['vot'] === 'y'): ?>
+                            <?php if ($this->input['is_votable']): ?>
                                 <div class="text-accent">
                                     <?=sprintf(
                                         $this->translate('Result of voting: %d. position'),
@@ -93,7 +93,7 @@
                                         <?=$this->escape($relInput['thes']);?>
                                     </p>
 
-                                    <?php if ($relInput['vot'] === 'y'): ?>
+                                    <?php if ($relInput['is_votable']): ?>
                                         <div class="text-accent">
                                             <?=sprintf(
                                                 $this->translate('Result of voting: %d. position'),

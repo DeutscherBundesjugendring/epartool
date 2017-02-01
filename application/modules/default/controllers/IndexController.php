@@ -21,14 +21,14 @@ class IndexController extends Zend_Controller_Action
             $consModel
                 ->select()
                 ->from($consModel->info(Model_Consultations::NAME), ['count' => 'COUNT(*)'])
-                ->where('public = ?', 'y')
+                ->where('is_public = ?', true)
         )
         ->count;
 
         $consultations = $consModel->fetchAll(
             $consModel
                 ->select()
-                ->where('public=?', 'y')
+                ->where('is_public = ?', true)
                 ->order('ord DESC')
                 ->limit(self::LAST_CONSULTATION_COUNT)
         );

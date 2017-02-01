@@ -63,12 +63,12 @@
                                                                 <td class="table-cell-top"><?=$this->escape($input->thes);?></td>
                                                                 <td class="col-xs-1 table-cell-top">
                                                                     <?=$this->translate('Voting');?><br />
-                                                                    <?php if ($input['vot'] === 'y'): ?>
+                                                                    <?php if ($input['is_votable']): ?>
                                                                         <span class="label label-success">
                                                                             <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
                                                                             <?=$this->translate('Yes');?>
                                                                          </span>
-                                                                    <?php elseif ($input['vot'] === 'n'): ?>
+                                                                    <?php elseif (!$input['is_votable']): ?>
                                                                         <span class="label label-danger">
                                                                             <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
                                                                             <?=$this->translate('No');?>

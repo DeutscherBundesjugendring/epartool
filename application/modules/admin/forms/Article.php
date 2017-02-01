@@ -57,7 +57,7 @@ class Admin_Form_Article extends Dbjr_Form_Admin
             ->setWysiwygType(Dbjr_Form_Element_Textarea::WYSIWYG_TYPE_STANDARD);
         $this->addElement($sidebar);
 
-        $hide = $this->createElement('checkbox', 'hid');
+        $hide = $this->createElement('checkbox', 'is_showed');
         $hide
             ->setLabel('Unpublished')
             ->setCheckedValue('y')

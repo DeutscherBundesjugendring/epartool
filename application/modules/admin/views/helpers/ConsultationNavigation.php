@@ -40,7 +40,7 @@ class Admin_View_Helper_ConsultationNavigation extends Zend_View_Helper_Abstract
             )
         );
 
-        if ($consultation['inp_show'] === 'y') {
+        if ($consultation['is_input_phase_showed']) {
             $item = [
                 'name' => 'contributions',
                 'label' => $this->view->translate('Contributions'),
@@ -57,7 +57,7 @@ class Admin_View_Helper_ConsultationNavigation extends Zend_View_Helper_Abstract
             $items[] = $item;
         }
 
-        if ($consultation['vot_show'] === 'y') {
+        if ($consultation['is_voting_phase_showed']) {
             $items[] = [
                 'name' => 'voting-prepare',
                 'label' => $this->view->translate('Voting'),
@@ -97,7 +97,7 @@ class Admin_View_Helper_ConsultationNavigation extends Zend_View_Helper_Abstract
             ];
         }
 
-        if ($consultation['follup_show'] === 'y') {
+        if ($consultation['is_followup_phase_showed']) {
             $items[] = [
                 'name' => 'followup',
                 'label' => $this->view->translate('Follow-up'),

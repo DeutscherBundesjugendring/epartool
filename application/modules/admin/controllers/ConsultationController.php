@@ -47,7 +47,7 @@ class Admin_ConsultationController extends Zend_Controller_Action
 
             $inputs = $inputsModel->getComplete(
                 [
-                    $inputsModel->info(Model_Inputs::NAME) . '.block = ?' => 'u',
+                    $inputsModel->info(Model_Inputs::NAME) . '.is_confirmed IS NULL',
                     (new Model_Questions())->info(Model_Questions::NAME) . '.kid = ?' => $this->_consultation['kid'],
                 ]
             );
@@ -135,7 +135,7 @@ class Admin_ConsultationController extends Zend_Controller_Action
                         'kid' => $newKid,
                         'proj' => $consultationRow->proj,
                         'desc' => 'Info',
-                        'hid' => 'n',
+                        'is_showed' => true,
                         'ref_nm' => 'article_explanation',
                         'artcl' => '',
                         'sidebar' => '',

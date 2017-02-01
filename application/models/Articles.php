@@ -267,7 +267,7 @@ class Model_Articles extends Dbjr_Db_Table_Abstract
 
         $select
             ->where('a.ref_nm = ?', $ref_nm)
-            ->where('a.hid = ?', 'n');
+            ->where('a.is_showed = ?', true);
 
         return (int) $this->fetchAll($select)->current()->count;
     }

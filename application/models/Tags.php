@@ -153,12 +153,12 @@ class Model_Tags extends Dbjr_Db_Table_Abstract
     /**
      * Returns usage count of all tags tied to inputs belonging to this consultation
      * @param  integer  $kid  The consultationt identifier
-     * @param  string   $vot  'y' for inputs that are confirmed for voting
+     * @param  string   $vot  true for inputs that are confirmed for voting
      * @param  bool     $excludeInvisible
      * @param  bool     $withoutAdmin
      * @return array          An array in form [tagId => [count => $occurenceCount, frequency => $frequency]]
      */
-    public function getAllByConsultation($kid, $vot = '', $excludeInvisible = false, $withoutAdmin = false)
+    public function getAllByConsultation($kid, $vot = null, $excludeInvisible = false, $withoutAdmin = false)
     {
         $select = $this
             ->select()
@@ -186,14 +186,18 @@ class Model_Tags extends Dbjr_Db_Table_Abstract
 
         if ($excludeInvisible) {
             $select
-                ->where('block<>?', 'y')
-                ->where('user_conf=?', 'c');
+                ->where('is_confirmed <> ?', false)
+                ->where('is_confirmed_by_user = ?', true);
         }
         if ($withoutAdmin) {
             $select->where('(uid IS NOT NULL OR confirmation_key IS NOT NULL)');
         }
         if (!empty($vot)) {
-            $select->where('i.vot = ?', $vot);
+            if ($vot === null) {
+                $select->where('i.is_votable IS NULL');
+            } else {
+                $select->where('i.is_votable = ?', $vot);
+            }
         }
         $tags = $this->fetchAll($select);
 

@@ -1,15 +1,15 @@
 
 
-<h1>Beteiligungsrunde schließen: <?php echo $this -> consultation['titl']; ?></h1>
+<h1>Beteiligungsrunde schließen: <?php echo $this->consultation['titl']; ?></h1>
 
 <h2>Beteiligungsrunde schließen</h2>
 
 
 	<h3>1. Abstimmungsergebnisse speichern/aktualisieren:</h3>
-	<?php if ($this -> consultation['vt_anonymized']!="y"): ?>
+	<?php if (!$this->consultation['is_vt_anonymized']): ?>
 	<p>
 		<a href="#" class="write-results">Abstimmungsergebnisse speichern/aktualisieren</a>
-		<?php if ($this -> consultation['vt_finalized']=="y") echo '<span style="color: green">✓</span>'; ?>
+		<?php if ($this->consultation['is_vt_finalized']) echo '<span style="color: green">✓</span>'; ?>
 	</p>
 	<?php else: ?>
 	<p>Die Ergebnisse sind anonymisiert. Speichern nicht mehr möglich!</p>
@@ -20,7 +20,7 @@
 <h3>2. Gruppenergebnisse speichern:</h3>
 <?php
 $i=0;
-if ($this -> consultation['vt_anonymized']!="y"): ?>
+if (!$this->consultation['is_vt_anonymized']): ?>
 <p>
 	<table>
 	  <tr>
@@ -44,7 +44,7 @@ if ($this -> consultation['vt_anonymized']!="y"): ?>
 	      'action' => 'write-group-results',
 	      'uid' => $item['uid']
 	    )); ?>">Gruppenergebnisse speichern/aktualisieren</a>
-	    <?php if ($item['vt_finalized']=="y") {
+	    <?php if ($item['is_vt_finalized']) {
 	    	$i++;
 			 echo '<span style="color: green">✓</span>';
 			} ?>
@@ -61,19 +61,19 @@ if ($this -> consultation['vt_anonymized']!="y"): ?>
 
 	<h3>3. Abstimmungen anonymisieren:</h3>
 
-	<?php if ($this -> consultation['vt_finalized']!="y"): ?>
+	<?php if (!$this->consultation['is_vt_finalized']): ?>
 		<p>Bitte zuerst die Abstimmungsergebnisse speichern!</p>
-	<?php elseif ($this -> consultation['vt_anonymized']=="y"): ?>
+	<?php elseif ($this->consultation['is_vt_anonymized']): ?>
 			<p>Die Abstimmungsergebnisse sind anonymisiert. <span style="color: green">✓</span></p>
 	<?php elseif (count($this->votingRights) != $i): ?>
 		<p>Bitte zunächst alle Gruppenergebnisse speichern!</p>
-	<?php elseif ($this -> consultation['vt_anonymized']!="y"): ?>
+	<?php elseif (!$this->consultation['is_vt_anonymized']): ?>
 		<p><a href="#" class="anonymize-votes">Abstimmungen anonymisieren!</a>
 	<?php endif; ?>
 
 
 	<h3>4. Abstimmungsergebnisse exportieren:</h3>
-	<?php if ($this -> consultation['vt_finalized']=="y"): ?>
+	<?php if ($this -> consultation['is_vt_finalized']): ?>
 		<p>
 		<table>
 			<tr>

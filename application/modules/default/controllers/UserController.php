@@ -79,7 +79,14 @@ class UserController extends Zend_Controller_Action
                         $userConsultModel = new Model_User_Info();
                         $userConsultRow = $userConsultModel->fetchRow(['uid=?' => $uid, 'kid=?' => $data['kid']]);
                         if ($userConsultRow) {
-                            foreach (['age_group', 'regio_pax', 'cmnt_ext', 'cnslt_results', 'name'] as $property) {
+                            $properties = [
+                                'age_group',
+                                'regio_pax',
+                                'cmnt_ext',
+                                'is_receiving_consultation_results',
+                                'name',
+                            ];
+                            foreach ($properties as $property) {
                                 if (isset($data[$property])) {
                                     $userConsultRow->{$property} = $data[$property];
                                 }
@@ -201,11 +208,14 @@ class UserController extends Zend_Controller_Action
                     $consultationModel = new Model_Consultations();
                     $this->view->consultation = $consultationModel->find($kid)->current();
 
-                    $filter = array(array(
-                            'field'=>'vot',
-                        'operator'=>'=',
-                        'value'=>'y'
-                    ));
+                    $filter = [
+                        [
+                            'field' => 'is_votable',
+                            'operator' => '=',
+                            'value' => true,
+                        ],
+                    ];
+
                     $this->view->inputs = $inputModel->getCountByConsultationFiltered($kid, $filter);
                     $this->view->group = $group;
                     $this->view->identity =$identity;

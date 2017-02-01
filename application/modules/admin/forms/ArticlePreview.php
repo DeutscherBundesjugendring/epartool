@@ -28,7 +28,7 @@ class Admin_Form_ArticlePreview extends Dbjr_Form_Admin
             ->addValidator('NotEmpty');
         $this->addElement($sidebar);
 
-        $hide = $this->createElement('hidden', 'hid');
+        $hide = $this->createElement('hidden', 'is_showed');
         $hide->setRequired(true);
         $this->addElement($hide);
 

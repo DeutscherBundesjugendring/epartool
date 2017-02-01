@@ -148,8 +148,8 @@ class Admin_ArticleController extends Zend_Controller_Action
 
                 $mainArticleSum = $articleModel->getCountByConsultationAndType($this->_kid, 'article_explanation');
                 if ($article['ref_nm'] === 'article_explanation') {
-                    if ($mainArticleSum === 1 && $article['hid'] === 'n') {
-                        $form->getElement('hid')->setAttrib('disabled', 'disabled');
+                    if ($mainArticleSum === 1 && $article['is_showed']) {
+                        $form->getElement('is_showed')->setAttrib('disabled', 'disabled');
                     }
                 }
                 if ($this->getRequest()->isPost() && empty($isRetFromPreview)) {
@@ -160,7 +160,7 @@ class Admin_ArticleController extends Zend_Controller_Action
                         $articleRow = $articleModel->find($aid)->current();
 
                         if ($articleRow['ref_nm'] === 'article_explanation') {
-                            if ($mainArticleSum === 1 && $articleRow['hid'] === 'n' && $values['hid'] === 'y') {
+                            if ($mainArticleSum === 1 && $articleRow['is_showed'] && !$values['is_showed']) {
                                 $this->_flashMessenger->addMessage('This article could not be hidden.', 'error');
                                 $this->redirect($this->view->url(['action' => 'index']), ['prependBase' => false]);
                             }
@@ -203,7 +203,7 @@ class Admin_ArticleController extends Zend_Controller_Action
             $article = $articleModel->find($id)->current()->toArray();
             if ($article['ref_nm'] === 'article_explanation') {
                 if ($articleModel->getCountByConsultationAndType($article['kid'], 'article_explanation') === 1
-                    && $article['hid'] === 'n') {
+                    && $article['is_showed']) {
                     $this->_flashMessenger->addMessage('This article could not be deleted.', 'error');
                     $this->_redirect($this->view->url(['action' => 'index']), ['prependBase' => false]);
                 }

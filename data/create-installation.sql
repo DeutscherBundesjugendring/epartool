@@ -1,3 +1,4 @@
+-- Database must have CHARACTER SET = utf8mb4 and COLLATE = utf8mb4_unicode_ci;
 SET foreign_key_checks = 0;
 
 CREATE TABLE `articles` (
@@ -183,8 +184,8 @@ CREATE TABLE `email_recipient` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `email_id` int(10) unsigned NOT NULL,
   `type` enum('to','cc','bcc') NOT NULL,
-  `name` varchar(255) DEFAULT NULL,
-  `email` varchar(255) DEFAULT NULL,
+  `name` varchar(191) DEFAULT NULL,
+  `email` varchar(191) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `email_recipient_email_id_ibfk` (`email_id`),
   CONSTRAINT `email_recipient_email_id_ibfk` FOREIGN KEY (`email_id`) REFERENCES `email` (`id`)
@@ -298,7 +299,7 @@ CREATE TABLE `fowup_fls` (
 
 CREATE TABLE `help_text` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) DEFAULT NULL,
+  `name` varchar(191) DEFAULT NULL,
   `body` text,
   `project_code` char(2) NOT NULL,
   PRIMARY KEY (`id`)
@@ -355,7 +356,7 @@ CREATE TABLE `input_discussion` (
   `is_visible` tinyint(1) NOT NULL DEFAULT '0',
   `is_user_confirmed` tinyint(1) NOT NULL DEFAULT '0',
   `body` text,
-  `video_id` varchar(255) DEFAULT NULL,
+  `video_id` varchar(191) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `input_discussion_time_created_idx` (`time_created`),
   KEY `input_discussion_is_visible_idx` (`is_visible`),
@@ -381,7 +382,7 @@ CREATE TABLE `notification` (
 
 CREATE TABLE `notification_parameter` (
   `notification_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) NOT NULL,
+  `name` varchar(191) NOT NULL,
   `value` text,
   PRIMARY KEY (`notification_id`,`name`),
   CONSTRAINT `notification_parameter_notification_id_ibfk` FOREIGN KEY (`notification_id`) REFERENCES `notification` (`id`)
@@ -390,7 +391,7 @@ CREATE TABLE `notification_parameter` (
 
 CREATE TABLE `notification_type` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) NOT NULL,
+  `name` varchar(191) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `notification_type_name_idx` (`name`)
 );
@@ -401,7 +402,7 @@ INSERT INTO `notification_type` (`name`) VALUES
 ('follow_up_created');
 
 CREATE TABLE `parameter` (
-  `name` varchar(255) NOT NULL,
+  `name` varchar(191) NOT NULL,
   `proj` char(2) NOT NULL DEFAULT '',
   `value` text,
   PRIMARY KEY (`name`,`proj`),
@@ -778,7 +779,7 @@ CREATE TABLE `urlkey_action` (
 
 CREATE TABLE `urlkey_action_parameter` (
   `urlkey_action_id` int(10) unsigned NOT NULL,
-  `name` varchar(255) NOT NULL,
+  `name` varchar(191) NOT NULL,
   `value` text,
   PRIMARY KEY (`urlkey_action_id`,`name`),
   CONSTRAINT `urlkey_action_parameter_urlkey_action_id_ibfk` FOREIGN KEY (`urlkey_action_id`) REFERENCES `urlkey_action` (`id`)
@@ -844,7 +845,7 @@ CREATE TABLE `vt_final` (
   `cast` int(11) NOT NULL COMMENT 'summary votes (accumulated value)',
   `rank` float NOT NULL COMMENT 'divident points/cast',
   `fowups` enum('y','n') NOT NULL DEFAULT 'n' COMMENT 'follow-up exists?',
-  `id` varchar(255) NOT NULL COMMENT 'md5 (tid''.-.''uid)',
+  `id` varchar(191) NOT NULL COMMENT 'md5 (tid''.-.''uid)',
   PRIMARY KEY (`id`),
   KEY `vt_final_uid_fkey` (`uid`),
   KEY `vt_final_tid_fkey` (`tid`),
@@ -928,8 +929,8 @@ ALTER TABLE `quests`
 ADD `video_enabled` tinyint(1) NOT NULL DEFAULT '0';
 
 ALTER TABLE `inpt`
-ADD `video_service` varchar(255) NULL,
-ADD `video_id` varchar(255) NULL AFTER `video_service`;
+ADD `video_service` varchar(191) NULL,
+ADD `video_id` varchar(191) NULL AFTER `video_service`;
 
 -- Migration 2016-05-19-12-27_DBJR-609.sql
 ALTER TABLE `cnslt`
@@ -937,16 +938,16 @@ ADD `discussion_video_enabled` tinyint(1) NOT NULL DEFAULT '1';
 
 -- Migration 2016-05-19_14-18_DBJR-610.sql
 ALTER TABLE `input_discussion`
-ADD `video_service` varchar(255) NULL AFTER `body`;
+ADD `video_service` varchar(191) NULL AFTER `body`;
 
 -- Migration 2016-05-23_17-52_DBJR-618.sql
 ALTER TABLE `help_text`
-ADD `module` varchar(255) NOT NULL DEFAULT 'default';
+ADD `module` varchar(191) NOT NULL DEFAULT 'default';
 
 ALTER TABLE `help_text`
 ADD UNIQUE `help_text_project_code_name_key` (`project_code`, `name`);
 
-CREATE TABLE `help_text_module` (`name` varchar(255) NOT NULL );
+CREATE TABLE `help_text_module` (`name` varchar(191) NOT NULL );
 ALTER TABLE `help_text_module` ADD PRIMARY KEY `name` (`name`);
 
 INSERT INTO `help_text_module` (`name`) VALUES ('admin');
@@ -958,7 +959,7 @@ ADD FOREIGN KEY (`module`) REFERENCES `help_text_module` (`name`) ON DELETE REST
 -- Migration 2016-05-25_18-04_DBJR-626.sql
 CREATE TABLE `theme` (
     `id` int NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    `name` varchar(255) NOT NULL,
+    `name` varchar(191) NOT NULL,
     `color_headings` varchar(255) NOT NULL,
     `color_frame_background` varchar(255) NOT NULL,
     `color_active_link` varchar(255) NOT NULL
@@ -1016,7 +1017,7 @@ CHANGE `color_active_link` `color_accent_2` varchar(255) NULL AFTER `color_prima
 
 -- Migration 2016-06-27_18-36_DBJR-761.sql
 ALTER TABLE `proj`
-ADD `locale` varchar(255) NOT NULL DEFAULT 'en_US';
+ADD `locale` varchar(191) NOT NULL DEFAULT 'en_US';
 
 -- Migration 2016-06-27_14-58_DBJR-807.sql
 UPDATE `proj` SET `theme_id` = (SELECT `id` FROM `theme` ORDER BY `id` LIMIT 1)
@@ -1056,7 +1057,7 @@ ALTER TABLE `proj` CHANGE `state_label` `state_field_label` varchar(255) NULL AF
 
 -- Migration 2016-07-14_15-07_DBJR-827.sql + Migration 2016-07-15_11-03_DBJR-827.sql + 2016-07-15_16-40_DBJR-827.sql
 CREATE TABLE `language` (
-  `code` varchar(255) NOT NULL
+  `code` varchar(191) NOT NULL
 );
 
 ALTER TABLE `language` ADD PRIMARY KEY `pkey` (`code`);
@@ -1070,7 +1071,7 @@ CREATE TABLE `license` (
   `link` varchar(255) NOT NULL,
   `icon` varchar(255) NOT NULL,
   `alt` varchar(255) NOT NULL,
-  `locale` varchar(255) NOT NULL,
+  `locale` varchar(191) NOT NULL,
   PRIMARY KEY (`number`, `locale`)
 ) ENGINE='InnoDB';
 
@@ -1114,7 +1115,7 @@ UPDATE `proj` SET `license` = (SELECT number FROM `license` WHERE title = 'Creat
 ALTER TABLE `proj` ADD FOREIGN KEY (`license`) REFERENCES `license` (`number`) ON DELETE RESTRICT ON UPDATE RESTRICT;
 
 ALTER TABLE `proj` ADD INDEX `language_code_fkey` (`locale`);
-ALTER TABLE `proj` CHANGE `locale` `locale` varchar(255) NOT NULL;
+ALTER TABLE `proj` CHANGE `locale` `locale` varchar(191) NOT NULL;
 ALTER TABLE `proj` ADD FOREIGN KEY (`locale`) REFERENCES `language` (`code`) ON DELETE RESTRICT ON UPDATE RESTRICT;
 
 
@@ -1283,7 +1284,7 @@ ADD `age_group_to` int(11) NULL AFTER `age_group_from`;
 ALTER TABLE `cnslt` CHANGE `img_file` `img_file` text NULL AFTER `titl_sub`;
 
 -- Migration 2016-05-24_10-57_DBJR-608.sql
-CREATE TABLE `video_service` (`name` varchar(255) NOT NULL );
+CREATE TABLE `video_service` (`name` varchar(191) NOT NULL );
 ALTER TABLE `video_service` ADD PRIMARY KEY `name` (`name`);
 INSERT INTO `video_service` (`name`) VALUES ('vimeo');
 INSERT INTO `video_service` (`name`) VALUES ('youtube');
@@ -1302,7 +1303,6 @@ ALTER TABLE `inpt`
 ADD FOREIGN KEY (`video_service`) REFERENCES `video_service` (`name`) ON DELETE RESTRICT ON UPDATE RESTRICT;
 
 -- Migration 20170127155643_dbjr972.php
-ALTER DATABASE `dbjr` CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci;
 SET foreign_key_checks = 0;
 ALTER TABLE `articles` CHANGE `proj` `proj` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 ALTER TABLE `articles` CHANGE `desc` `desc` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
@@ -1565,3 +1565,27 @@ ALTER TABLE `vt_settings` CHANGE `btn_numbers` `btn_numbers` enum('0','1','2','3
 ALTER TABLE `vt_settings` CHANGE `btn_labels` `btn_labels` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 ALTER TABLE `vt_settings` CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 SET foreign_key_checks = 1;
+
+-- Migration 20170130105209_dbjr1077.php
+ALTER TABLE `articles` CHANGE `hid` `is_showed` tinyint(1) NULL;
+ALTER TABLE `cnslt` CHANGE `inp_show` `is_input_phase_showed` tinyint(1) NULL;
+ALTER TABLE `cnslt` CHANGE `spprt_show` `is_support_phase_showed` tinyint(1) NULL;
+ALTER TABLE `cnslt` CHANGE `vot_show` `is_voting_phase_showed` tinyint(1) NULL;
+ALTER TABLE `cnslt` CHANGE `vot_res_show` `is_voting_result_phase_showed` tinyint(1) NULL;
+ALTER TABLE `cnslt` CHANGE `follup_show` `is_followup_phase_showed` tinyint(1) NULL;
+ALTER TABLE `cnslt` CHANGE `public` `is_public` tinyint(1) NULL;
+ALTER TABLE `cnslt` CHANGE `vt_finalized` `is_vt_finalized` tinyint(1) NULL;
+ALTER TABLE `cnslt` CHANGE `vt_anonymized` `is_vt_anonymized` tinyint(1) NULL;
+ALTER TABLE `fowup_fls` CHANGE `show_no_day` `is_only_month_year_showed` tinyint(1) NULL;
+ALTER TABLE `inpt` CHANGE `block` `is_confirmed` tinyint(1) NULL;
+ALTER TABLE `inpt` CHANGE `user_conf` `is_confirmed_by_user` tinyint(1) NULL;
+ALTER TABLE `inpt` CHANGE `vot` `is_votable` tinyint(1) NULL;
+ALTER TABLE `user_info` CHANGE `cnslt_results` `is_receiving_consultation_results` tinyint(1) NULL;
+ALTER TABLE `user_info` CHANGE `newsl_subscr` `is_subscribed_newsletter` tinyint(1) NULL;
+ALTER TABLE `users` CHANGE `block` `is_confirmed` tinyint(1) NULL;
+ALTER TABLE `users` CHANGE `newsl_subscr` `is_subscribed_newsletter` tinyint(1) NULL;
+ALTER TABLE `users` CHANGE `cnslt_results` `is_receiving_consultation_results` tinyint(1) NULL;
+ALTER TABLE `vt_final` CHANGE `fowups` `is_followups` tinyint(1) NULL;
+ALTER TABLE `vt_grps` CHANGE `member` `is_member` tinyint(1) NULL;
+ALTER TABLE `vt_indiv` CHANGE `pimp` `is_pimp` tinyint(1) NULL;
+ALTER TABLE `vt_settings` CHANGE `btn_important` `is_btn_important` tinyint(1) NULL;

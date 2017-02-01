@@ -21,14 +21,14 @@
     // Additionally disable voting back under certain conditions.
     if ($consultation->vot_to != '0000-00-00 00:00:00'
         && Zend_Date::now()->isLater(new Zend_Date($consultation->vot_to, Zend_Date::ISO_8601))
-        && $consultation->vot_res_show == 'n'
+        && !$consultation->is_voting_result_phase_showed
     ) {
         $votingIsEnabled = false;
     }
 
     if (!(!Zend_Date::now()->isLater(new Zend_Date($consultation->vot_to, Zend_Date::ISO_8601))
         || $consultation->vot_to == '0000-00-00 00:00:00'
-        || $consultation->follup_show == 'n')
+        || !$consultation->is_followup_phase_showed)
     ) {
         $followupIsEnabled = true;
     }
@@ -125,7 +125,7 @@
                     <?=$consultation->phase_input ? $this->escape($consultation->phase_input) : $this->translate('Contributions');?>
                 </h3>
 
-                <?php if ($consultation->inp_show == 'y' && $inputIsOpen): ?>
+                <?php if ($consultation->is_input_phase_showed && $inputIsOpen): ?>
                     <div class="bubble bubble-lg consultation-phases-item-bubble hidden-print">
                         <h4 class="bubble-title"><?=$this->translate('Participate now!');?></h4>
                         <small>
@@ -135,7 +135,7 @@
                             <?=$this->formatDate($consultation->inp_to, Zend_Date::DATE_MEDIUM);?>
                         </small>
                     </div>
-                <?php elseif ($consultation->inp_show == 'y'): ?>
+                <?php elseif ($consultation->is_input_phase_showed): ?>
                     <div class="consultation-phases-item-info">
                         <small>
                             <?=$this->translate('from');?>
@@ -165,7 +165,7 @@
                     <?=$consultation->phase_voting ? $this->escape($consultation->phase_voting) : $this->translate('Voting');?>
                 </h3>
 
-                <?php if ($consultation->vot_show == 'y' && $votingIsOpen): ?>
+                <?php if ($consultation->is_voting_phase_showed && $votingIsOpen): ?>
                     <div class="bubble bubble-lg consultation-phases-item-bubble hidden-print">
                         <h4 class="bubble-title"><?=$this->translate('Vote now!');?></h4>
                         <small>
@@ -175,7 +175,7 @@
                             <?=$this->formatDate($consultation->vot_to, Zend_Date::DATE_MEDIUM);?>
                         </small>
                     </div>
-                <?php elseif ($consultation->vot_show == 'y'): ?>
+                <?php elseif ($consultation->is_voting_phase_showed): ?>
                     <div class="consultation-phases-item-info">
                         <small>
                             <?=$this->translate('from');?>

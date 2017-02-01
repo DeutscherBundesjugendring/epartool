@@ -91,9 +91,9 @@ class Model_Users extends Dbjr_Db_Table_Abstract
         if (!$this->emailExists($data['email'])) {
             $data['uid'] = $this->add(
                 [
-                    'block' => 'u',
+                    'is_confirmed' => null,
                     'email' => $data['email'],
-                    'newsl_subscr' => 'n',
+                    'is_subscribed_newsletter' => false,
                 ]
             );
             $isNew = true;
@@ -132,7 +132,14 @@ class Model_Users extends Dbjr_Db_Table_Abstract
             'age_group' => $data['age_group'] === "" ? null : $data['age_group'],
         ];
 
-        foreach (['newsl_subscr', 'regio_pax', 'cmnt_ext', 'cnslt_results', 'name'] as $property) {
+        $properties = [
+            'is_subscribed_newsletter',
+            'regio_pax',
+            'cmnt_ext',
+            'is_receiving_consultation_results',
+            'name',
+        ];
+        foreach ($properties as $property) {
             if (isset($data[$property])) {
                 $userConsultData[$property] = $data[$property];
             }
@@ -253,7 +260,7 @@ class Model_Users extends Dbjr_Db_Table_Abstract
                     'q.qi = i.qi',
                     array('q')
                 )
-                ->where('user_conf=?', 'u')
+                ->where('is_confirmed_by_user IS NULL')
                 ->where('confirmation_key=?', $confirmKey)
                 ->where('q.kid=?', $kid)
         );
@@ -337,15 +344,15 @@ class Model_Users extends Dbjr_Db_Table_Abstract
         }
 
         if ($user) {
-            $user->block = 'c';
+            $user->is_confirmed = true;
             $user->name = $userConsultData->name;
             $user->name_group = $userConsultData->name_group;
             $user->name_pers = $userConsultData->name_pers;
             $user->age_group_from = $ageGroup['from'];
             $user->age_group_to = $ageGroup['to'];
             $user->regio_pax = $userConsultData->regio_pax;
-            $user->cnslt_results = $userConsultData->cnslt_results;
-            $user->newsl_subscr = $userConsultData->newsl_subscr;
+            $user->is_receiving_consultation_results = $userConsultData->is_receiving_consultation_results;
+            $user->is_subscribed_newsletter = $userConsultData->is_subscribed_newsletter;
             $user->source = $userConsultData->source;
             $user->src_misc = $userConsultData->src_misc;
             $user->group_size = $userConsultData->group_size;
@@ -400,7 +407,7 @@ class Model_Users extends Dbjr_Db_Table_Abstract
             ->select()
             ->setIntegrityCheck(false)
             ->from(['u' => $this->info(self::NAME)])
-            ->where('u.block=?', 'c')
+            ->where('u.is_confirmed = ?', true)
             ->group('u.uid')
             ->order('u.email');
 
@@ -423,9 +430,9 @@ class Model_Users extends Dbjr_Db_Table_Abstract
                 ->where('ui.kid=?', $kid)
                 ->where('ui.confirmation_key IS NULL');
             if ($participantType === Model_User_Info::PARTICIPANT_TYPE_NEWSLETTER_SUBSCRIBER) {
-                $select->where('u.newsl_subscr=?', 'y');
+                $select->where('u.is_subscribed_newsletter = ?', true);
             } elseif ($participantType === Model_User_Info::PARTICIPANT_TYPE_FOLLOWUP_SUBSCRIBER) {
-                $select->where('ui.cnslt_results=?', 'y');
+                $select->where('ui.is_receiving_consultation_results = ?', true);
             }
         }
 
@@ -443,7 +450,7 @@ class Model_Users extends Dbjr_Db_Table_Abstract
             ->select()
             ->setIntegrityCheck(false)
             ->from(['u' => $this->info(self::NAME)])
-            ->where('u.block=?', 'c')
+            ->where('u.is_confirmed = ?', true)
             ->group('u.uid')
             ->order('u.email');
 
@@ -490,7 +497,7 @@ class Model_Users extends Dbjr_Db_Table_Abstract
     public function getAllConfirmed()
     {
         $select = $this->select();
-        $select->where("block ='c'")->order(['name', 'email']);
+        $select->where(['is_confirmed = ?' => true])->order(['name', 'email']);
 
         return $this->fetchAll($select)->toArray();
     }

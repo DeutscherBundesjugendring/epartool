@@ -31,11 +31,11 @@ class Module_Default_View_Helper_RibbonImage extends Zend_View_Helper_Abstract
         ) {
             $text = $this->view->translate('only today');
         } elseif ($nowDate->isLater(new Zend_Date($con->vot_to, Zend_Date::ISO_8601))
-            && $con->follup_show == 'n'
+            && !$con->is_followup_phase_showed
         ) {
             $text = $this->view->translate('Results');
         } elseif ($nowDate->isLater(new Zend_Date($con->vot_to, Zend_Date::ISO_8601))
-            && $con->follup_show == 'y'
+            && $con->is_followup_phase_showed
         ) {
             $text = $this->view->translate('Reaction');
         }

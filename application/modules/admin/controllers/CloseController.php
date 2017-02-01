@@ -32,8 +32,8 @@ class Admin_CloseController extends Zend_Controller_Action
 
         foreach ($votingRights as $key=>$value) {
             array_key_exists($value['uid'], $resultswritten)
-                ? $votingRights[$key]['vt_finalized'] = "y"
-                : $votingRights[$key]['vt_finalized']   = "n";
+                ? $votingRights[$key]['is_vt_finalized'] = true
+                : $votingRights[$key]['is_vt_finalized'] = false;
         }
 
         $this->view->votingRights = $votingRights;
@@ -54,7 +54,7 @@ class Admin_CloseController extends Zend_Controller_Action
             $records = $records+$result;
         }
 
-        (new Model_Consultations())->updateById($this->_consultation["kid"], ['vt_anonymized' => 'y']);
+        (new Model_Consultations())->updateById($this->_consultation["kid"], ['is_vt_anonymized' => true]);
 
         $message = sprintf(
             $this->view->translate('%s sets of data have been deleted. The vote is now anonymised!'),
@@ -96,10 +96,10 @@ class Admin_CloseController extends Zend_Controller_Action
             $data = $votesIndivModel->getVotingValuesByThesis($value, $this->_consultation["kid"], $votingWeights);
             $data['kid'] =$this->_consultation["kid"];
             $data['tid'] = $value;
-            $data['fowups'] = 'n';
+            $data['is_followups'] = false;
             $followUps = $followUpModel ->  getFollowupCountByTids($value);
             if (isset($followUps[$value])) {
-                $data['fowups'] = 'y';
+                $data['is_followups'] = true;
             }
             $votingFinal->addOrUpdateFinalVote($data);
         }
@@ -149,7 +149,7 @@ class Admin_CloseController extends Zend_Controller_Action
             }
         }
 
-        (new Model_Consultations())->updateById($this->_consultation["kid"], ['vt_finalized' => 'y']);
+        (new Model_Consultations())->updateById($this->_consultation["kid"], ['is_vt_finalized' => true]);
         $this->_flashMessenger->addMessage(
             sprintf($this->view->translate('%s sets of data have been created/updated.'), $sumInputs),
             'success'

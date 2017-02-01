@@ -19,7 +19,7 @@ class Model_Votes_Uservotes  extends Dbjr_Db_Table_Abstract
                                         '(inputs.tid = votes.tid  AND votes.sub_uid="'.$subUid.'")',
                                         array('votes.pts AS points',
                                         		'votes.status AS status',  // add this line for dedugging votes counter
-                                                'votes.pimp AS pimp')
+                                                'votes.is_pimp AS is_pimp')
                             )
                         ->join(
                             ['q' => (new Model_Questions())->info(Model_Questions::NAME)],
@@ -27,8 +27,8 @@ class Model_Votes_Uservotes  extends Dbjr_Db_Table_Abstract
                             ['video_enabled']
                         )
                         ->where('kid=?', $kid)
-                        ->where('inputs.vot = ?', "y")
-                        ->order('inputs.vot DESC')
+                        ->where('inputs.is_votable = ?', true)
+                        ->order('inputs.is_votable DESC')
                         ->group('inputs.tid');
 
                         if (!is_null($qid)) {
@@ -74,7 +74,7 @@ class Model_Votes_Uservotes  extends Dbjr_Db_Table_Abstract
         $select = $db->select();
         $select->from(
             ['vi' => (new Model_Votes_Individual())->info(Model_Votes_Individual::NAME)],
-            ['points' => 'vi.pts', 'status' => 'vi.status', 'pimp' => 'vi.pimp']
+            ['points' => 'vi.pts', 'status' => 'vi.status', 'is_pimp' => 'vi.is_pimp']
         )
             ->join(['c' => 'inpt'], 'c.tid = vi.tid ', ['thes' => 'c.thes', 'expl' => 'c.expl'])
             ->join(
