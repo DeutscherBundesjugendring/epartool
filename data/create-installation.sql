@@ -930,7 +930,7 @@ ADD `video_enabled` tinyint(1) NOT NULL DEFAULT '0';
 
 ALTER TABLE `inpt`
 ADD `video_service` varchar(191) NULL,
-ADD `video_id` varchar(191) NULL AFTER `video_service`;
+ADD `video_id` varchar(255) NULL AFTER `video_service`;
 
 -- Migration 2016-05-19-12-27_DBJR-609.sql
 ALTER TABLE `cnslt`
@@ -1626,7 +1626,7 @@ ALTER TABLE `users` CHANGE `lvl` `role` varchar(191) COLLATE 'utf8mb4_unicode_ci
 CREATE TABLE `users_role` (`name` varchar(191) NOT NULL) ENGINE='InnoDB';
 ALTER TABLE `users_role` ADD PRIMARY KEY `pk_name` (`name`);
 INSERT INTO `users_role` VALUES ('user'), ('admin'), ('editor');
-ALTER TABLE `users` CHANGE `level` `role` varchar(191) NULL;
+ALTER TABLE `users` CHANGE `role` `role` varchar(191) NULL;
 UPDATE `users` SET `role` = 'user' WHERE `role` = 'usr';
 UPDATE `users` SET `role` = 'admin' WHERE `role` = 'adm';
 UPDATE `users` SET `role` = 'editor' WHERE `role` = 'edt';
@@ -1634,11 +1634,11 @@ UPDATE `users` SET `role` = NULL WHERE `role` = '';
 ALTER TABLE `users` CHANGE `role` `role` varchar(191) NULL DEFAULT 'user', ADD FOREIGN KEY (`role`) REFERENCES `users_role` (`name`) ON DELETE RESTRICT;
 CREATE TABLE `contribution_type` (`name` varchar(191) NOT NULL) ENGINE='InnoDB';
 ALTER TABLE `contribution_type` ADD PRIMARY KEY `pk_name` (`name`);
-INSERT INTO `contribution_type` VALUES ('from_discussion');
-ALTER TABLE `inpt` CHANGE `typ` `typ` varchar(191) NULL;
+INSERT INTO `contribution_type` VALUES ('from_discussion'), ('f'), ('l'), ('bp');
+ALTER TABLE `inpt` CHANGE `typ` `type` varchar(191) NULL;
 UPDATE `inpt` SET `typ` = 'from_discussion' WHERE `typ` = 'p';
 UPDATE `inpt` SET `typ` = NULL WHERE `typ` = '';
-ALTER TABLE `inpt` CHANGE `typ` `typ` varchar(191) NULL, ADD FOREIGN KEY (`typ`) REFERENCES `contribution_type` (`name`) ON DELETE RESTRICT;
+ALTER TABLE `inpt` CHANGE `type` `type` varchar(191) NULL, ADD FOREIGN KEY (`typ`) REFERENCES `contribution_type` (`name`) ON DELETE RESTRICT;
 CREATE TABLE `vt_indiv_status` (`name` varchar(191) NOT NULL) ENGINE='InnoDB';
 ALTER TABLE `vt_indiv_status` ADD PRIMARY KEY `pk_name` (`name`);
 INSERT INTO `vt_indiv_status` VALUES ('voted'), ('skipped'), ('confirmed');

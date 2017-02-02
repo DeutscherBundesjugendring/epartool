@@ -44,6 +44,9 @@ class Dbjr1078 extends AbstractMigration
         ]);
         $this->migrate('inpt', 'type', 'contribution_type', 'name', 'varchar(191)', null, [
             'p' => 'from_discussion',
+            'f',
+            'l',
+            'bp',
         ]);
 
         $this->execute("ALTER TABLE `vt_indiv` ADD PRIMARY KEY (`uid`, `tid`, `sub_uid`), DROP INDEX `Stimmenzählung`");

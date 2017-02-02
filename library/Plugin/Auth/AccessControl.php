@@ -56,9 +56,16 @@ class Plugin_Auth_AccessControl extends Zend_Controller_Plugin_Abstract
     public function preDispatch(Zend_Controller_Request_Abstract $request)
     {
         if ($this->_auth->hasIdentity() && is_object($this->_auth->getIdentity())) {
-            $role = $this->_auth->getIdentity()->role;
+            $identity = $this->_auth->getIdentity();
+            if (!$this->isIdentityValid($identity->toArray())) {
+                $this->_auth->clearIdentity();
+                $this->_flashMessenger->addMessage('Please log in first!', 'info');
+                $redirector = Zend_Controller_Action_HelperBroker::getStaticHelper('Redirector');
+                $redirector->gotoUrl('/');
+            }
+            $role = $identity->role;
             $userModel = new Model_Users();
-            $userModel->ping($this->_auth->getIdentity()->uid);
+            $userModel->ping($identity->uid);
         } else {
             $role = 'guest';
         }
@@ -85,5 +92,25 @@ class Plugin_Auth_AccessControl extends Zend_Controller_Plugin_Abstract
                 $redirector->gotoUrl('/');
             }
         }
+    }
+
+    /**
+     * @param array $identity
+     * @return bool
+     */
+    private function isIdentityValid(array $identity)
+    {
+        $row = (new Model_Users)->find($identity['uid'])->current();
+        if ($row === null) {
+            return false;
+        }
+        $userIdentity = $row->toArray();
+        foreach ($identity as $key => $value) {
+            if (!array_key_exists($key, $userIdentity)) {
+                return false;
+            }
+        }
+
+        return true;
     }
 }
