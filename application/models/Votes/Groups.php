@@ -65,7 +65,7 @@ class Model_Votes_Groups extends Dbjr_Db_Table_Abstract
 
         $row = $this->find($uid, $sub_uid, $kid)->current();
         if ($row) {
-            $row->member = 'n';
+            $row->is_member = false;
             $row->save();
 
             return true;
@@ -87,7 +87,7 @@ class Model_Votes_Groups extends Dbjr_Db_Table_Abstract
     {
         $row = $this->find($uid, $subUid, $kid)->current();
         if ($row) {
-            $row->member = 'y';
+            $row->is_member = true;
             return $row->save();
         }
 

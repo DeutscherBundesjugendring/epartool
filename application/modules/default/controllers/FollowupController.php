@@ -21,7 +21,7 @@ class FollowupController extends Zend_Controller_Action
         $this->flashMessenger = $this->_helper->getHelper('FlashMessenger');
         if ($consultation) {
             if (!Zend_Date::now()->isLater(new Zend_Date($consultation->vot_to, Zend_Date::ISO_8601))
-                || $consultation->follup_show == 'n'
+                || !$consultation->is_followup_phase_showed
             ) {
                 $this->flashMessenger->addMessage(
                     'For this participation round, there are no Reactions at the moment.',

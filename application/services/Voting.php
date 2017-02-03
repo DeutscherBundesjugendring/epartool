@@ -51,7 +51,7 @@ class Service_Voting
             throw new Dbjr_Voting_Exception('Voting group not found.');
         }
 
-        if ($votingGroup['member'] === 'u') {
+        if ($votingGroup['is_member'] === null) {
             $this->sendUserConfirmationEmail($oneVoteToHandle, $votingGroup);
         }
     }
@@ -144,7 +144,7 @@ class Service_Voting
         if ($group['sub_user'] === $groupLeader['email']) {
             if ($auth->hasIdentity() && $auth->getIdentity()->email === $group['sub_user']) {
                 $modelVotesIndividual->setStatusForSubuser($confirmationHash, 'c', 'v');
-                $modelVotesGroups->update(['member' => 'y'], [
+                $modelVotesGroups->update(['is_member' => true], [
                     'uid = ?' => $voteWithDependencies['uid'],
                     'sub_uid = ?' => $voteWithDependencies['sub_uid'],
                     'kid = ?' => $voteWithDependencies['kid'],
@@ -156,7 +156,7 @@ class Service_Voting
         } else {
             if ($auth->getIdentity() && $group['sub_user'] === $auth->getIdentity()->email) {
                 $modelVotesIndividual->setStatusForSubuser($confirmationHash, 'c', 'v');
-                if ($group['member'] === 'u') {
+                if ($group['is_member'] === null) {
                     $this->sendUserConfirmationEmail($voteWithDependencies, $group->toArray());
                 }
             } else {

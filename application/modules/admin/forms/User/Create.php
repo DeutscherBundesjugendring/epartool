@@ -42,7 +42,7 @@ class Admin_Form_User_Create extends Dbjr_Form_Admin
             ->setValue('usr');
         $this->addElement($role);
 
-        $block = $this->createElement('select', 'block');
+        $block = $this->createElement('select', 'is_confirmed');
         $block
             ->setLabel('Status')
             ->setRequired(true)
@@ -62,7 +62,7 @@ class Admin_Form_User_Create extends Dbjr_Form_Admin
             ->setAttrib('rows', 5);
         $this->addElement($note);
 
-        $newsletter = $this->createElement('checkbox', 'newsl_subscr');
+        $newsletter = $this->createElement('checkbox', 'is_subscribed_newsletter');
         $newsletter
             ->setLabel('Receive newsletter')
             ->setRequired(true)

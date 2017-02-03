@@ -108,9 +108,9 @@ class Model_Votes extends Dbjr_Db_Table_Abstract
                 $thesesValues[$thesis['tid']] = $thesis;
                 // get follow-ups?
                 $followUps = $followUpModel->getFollowupCountByTids($thesis['tid']);
-                $thesesValues[$thesis['tid']]['fowups'] = 'n';
+                $thesesValues[$thesis['tid']]['is_followups'] = false;
                 if (isset($followUps[$thesis['tid']])) {
-                    $theses_values[$thesis['tid']]['fowups'] = 'y';
+                    $theses_values[$thesis['tid']]['is_followups'] = true;
                 }
                 //build votings array
                 $votings[] = array_merge($thesesValues[$thesis['tid']], $thesesVotes[$thesis['tid']]);

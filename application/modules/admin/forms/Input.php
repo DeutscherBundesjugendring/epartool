@@ -73,41 +73,41 @@ class Admin_Form_Input extends Dbjr_Form_Admin
             ->setIsSelect2(true);
         $this->addElement($tags);
 
-        $userConfirmation = $this->createElement('radio', 'user_conf');
+        $userConfirmation = $this->createElement('radio', 'is_confirmed_by_user');
         $userConfirmation
             ->setLabel('User confirmation')
             ->setRequired(true)
             ->setMultiOptions(
                 [
-                    'u' => $translator->translate('Unknown'),
-                    'c' => $translator->translate('Confirmed'),
-                    'r' => $translator->translate('Rejected'),
+                    null => $translator->translate('Unknown'),
+                    '1' => $translator->translate('Confirmed'),
+                    '0' => $translator->translate('Rejected'),
                 ]
             );
         $this->addElement($userConfirmation);
 
-        $adminConfirmation = $this->createElement('radio', 'block');
+        $adminConfirmation = $this->createElement('radio', 'is_confirmed');
         $adminConfirmation
             ->setLabel('Admin confirmation')
             ->setRequired(true)
             ->setMultiOptions(
                 [
-                    'u' => $translator->translate('Unknown'),
-                    'n' => $translator->translate('Confirmed'),
-                    'y' => $translator->translate('Blocked'),
+                    null => $translator->translate('Unknown'),
+                    '1' => $translator->translate('Confirmed'),
+                    '0' => $translator->translate('Blocked'),
                 ]
             );
         $this->addElement($adminConfirmation);
 
-        $enableVoting = $this->createElement('radio', 'vot');
+        $enableVoting = $this->createElement('radio', 'is_votable');
         $enableVoting
             ->setLabel('Enable voting')
             ->setRequired(true)
             ->setMultiOptions(
                 [
-                    'u' => $translator->translate('Unknown'),
-                    'n' => $translator->translate('No'),
-                    'y' => $translator->translate('Yes'),
+                    null => $translator->translate('Unknown'),
+                    '0' => $translator->translate('No'),
+                    '1' => $translator->translate('Yes'),
                 ]
             );
         $this->addElement($enableVoting);

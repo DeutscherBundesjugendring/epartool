@@ -4,7 +4,7 @@
     <div class="row">
         <div class="sidebar-left hidden-print">
 
-            <?php if ($this->consultation->vot_res_show == 'y'): ?>
+            <?php if ($this->consultation->is_voting_result_phase_showed): ?>
                 <p>
                     <span class="glyphicon glyphicon-align-left icon-offset text-muted" aria-hidden="true"></span>
                     <a href="<?=$this->url(['action' => 'results', 'authcode' => null]);?>">

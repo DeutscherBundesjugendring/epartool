@@ -8,7 +8,7 @@
         || Zend_Date::now()->isLater(new Zend_Date($this->consultation->spprt_to, Zend_Date::ISO_8601))
         || $this->consultation->spprt_fr == '0000-00-00 00:00:00'
         || $this->consultation->spprt_to == '0000-00-00 00:00:00'
-        || $this->consultation->spprt_show == 'n'
+        || !$this->consultation->is_support_phase_showed
     );
 ?>
 
@@ -122,7 +122,7 @@
                         <footer>
 
                             <!-- Support -->
-                            <?php if ($this->consultation->spprt_show === 'y'): ?>
+                            <?php if ($this->consultation->is_support_phase_showed): ?>
                                 <span id="click-support-wrap-<?=$this->escape($input['tid']);?>" class="offset-right">
                                     <span class="glyphicon glyphicon-ok-sign icon-offset icon-shift-down text-accent" aria-hidden="true"></span>
                                     <small id="badge-<?=$this->escape($input['tid']);?>" class="badge<?=$this->escape($input['spprts']) > 0 ? ' badge-accent' : '';?>">

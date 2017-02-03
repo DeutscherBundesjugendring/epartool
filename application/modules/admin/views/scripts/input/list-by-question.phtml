@@ -225,6 +225,9 @@
                                 <?php foreach ($this->inputs as $input): ?>
                                     <?=$this->partial('input/_inputBox.phtml', [
                                         'input' => $input,
+                                        'adminConfirmationFlags' => ['0' => 'y', '1' => 'n', null => 'u'],
+                                        'userConfirmationFlags' => ['0' => 'r', '1' => 'c', null => 'u'],
+                                        'votableFlags' => ['0' => 'n', '1' => 'y', null => 'u'],
                                         'kid' => $this->consultation['kid'],
                                         'inputsWithDiscussion' => $this->inputsWithDiscussion
                                     ]);?>

@@ -275,6 +275,11 @@ changeContributionStatus = () ->
         tid = $(this).data('tid')
         property = $(this).data('property')
 
+        dataAttributeName = 'voting'
+        if (property == 'blocking')
+            dataAttributeName = 'admin-confirmation'
+
+        container = $(this).closest('tr')
         thisButton = $(this)
         buttonLabel = $(this).find('.label')
         buttonIcon = $(this).find('.glyphicon').clone();
@@ -308,6 +313,25 @@ changeContributionStatus = () ->
                 buttonLabel.prepend(buttonIcon);
                 tokenEl.data('token', response.token)
                 $('.js-contribution-change-status').attr('style', '')
+
+                newStatus = response.status;
+                if (dataAttributeName == 'admin-confirmation')
+                    if (newStatus == '1')
+                        newStatus = 'n'
+                    if (newStatus == '0')
+                        newStatus = 'y'
+                    if (newStatus == null)
+                        newStatus = 'u'
+
+                if (dataAttributeName == 'voting')
+                    if (newStatus == '1')
+                        newStatus = 'y'
+                    if (newStatus == '0')
+                        newStatus = 'n'
+                    if (newStatus == null)
+                        newStatus = 'u'
+
+                container.data(dataAttributeName, newStatus)
                 return
         return
 

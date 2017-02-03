@@ -35,7 +35,7 @@ class Service_UrlkeyAction_ResetPassword extends Service_UrlkeyAction
                 $userModel = new Model_Users();
                 $passwordHash = $userModel->hashPassword($request->getPost('password'));
                 $userModel->update(
-                    ['password' => $passwordHash, 'block' => 'c'],
+                    ['password' => $passwordHash, 'is_confirmed' => true],
                     ['uid=?' => $userId]
                 );
                 $this->_viewName = null;

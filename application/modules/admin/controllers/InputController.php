@@ -54,7 +54,8 @@ class Admin_InputController extends Zend_Controller_Action
                 )
                 ->joinLeft(
                     ['tmp2' => new Zend_Db_Expr(
-                        "(SELECT qi AS tmpQi, COUNT(*) AS inputCountUnread FROM inpt WHERE `block`='u' GROUP BY qi)"
+                        "(SELECT qi AS tmpQi, COUNT(*) AS inputCountUnread FROM inpt WHERE `is_confirmed` IS NULL"
+                        . " GROUP BY qi)"
                     )],
                     $questionsModel->info(Model_Questions::NAME) . '.qi = ' . 'tmp2.tmpQi'
                 )
@@ -86,7 +87,7 @@ class Admin_InputController extends Zend_Controller_Action
             $questionsModel->info(Model_Questions::NAME) . '.kid = ?' => $this->_consultation['kid'],
         ];
         if ($isUnread) {
-            $wheres[(new Model_Inputs())->info(Model_Inputs::NAME) . '.block = ?'] = 'u';
+            $wheres[] = (new Model_Inputs())->info(Model_Inputs::NAME) . '.is_confirmed IS NULL';
         }
 
         $inputModel = new Model_Inputs();
@@ -120,7 +121,7 @@ class Admin_InputController extends Zend_Controller_Action
         $token = $this->_request->getParam('token', null);
         $tid = $this->_request->getParam('tid', null);
 
-        $properties = ['voting' => 'vot', 'blocking' => 'block'];
+        $properties = ['voting' => 'is_votable', 'blocking' => 'is_confirmed'];
         $property = $this->_request->getParam('property', null);
 
         if ((new Zend_Session_Namespace('adminActionCsrf'))->token !== $token
@@ -131,19 +132,19 @@ class Admin_InputController extends Zend_Controller_Action
         }
 
         $nextStatus = [
-            'blocking' => ['y' => 'u', 'n' => 'y', 'u' => 'n'],
-            'voting' => ['y' => 'n', 'n' => 'u', 'u' => 'y'],
+            'blocking' => ['1' => null, '0'=> '1', null => '0'],
+            'voting' => ['1' => '0', '0' => null, null => '1'],
         ];
         $button = [
             'blocking' => [
-                'y' => ['label' => 'Blocked', 'iconClass' => 'remove', 'labelClass' => 'danger'],
-                'n' => ['label' => 'Confirmed', 'iconClass' => 'ok', 'labelClass' => 'success'],
-                'u' => ['label' => 'Unknown', 'iconClass' => 'question-sign', 'labelClass' => 'default'],
+                '0' => ['label' => 'Blocked', 'iconClass' => 'remove', 'labelClass' => 'danger'],
+                '1' => ['label' => 'Confirmed', 'iconClass' => 'ok', 'labelClass' => 'success'],
+                null => ['label' => 'Unknown', 'iconClass' => 'question-sign', 'labelClass' => 'default'],
                 ],
             'voting' => [
-                'y' => ['label' => 'Yes', 'iconClass' => 'ok', 'labelClass' => 'success'],
-                'n' => ['label' => 'No', 'iconClass' => 'remove', 'labelClass' => 'danger'],
-                'u' => ['label' => 'Unknown', 'iconClass' => 'question-sign', 'labelClass' => 'default'],
+                '1' => ['label' => 'Yes', 'iconClass' => 'ok', 'labelClass' => 'success'],
+                '0' => ['label' => 'No', 'iconClass' => 'remove', 'labelClass' => 'danger'],
+                null => ['label' => 'Unknown', 'iconClass' => 'question-sign', 'labelClass' => 'default'],
                 ],
         ];
         $contributionModel = new Model_Inputs();
@@ -314,8 +315,8 @@ class Admin_InputController extends Zend_Controller_Action
                     $tagsSet[] = $tag['tg_nr'];
                 }
                 $form->setDefault('tags', $tagsSet);
-                if ($inputRow['block'] === 'u') {
-                    $form->getElement('block')->setValue('n');
+                if ($inputRow['is_confirmed'] === null) {
+                    $form->getElement('is_confirmed')->setValue(1);
                 }
             }
         }
@@ -374,7 +375,7 @@ class Admin_InputController extends Zend_Controller_Action
                     'Video contribution settings are inherited from Question, therefore it is possible to add a video only after saving this Contribution thus linking it to a Question.',
                     'info'
                 );
-            $form->populate(['user_conf' => 'u', 'block' => 'n', 'vot' => 'u']);
+            $form->populate(['is_confirmed_by_user' => null, 'is_confirmed' => true, 'is_votable' => null]);
         }
 
         $this->view->form = $form;
@@ -411,12 +412,12 @@ class Admin_InputController extends Zend_Controller_Action
                         $this->_flashMessenger->addMessage($msg, 'success');
                         break;
                     case 'block':
-                        $nr = $inputModel->editBulk($data['inp_list'], array('block' => 'y'));
+                        $nr = $inputModel->editBulk($data['inp_list'], array('is_confirmed' => false));
                         $msg = sprintf($this->view->translate('%d contributions have been blocked.'), $nr);
                         $this->_flashMessenger->addMessage($msg, 'success');
                         break;
                     case 'publish':
-                        $nr = $inputModel->editBulk($data['inp_list'], array('block' => 'n'));
+                        $nr = $inputModel->editBulk($data['inp_list'], array('is_confirmed' => true));
                         $msg = sprintf($this->view->translate('%d contributions have been unblocked.'), $nr);
                         $this->_flashMessenger->addMessage($msg, 'success');
                         break;

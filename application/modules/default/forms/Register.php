@@ -153,7 +153,7 @@ class Default_Form_Register extends Dbjr_Form_Web
         }
 
         if ((bool) $formConsultationSettings['field_switch_notification']) {
-            $sendResults = $this->createElement('checkbox', 'cnslt_results');
+            $sendResults = $this->createElement('checkbox', 'is_receiving_consultation_results');
             $sendResults
                 ->setLabel('I want to get informed about outcomes of the consultation round.')
                 ->setCheckedValue('y')
@@ -162,7 +162,7 @@ class Default_Form_Register extends Dbjr_Form_Web
         }
 
         if ((bool) $formConsultationSettings['field_switch_newsletter']) {
-            $newsletter = $this->createElement('checkbox', 'newsl_subscr');
+            $newsletter = $this->createElement('checkbox', 'is_subscribed_newsletter');
             $newsletter
                 ->setLabel('I would like to subscribe to the newsletter.')
                 ->setCheckedValue('y')

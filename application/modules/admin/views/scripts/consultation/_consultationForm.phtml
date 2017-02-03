@@ -18,7 +18,7 @@
             <?=$this->translate('Contributions');?>
             <?=$this->partial('consultation/_serverTimeTooltip.phtml');?>
         </h3>
-        <?=$this->form->getElement('inp_show');?>
+        <?=$this->form->getElement('is_input_phase_showed');?>
         <div class="row">
             <div class="col-sm-6">
                 <?=$this->form->getElement('inp_fr');?>
@@ -34,7 +34,7 @@
             <?=$this->translate('Support');?>
             <?=$this->partial('consultation/_serverTimeTooltip.phtml');?>
         </h3>
-        <?=$this->form->getElement('spprt_show');?>
+        <?=$this->form->getElement('is_support_phase_showed');?>
         <div class="row">
             <div class="col-sm-6">
                 <?=$this->form->getElement('spprt_fr');?>
@@ -80,7 +80,7 @@
             <?=$this->translate('Voting');?>
             <?=$this->partial('consultation/_serverTimeTooltip.phtml');?>
         </h3>
-        <?=$this->form->getElement('vot_show');?>
+        <?=$this->form->getElement('is_voting_phase_showed');?>
         <div class="row">
             <div class="col-sm-6">
                 <?=$this->form->getElement('vot_fr');?>
@@ -89,13 +89,13 @@
                 <?=$this->form->getElement('vot_to');?>
             </div>
         </div>
-        <?=$this->form->getElement('vot_res_show');?>
+        <?=$this->form->getElement('is_voting_result_phase_showed');?>
         <?=$this->form->getElement('vot_expl');?>
     </fieldset>
 
     <fieldset>
         <h3><?=$this->translate('Follow-up');?></h3>
-        <?=$this->form->getElement('follup_show');?>
+        <?=$this->form->getElement('is_followup_phase_showed');?>
         <?=$this->form->getElement('follow_up_explanation');?>
     </fieldset>
 
@@ -126,7 +126,7 @@
         <?=$this->form->getElement('proj');?>
     </div>
 
-    <?=$this->form->getElement('public');?>
+    <?=$this->form->getElement('is_public');?>
 
     <?=$this->form->getElement('csrf_token_consultation');?>
     <?=$this->form->getElement('submit');?>

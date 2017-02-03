@@ -292,8 +292,8 @@ class Model_Inputs extends Dbjr_Db_Table_Abstract
 
         if ($excludeInvisible) {
             $select
-                ->where('block<>?', 'y')
-                ->where('user_conf=?', 'c');
+                ->where('is_confirmed <> ?', false)
+                ->where('is_confirmed_by_user = ?', true);
         }
         
         if ($withoutAdmin) {
@@ -412,8 +412,8 @@ class Model_Inputs extends Dbjr_Db_Table_Abstract
             ->where('i.qi = ?', $qid);
         if ($excludeInvisible) {
             $select
-                ->where('i.block<>?', 'y')
-                ->where('i.user_conf=?', 'c');
+                ->where('i.is_confirmed <> ?', false)
+                ->where('i.is_confirmed_by_user = ?', true);
         }
 
         if ($withoutAdmin) {
@@ -484,7 +484,7 @@ class Model_Inputs extends Dbjr_Db_Table_Abstract
             ->from(array('i' => $this->_name))
             ->joinLeft(
                 ['id' => 'input_discussion'],
-                'id.input_id = i.tid AND id.is_user_confirmed=1',
+                'id.input_id = i.tid AND id.is_user_confirmed = 1',
                 ['discussionPostCount' => 'COUNT(id.input_id)']
             );
 
@@ -499,9 +499,9 @@ class Model_Inputs extends Dbjr_Db_Table_Abstract
         }
 
         $select
-            ->where('i.qi=?', $qid)
-            ->where('i.block!=?', 'y')
-            ->where('i.user_conf=?', 'c')
+            ->where('i.qi = ?', $qid)
+            ->where('i.is_confirmed != ?', false)
+            ->where('i.is_confirmed_by_user = ?', true)
             ->group('i.tid');
 
         if ($order) {
@@ -533,11 +533,11 @@ class Model_Inputs extends Dbjr_Db_Table_Abstract
 
         return $this->update(
             [
-                'user_conf' => 'c',
+                'is_confirmed_by_user' => true,
                 'uid' => $uid,
                 'confirmation_key' => null
             ],
-            ['confirmation_key=?' => $confirmKey, 'user_conf=?' => 'u']
+            ['confirmation_key=?' => $confirmKey, 'is_confirmed_by_user IS NULL']
         );
     }
 
@@ -562,11 +562,11 @@ class Model_Inputs extends Dbjr_Db_Table_Abstract
 
         return $this->update(
             [
-                'user_conf' => 'r',
+                'is_confirmed_by_user' => false,
                 'uid' => $uid,
                 'confirmation_key' => null
             ],
-            ['confirmation_key=?' => $confirmKey, 'user_conf=?' => 'u']
+            ['confirmation_key = ?' => $confirmKey, 'is_confirmed_by_user IS NULL']
         );
     }
 
@@ -701,23 +701,23 @@ class Model_Inputs extends Dbjr_Db_Table_Abstract
         switch ($mod) {
             case 'cnf':
                 $select
-                    ->where('i.user_conf = ?', 'c')
+                    ->where('i.is_confirmed_by_user = ?', true)
                     ->where('(i.uid IS NOT NULL OR i.confirmation_key IS NOT NULL)');
                 break;
             case 'unc':
                 $select
-                    ->where('i.user_conf != ?', 'c')
+                    ->where('i.is_confirmed_by_user != ?', true)
                     ->where('(i.uid IS NOT NULL OR i.confirmation_key IS NOT NULL)');
                 break;
             case 'all':
                 $select->where('(i.uid IS NOT NULL OR i.confirmation_key IS NOT NULL)');
                 break;
             case 'vot':
-                $select->where('i.vot = ?', 'y');
+                $select->where('i.is_votable = ?', true);
                 break;
             case 'edt':
                 $select
-                    ->where('i.vot = ?', 'y')
+                    ->where('i.is_votable = ?', true)
                     ->where('i.uid IS NULL AND i.confirmation_key IS NULL');
                 break;
         }
@@ -789,7 +789,7 @@ class Model_Inputs extends Dbjr_Db_Table_Abstract
                 && Zend_Date::now()->isEarlier(new Zend_Date($consultation->spprt_to, Zend_Date::ISO_8601))
                 || $consultation->spprt_fr !== '0000-00-00 00:00:00'
                 || $consultation->spprt_to !== '0000-00-00 00:00:00'
-                || $consultation->spprt_show === 'y'
+                || $consultation->is_support_phase_showed
             ) {
                 $row->spprts++;
                 $row->save();
@@ -824,8 +824,8 @@ class Model_Inputs extends Dbjr_Db_Table_Abstract
                     'q.qi = i.qi',
                     []
                 )
-                ->where('i.block!=?', 'y')
-                ->where('i.user_conf=?', 'c')
+                ->where('i.is_confirmed != ?', false)
+                ->where('i.is_confirmed_by_user = ?', true)
                 ->where('q.kid=?', $consultationId)
                 ->limit($limit);
 
@@ -1003,7 +1003,7 @@ class Model_Inputs extends Dbjr_Db_Table_Abstract
                     [new Zend_Db_Expr('COUNT(fu.tid) as followUpsCount')]
                 )
                 ->where('qi = ?', $qid)
-                ->where('vot = ?', 'y')
+                ->where('is_votable = ?', true)
                 ->group('i.tid')
         )->fetchAll();
     }
@@ -1037,7 +1037,7 @@ class Model_Inputs extends Dbjr_Db_Table_Abstract
 
     /**
      * getRelatedWithVotesById
-     * get the referenced theses with vot = y
+     * get the referenced theses with is_votable = true
      * @param int $id
      * @return array
      */
@@ -1056,7 +1056,7 @@ class Model_Inputs extends Dbjr_Db_Table_Abstract
             ->join(['q' => (new Model_Questions())->info(Model_Questions::NAME)], 'i.qi = q.qi', [])
             ->join(['c' => (new Model_Consultations())->info(Model_Consultations::NAME)], 'q.kid = c.kid', ['kid'])
             ->where('r.parent_id = ?', $id)
-            ->where('i.vot = ?', 'y');
+            ->where('i.is_votable = ?', true);
         $result = $this->fetchAll($select)->toArray();
 
         return $result;
@@ -1321,7 +1321,18 @@ class Model_Inputs extends Dbjr_Db_Table_Abstract
     {
         $select = $this
             ->select()
-            ->from($this->info(Model_Questions::NAME), ['tid', 'thes', 'expl', 'when', 'notiz', 'block', 'vot', 'user_conf', 'input_discussion_contrib', 'spprts'])
+            ->from($this->info(Model_Questions::NAME), [
+                'tid',
+                'thes',
+                'expl',
+                'when',
+                'notiz',
+                'is_confirmed',
+                'is_votable',
+                'is_confirmed_by_user',
+                'input_discussion_contrib',
+                'spprts',
+            ])
             ->setIntegrityCheck(false)
             ->join(
                 (new Model_Questions())->info(Model_Questions::NAME),
@@ -1442,7 +1453,7 @@ class Model_Inputs extends Dbjr_Db_Table_Abstract
                 ['c' => (new Model_Consultations())->info(Model_Consultations::NAME)],
                 'c.kid = q.kid',
                 ['kid', 'inp_to']
-            )->where('i.user_conf = ?', 'u')->where('i.confirmation_key IS NOT NULL');
+            )->where('i.is_confirmed_by_user IS NULL')->where('i.confirmation_key IS NOT NULL');
 
         if ($reminders !== null) {
             $select->where('reminders_sent = ?', $reminders);
@@ -1473,7 +1484,7 @@ class Model_Inputs extends Dbjr_Db_Table_Abstract
      */
     public function getCountContributionsConfirmed(\Zend_Db_Select $contributions)
     {
-        $contributions->where('user_conf LIKE ?', 'c');
+        $contributions->where('is_confirmed_by_user = ?', true);
 
         return $this->fetchAll($contributions)->current()->count;
     }
@@ -1484,7 +1495,7 @@ class Model_Inputs extends Dbjr_Db_Table_Abstract
      */
     public function getCountContributionsUnconfirmed(\Zend_Db_Select $contributions)
     {
-        $contributions->where('user_conf NOT LIKE ?', 'c');
+        $contributions->where('is_confirmed_by_user != ?', true);
 
         return $this->fetchAll($contributions)->current()->count;
     }
@@ -1495,7 +1506,7 @@ class Model_Inputs extends Dbjr_Db_Table_Abstract
      */
     public function getCountContributionsBlocked(\Zend_Db_Select $contributions)
     {
-        $contributions->where('block = ?', 'y');
+        $contributions->where('is_confirmed = ?', false);
 
         return $this->fetchAll($contributions)->current()->count;
     }
@@ -1508,7 +1519,7 @@ class Model_Inputs extends Dbjr_Db_Table_Abstract
     {
         $db = $this->getDefaultAdapter();
         $contributions->where(
-            $db->quoteInto('vot = ?', 'y') . ' OR ' . $db->quoteInto('vot = ?', 'u')
+            $db->quoteInto('is_votable = ?', true) . ' OR is_votable IS NULL'
         );
 
         return $this->fetchAll($contributions)->current()->count;

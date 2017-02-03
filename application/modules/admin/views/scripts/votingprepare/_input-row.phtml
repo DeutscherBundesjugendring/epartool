@@ -1,7 +1,7 @@
 <tr
-    data-admin-confirmation="<?=$this->escape($this->input['block']);?>"
+    data-admin-confirmation="<?=$this->escape($this->input['is_confirmed']);?>"
     data-origin="<?=$this->input['uid'] === null && $this->input['confirmation_key'] === null ? 'adminCreated' : 'userCreated';?>"
-    data-voting="<?=$this->escape($this->input['vot']);?>"
+    data-voting="<?=$this->escape($this->input['is_votable']);?>"
     data-tags='<?=json_encode(array_map(function($el) {return $el['tg_nr'];}, $this->input['tags']));?>'
     data-directory="<?=$this->escape($this->input['dir']);?>"
 >
@@ -101,12 +101,12 @@
         </p>
         <p>
             <?=$this->translate('Admin Confirmation');?><br />
-            <?php if ($this->input['block'] === 'y'): ?>
+            <?php if (!$this->input['is_confirmed']): ?>
                 <span class="label label-danger">
                     <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
                     <?=$this->translate('Blocked');?>
                 </span>
-            <?php elseif ($this->input['block'] === 'n'): ?>
+            <?php elseif ($this->input['is_confirmed']): ?>
                 <span class="label label-success">
                     <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
                     <?=$this->translate('Confirmed');?>
@@ -120,12 +120,12 @@
         </p>
         <p>
             <?=$this->translate('Voting');?><br />
-            <?php if ($this->input['vot'] === 'y'): ?>
+            <?php if ($this->input['is_votable']): ?>
                 <span class="label label-success">
                     <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
                     <?=$this->translate('Yes');?>
                 </span>
-            <?php elseif ($this->input['vot'] === 'n'): ?>
+            <?php elseif (!$this->input['is_votable']): ?>
                 <span class="label label-danger">
                     <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
                     <?=$this->translate('No');?>

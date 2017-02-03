@@ -88,7 +88,7 @@
                                                 data-confirm-no="<?=$this->translate('No');?>"
                                                 <?php if ($article['ref_nm'] === 'article_explanation'
                                                     && (int) $this->mainArticlesSum === 1
-                                                    && $article['hid'] === 'n') :
+                                                    && $article['is_showed']) :
                                                 ?>
                                                     disabled
                                                 <?php endif; ?>
@@ -128,7 +128,7 @@
                                                         data-confirm-no="<?=$this->translate('No');?>"
                                                         <?php if ($article['ref_nm'] === 'article_explanation'
                                                             && $this->mainArticlesSum === 1
-                                                            && $article['hid'] === 'n') :
+                                                            && $article['is_showed']) :
                                                         ?>
                                                             disabled
                                                         <?php endif; ?>

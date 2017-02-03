@@ -33,7 +33,7 @@ class Module_Default_View_Helper_ArticleNavigation extends Zend_View_Helper_Abst
             }
 
             // first level
-            if ($item['hid'] == 'n') {
+            if ($item['is_showed']) {
                 // show only unhidden pages
                 $liClasses = array();
                 // is item active itself OR is in rootline (i.e. one of its subpages is active)?
@@ -61,12 +61,12 @@ class Module_Default_View_Helper_ArticleNavigation extends Zend_View_Helper_Abst
                     foreach ($item['subpages'] as $subpage) {
 
                         // second level (subpages)
-                        if ($subpage['hid'] == 'n') {
+                        if ($subpage['is_showed']) {
 
                             // show only unhidden pages
                             $liClassesSub = array();
 
-                            if ($subpage['art_id'] == $activeItem) {
+                            if ($subpage['art_id'] === $activeItem) {
                                 $liClassesSub[] = 'active';
                             }
 

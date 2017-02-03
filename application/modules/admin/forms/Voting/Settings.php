@@ -25,7 +25,7 @@ class Admin_Form_Voting_Settings extends Dbjr_Form_Admin
             ->setRequired(true);
         $this->addElement($buttonLabels);
 
-        $buttonImportant = $this->createElement('radio', 'btn_important');
+        $buttonImportant = $this->createElement('radio', 'is_btn_important');
         $buttonImportant
             ->setLabel('Superbutton')
             ->setRequired(true)

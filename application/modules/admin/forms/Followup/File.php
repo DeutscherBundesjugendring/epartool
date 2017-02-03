@@ -45,7 +45,7 @@ class Admin_Form_Followup_File extends Dbjr_Form_Admin
             ->addValidator('date', false, ['format' => 'Y-m-d H:i:s']);
         $this->addElement($timeCreated);
 
-        $showNoDay = $this->createElement('checkbox', 'show_no_day');
+        $showNoDay = $this->createElement('checkbox', 'is_only_month_year_showed');
         $showNoDay
             ->setLabel('Display month and year only')
             ->setRequired(true)

@@ -81,7 +81,7 @@ class VotingController extends Zend_Controller_Action
             $this->redirect('/');
         } elseif ($nowDate->isLater(new Zend_Date($this->_consultation->vot_to, Zend_Date::ISO_8601))
             && $this->_consultation->vot_to != '0000-00-00 00:00:00'
-            && $this->_consultation->vot_res_show == 'y'
+            && $this->_consultation->is_voting_result_phase_showed
         ) {
             $this->_flashMessenger->addMessage('The Voting is finished. You can check the results below.', 'info');
             $this->redirect('/voting/results/kid/' . $this->_consultation->kid);
@@ -124,18 +124,18 @@ class VotingController extends Zend_Controller_Action
                             // create list of all votable inputs
                             $subUid = md5($emailAddress . $this->_consultation->kid);
                             // save subuser
-                            $data = array(
-                                'uid'=>$votingRights['uid'],
-                                'sub_user'=>$emailAddress,
-                                'sub_uid'=>$subUid,
-                                'kid'=>$this->_consultation->kid,
-                                'member'=>'u'
-                            );
+                            $data = [
+                                'uid' => $votingRights['uid'],
+                                'sub_user' => $emailAddress,
+                                'sub_uid' => $subUid,
+                                'kid' => $this->_consultation->kid,
+                                'is_member' => null,
+                            ];
                             if (!$votingGroupModel->add($data)) {
                                 throw new Exception('Fehler im Abstimmung. Bitte kontaktieren Sie den Administrator.');
                             }
                         } else {
-                            if ($votingSubuser['member'] === 'n') {
+                            if ($votingSubuser['is_member'] === false) {
                                 $this->_flashMessenger->addMessage('Access to this account has been denied by Group Leader.', 'error');
                                 $this->redirect('/input/index/kid/' . $this->_consultation->kid);
                             }
@@ -194,11 +194,13 @@ class VotingController extends Zend_Controller_Action
 
         // count of votable inputs
         $inputModel = new Model_Inputs();
-        $filter = array(array(
-            'field'=>'vot',
-            'operator'=>'=',
-            'value'=>'y'
-        ));
+        $filter = [
+            [
+                'field' => 'is_votable',
+                'operator' => '=',
+                'value' => true,
+            ],
+        ];
         $this->view->votableInputs = $inputModel->getCountByConsultationFiltered($kid, $filter);
         // count of voted inputs
         $votingIndivModel = new Model_Votes_Individual();
@@ -242,7 +244,7 @@ class VotingController extends Zend_Controller_Action
         $this->view->questions = $questionResult;
 
         // count of votable inputs
-        $filter = array( array('field' => 'vot', 'operator' => '=', 'value' => 'y'));
+        $filter = array( array('field' => 'is_votable', 'operator' => '=', 'value' => true));
 
         $inputModel = new Model_Inputs();
         $this->view->votableInputs = $inputModel->getCountByConsultationFiltered($kid, $filter);
@@ -311,7 +313,7 @@ class VotingController extends Zend_Controller_Action
         } else {
             $feedback = array(
                 'points' => $votingSuccess['points'],
-                'pimp' => $votingSuccess['pimp'],
+                'is_pimp' => $votingSuccess['is_pimp'],
                 'tid' => $tid,
                 'kid' => $kid
             );
@@ -334,7 +336,7 @@ class VotingController extends Zend_Controller_Action
 
         $this->view->settings = $this->getVotingSettings();
 
-        if ($this->view->settings['btn_important'] == 'n') {
+        if (!$this->view->settings['is_btn_important']) {
             $this->view->error = "1";
             $this->view->error_comment = $this->view->translate('Using of superbutton is not allowed.');
             return;
@@ -372,7 +374,7 @@ class VotingController extends Zend_Controller_Action
             $feedback = array(
                 'points' => $votingSuccess['points'],
                 'tid' => $tid,
-                'pimp' => $votingSuccess['pimp'],
+                'is_pimp' => $votingSuccess['is_pimp'],
                 'kid' => $kid
             );
         } elseif (isset($votingSuccess['max'])) {
@@ -383,7 +385,7 @@ class VotingController extends Zend_Controller_Action
             $feedback = array(
                 'points' => $currentVote['pts'],
                 'tid' => $tid,
-                'pimp' => $currentVote['pimp'],
+                'is_pimp' => $currentVote['is_pimp'],
                 'kid' => $kid
             );
         } else {
@@ -634,7 +636,7 @@ class VotingController extends Zend_Controller_Action
         $pts = (string) $param['pts'];
         $tid = (int)$param['tid'];
 
-        if ($this->settings['btn_important'] == 'n') {
+        if (!$this->settings['btn_important']) {
             $this->_flashMessenger -> addMessage('Clicking the superbutton is not allowed.', 'info');
             $this->redirect('/voting/vote/kid/' . $this->_consultation->kid);
             return;
@@ -872,7 +874,7 @@ class VotingController extends Zend_Controller_Action
     {
         $qid = $this->_request->getParam('qid', 0);
 
-        if ($this->_consultation['vot_res_show'] === 'n') {
+        if (!$this->_consultation['is_voting_result_phase_showed']) {
             $this->_flashMessenger->addMessage('Voting results are not available yet.', 'error');
             $this->redirect('/voting/index/kid/' . $this->_consultation['kid']);
         }

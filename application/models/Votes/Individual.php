@@ -79,9 +79,9 @@ class Model_Votes_Individual extends Dbjr_Db_Table_Abstract
 
         if (!is_null($particular)) { //set points and flag for superbutton
             $pts = $particular;
-            $pimp ="y";
+            $pimp = true;
         } else {
-            $pimp = 'n';
+            $pimp = false;
         }
         // check if user has allready votet by this thesis
         if ($this->allreadyVoted($tid, $subUid)) {
@@ -93,13 +93,13 @@ class Model_Votes_Individual extends Dbjr_Db_Table_Abstract
 
             $row = $this->fetchRow($select);
             $row->pts = $pts;
-            $row->pimp = $pimp;
+            $row->is_pimp = $pimp;
             $row->upd = new Zend_Db_Expr('NOW()');
 
             if ($row->save()) {
                 return [
                     'points' => $row->pts,
-                    'pimp' => $row->pimp
+                    'is_pimp' => $row->is_pimp
                 ];
 
             } else {
@@ -111,7 +111,7 @@ class Model_Votes_Individual extends Dbjr_Db_Table_Abstract
                 'tid' => $tid,
                 'sub_uid' => $subUid,
                 'pts' => $pts,
-                'pimp' => $pimp,
+                'is_pimp' => $pimp,
                 'status'=>'v',
                 'confirmation_hash' => $confirmationHash,
                 'upd' =>new Zend_Db_Expr('NOW()'),
@@ -120,7 +120,7 @@ class Model_Votes_Individual extends Dbjr_Db_Table_Abstract
             if ($row) {
                 return [
                     'points' => $row->pts,
-                    'pimp' => $row->pimp
+                    'is_pimp' => $row->pimp
                 ];
             }
 
@@ -175,11 +175,11 @@ class Model_Votes_Individual extends Dbjr_Db_Table_Abstract
                 ->join(
                     ['vg' => (new Model_Votes_Groups())->info(Model_Votes_Groups::NAME)],
                     'vi.sub_uid = vg.sub_uid AND vi.uid = vg.uid AND c.kid = vg.kid',
-                    ['member']
+                    ['is_member']
                 )
                 ->where('vi.tid = ?', $tid)
                 ->where('vi.status = ?', 'c')
-                ->where('vg.member = ?', 'y')
+                ->where('vg.is_member = ?', true)
                 ->where('vi.pts < ?', Service_Voting::POINTS_MAX)
         )->fetchAll();
         $cast = count($indiv_votes);
@@ -337,7 +337,7 @@ class Model_Votes_Individual extends Dbjr_Db_Table_Abstract
         $select->from(['vi' => 'vt_indiv']);
         $select->joinLeft(['i' => 'inpt'], 'vi.tid = i.tid');
         $select->where('sub_uid = ?', $subUid);
-        $select->where('pimp = ?', 'y');
+        $select->where('is_pimp = ?', true);
         $select->order('upd DESC');
 
         $stmt = $db->query($select);
@@ -354,7 +354,7 @@ class Model_Votes_Individual extends Dbjr_Db_Table_Abstract
         $rowset = $this->fetchAll(
             $this->select()
                 ->where('sub_uid = ?', $subUid)
-                ->where('pimp = ?', 'y')
+                ->where('is_pimp = ?', true)
         );
         $rowCount = count($rowset);
 
@@ -402,7 +402,7 @@ class Model_Votes_Individual extends Dbjr_Db_Table_Abstract
             if ($updateVoteSuccess) {
                 return array(
                         'points' => $updateVoteSuccess['points'],
-                        'pimp' => $updateVoteSuccess['pimp']
+                        'is_pimp' => $updateVoteSuccess['is_pimp']
                         );
             } else {
                 return false;
@@ -502,7 +502,7 @@ class Model_Votes_Individual extends Dbjr_Db_Table_Abstract
                 'tid' => $values['tid'],
                 'sub_uid' => $subuid,
                 'pts' => $values['pts'],
-                'pimp' => $values['pimp'],
+                'is_pimp' => $values['is_pimp'],
                 'status'=>'v',
                 'upd' =>new Zend_Db_Expr('NOW()')
             );
@@ -524,7 +524,7 @@ class Model_Votes_Individual extends Dbjr_Db_Table_Abstract
             ->join(
                 ['vg' => (new Model_Votes_Groups())->info(Model_Votes_Groups::NAME)],
                 'vi.sub_uid = vg.sub_uid',
-                ['sub_uid', 'sub_user', 'member']
+                ['sub_uid', 'sub_user', 'is_member']
             )
             ->join(
                 ['c' => (new Model_Consultations())->info(Model_Consultations::NAME)],
@@ -622,7 +622,7 @@ class Model_Votes_Individual extends Dbjr_Db_Table_Abstract
             ->join(
                 ['vg' => (new Model_Votes_Groups())->info(Model_Votes_Groups::NAME)],
                 'v.sub_uid = vg.sub_uid AND v.uid = vg.uid AND c.kid = vg.kid',
-                ['sub_user', 'member', 'reminders_sent']
+                ['sub_user', 'is_member', 'reminders_sent']
             )
             ->where('status = ?', 'v');
 

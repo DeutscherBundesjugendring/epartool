@@ -43,8 +43,8 @@ class Service_UrlkeyAction_ConfirmInputDiscussionContribution extends Service_Ur
             $data = $request->getPost();
             if ($this->_viewData['form']->isValid($data)) {
                 if (isset($data['confirm'])) {
-                    (new Model_InputDiscussion())->update(['is_user_confirmed' => 1], ['id=?' => $contribId]);
-                    (new Model_Users())->update(['block' => 'c'], ['uid=?' => $discussionContribution->user_id]);
+                    (new Model_InputDiscussion())->update(['is_user_confirmed' => true], ['id=?' => $contribId]);
+                    (new Model_Users())->update(['is_confirmed' => true], ['uid=?' => $discussionContribution->user_id]);
 
                     $this->_viewName = null;
                     $this->_message = [

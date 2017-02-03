@@ -113,7 +113,7 @@ abstract class Service_Notification_AbstractNotification
     public function confirmUser($ntfId)
     {
         $ntf = (new Model_Notification())->find($ntfId)->current();
-        (new Model_Users())->update(['block' => 'c'], ['uid=?' => $ntf->user_id]);
+        (new Model_Users())->update(['is_confirmed' => true], ['uid=?' => $ntf->user_id]);
 
         return $this;
     }
@@ -209,8 +209,8 @@ abstract class Service_Notification_AbstractNotification
                 'n.type_id = nt.id',
                 []
             )
-            ->where('u.block=?', 'c')
-            ->where('n.is_confirmed=?', 1)
+            ->where('u.is_confirmed=?', true)
+            ->where('n.is_confirmed=?', true)
             ->where('nt.name=?', static::TYPE_NAME)
             ->group('u.uid');
         foreach ($params as $key => $value) {

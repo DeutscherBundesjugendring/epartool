@@ -184,7 +184,7 @@ class Model_Consultations extends Dbjr_Db_Table_Abstract
      */
     public function getPublic()
     {
-        $select = $this->select()->where('public = ?', 'y')->order('ord DESC');
+        $select = $this->select()->where('is_public = ?', true)->order('ord DESC');
 
         return $this->fetchAll($select);
     }
@@ -198,7 +198,7 @@ class Model_Consultations extends Dbjr_Db_Table_Abstract
     {
         $entries = [];
         $select = $this->select();
-        $select->where('public = ?', 'y');
+        $select->where('is_public = ?', true);
         $select->order(['ord DESC']);
         $rowSet = $this->fetchAll($select);
 
@@ -361,7 +361,7 @@ class Model_Consultations extends Dbjr_Db_Table_Abstract
                     []
                 )
                 ->where('ui.kid=?', $kid)
-                ->where('u.newsl_subscr=?', 'y')
+                ->where('u.is_subscribed_newsletter = ?', true)
         );
 
         return $row ? true : false;
@@ -379,7 +379,7 @@ class Model_Consultations extends Dbjr_Db_Table_Abstract
             $userConsultModel
                 ->select()
                 ->where('kid=?', $kid)
-                ->where('cnslt_results=?', 'y')
+                ->where('is_receiving_consultation_results = ?', true)
         );
 
         return $row ? true : false;
@@ -416,7 +416,16 @@ class Model_Consultations extends Dbjr_Db_Table_Abstract
             ->select()
             ->from(
                 ['c' => $this->info(self::NAME)],
-                ['titl', 'titl_sub', 'kid', 'img_file', 'img_expl', 'inp_show', 'vot_show', 'follup_show']
+                [
+                    'titl',
+                    'titl_sub',
+                    'kid',
+                    'img_file',
+                    'img_expl',
+                    'is_input_phase_showed',
+                    'is_voting_phase_showed',
+                    'is_followup_phase_showed',
+                ]
             )
             ->setIntegrityCheck(false)
             ->joinLeft(
@@ -436,9 +445,9 @@ class Model_Consultations extends Dbjr_Db_Table_Abstract
                     'titl_sub' => $consultation['titl_sub'],
                     'img_file' => $consultation['img_file'],
                     'img_expl' => $consultation['img_expl'],
-                    'inp_show' => $consultation['inp_show'],
-                    'vot_show' => $consultation['vot_show'],
-                    'follup_show' => $consultation['follup_show'],
+                    'is_input_phase_showed' => $consultation['is_input_phase_showed'],
+                    'is_voting_phase_showed' => $consultation['is_voting_phase_showed'],
+                    'is_followup_phase_showed' => $consultation['is_followup_phase_showed'],
                     'questionIds' => [],
                 ];
             }
