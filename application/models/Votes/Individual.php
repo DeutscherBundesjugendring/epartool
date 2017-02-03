@@ -6,8 +6,13 @@
 class Model_Votes_Individual extends Dbjr_Db_Table_Abstract
 {
     protected $_name = 'vt_indiv';
+    protected $_primary = ['uid', 'tid', 'sub_uid'];
 
-    private $allowedStatus = ['v', 's', 'c'];
+    private $allowedStatus = [
+        Service_Voting::STATUS_VOTED,
+        Service_Voting::STATUS_SKIPPED,
+        Service_Voting::STATUS_CONFIRMED,
+    ];
 
     /**
      * get the last vote of an subuser
@@ -23,7 +28,7 @@ class Model_Votes_Individual extends Dbjr_Db_Table_Abstract
 
         $select = $this->select();
         $select->where('sub_uid LIKE ?', $subuid);
-        $select->where('status = ?', 'v');
+        $select->where('status = ?', Service_Voting::STATUS_VOTED);
         $select->order('upd DESC');
         $select->limit(1);
 
@@ -112,7 +117,7 @@ class Model_Votes_Individual extends Dbjr_Db_Table_Abstract
                 'sub_uid' => $subUid,
                 'pts' => $pts,
                 'is_pimp' => $pimp,
-                'status'=>'v',
+                'status' => Service_Voting::STATUS_VOTED,
                 'confirmation_hash' => $confirmationHash,
                 'upd' =>new Zend_Db_Expr('NOW()'),
             ]);
@@ -178,8 +183,8 @@ class Model_Votes_Individual extends Dbjr_Db_Table_Abstract
                     ['is_member']
                 )
                 ->where('vi.tid = ?', $tid)
-                ->where('vi.status = ?', 'c')
                 ->where('vg.is_member = ?', true)
+                ->where('vi.status = ?', Service_Voting::STATUS_CONFIRMED)
                 ->where('vi.pts < ?', Service_Voting::POINTS_MAX)
         )->fetchAll();
         $cast = count($indiv_votes);
@@ -190,7 +195,7 @@ class Model_Votes_Individual extends Dbjr_Db_Table_Abstract
                     $this->select()->from($this->_name, new Zend_Db_Expr('COUNT(*) AS count'))
                         ->where('tid = ?', $tid)
                         ->where('pts < ?', Service_Voting::POINTS_MAX)
-                        ->where('status = ?', 'c')
+                        ->where('status = ?', Service_Voting::STATUS_CONFIRMED)
                         ->where('uid = ?', $indiv_vote['uid'])
                 );
                 $votesRights = (new Model_Votes_Rights())->find($kid, $indiv_vote['uid'])->current();
@@ -303,7 +308,7 @@ class Model_Votes_Individual extends Dbjr_Db_Table_Abstract
         $db = $this->getAdapter();
 
         $data = ['status' => $status, 'upd' => new Zend_Db_Expr('NOW()')];
-        if ($status === 'c') {
+        if ($status === Service_Voting::STATUS_CONFIRMED) {
             $data['confirmation_hash'] = null;
         }
         $where = ['confirmation_hash = ?' => $hash];
@@ -503,7 +508,7 @@ class Model_Votes_Individual extends Dbjr_Db_Table_Abstract
                 'sub_uid' => $subuid,
                 'pts' => $values['pts'],
                 'is_pimp' => $values['is_pimp'],
-                'status'=>'v',
+                'status'=> Service_Voting::STATUS_VOTED,
                 'upd' =>new Zend_Db_Expr('NOW()')
             );
             $row = $this->createRow($data);
@@ -624,7 +629,7 @@ class Model_Votes_Individual extends Dbjr_Db_Table_Abstract
                 'v.sub_uid = vg.sub_uid AND v.uid = vg.uid AND c.kid = vg.kid',
                 ['sub_user', 'is_member', 'reminders_sent']
             )
-            ->where('status = ?', 'v');
+            ->where('status = ?', Service_Voting::STATUS_VOTED);
 
         foreach ($where as $cond => $val) {
             $q->where($cond, $val);

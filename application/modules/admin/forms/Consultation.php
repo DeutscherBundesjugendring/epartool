@@ -237,7 +237,7 @@ class Admin_Form_Consultation extends Dbjr_Form_Admin
         foreach ($admins as $admin) {
             $options[$admin->uid] = $admin->email;
         }
-        $admin = $this->createElement('select', 'adm');
+        $admin = $this->createElement('select', Model_Users::ROLE_ADMIN);
         $admin
             ->setLabel('Responsible administrator')
             ->setRequired(true)

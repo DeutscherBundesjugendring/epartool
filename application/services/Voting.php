@@ -3,9 +3,9 @@
 class Service_Voting
 {
 
-    const STATUS_CONFIRMED = 'c';
-    const STATUS_VOTED = 'v';
-    const STATUS_SKIPPED = 's';
+    const STATUS_CONFIRMED = 'confirmed';
+    const STATUS_VOTED = 'voted';
+    const STATUS_SKIPPED = 'skipped';
 
     const POINTS_MIN = 0;
     const POINTS_MAX = 4;
@@ -143,7 +143,12 @@ class Service_Voting
         $userConfirmationEmailSent = false;
         if ($group['sub_user'] === $groupLeader['email']) {
             if ($auth->hasIdentity() && $auth->getIdentity()->email === $group['sub_user']) {
-                $modelVotesIndividual->setStatusForSubuser($confirmationHash, 'c', 'v');
+
+                $modelVotesIndividual->setStatusForSubuser(
+                    $confirmationHash,
+                    Service_Voting::STATUS_CONFIRMED,
+                    Service_Voting::STATUS_VOTED
+                );
                 $modelVotesGroups->update(['is_member' => true], [
                     'uid = ?' => $voteWithDependencies['uid'],
                     'sub_uid = ?' => $voteWithDependencies['sub_uid'],
@@ -155,7 +160,12 @@ class Service_Voting
             }
         } else {
             if ($auth->getIdentity() && $group['sub_user'] === $auth->getIdentity()->email) {
-                $modelVotesIndividual->setStatusForSubuser($confirmationHash, 'c', 'v');
+
+                $modelVotesIndividual->setStatusForSubuser(
+                    $confirmationHash,
+                    Service_Voting::STATUS_CONFIRMED,
+                    Service_Voting::STATUS_VOTED
+                );
                 if ($group['is_member'] === null) {
                     $this->sendUserConfirmationEmail($voteWithDependencies, $group->toArray());
                 }

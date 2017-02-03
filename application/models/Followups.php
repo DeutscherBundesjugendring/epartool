@@ -2,6 +2,12 @@
 
 class Model_Followups extends Zend_Db_Table_Abstract
 {
+    const TYPE_GENERAL = 'general';
+    const TYPE_SUPPORTING = 'supporting';
+    const TYPE_ACTION = 'action';
+    const TYPE_REJECTION = 'rejected';
+    const TYPE_END = 'end';
+
     protected $_name = 'fowups';
     protected $_primary = 'fid';
 
@@ -12,14 +18,6 @@ class Model_Followups extends Zend_Db_Table_Abstract
         'columns' => 'ffid', 'refTableClass' => 'Model_FollowupFiles', 'refColumns' => 'ffid'
       )
     );
-
-    private static $_types = [
-        'g' => 'general',
-        's' => 'supporting',
-        'a' => 'action',
-        'r' => 'rejected',
-        'e' => 'end'
-    ];
 
     private static $_hierarchyLevels = [
         "Fußnote",
@@ -32,7 +30,13 @@ class Model_Followups extends Zend_Db_Table_Abstract
     ];
 
     public static function getTypes() {
-        return self::$_types;
+        return [
+            self::TYPE_GENERAL => self::TYPE_GENERAL,
+            self::TYPE_SUPPORTING => self::TYPE_SUPPORTING,
+            self::TYPE_ACTION => self::TYPE_ACTION,
+            self::TYPE_REJECTION => self::TYPE_REJECTION,
+            self::TYPE_END => self::TYPE_END,
+        ];
     }
 
     public static function getHierarchyLevels() {

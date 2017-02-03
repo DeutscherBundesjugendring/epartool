@@ -930,7 +930,7 @@ ADD `video_enabled` tinyint(1) NOT NULL DEFAULT '0';
 
 ALTER TABLE `inpt`
 ADD `video_service` varchar(191) NULL,
-ADD `video_id` varchar(191) NULL AFTER `video_service`;
+ADD `video_id` varchar(255) NULL AFTER `video_service`;
 
 -- Migration 2016-05-19-12-27_DBJR-609.sql
 ALTER TABLE `cnslt`
@@ -1589,3 +1589,63 @@ ALTER TABLE `vt_final` CHANGE `fowups` `is_followups` tinyint(1) NULL;
 ALTER TABLE `vt_grps` CHANGE `member` `is_member` tinyint(1) NULL;
 ALTER TABLE `vt_indiv` CHANGE `pimp` `is_pimp` tinyint(1) NULL;
 ALTER TABLE `vt_settings` CHANGE `btn_important` `is_btn_important` tinyint(1) NULL;
+
+-- Migration 20170130083602_dbjr1078.php
+CREATE TABLE `article_type` (`name` varchar(191) NOT NULL) ENGINE='InnoDB';
+ALTER TABLE `article_type` ADD PRIMARY KEY `pk_name` (`name`);
+INSERT INTO `article_type` VALUES ('global'), ('consultation');
+ALTER TABLE `articles_refnm` CHANGE `type` `type` varchar(191) NULL DEFAULT 'global';
+UPDATE `articles_refnm` SET `type` = 'global' WHERE `type` = 'g';
+UPDATE `articles_refnm` SET `type` = 'consultation' WHERE `type` = 'b';
+UPDATE `articles_refnm` SET `type` = NULL WHERE `type` = '';
+ALTER TABLE `articles_refnm` CHANGE `type` `type` varchar(191) NULL, ADD FOREIGN KEY (`type`) REFERENCES `article_type` (`name`) ON DELETE RESTRICT;
+CREATE TABLE `article_scope` (`name` varchar(191) NOT NULL) ENGINE='InnoDB';
+ALTER TABLE `article_scope` ADD PRIMARY KEY `pk_name` (`name`);
+INSERT INTO `article_scope` VALUES ('none'), ('info'), ('voting'), ('followup'), ('static');
+ALTER TABLE `articles_refnm` CHANGE `scope` `scope` varchar(191) NULL DEFAULT 'none';
+UPDATE `articles_refnm` SET `scope` = NULL WHERE `scope` = '';
+ALTER TABLE `articles_refnm` CHANGE `scope` `scope` varchar(191) NULL, ADD FOREIGN KEY (`scope`) REFERENCES `article_scope` (`name`) ON DELETE RESTRICT;
+CREATE TABLE `email_recipient_type` (`name` varchar(191) NOT NULL) ENGINE='InnoDB';
+ALTER TABLE `email_recipient_type` ADD PRIMARY KEY `pk_name` (`name`);
+INSERT INTO `email_recipient_type` VALUES ('to'), ('cc'), ('bcc');
+ALTER TABLE `email_recipient` CHANGE `type` `type` varchar(191) NULL;
+UPDATE `email_recipient` SET `type` = NULL WHERE `type` = '';
+ALTER TABLE `email_recipient` CHANGE `type` `type` varchar(191) NULL, ADD FOREIGN KEY (`type`) REFERENCES `email_recipient_type` (`name`) ON DELETE RESTRICT;
+CREATE TABLE `fowups_type` (`name` varchar(191) NOT NULL) ENGINE='InnoDB';
+ALTER TABLE `fowups_type` ADD PRIMARY KEY `pk_name` (`name`);
+INSERT INTO `fowups_type` VALUES ('general'), ('supporting'), ('action'), ('rejected'), ('end');
+ALTER TABLE `fowups` CHANGE `typ` `typ` varchar(191) NULL;
+UPDATE `fowups` SET `typ` = 'general' WHERE `typ` = 'g';
+UPDATE `fowups` SET `typ` = 'supporting' WHERE `typ` = 's';
+UPDATE `fowups` SET `typ` = 'action' WHERE `typ` = 'a';
+UPDATE `fowups` SET `typ` = 'rejected' WHERE `typ` = 'r';
+UPDATE `fowups` SET `typ` = 'end' WHERE `typ` = 'e';
+UPDATE `fowups` SET `typ` = NULL WHERE `typ` = '';
+ALTER TABLE `fowups` CHANGE `typ` `typ` varchar(191) NULL DEFAULT 'general', ADD FOREIGN KEY (`typ`) REFERENCES `fowups_type` (`name`) ON DELETE RESTRICT;
+ALTER TABLE `users` CHANGE `lvl` `role` varchar(191) COLLATE 'utf8mb4_unicode_ci' NULL AFTER `cmnt`;
+CREATE TABLE `users_role` (`name` varchar(191) NOT NULL) ENGINE='InnoDB';
+ALTER TABLE `users_role` ADD PRIMARY KEY `pk_name` (`name`);
+INSERT INTO `users_role` VALUES ('user'), ('admin'), ('editor');
+ALTER TABLE `users` CHANGE `role` `role` varchar(191) NULL;
+UPDATE `users` SET `role` = 'user' WHERE `role` = 'usr';
+UPDATE `users` SET `role` = 'admin' WHERE `role` = 'adm';
+UPDATE `users` SET `role` = 'editor' WHERE `role` = 'edt';
+UPDATE `users` SET `role` = NULL WHERE `role` = '';
+ALTER TABLE `users` CHANGE `role` `role` varchar(191) NULL DEFAULT 'user', ADD FOREIGN KEY (`role`) REFERENCES `users_role` (`name`) ON DELETE RESTRICT;
+CREATE TABLE `contribution_type` (`name` varchar(191) NOT NULL) ENGINE='InnoDB';
+ALTER TABLE `contribution_type` ADD PRIMARY KEY `pk_name` (`name`);
+INSERT INTO `contribution_type` VALUES ('from_discussion'), ('f'), ('l'), ('bp');
+ALTER TABLE `inpt` CHANGE `typ` `type` varchar(191) NULL;
+UPDATE `inpt` SET `typ` = 'from_discussion' WHERE `typ` = 'p';
+UPDATE `inpt` SET `typ` = NULL WHERE `typ` = '';
+ALTER TABLE `inpt` CHANGE `type` `type` varchar(191) NULL, ADD FOREIGN KEY (`typ`) REFERENCES `contribution_type` (`name`) ON DELETE RESTRICT;
+CREATE TABLE `vt_indiv_status` (`name` varchar(191) NOT NULL) ENGINE='InnoDB';
+ALTER TABLE `vt_indiv_status` ADD PRIMARY KEY `pk_name` (`name`);
+INSERT INTO `vt_indiv_status` VALUES ('voted'), ('skipped'), ('confirmed');
+ALTER TABLE `vt_indiv` CHANGE `status` `status` varchar(191) NULL;
+UPDATE `vt_indiv` SET `status` = 'voted' WHERE `status` = 'v';
+UPDATE `vt_indiv` SET `status` = 'skipped' WHERE `status` = 's';
+UPDATE `vt_indiv` SET `status` = 'confirmed' WHERE `status` = 'c';
+UPDATE `vt_indiv` SET `status` = NULL WHERE `status` = '';
+ALTER TABLE `vt_indiv` CHANGE `status` `status` varchar(191) NULL, ADD FOREIGN KEY (`status`) REFERENCES `vt_indiv_status` (`name`) ON DELETE RESTRICT;
+ALTER TABLE `vt_settings` CHANGE `btn_numbers` `btn_numbers` int(11) NULL DEFAULT 3;

@@ -44,7 +44,7 @@
                         <?=$this->translate('My Subscriptions');?>
                     </a>
                 </li>
-                <?php if ($this->user->lvl == 'adm' || $this->user->lvl == 'edt'): ?>
+                <?php if ($this->user->role === Model_Users::ROLE_ADMIN || $this->user->role === Model_Users::ROLE_EDITOR): ?>
                     <li class="divider"></li>
                     <li>
                         <a href="<?=$this->url(['module' => 'admin', 'controller' => 'index'], 'default', true);?>" target="_blank">

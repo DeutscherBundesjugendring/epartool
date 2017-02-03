@@ -3,6 +3,8 @@
 class Model_Inputs extends Dbjr_Db_Table_Abstract
 {
     const ERROR_CODE_DUPLICATE_ENTRY = 23000;
+    const TYPE_FROM_DISCUSSION = 'from_discussion';
+
     protected $_name = 'inpt';
     protected $_primary = 'tid';
 

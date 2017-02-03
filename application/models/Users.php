@@ -2,6 +2,11 @@
 
 class Model_Users extends Dbjr_Db_Table_Abstract
 {
+    const ROLE_GUEST = 'guest';
+    const ROLE_ADMIN = 'admin';
+    const ROLE_EDITOR = 'editor';
+    const ROLE_USER = 'user';
+
     protected $_name = 'users';
     protected $_primary = 'uid';
     protected $_dependentTables = array(
@@ -175,7 +180,7 @@ class Model_Users extends Dbjr_Db_Table_Abstract
      */
     public function getAdmins()
     {
-        $select = $this->select()->where('lvl = ?', 'adm')->order('name');
+        $select = $this->select()->where('role = ?', Model_Users::ROLE_ADMIN)->order('name');
 
         return $this->fetchAll($select);
     }

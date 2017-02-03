@@ -93,7 +93,7 @@
                                                         <span class="glyphicon glyphicon-option-vertical" aria-hidden="true"></span>
                                                     </button>
                                                     <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="itemOptions-<?=$group['uid']?>-<?=$group['sub_uid']?>-<?=$group['kid']?>">
-                                                        <?php if (($group['member'] == "n" && $identity->lvl == "adm") || ($group['member'] == "u" && $identity->lvl == "adm")): ?>
+                                                        <?php if (($group['member'] == "n" && $identity->role === Model_Users::ROLE_ADMIN) || ($group['member'] == "u" && $identity->role === Model_Users::ROLE_ADMIN)): ?>
                                                             <li>
                                                                 <button
                                                                 value="<?=$this->escape($group['uid']);?>_<?=$this->escape($group['sub_uid']);?>"
@@ -110,7 +110,7 @@
                                                                 </button>
                                                             </li>
                                                         <?php endif; ?>
-                                                        <?php if (($group['member'] == "y" && $identity->lvl == "adm") || $group['member'] == "u"): ?>
+                                                        <?php if (($group['member'] == "y" && $identity->role === Model_Users::ROLE_ADMIN) || $group['member'] == "u"): ?>
                                                             <li>
                                                                 <button
                                                                     value="<?=$this->escape($group['uid']);?>_<?=$this->escape($group['sub_uid']);?>"
@@ -127,7 +127,7 @@
                                                                 </button>
                                                             </li>
                                                         <?php endif; ?>
-                                                        <?php if ($group['member'] == "n" && $identity->lvl == "adm"): ?>
+                                                        <?php if ($group['member'] == "n" && $identity->role === Model_Users::ROLE_ADMIN): ?>
                                                             <li>
                                                                 <button
                                                                     value="<?=$this->escape($group['uid']);?>_<?=$this->escape($group['sub_uid']);?>"

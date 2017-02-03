@@ -39,18 +39,18 @@ class Admin_Form_User_Edit extends Dbjr_Form_Admin
             ->addValidator('EmailAddress');
         $this->addElement($email);
 
-        $role = $this->createElement('select', 'lvl');
+        $role = $this->createElement('select', 'role');
         $role
             ->setLabel('Role')
             ->setRequired(true)
             ->setMultiOptions(
                 [
-                    'usr' => $translator->translate('User'),
-                    'edt' => $translator->translate('Editor'),
-                    'adm' => $translator->translate('Admin'),
+                    Model_Users::ROLE_USER => $translator->translate('User'),
+                    Model_Users::ROLE_EDITOR => $translator->translate('Editor'),
+                    Model_Users::ROLE_ADMIN => $translator->translate('Admin'),
                 ]
             )
-            ->setValue('usr');
+            ->setValue(Model_Users::ROLE_USER);
         $this->addElement($role);
 
         $block = $this->createElement('select', 'is_confirmed');

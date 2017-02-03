@@ -245,7 +245,7 @@ class Model_Articles extends Dbjr_Db_Table_Abstract
      */
     public function getStaticPages()
     {
-        return $this->getByConsultation(null, 'static');
+        return $this->getByConsultation(null, Model_ArticleRefNames::SCOPE_STATIC);
     }
 
     /**

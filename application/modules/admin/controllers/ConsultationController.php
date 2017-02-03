@@ -303,7 +303,7 @@ class Admin_ConsultationController extends Zend_Controller_Action
 
         // Validation userlevel
         $current_user = Zend_Auth::getInstance()->getIdentity();
-        if ($current_user->lvl !== 'adm') {
+        if ($current_user->role !== Model_Users::ROLE_ADMIN) {
             $return['success'] = false;
             $return['message'] = 'Consultation invalid.';
         }

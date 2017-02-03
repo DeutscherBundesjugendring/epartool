@@ -2,7 +2,7 @@
 
 class Module_Default_View_Helper_ArticleNavigation extends Zend_View_Helper_Abstract
 {
-    public function articleNavigation($activeItem = null, $scope = 'info')
+    public function articleNavigation($activeItem = null, $scope = Model_ArticleRefNames::SCOPE_INFO)
     {
         $con = $this->view->consultation;
         $articleModel = new Model_Articles();
@@ -10,7 +10,7 @@ class Module_Default_View_Helper_ArticleNavigation extends Zend_View_Helper_Abst
         if ($con) {
             $items = $articleModel->getByConsultation($con->kid, $scope);
         } else {
-            $scope = 'static';
+            $scope = Model_ArticleRefNames::SCOPE_STATIC;
             $items = $articleModel->getStaticPages();
         }
 
@@ -24,7 +24,7 @@ class Module_Default_View_Helper_ArticleNavigation extends Zend_View_Helper_Abst
             }
 
             switch ($scope) {
-                case 'static':
+                case Model_ArticleRefNames::SCOPE_STATIC:
                     $route = $item['ref_nm'];
                     break;
 

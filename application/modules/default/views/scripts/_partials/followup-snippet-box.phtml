@@ -3,11 +3,11 @@
     data-href="<?=$this->url(['action' => 'json', 'ffid' => (int) $this->snippet['ffid'], 'fid' => null, 'tid' => null, 'page' => null]);?>"
     data-fid="<?=$this->snippet['fid'];?>"
 >
-    <div class="well well-bordered followup-well followup-well-link<?=$this->snippet['typ'] !== 'g' ? ' has-typ-overlay' : '';?>">
+    <div class="well well-bordered followup-well followup-well-link<?=$this->snippet['type'] !== Model_Followups::TYPE_GENERAL ? ' has-typ-overlay' : '';?>">
 
-        <?php if ($this->snippet['typ'] !== 'g'): ?>
-            <div class="followup-typ edge-left followup-typ-<?=$this->snippet['typ'];?>"></div>
-            <div class="followup-typ gfx-who-overlay followup-typ-<?=$this->snippet['typ'];?>"></div>
+        <?php if ($this->snippet['type'] !== Model_Followups::TYPE_GENERAL): ?>
+            <div class="followup-typ edge-left followup-typ-<?=$this->snippet['type'];?>"></div>
+            <div class="followup-typ gfx-who-overlay followup-typ-<?=$this->snippet['type'];?>"></div>
         <?php endif; ?>
 
         <img src="<?=$this->snippet['gfx_who'];?>" width="80" class="followup-timeline-box-image" alt="" />
