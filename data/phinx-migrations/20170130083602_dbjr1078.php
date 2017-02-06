@@ -95,7 +95,7 @@ class Dbjr1078 extends AbstractMigration
 
         $this->execute(
             "ALTER TABLE " . $qTable . " CHANGE " . $qColumn . " " . $qColumn . " " . $PKColumnType . " NULL"
-            . ($default !== null ? (" DEFAULT " . $default) : "")
+            . ($default !== null ? (" DEFAULT '" . $default . "'") : "")
         );
 
         foreach ($enumValues as $key => $value) {
