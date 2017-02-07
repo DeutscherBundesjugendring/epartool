@@ -6,6 +6,8 @@ use PDO;
 
 class Db {
 
+    const CRYPT_COST = 10;
+
     private $pdo;
 
     /**
@@ -24,24 +26,39 @@ class Db {
      * @param string $sqlPath
      * @param string $adminName
      * @param string $adminEmail
+     * @param string $adminPassword
+     * @param string $locale
+     * @throws \Exception
      */
-    public function initDb($sqlPath, $adminName, $adminEmail, $locale)
+    public function initDb($sqlPath, $adminName, $adminEmail, $adminPassword, $locale)
     {
         $this->execSql(sprintf(
-            'ALTER DATABASE `%s` DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci',
+            'ALTER DATABASE `%s` DEFAULT CHARACTER SET utf8mb4 DEFAULT COLLATE utf8mb4_general_ci',
             $_POST['dbName']
         ));
+
         $this->execSql(file_get_contents(realpath($sqlPath . '/create-installation.sql')));
         $this->execSql(file_get_contents(realpath($sqlPath . '/create-project-de.sql')));
         $this->execSql(file_get_contents(realpath($sqlPath . '/create-sample-data-de.sql')));
         $this->execStatement(
-            "INSERT INTO `users` (`name`, `email`, `password`, `lvl`) VALUES (:name, :email, 1, 'adm');",
-            [':name' => $adminName, ':email' => $adminEmail]
+            "INSERT INTO `users` (`name`, `email`, `password`, `role`) VALUES (:name, :email, :password, 'admin');",
+            [':name' => $adminName, ':email' => $adminEmail, ':password' => $this->encryptPassword($adminPassword)]
         );
         $this->execStatement(
             "UPDATE `proj` SET `locale` = :locale;",
             [':locale' => $locale]
         );
+    }
+
+    /**
+     * @param string $password
+     * @return string
+     */
+    private function encryptPassword($password)
+    {
+        $salt = '$2y$' . self::CRYPT_COST . '$' . bin2hex(openssl_random_pseudo_bytes(22));
+
+        return crypt($password, $salt);
     }
 
     /**

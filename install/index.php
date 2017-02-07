@@ -72,7 +72,7 @@ if (!empty($_POST)) {
     if ($form->isValid($_POST)) {
         try {
             $db = new Db($_POST['dbName'], $_POST['dbHost'], $_POST['dbUsername'], $_POST['dbPass']);
-            $db->initDb($sqlPath, $_POST['adminName'], $_POST['adminEmail'], $_POST['locale']);
+            $db->initDb($sqlPath, $_POST['adminName'], $_POST['adminEmail'], $_POST['adminPassword'], $_POST['locale']);
 
             $config = new Config(new Zend_Config_Writer_Ini(), $configPath);
             $config->writeConfigLocalIni(
