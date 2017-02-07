@@ -26,6 +26,10 @@ class Dbjr1078 extends AbstractMigration
             null,
             ['to','cc','bcc']
         );
+
+        $this->execute(
+            "ALTER TABLE `fowups` CHANGE `typ` `type` varchar(191) COLLATE 'utf8mb4_unicode_ci' NULL"
+        );
         $this->migrate('fowups', 'type', 'fowups_type', 'name', 'varchar(191)', 'general', [
             'g' => 'general',
             's' => 'supporting',
@@ -42,6 +46,10 @@ class Dbjr1078 extends AbstractMigration
             'adm' => 'admin',
             'edt' => 'editor',
         ]);
+
+        $this->execute(
+            "ALTER TABLE `inpt` CHANGE `typ` `type` varchar(191) COLLATE 'utf8mb4_unicode_ci' NULL"
+        );
         $this->migrate('inpt', 'type', 'contribution_type', 'name', 'varchar(191)', null, [
             'p' => 'from_discussion',
             'f',
@@ -94,8 +102,8 @@ class Dbjr1078 extends AbstractMigration
         $this->execute("INSERT INTO " . $qEnumTable . " VALUES " . $this->getValuesStatementPart($enumValues));
 
         $this->execute(
-            "ALTER TABLE " . $qTable . " CHANGE " . $qColumn . " " . $qColumn . " " . $PKColumnType . " NULL"
-            . ($default !== null ? (" DEFAULT '" . $default . "'") : "")
+            "ALTER TABLE " . $qTable . " CHANGE " . $qColumn . " " . $qColumn . " " . $PKColumnType
+            . " COLLATE 'utf8mb4_general_ci' NULL" . ($default !== null ? (" DEFAULT '" . $default . "'") : "")
         );
 
         foreach ($enumValues as $key => $value) {

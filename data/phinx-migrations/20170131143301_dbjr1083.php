@@ -950,7 +950,7 @@ class Dbjr1083 extends AbstractMigration
         ],
         'users' => [
             'is_confirmed' => null,
-            'is_subscribed_newsletter' => false,
+            'is_subscribed_newsletter' => 0,
         ],
         'user_info' => ['is_receiving_consultation_results' => 1],
         'vt_final' => ['is_followups' => 0],
