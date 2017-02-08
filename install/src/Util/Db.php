@@ -33,7 +33,7 @@ class Db {
     public function initDb($sqlPath, $adminName, $adminEmail, $adminPassword, $locale)
     {
         $this->execSql(sprintf(
-            'ALTER DATABASE `%s` DEFAULT CHARACTER SET utf8mb4 DEFAULT COLLATE utf8mb4_general_ci',
+            'ALTER DATABASE `%s` DEFAULT CHARACTER SET utf8mb4 DEFAULT COLLATE utf8mb4_unicode_ci',
             $_POST['dbName']
         ));
 
