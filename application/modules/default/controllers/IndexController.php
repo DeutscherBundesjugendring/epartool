@@ -48,7 +48,6 @@ class IndexController extends Zend_Controller_Action
             $filterChain = new Zend_Filter();
             $filterChain->appendFilter(new Zend_Filter_StringTrim());
             $filterChain->appendFilter(new Zend_Filter_StringToLower(array('encoding' => 'UTF-8')));
-            $filterChain->appendFilter(new Zend_Filter_HtmlEntities());
             $needle = $filterChain->filter($needle);
 
             $articles = new Model_Articles();

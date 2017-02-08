@@ -228,7 +228,6 @@ class Model_Followups extends Zend_Db_Table_Abstract
      */
     public function search($needle)
     {
-        $needle = htmlentities($needle);
         $result = array();
         if ($needle !== '') {
             $result = $this

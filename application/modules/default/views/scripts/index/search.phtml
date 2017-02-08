@@ -107,7 +107,7 @@
                                 <h3 class="followup-title"><?=$this->escape($followUp['title']);?></h3>
                             </a>
                             <time class="followup-time">
-                                <?php if ($followUp['showNoDay'] == 'y'): ?>
+                                <?php if ($followUp['isOnlyMonthYearShowed']): ?>
                                     <?php echo $this->formatDate($followUp['timeReleased'], Zend_Date::MONTH_NAME . ' ' . Zend_Date::YEAR)?>
                                 <?php else:?>
                                     <?php echo $this->formatDate($followUp['timeReleased'])?>
@@ -120,7 +120,7 @@
                                 <?php foreach ($followUp['snippets'] as $snippet): ?>
                                     <li class="level-<?php echo $snippet['hierarchyLevel']?>">
                                         <p class="followup-snippet">
-                                            <?=$this->escape($snippet['text']);?>
+                                            <?=$this->wysiwyg($snippet['text']);?>
                                         </p>
                                     </li>
                                 <?php endforeach?>
