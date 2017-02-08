@@ -196,19 +196,22 @@ class Model_Articles extends Dbjr_Db_Table_Abstract
      * @param integer $limit
      * @return array
      */
-    public function search($needle, $consultationId = 0, $limit = 30)
+    public function search($needle, $consultationId = null, $limit = 30)
     {
         $result = [];
-        if ($needle !== '' && is_int($consultationId) && is_int($limit)) {
+        if ($needle !== '' && is_int($limit)) {
             $select = $this->select();
             $select->from(['ar'=>'articles'], ['art_id', 'desc', 'ref_nm']);
-            $select->where('LOWER(ar.artcl) LIKE ?', '%'.htmlentities($needle).'%');
+            $select->where('LOWER(ar.artcl) LIKE ?', '%'.$needle.'%');
             // if no consultation is set, search in general articles
-            $select->where('ar.kid = ?', $consultationId);
+            if ($consultationId > 0) {
+                $select->where('ar.kid = ?', $consultationId);
+            } else {
+                $select->where('ar.kid IS NULL');
+            }
+
             $select->limit($limit);
-
             $result = $this->fetchAll($select)->toArray();
-
         }
 
         return $result;
