@@ -25,18 +25,6 @@ class Admin_Form_Voting_Settings extends Dbjr_Form_Admin
             ->setRequired(true);
         $this->addElement($buttonLabels);
 
-        $buttonImportant = $this->createElement('radio', 'is_btn_important');
-        $buttonImportant
-            ->setLabel('Superbutton')
-            ->setRequired(true)
-            ->setMultiOptions(
-                [
-                    'y' => $translator->translate('Enable'),
-                    'n' => $translator->translate('Disable'),
-                ]
-            );
-        $this->addElement($buttonImportant);
-
         $buttonNoOpinion = $this->createElement('radio', 'btn_no_opinion');
         $buttonNoOpinion
             ->setLabel('No Opinion')
@@ -48,6 +36,18 @@ class Admin_Form_Voting_Settings extends Dbjr_Form_Admin
                 ]
             );
         $this->addElement($buttonNoOpinion);
+
+        $buttonImportant = $this->createElement('radio', 'is_btn_important');
+        $buttonImportant
+            ->setLabel('Superbutton')
+            ->setRequired(true)
+            ->setMultiOptions(
+                [
+                    'y' => $translator->translate('Enable'),
+                    'n' => $translator->translate('Disable'),
+                ]
+            );
+        $this->addElement($buttonImportant);
 
         $buttonImportantLabel = $this->createElement('text', 'btn_important_label');
         $buttonImportantLabel->setLabel('Superbutton label');

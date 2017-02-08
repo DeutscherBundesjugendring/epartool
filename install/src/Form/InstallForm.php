@@ -141,7 +141,7 @@ class InstallForm extends Dbjr_Form_Web
         $this->addElement($emailSmtpPass);
 
         $this->addDisplayGroup(
-            ['emailSmtpAuth', 'emailSmtpPort', 'emailSmtpSsl', 'emailSmtpHost', 'emailSmtpPass', 'emailSmtpUserName'],
+            ['emailSmtpAuth', 'emailSmtpPort', 'emailSmtpSsl', 'emailSmtpHost', 'emailSmtpUserName', 'emailSmtpPass'],
             'smtpSettings',
             ['legend' => $trans->translate('Smtp Settings (If unsure, leave blank)'), 'class' => 'offset-bottom']
         );
@@ -231,7 +231,7 @@ class InstallForm extends Dbjr_Form_Web
         $this->addElement($adminPassword);
 
         $this->addDisplayGroup(
-            ['adminName', 'adminEmail', 'adminPassword'],
+            ['adminEmail', 'adminName', 'adminPassword'],
             'adminSettings',
             ['legend' => $trans->translate('Administrator'), 'class' => 'offset-bottom']
         );
