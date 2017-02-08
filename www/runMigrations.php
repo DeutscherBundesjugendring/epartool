@@ -28,7 +28,7 @@ class BufferedOutput extends Output
     }
 }
 
-$input = new \Symfony\Component\Console\Input\StringInput('migrate -c ../application/configs/phinx.local.yml');
+$input = new \Symfony\Component\Console\Input\StringInput('migrate -c ../application/configs/phinx.local.yml -e production');
 $output = new BufferedOutput;
 
 $app = new Phinx\Console\PhinxApplication();
