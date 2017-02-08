@@ -224,8 +224,14 @@ class InstallForm extends Dbjr_Form_Web
             ->setRequired(true);
         $this->addElement($adminEmail);
 
+        $adminPassword = $this->createElement('password', 'adminPassword');
+        $adminPassword
+            ->setLabel('Password')
+            ->setRequired(true);
+        $this->addElement($adminPassword);
+
         $this->addDisplayGroup(
-            ['adminEmail', 'adminName'],
+            ['adminEmail', 'adminName', 'adminPassword'],
             'adminSettings',
             ['legend' => $trans->translate('Administrator'), 'class' => 'offset-bottom']
         );
