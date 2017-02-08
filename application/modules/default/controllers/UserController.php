@@ -111,7 +111,13 @@ class UserController extends Zend_Controller_Action
                         unset($data['kid']);
                         unset($data['is_contrib_under_cc']);
                         unset($data['csrf_token_register']);
+                        $ageGroup = (new Model_ContributorAge())->find($data['age_group'])->current();
                         unset($data['age_group']);
+                        if ($ageGroup) {
+                            $data['age_group_from'] = $ageGroup['from'];
+                            $data['age_group_to'] = $ageGroup['to'];
+                        }
+
                         if (isset($data['group_specs'])) {
                             $data = array_merge($data, $data['group_specs']);
                             unset($data['group_specs']);
