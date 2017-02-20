@@ -4,14 +4,14 @@ FROM            php:5.6-fpm
 ########################
 # Install dependencies #
 ########################
-RUN             apt-get update && apt-get install -y \
+RUN             apt-get update && apt-get install -y --no-install-recommends \
                     libpng12-dev \
-                    libjpeg-dev
-RUN             docker-php-ext-install pdo_mysql
-RUN             docker-php-ext-configure gd --with-jpeg-dir=/usr/
-RUN             docker-php-ext-install gd
-RUN             docker-php-ext-install mbstring
-RUN             pecl install xdebug
+                    libjpeg-dev \
+                && docker-php-ext-install pdo_mysql \
+                && docker-php-ext-configure gd --with-jpeg-dir=/usr/ \
+                && docker-php-ext-install gd \
+                && docker-php-ext-install mbstring \
+                && pecl install xdebug
 
 
 ####################
