@@ -9,7 +9,7 @@ class ConsultationController extends Zend_Controller_Action
         $consultations = $consModel->fetchAll(
             $consModel
                 ->select()
-                ->where('public=?', 'y')
+                ->where('is_public = ?', true)
                 ->order('ord DESC')
         );
 
