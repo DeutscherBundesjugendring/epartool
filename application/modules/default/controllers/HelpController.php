@@ -16,7 +16,7 @@ class HelpController extends Zend_Controller_Action
         $isAjax = false;
 
         $dom = new DOMDocument();
-        $dom->loadHTML($helpText['body'], LIBXML_HTML_NOIMPLIED + LIBXML_HTML_NODEFDTD);
+        $dom->loadHTML('<?xml encoding="utf-8" ?>' . $helpText['body'], LIBXML_HTML_NOIMPLIED + LIBXML_HTML_NODEFDTD);
         foreach ($dom->getElementsByTagName('script') as $item) {
           $item->parentNode->removeChild($item);
         }
