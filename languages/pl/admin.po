@@ -1,15 +1,15 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: \n"
-"POT-Creation-Date: 2016-12-14 14:43+0100\n"
-"PO-Revision-Date: 2017-02-16 12:51+0100\n"
+"Project-Id-Version: Dbjr Tool\n"
+"POT-Creation-Date: 2016-12-14 14:41+0100\n"
+"PO-Revision-Date: 2017-01-29 23:45+0100\n"
 "Last-Translator: Martin Bohal <mb@mbohal.cz>\n"
-"Language-Team: \n"
-"Language: fr\n"
+"Language-Team: epartool@dbjr.de\n"
+"Language: pl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.8.9\n"
+"X-Generator: Poedit 1.8.11\n"
 "X-Poedit-KeywordsList: _;translate;setLabel;setLegend;addMessage;"
 "setConfirmMessage;setDescription\n"
 "X-Poedit-Basepath: ../..\n"
@@ -19,104 +19,104 @@ msgstr ""
 
 #: application/models/ContributorAge.php:37
 msgid "all age groups"
-msgstr "tous les groupes d’âge"
+msgstr "Wszystkie grupy wiekowe"
 
 #: application/models/HelpText.php:17
 msgid "Home page help text"
-msgstr "Texte d’aide de la page d’accueil"
+msgstr "Strona główna"
 
 #: application/models/HelpText.php:18
 msgid "Consultation info help text"
-msgstr "Texte d’aide de l’information sur la participation"
+msgstr "Informacje do poszczególnych rund"
 
 #: application/models/HelpText.php:19
 msgid "Consultation question help text"
-msgstr "Texte d’aide des questions"
+msgstr "Pytania poszczególnych rund"
 
 #: application/models/HelpText.php:20
 msgid "Consultation input help text"
-msgstr "Texte d’aide de la période de contribution"
+msgstr "Faza konsultacji"
 
 #: application/models/HelpText.php:21
 msgid "Consultation voting help text"
-msgstr "Texte d’aide de la période de vote"
+msgstr "Faza głosowania"
 
 #: application/models/HelpText.php:22
 msgid "Consultation reactions & impact help text"
-msgstr "Texte d’aide du suivi"
+msgstr "Reakcje i wpływ"
 
 #: application/models/HelpText.php:23
 msgid "Login help text"
-msgstr "Login text d’aide"
+msgstr "Logowanie"
 
 #: application/models/HelpText.php:25
 msgid "Voting preparation help text"
-msgstr "Texte d’aide des préparations de vote"
+msgstr "Przygotowanie głosowania"
 
 #: application/models/HelpText.php:26
 msgid "Voting permissions help text"
-msgstr "Texte d’aide des permissions de vote"
+msgstr "Uprawnienia do głosowania"
 
 #: application/models/HelpText.php:27
 msgid "Voting invitations help text"
-msgstr "Texte d’aide des invitations de vote"
+msgstr "Zaproszenia do głosowania"
 
 #: application/models/HelpText.php:28
 msgid "Voting participants help text"
-msgstr "Texte d’aide des participants de vote"
+msgstr "Uczestniczący /Uczestnicząca w głosowaniu"
 
 #: application/models/HelpText.php:29
 msgid "Voting results help text"
-msgstr "Texte d’aide des résultats de vote"
+msgstr "Wyniki głosowania"
 
 #: application/models/HelpText.php:30
 msgid "Reactions & Impact help text"
-msgstr "Texte d’aide des réactions et de l’impact"
+msgstr "Reakcje i wpływ"
 
 #: application/models/HelpText.php:31
 msgid "Follow up snippets help text"
-msgstr "Texte d’aide des fragments pour les réactions"
+msgstr "Fragmenty follow-up"
 
 #: application/models/HelpText.php:34
 msgid "Consultation general settings help text"
-msgstr "Texte d’aide des paramètres généraux de la participation"
+msgstr "Ustawienia początkowe rundy"
 
 #: application/models/HelpText.php:36
 msgid "Consultation participant settings help text"
-msgstr "Texte d’aide des paramètres des participants "
+msgstr "Ustawienia uczestniczących w rundzie"
 
 #: application/models/HelpText.php:38
 msgid "Consultation voting settings help text"
-msgstr "Texte d’aide des paramètres de vote pour la participation"
+msgstr "Ustawienia głosowania w rundzie"
 
 #: application/models/HelpText.php:40
 msgid "Consultation phase settings help text"
-msgstr "Texte d’aide des phases de participation"
+msgstr "Fazy rundy"
 
 #: application/models/HelpText.php:42
 msgid "Consultation group settings help text"
-msgstr "Texte d’aide des paramètres de groupe pour la participation "
+msgstr "Ustawienia grup w rundzie"
 
 #: application/models/HelpText.php:44
 msgid "Contribution help text"
-msgstr "Texte d’aide des contributions"
+msgstr "Wpisy"
 
 #: application/models/HelpText.php:45
 msgid "Question help text"
-msgstr "Texte d’aide des questions"
+msgstr "Pytania"
 
 #: application/modules/admin/controllers/ArticleController.php:71
 #: application/modules/admin/controllers/ArticleController.php:138
 msgid "None"
-msgstr "Aucun"
+msgstr "Nic"
 
 #: application/modules/admin/controllers/ArticleController.php:91
 msgid "New article has been created."
-msgstr "Un nouvel article a été créé."
+msgstr "Utworzony został nowy artykuł."
 
 #: application/modules/admin/controllers/ArticleController.php:93
 msgid "Creating new article failed."
-msgstr "La création du nouvel article n’a pas été possible. "
+msgstr "Utworzenie nowego artykułu nie udało się. "
 
 #: application/modules/admin/controllers/ArticleController.php:101
 #: application/modules/admin/controllers/ArticleController.php:180
@@ -136,15 +136,17 @@ msgstr "La création du nouvel article n’a pas été possible. "
 #: application/modules/admin/controllers/VotingprepareController.php:167
 #: application/modules/admin/controllers/VotingprepareController.php:198
 msgid "Form is not valid, please check the values entered."
-msgstr "Le formulaire n’a pas été rempli correctement. Verifie tes entrées. "
+msgstr ""
+"Formularz nie został poprawnie wypełniony. Proszę sprawdzić wprowadzone "
+"dane. "
 
 #: application/modules/admin/controllers/ArticleController.php:152
 msgid "This article does not exist."
-msgstr "Cet article n’existe pas. "
+msgstr "Ten artykuł nie istnieje. "
 
 #: application/modules/admin/controllers/ArticleController.php:171
 msgid "This article could not be hidden."
-msgstr "Cet article n’a pas pu être caché. "
+msgstr "Ten artykuł nie może być ukryty."
 
 #: application/modules/admin/controllers/ArticleController.php:178
 #: application/modules/admin/controllers/ConsultationController.php:187
@@ -157,87 +159,89 @@ msgstr "Cet article n’a pas pu être caché. "
 #: application/modules/admin/controllers/VotingController.php:423
 #: application/modules/admin/controllers/VotingController.php:452
 msgid "Changes saved."
-msgstr "Les modifications ont été enregistrées. "
+msgstr "Zmiany zostały zapisane."
 
 #: application/modules/admin/controllers/ArticleController.php:221
 msgid "This article could not be deleted."
-msgstr "Cet article n’a pas pu être supprimé. "
+msgstr "Ten artykuł nie może zostać usunięty."
 
 #: application/modules/admin/controllers/ArticleController.php:228
 msgid "Article has been deleted."
-msgstr "L’article a été supprimé. "
+msgstr "Artyuł został usunięty."
 
 #: application/modules/admin/controllers/ArticleController.php:230
 msgid ""
 "Article could not be deleted. If there are any sub-articles, these have to "
 "be removed first."
 msgstr ""
-"L’article n’a pas pu être supprimé: Il faut supprimer les sous-articles "
-"d’abord, si existants. "
+"Ten artykuł nie może zostać usunięty: Jeśli ma podartykuł, należy go "
+"najpierw usunąć."
 
 #: application/modules/admin/controllers/ArticleController.php:307
 msgid "Area:"
-msgstr "Domaine:"
+msgstr "Sekcja:"
 
 #: application/modules/admin/controllers/ArticleController.php:332
 #: application/modules/admin/forms/Article.php:37
 #: application/modules/admin/views/scripts/mail-send/index.phtml:21
 msgid "Please select…"
-msgstr "Choisis, s’il te plaît…"
+msgstr "Proszę wybrać..."
 
 #: application/modules/admin/controllers/ArticleController.php:338
 msgid "On subpages, reference name of parent page is used."
-msgstr "Les sous-pages utilisent la même référence que la page parent. "
+msgstr ""
+"Podstrony wykorzystują tę samą nazwę referencyjną jak odpowiednie strony "
+"macierzyste."
 
 #: application/modules/admin/controllers/CloseController.php:60
 #, php-format
 msgid "%s sets of data have been deleted. The vote is now anonymised!"
-msgstr " %s des données ont été supprimées. Le vote est maintenant anonymisé."
+msgstr "Zbiór danych %s został skasowany. Głosowanie jest teraz anonimowe!"
 
 #: application/modules/admin/controllers/CloseController.php:76
 #: application/modules/admin/controllers/CloseController.php:172
 msgid "Please wait: saving data."
-msgstr "Les données sont en train d’être sauvegardées, attend s’il te plaît. "
+msgstr "Proszę czekać, trwa zapisywanie danych!"
 
 #: application/modules/admin/controllers/CloseController.php:154
 #, php-format
 msgid "%s sets of data have been created/updated."
-msgstr " %s des données ont été créées/actualisées."
+msgstr "Zbiór %s danych jest tworzony /aktualizowany."
 
 #: application/modules/admin/controllers/CloseController.php:168
 #: application/modules/admin/controllers/CloseController.php:197
 msgid "No group ID available"
-msgstr "Aucun ID de groupe existant"
+msgstr "ID grupy jest niedostępne"
 
 #: application/modules/admin/controllers/CloseController.php:220
 msgid "Data was created/updated."
-msgstr "Les données ont été créées/actualisées."
+msgstr "Dane zostały utworzone /zaktualizowane."
 
 #: application/modules/admin/controllers/CloseController.php:233
 msgid "No consultation named."
-msgstr "Aucun cycle de participation nommé! "
+msgstr "Nie wybrano rundy!"
 
 #: application/modules/admin/controllers/CloseController.php:310
 msgid "Invalid question id."
-msgstr "ID de question non valide."
+msgstr "ID pytania nieprawidłowe"
 
 #: application/modules/admin/controllers/ConsultationController.php:40
 #: application/modules/admin/controllers/IndexController.php:29
 msgid "Input was deleted."
-msgstr "La contribution a été effacée."
+msgstr "Wpis został usunięty."
 
 #: application/modules/admin/controllers/ConsultationController.php:43
 #: application/modules/admin/controllers/IndexController.php:32
 msgid "Discussion contribution was deleted."
-msgstr "La contribution à la discussion a été rendue invisible. "
+msgstr "Wpis w dyskusji został zapisany jako niewidoczny."
 
 #: application/modules/admin/controllers/ConsultationController.php:147
 msgid "Creating new consultation failed."
-msgstr "La création d’un nouveau cycle de participation a échoué."
+msgstr "Utworzenie nowej rundy nie powiodło się"
 
 #: application/modules/admin/controllers/ConsultationController.php:151
 msgid "New consultation has been created."
-msgstr "Un nouveau cycle de participation a été créé. "
+msgstr "Nowa runda została utworzona."
 
 #: application/modules/admin/controllers/ConsultationController.php:238
 #: application/modules/admin/controllers/ConsultationController.php:387
@@ -246,16 +250,16 @@ msgstr "Un nouveau cycle de participation a été créé. "
 #: application/modules/admin/controllers/VotingController.php:18
 #: application/modules/admin/controllers/VotingController.php:413
 msgid "No consultation provided."
-msgstr "Aucun cycle de participation a été fourni! "
+msgstr "Nie wybrano żadnej rundy!"
 
 #: application/modules/admin/controllers/ConsultationController.php:364
 msgid "Custom phase names have been saved."
-msgstr "Les noms personnalisés ont été enregistrés. "
+msgstr "Wybrane nazwy faz zostały zapisane."
 
 #: application/modules/admin/controllers/ConsultationController.php:427
 #: application/modules/admin/controllers/SettingsController.php:304
 msgid "Form settings were updated."
-msgstr "Les paramètres de formulaire ont été mis à jour. "
+msgstr "Ustawienia formularza zostały zaktualizowane."
 
 #: application/modules/admin/controllers/ConsultationController.php:431
 #: application/modules/admin/controllers/SettingsController.php:308
@@ -263,106 +267,105 @@ msgid ""
 "Form settings cannot be updated. Please check the errors marked in the form "
 "below and try again."
 msgstr ""
-"Les paramètres de formulaire ne peuvent pas pas être mis à jour. Vérifie les "
-"messages d’erreur et ressaye. "
+"Ustawienia formularza nie mogły zostać zaktualizowane. Proszę sprawdzić "
+"komunikat o błędzie i spróbować ponownie."
 
 #: application/modules/admin/controllers/ConsultationController.php:483
 msgid "Cannot delete already used groups."
-msgstr "Des groupes déjà utilisés ne peuvent pas être supprimés. "
+msgstr "Nie można usunąć używanych grup."
 
 #: application/modules/admin/controllers/ConsultationController.php:490
 msgid "Cannot edit groups after consultation has been started."
-msgstr ""
-"Les groupes ne peuvent pas être changés quand le cycle de participation a "
-"commencé. "
+msgstr "Grupy nie mogą zostać zmienione po starcie rundy."
 
 #: application/modules/admin/controllers/ConsultationController.php:510
 msgid "Group cluster settings were updated."
-msgstr "Les paramètres de taille du groupe ont été mis à jour. "
+msgstr "Ustawienia rozmiaru grupy zostały zaktualizowane."
 
 #: application/modules/admin/controllers/ConsultationController.php:515
 msgid ""
 "Age groups settings cannot be updated. Please check the errors marked in the "
 "form below and try again."
 msgstr ""
-"Les groupes d’âge ne peuvent pas être mis à jour. Vérifie les messages "
-"d’erreur et ressaye. "
+"Ustawienia wiekowe grupy nie mogą być zaktualizowane. Proszę sprawdzić "
+"formularz."
 
 #: application/modules/admin/controllers/FollowupController.php:57
 msgid "New snippet has been successfully created."
-msgstr "Le fragment a été créé avec succès. "
+msgstr "Fragment został pomyślnie utworzony."
 
 #: application/modules/admin/controllers/FollowupController.php:73
 msgid "The snippet could not be created."
-msgstr "Le fragment n’a pas pu être créé. "
+msgstr "Nie udało się utworzyć fragmentu."
 
 #: application/modules/admin/controllers/FollowupController.php:78
 msgid "Create Follow-Up Snippet"
-msgstr "Crée le fragment de suivi"
+msgstr "Utwórz fragment Follow-up "
 
 #: application/modules/admin/controllers/FollowupController.php:116
 msgid "The snippet could not be saved."
-msgstr "Le fragment n’a pas pu être enregistré. "
+msgstr "Nie udało zapisać się fragmentu."
 
 #: application/modules/admin/controllers/FollowupController.php:130
 msgid "Edit Follow-Up Snippet"
-msgstr "Éditer le fragment du suivi"
+msgstr "Edytuj fragment Follow-Up"
 
 #: application/modules/admin/controllers/FollowupController.php:151
 msgid "New follow-up has been successfully created."
-msgstr "Le suivi a été créé avec succès. "
+msgstr "Sekcja Follow-up została utworzona."
 
 #: application/modules/admin/controllers/FollowupController.php:154
 msgid "The follow-up could not be created."
-msgstr "Le suivi n’a pas pu être créé. "
+msgstr "Nie udało się utworzyć sekcji Follow-Up."
 
 #: application/modules/admin/controllers/FollowupController.php:159
 msgid "Create Follow-up"
-msgstr "Créer suivi"
+msgstr "Utwórz sekcję Follow-Up"
 
 #: application/modules/admin/controllers/FollowupController.php:185
 msgid "The follow-up could not be saved."
-msgstr "Le suivi n’a pas pu être créé. "
+msgstr "Sekcja Follow-Up nie została zapisana."
 
 #: application/modules/admin/controllers/FollowupController.php:200
 msgid "Edit Follow-Up"
-msgstr "Éditer le suivi"
+msgstr "Edytuj sekcję Follow-Up"
 
 #: application/modules/admin/controllers/FollowupController.php:221
 msgid "The snippet has been deleted."
-msgstr "Le fragment a été supprimé. "
+msgstr "Fragment został skasowany."
 
 #: application/modules/admin/controllers/FollowupController.php:227
 msgid "Snippet order has been updated."
-msgstr "Mise à jour de l’ordre des fragments."
+msgstr "Kolejność fragmentów została zaktualizowana."
 
 #: application/modules/admin/controllers/FollowupController.php:264
 msgid "The follow-up has been deleted."
-msgstr "Le suivi a été supprimé. "
+msgstr "Sekcja Follow-Up została usunięta."
 
 #: application/modules/admin/controllers/FollowupController.php:266
 msgid ""
 "The follow-up could not be deleted as there are snippets attached to it."
-msgstr "Le suivi n’a pas pu être supprimé, parce que les fragments sont liés. "
+msgstr ""
+"Nie można usunąć sekcji Follow-Up, ponieważ jest połączona z fragmentami."
 
 #: application/modules/admin/controllers/FollowupController.php:293
 #, php-format
 msgid "%d contributions linked."
-msgstr "%d des contributions ont été liées."
+msgstr "%d Wpisy zostały połączone."
 
 #: application/modules/admin/controllers/FollowupController.php:302
 #, php-format
 msgid "%d follow-ups linked."
-msgstr "%d des suivis ont été liés. "
+msgstr "%d Follow-Ups zostały połączone."
 
 #: application/modules/admin/controllers/FollowupController.php:311
 #, php-format
 msgid "%d snippets linked."
-msgstr "%d des fragments ont été liés. "
+msgstr "%d fragmenty zostały połączone linkiem."
 
 #: application/modules/admin/controllers/InputController.php:179
 msgid "Contribution not found."
-msgstr "Contribution non trouvée. "
+msgstr "Wpis nie został odnaleziony."
 
 #: application/modules/admin/controllers/InputController.php:207
 #: application/modules/admin/controllers/InputController.php:343
@@ -370,40 +373,39 @@ msgstr "Contribution non trouvée. "
 msgid ""
 "This contribution can't be deleted, because it has already been voted upon."
 msgstr ""
-"La contribution ne peut pas être supprimée, parce qu’elle a déjà fait partie "
-"de vote. "
+"Ten wpis nie mógł zostać usunięty, ponieważ znajduje się w fazie głosowania."
 
 #: application/modules/admin/controllers/InputController.php:216
 msgid "Contribution was deleted."
-msgstr "Contribution supprimée."
+msgstr "Wpis został usunięty"
 
 #: application/modules/admin/controllers/InputController.php:219
 msgid "Delete contribution failed."
-msgstr "La suppression de la contribution a echoué. "
+msgstr "Usuwanie wpisu nie udało się."
 
 #: application/modules/admin/controllers/InputController.php:230
 msgid "Contribution update failed."
-msgstr "L’actualisation de la contribution a echoué. "
+msgstr "Zaktualizowanie wpisu nie udało się."
 
 #: application/modules/admin/controllers/InputController.php:245
 msgid ""
 "Video service used for embedding video in this contribution was disabled. "
 "Video will be deleted after save contribution."
 msgstr ""
-"Le service utilisé pour intégrer le vidéo dans cette contribution a été "
-"désactivé. Le vidéo sera supprimé après le prochain enregistrement.  "
+"Usługa wideo jest wyłączona dla tego wpisu. Przy następnym zapisywaniu wideo "
+"zostanie usunięte."
 
 #: application/modules/admin/controllers/InputController.php:295
 msgid "Contribution was created."
-msgstr "Une contribution a été créée."
+msgstr "Wpis został utworzony."
 
 #: application/modules/admin/controllers/InputController.php:307
 msgid ""
 "New contribution cannot be created. Please check the errors marked in the "
 "form below and try again."
 msgstr ""
-"Une nouvelle contribution n'a pas pu être créée. Vérifie les messages "
-"d’erreur et ressaye. "
+"Nowy wpis nie mógł zostać utworzony. Proszę ponownie sprawdzić dane w "
+"formularzu."
 
 #: application/modules/admin/controllers/InputController.php:314
 msgid ""
@@ -411,361 +413,358 @@ msgid ""
 "possible to add a video only after saving this Contribution thus linking it "
 "to a Question."
 msgstr ""
-"Les paramètres de la contribution de vidéo sont déterminés par la question, "
-"c'est pourquoi il est seulement possible d'ajouter un vidéo après celui a "
-"été lié à une question. "
+"Ustawienia wideo są zdefiniowane przez pytanie. Wideo można zatem dodać po "
+"przyporządkowaniu wpisu do pytania."
 
 #: application/modules/admin/controllers/InputController.php:350
 #: application/modules/admin/controllers/VotingprepareController.php:83
 #, php-format
 msgid "%d contributions have been deleted."
-msgstr "%d de contributions ont été effacées. "
+msgstr "Wpisy %d zostały usunięte."
 
 #: application/modules/admin/controllers/InputController.php:355
 #: application/modules/admin/controllers/VotingprepareController.php:74
 #, php-format
 msgid "%d contributions have been blocked."
-msgstr "%d de contributions ont été bloquées. "
+msgstr "Wpisy %d zostały zablokowane."
 
 #: application/modules/admin/controllers/InputController.php:360
 #, php-format
 msgid "%d contributions have been unblocked."
-msgstr "%d de contributions ont été débloquées. "
+msgstr "Wpisy %d zostały ponownie odblokowane."
 
 #: application/modules/admin/controllers/InputController.php:377
 #: application/modules/admin/controllers/VotingprepareController.php:67
 msgid "Contribution has been deleted."
-msgstr "La contribution a été supprimé!"
+msgstr "Wpis został usunięty."
 
 #: application/modules/admin/controllers/InputController.php:400
 msgid "No question provided."
-msgstr "Aucune question fournie. "
+msgstr "Nie wprowadzono pytania!"
 
 #: application/modules/admin/controllers/InputDiscussionController.php:51
 msgid "The discussion contribution was hidden."
-msgstr "La contribution à la discussion  a été cachée. "
+msgstr "Wpis w dyskusji został zapisany jako niewidoczny."
 
 #: application/modules/admin/controllers/InputDiscussionController.php:55
 msgid "The discussion contribution was shown."
-msgstr "La contribution à la discussion a été montrée. "
+msgstr "Wpis w dyskusji został pokazany."
 
 #: application/modules/admin/controllers/InputDiscussionController.php:59
 msgid "The discussion contribution was set as user confirmed."
 msgstr ""
-"La contribution à la discussion a été marquée comme confirmé par "
-"l'utilisateur. "
+"Wpis w dyskusji został oznaczony jako potwierdzony przez użytkownika/"
+"użytkowniczkę."
 
 #: application/modules/admin/controllers/InputDiscussionController.php:63
 msgid "The user confirmation was removed from the discussion contribution."
 msgstr ""
-"La confirmation d'utilisateur a été enlevée de cette contribution à la "
-"discussion. "
+"Potwierdzenie użytkownika/użytkowniczki zostało usunięte z wpisu dyskusji. "
 
 #: application/modules/admin/controllers/InputDiscussionController.php:88
 #, php-format
 msgid ""
 "An <a href=\"%s\">input</a> was created from the discussion contribution."
-msgstr ""
-"un <a href=\"%s\">Beitrag</a> a été créé pour le cycle de contribution. "
+msgstr "Z wpisu w dyskusji został utworzony <a href=\"%s\">Wpis</a>."
 
 #: application/modules/admin/controllers/MailComponentController.php:66
 msgid "Component has been saved."
-msgstr "Le composant a été enregistré. "
+msgstr "Część składowa została zapisana."
 
 #: application/modules/admin/controllers/MailComponentController.php:99
 msgid "Component has been deleted."
-msgstr "Le composant a été supprimé. "
+msgstr "Część składowa została usunięta."
 
 #: application/modules/admin/controllers/MailQueuedController.php:36
 msgid "All emails have been successfully sent."
-msgstr "Tous les courriels ont été envoyés avec succès. "
+msgstr "Wszystkie E-Maile zostały wysłane."
 
 #: application/modules/admin/controllers/MailSendController.php:95
 msgid "Email has been queued for sending."
-msgstr "Le courriel est en file d'attente pour l'envoi."
+msgstr "E-Mail czeka w kolejce na wysłanie."
 
 #: application/modules/admin/controllers/MailSentController.php:55
 msgid "Email has been queued for resending."
-msgstr "Le courriel est en file d'attente pour le renvoi. "
+msgstr "E-Mail czeka w kolejce na ponowne wysłanie."
 
 #: application/modules/admin/controllers/MailTemplateController.php:78
 msgid "Email template has been saved."
-msgstr "Le modèle de courriel a été enregistré. "
+msgstr "Szablon E-Maila został zapisany."
 
 #: application/modules/admin/controllers/MailTemplateController.php:117
 msgid "Template has been deleted."
-msgstr "Le modèle de courriel a été supprimé. "
+msgstr "Szablon został usunięty."
 
 #: application/modules/admin/controllers/MediaController.php:97
 #: application/modules/admin/forms/Media/FileDetail.php:42
 #: application/modules/admin/views/scripts/votingprepare/overview.phtml:120
 msgid "Folder"
-msgstr "Dossier"
+msgstr "Folder"
 
 #: application/modules/admin/controllers/MediaController.php:99
 #: application/modules/admin/views/helpers/MediaNavigation.php:15
 msgid "All Media"
-msgstr "Tous les médias"
+msgstr "Wszystkie media"
 
 #: application/modules/admin/controllers/MediaController.php:128
 #: application/modules/admin/controllers/MediaController.php:171
 #: application/modules/admin/views/scripts/_partials/media-thumbnails.phtml:51
 msgid "Rename"
-msgstr "Renommer"
+msgstr "Wprowadź ponownie nazwę"
 
 #: application/modules/admin/controllers/MediaController.php:151
 msgid "The folder could not be renamed."
-msgstr "Le dossier n'a pas pu être renommé. "
+msgstr "Nie można zmienić nazwy tego folderu."
 
 #: application/modules/admin/controllers/MediaController.php:207
 msgid "The file could not be renamed."
-msgstr "Le fichier n'a pas pu être renommé. "
+msgstr "Nie można zmienić nazwy tego pliku."
 
 #: application/modules/admin/controllers/MediaController.php:271
 msgid "Create"
-msgstr "Créer"
+msgstr "Utwórz"
 
 #: application/modules/admin/controllers/MediaController.php:285
 msgid "The folder could not be created."
-msgstr "Le dossier n’a pas pu être créé."
+msgstr "Nie udało się utworzyć tego folderu."
 
 #: application/modules/admin/controllers/MediaController.php:326
 #, php-format
 msgid "The file %s has been successfully uploaded."
-msgstr "Le fichier %s a été téléchargé avec succès. "
+msgstr "Plik %s został przesłany."
 
 #: application/modules/admin/controllers/MediaController.php:349
 #: application/modules/admin/controllers/MediaController.php:355
 msgid "File could not be uploaded."
-msgstr "Un fichier n'a pas pu être téléchargé. "
+msgstr "Nie udało się przesłać tego pliku."
 
 #: application/modules/admin/controllers/MediaController.php:352
 msgid "File already exists."
-msgstr "Fichier existe déjà."
+msgstr "Plik już istnieje."
 
 #: application/modules/admin/controllers/MediaController.php:378
 #: application/modules/admin/controllers/MediaController.php:381
 msgid "File could not be deleted."
-msgstr "Le fichier n'a pas pu être supprimé. "
+msgstr "Nie można usunąć tego pliku."
 
 #: application/modules/admin/controllers/MediaController.php:421
 #: application/modules/admin/controllers/MediaController.php:450
 msgid "File does not exist."
-msgstr "Fichier n’existe pas."
+msgstr "Plik nie istnieje."
 
 #: application/modules/admin/controllers/QuestionController.php:51
 msgid "New question has been created."
-msgstr "La question a été créée. "
+msgstr "Nowe pytanie zostało utworzone."
 
 #: application/modules/admin/controllers/QuestionController.php:109
 msgid "Question has been deleted."
-msgstr "La question a été supprimée."
+msgstr "Pytanie zostało usunięte."
 
 #: application/modules/admin/controllers/QuestionController.php:112
 msgid ""
 "Question could not be deleted as there are contributions attached to it."
-msgstr ""
-"La question n'a pas pu être supprimée, parce qu'il y a des contributions "
-"liées. "
+msgstr "Nie można usunąć pytania, ponieważ istnieją wpisy mu podporządkowane."
 
 #: application/modules/admin/controllers/SettingsController.php:42
 #: application/modules/admin/controllers/SettingsController.php:165
 msgid "Settings were saved."
-msgstr "Les paramètres ont été enregistrés. "
+msgstr "Ustawienia zostały zapisane."
 
 #: application/modules/admin/controllers/SettingsController.php:49
 #: application/modules/admin/controllers/SettingsController.php:105
 #: application/modules/admin/controllers/SettingsController.php:142
 #: application/modules/admin/controllers/SettingsController.php:172
 msgid "Form invalid"
-msgstr "Formulaire non valide."
+msgstr "Formularz jest nieprawidłowy"
 
 #: application/modules/admin/controllers/SettingsController.php:102
 msgid "Help text was saved."
-msgstr "Le texte d'aide a été enregistré. "
+msgstr "Tekst pomocy został zapisany."
 
 #: application/modules/admin/controllers/SettingsController.php:135
 msgid "Footer was updated."
-msgstr "Le pied de page a été mis à jour. "
+msgstr "Stopka strony została zaktualizowana."
 
 #: application/modules/admin/controllers/SettingsController.php:199
 msgid "Your services settings were updated."
-msgstr "Les paramètres de service ont été mis à jour. "
+msgstr "Twoje ustawienia serwisowe zostały zaktualizowane."
 
 #: application/modules/admin/controllers/SettingsController.php:207
 msgid ""
 "Services settings could not be updated. Please check the errors marked in "
 "the form below and try again."
 msgstr ""
-"Les paramètres de service n'ont pas pu être mis à jour. Vérifie les messages "
-"d’erreur et ressaye. "
+"Ustawienia serwisowe nie mogły zostać zaktualizowane. Proszę sprawdzić "
+"komunikat błędu i spróbować ponownie."
 
 #: application/modules/admin/controllers/SettingsController.php:258
 msgid "Theme was updated."
-msgstr "Le thème du dessin a été mis à jour. "
+msgstr "Motyw został zaktualizowany."
 
 #: application/modules/admin/controllers/SettingsController.php:266
 msgid ""
 "Theme settings cannot be updated. Please check the errors marked in the form "
 "below and try again."
 msgstr ""
-"Les paramètres du thème n'ont pas pu être mis à jour. Vérifie les messages "
-"d’erreur et ressaye. "
+"Ustawienia motywu nie mogły zostać zaktualizowane. Proszę sprawdzić błąd i "
+"spróbować ponownie."
 
 #: application/modules/admin/controllers/TagController.php:48
 msgid "New keyword has been added."
-msgstr "Un nouveau mot-clé a été ajouté."
+msgstr "Nowe słowo kluczowe zostało dodane."
 
 #: application/modules/admin/controllers/TagController.php:79
 #, php-format
 msgid "Invalid value of \"%s\"."
-msgstr "Valeur non valide de \"%s\"."
+msgstr "Nieprawidłowa wartość \"%s\"."
 
 #: application/modules/admin/controllers/TagController.php:104
 msgid "Keyword has been deleted."
-msgstr "%d des contributions ont été supprimées. "
+msgstr "%d wpisy zostały usunięte."
 
 #: application/modules/admin/controllers/UserController.php:35
 msgid "New user has been successfully added."
-msgstr "Nouvel utilisateur a été ajouté avec succès."
+msgstr ""
+"Nowy użytkownik został pomyślnie wprowadzony/nowa użytkowniczka została "
+"pomyślnie wprowadzona."
 
 #: application/modules/admin/controllers/UserController.php:39
 msgid "User with this email address already exists."
-msgstr "L'utilisateur avec cette adresse du courriel existe déjà. "
+msgstr "Użytkownik /użytkowniczka z tym adresem E-Mail już istnieje."
 
 #: application/modules/admin/controllers/UserController.php:58
 #: application/modules/admin/controllers/UserController.php:99
 msgid "User not found."
-msgstr "Page non trouvée."
+msgstr "Nie znaleziono strony"
 
 #: application/modules/admin/controllers/UserController.php:116
 msgid "Transfer contributions from"
-msgstr "Transférer la contribution de"
+msgstr "Przenieś wpis z"
 
 #: application/modules/admin/controllers/UserController.php:124
 msgid "Please select"
-msgstr "Choisis, s’il te plaît"
+msgstr "Proszę wybrać"
 
 #: application/modules/admin/controllers/UserController.php:158
 msgid "Contributions transferred."
-msgstr "Les contributions ont été transférées."
+msgstr "Wpisy zostały przeniesione."
 
 #: application/modules/admin/controllers/UserController.php:184
 msgid "User has been deleted."
-msgstr "L'utilisateur a été supprimé. "
+msgstr "Usunięto użytkownika /użytkowniczkę."
 
 #: application/modules/admin/controllers/VotingController.php:51
 #, php-format
 msgid "Changes for <b>%s</b> were saved."
-msgstr "Les changements pour <b>%s</b> ont été enregistrés."
+msgstr "Zmiany w <b>%s</b> zostały zapisane."
 
 #: application/modules/admin/controllers/VotingController.php:71
 #: application/modules/admin/controllers/VotingController.php:171
 msgid "No user provided."
-msgstr "Aucun utilisateur a été fourni."
+msgstr "Nie podano użytkownika /użytkowniczki."
 
 #: application/modules/admin/controllers/VotingController.php:90
 msgid "The voting permission was created."
-msgstr "L'autorisation de vote a été créé."
+msgstr "Uprawnienia do głosowania zostały utworzone."
 
 #: application/modules/admin/controllers/VotingController.php:96
 msgid ""
 "New voting permission cannot be created. Please check the errors marked in "
 "the form below and try again."
 msgstr ""
-"Une nouvelle autorisation de vote n'a pas pu être créé. Vérifie les messages "
-"d’erreur et ressaye. "
+"Nowe uprawnienia do głosowania nie mogły zostać utworzone. Proszę sprawdzić "
+"ponownie błędy w wypełnionym formularzu."
 
 #: application/modules/admin/controllers/VotingController.php:145
 #: application/modules/admin/controllers/VotingController.php:212
 #, php-format
 msgid "Voting invitation to %s has been successfully sent."
-msgstr "L'invitation à la vote pour %s a été envoyé avec succès."
+msgstr "Zaproszenie do głosowania zostało pomyślnie wysłane na adres %s."
 
 #: application/modules/admin/controllers/VotingController.php:261
 msgid "Voting participant has been confirmed."
-msgstr "Le participant de vote a été confirmé."
+msgstr "Potwierdzono użytkownika /użytkowniczkę głosowania."
 
 #: application/modules/admin/controllers/VotingController.php:264
 msgid "Voting participant has been denied."
-msgstr "Le participant de vote a été refusé."
+msgstr "Odrzucono użytkownika /użytkowniczkę głosowania."
 
 #: application/modules/admin/controllers/VotingController.php:269
 msgid "Voting participant has been deleted."
-msgstr "Le participant de vote a été supprimé."
+msgstr "Usunięto użytkownika /użytkowniczkę głosowania."
 
 #: application/modules/admin/controllers/VotingController.php:272
 msgid "Reminder to Voter has been sent."
-msgstr "Rappel envoyé au participant de vote."
+msgstr "Przypomnienie dla głosujących zostało wysłane."
 
 #: application/modules/admin/controllers/VotingController.php:276
 msgid "Reminder to Group leader has been sent."
-msgstr "Rappel envoyé au responsable de groupe."
+msgstr "Przypomnienie dla osoby odpowiedzialnej za grupę zostało wysłane."
 
 #: application/modules/admin/controllers/VotingController.php:383
 msgid "No question was selected."
-msgstr "Aucune question a été choisie. "
+msgstr "Nie wybrano żadnego pytania."
 
 #: application/modules/admin/controllers/VotingController.php:426
 msgid "Saving changes failed."
-msgstr "L'enregistrement de changements a echoué."
+msgstr "Nie udało się zapisać zmian."
 
 #: application/modules/admin/controllers/VotingprepareController.php:64
 msgid "Contribution has been removed from related."
-msgstr "La contribution a été dissociée. "
+msgstr "Wpis został oddzielony. "
 
 #: application/modules/admin/controllers/VotingprepareController.php:71
 #, php-format
 msgid "%d contributions have been released."
-msgstr "%d des contributions ont été partagées."
+msgstr "%d wpisy zostały dopuszczone."
 
 #: application/modules/admin/controllers/VotingprepareController.php:77
 #, php-format
 msgid "%d contributions have been sent to voting."
-msgstr "%d des contributions ont été envoyées pour le vote. "
+msgstr "%d wpisy zostały przesłane do głosowania."
 
 #: application/modules/admin/controllers/VotingprepareController.php:80
 #, php-format
 msgid "%d contributions have been removed from voting."
-msgstr "%d des contributions ont été enlevées de vote."
+msgstr "%d wpisy zostały wyłączone z głosowania."
 
 #: application/modules/admin/controllers/VotingprepareController.php:88
 #, php-format
 msgid "%d contributions have been moved."
-msgstr "%d des contributions ont été déplacées."
+msgstr "%d wpisy zostały przeniesione."
 
 #: application/modules/admin/controllers/VotingprepareController.php:126
 #: application/modules/admin/controllers/VotingprepareController.php:161
 msgid "New contribution has been created."
-msgstr "La nouvelle contribution a été créé. "
+msgstr "Utworzono nowy wpis. "
 
 #: application/modules/admin/controllers/VotingprepareController.php:190
 msgid "Contribution has been copied. This is the copy."
-msgstr "La contribution a été copiée. Voici la copie. "
+msgstr "Wpis został skopiowany. To jest kopia."
 
 #: application/modules/admin/controllers/VotingprepareController.php:229
 msgid "New folder has been created."
-msgstr "Un nouveau dossier a été créé."
+msgstr "Utworzono nowy folder."
 
 #: application/modules/admin/controllers/VotingprepareController.php:232
 msgid "Folder could not be created."
-msgstr "Le dossier n’a pas pu être créé."
+msgstr "Nowy folder nie mógł zostać utworzony."
 
 #: application/modules/admin/controllers/VotingprepareController.php:253
 msgid "Folder deleted."
-msgstr "Le dossier a été supprimé. "
+msgstr "Folder został usunięty."
 
 #: application/modules/admin/controllers/VotingprepareController.php:258
 msgid "Folder order has been updated."
-msgstr "Le dossier a été mise à jour. "
+msgstr "Folder został zaktualizowany."
 
 #: application/modules/admin/controllers/VotingprepareController.php:280
 msgid "Selected contributions were added to related."
-msgstr "Les contributions sélectionnées ont été liées. "
+msgstr "Wybrane wpisy zostały połączone."
 
 #: application/modules/admin/controllers/VotingprepareController.php:283
 msgid "No contributions were selected."
-msgstr "Aucune contribution a été sélectionnée."
+msgstr "Nie wybrano żadnych wpisów."
 
 #: application/modules/admin/forms/Article.php:29
 #: application/modules/admin/forms/Consultation.php:12
@@ -775,15 +774,15 @@ msgstr "Aucune contribution a été sélectionnée."
 #: application/modules/admin/views/scripts/settings/help-text-index.phtml:22
 #: application/modules/admin/views/scripts/settings/help-text-index.phtml:58
 msgid "Title"
-msgstr "Titre"
+msgstr "Tytuł"
 
 #: application/modules/admin/forms/Article.php:36
 msgid "Reference name"
-msgstr "Nom de référence "
+msgstr "Nazwa referencyjna"
 
 #: application/modules/admin/forms/Article.php:42
 msgid "Parent page"
-msgstr "Page parent"
+msgstr "Strona macierzysta"
 
 #: application/modules/admin/forms/Article.php:47
 #: application/modules/admin/forms/Followup/Snippet.php:45
@@ -793,21 +792,21 @@ msgstr "Body"
 
 #: application/modules/admin/forms/Article.php:56
 msgid "Sidebar text"
-msgstr "Texte de Sidebar"
+msgstr "Pasek boczny"
 
 #: application/modules/admin/forms/Article.php:64
 msgid "Unpublished"
-msgstr "Pas encore publié"
+msgstr "Nie opublikowano"
 
 #: application/modules/admin/forms/Article.php:76
 #: application/modules/admin/forms/Consultation.php:254
 msgid "Project"
-msgstr "Projet"
+msgstr "Projekt"
 
 #: application/modules/admin/forms/Article.php:77
 #: application/modules/admin/forms/Consultation.php:255
 msgid "Current project must be always selected."
-msgstr "Le projet actuel doit être sélectionné. "
+msgstr "Bieżący projekt musi zostać wybrany."
 
 #: application/modules/admin/forms/Article.php:94
 #: application/modules/admin/forms/Consultation.php:272
@@ -834,15 +833,15 @@ msgstr "Le projet actuel doit être sélectionné. "
 #: application/modules/admin/forms/Voting/Rights.php:64
 #: application/modules/admin/forms/Voting/RightsAdd.php:97
 msgid "Save"
-msgstr "Enregistrer"
+msgstr "Zapisz"
 
 #: application/modules/admin/forms/Article.php:100
 msgid "Preview"
-msgstr "Aperçu"
+msgstr "Podgląd"
 
 #: application/modules/admin/forms/ArticlePreview.php:52
 msgid "< Back to edit mode"
-msgstr "< revenir au mode d'éditer"
+msgstr "< z powrotem do trybu edycji."
 
 #: application/modules/admin/forms/Consultation.php:19
 #, php-format
@@ -850,31 +849,31 @@ msgid ""
 "The title to be used where space is limited, i.e. email subjects. Max %d "
 "characters."
 msgstr ""
-"Le titre abrégé doit être utilisé si la place est limitée, p.ex. les lignes "
-"de référence. Au plus %d caractères."
+"Tytuł do użycia przy ograniczonej długości, np. tytuł E-Mailla. Maksymalnie "
+"%d znaków."
 
 #: application/modules/admin/forms/Consultation.php:25
 msgid "Short title"
-msgstr "Titre abrégé"
+msgstr "Krótki tytuł"
 
 #: application/modules/admin/forms/Consultation.php:34
 msgid "Subtitle"
-msgstr "Sous-titre"
+msgstr "Podtytuł"
 
 #: application/modules/admin/forms/Consultation.php:40
 #: application/modules/admin/forms/Consultation.php:289
 msgid "Featured image"
-msgstr "Image préséntée"
+msgstr "Motyw"
 
 #: application/modules/admin/forms/Consultation.php:41
 #: application/modules/admin/forms/Consultation.php:291
 #, php-format
 msgid "Recommended size: %s x %s pixels"
-msgstr "Taille recommandée: %s x %s Pixel"
+msgstr "Zalecane rozmiary: %s x %s pikseli"
 
 #: application/modules/admin/forms/Consultation.php:45
 msgid "Featured image description"
-msgstr "Description de l’image"
+msgstr "Opis motywu"
 
 #: application/modules/admin/forms/Consultation.php:50
 #, php-format
@@ -882,102 +881,102 @@ msgid ""
 "The higher number, the higher position in consultation list. The highest "
 "position is currently %d."
 msgstr ""
-"Plus le nombre est élevé, plus haut la position dans la liste du cycle de "
-"participation. La position la plus haute est actuellement %d."
+"Im wyższy numer, tym wyższa pozycja na liście. Aktualnie najwyższa pozycja "
+"to %d."
 
 #: application/modules/admin/forms/Consultation.php:56
 #: application/modules/admin/forms/Question.php:22
 msgid "Order"
-msgstr "Ordre"
+msgstr "Kolejność"
 
 #: application/modules/admin/forms/Consultation.php:64
 msgid "Explanation short"
-msgstr "Explication courte"
+msgstr "Krótkie wyjaśnienie"
 
 #: application/modules/admin/forms/Consultation.php:70
 msgid "Enable contribution phase"
-msgstr "Activer la période de contribution"
+msgstr "Uaktywnij konsultacje"
 
 #: application/modules/admin/forms/Consultation.php:81
 msgid "Contribution phase start"
-msgstr "Début de la période de contribution"
+msgstr "Start konsultacji"
 
 #: application/modules/admin/forms/Consultation.php:90
 msgid "Contribution phase end"
-msgstr "Fin de la période de contribution"
+msgstr "Koniec konsultacji"
 
 #: application/modules/admin/forms/Consultation.php:99
 msgid "Enable support phase"
-msgstr "Activer la phase de support"
+msgstr "Uaktywnij fazę wspacia"
 
 #: application/modules/admin/forms/Consultation.php:110
 msgid "Support phase start"
-msgstr "Début de la phase de support"
+msgstr "Rozpocznij fazę popierania"
 
 #: application/modules/admin/forms/Consultation.php:119
 msgid "Support phase end"
-msgstr "Fin de la phase de support"
+msgstr "Zakończ fazę popierania"
 
 #: application/modules/admin/forms/Consultation.php:128
 msgid "Enable voting phase"
-msgstr "Activer la période de vote"
+msgstr "Uaktywnij głosowanie"
 
 #: application/modules/admin/forms/Consultation.php:139
 msgid "Voting phase start"
-msgstr "Début de la période de vote"
+msgstr "Rozpocznij głosowanie"
 
 #: application/modules/admin/forms/Consultation.php:148
 msgid "Voting phase end"
-msgstr "Fin de la période de vote"
+msgstr "Zakończ głosowanie"
 
 #: application/modules/admin/forms/Consultation.php:157
 msgid "Make voting results public"
-msgstr "Publier les résultats de vote "
+msgstr "Opublikuj wyniki głosowania"
 
 #: application/modules/admin/forms/Consultation.php:165
 msgid "Voting phase explanation"
-msgstr "Introduction au vote"
+msgstr "Wprowadzenie do głosowania"
 
 #: application/modules/admin/forms/Consultation.php:173
 msgid "Enable discussion"
-msgstr "Permettre la discussion"
+msgstr "Umożliwij dyskusję"
 
 #: application/modules/admin/forms/Consultation.php:184
 msgid "Discussion phase start"
-msgstr "Début de la période de discussion"
+msgstr "Start dyskusji"
 
 #: application/modules/admin/forms/Consultation.php:193
 msgid "Discussion phase end"
-msgstr "Fin de la période de discussion"
+msgstr "Koniec dyskusji"
 
 #: application/modules/admin/forms/Consultation.php:202
 msgid "Allow videos in Discussion"
-msgstr "Permettre des vidéos dans une discussion"
+msgstr "Umożliwij pliki wideo w dyskusji"
 
 #: application/modules/admin/forms/Consultation.php:208
 msgid "Enable follow-ups"
-msgstr "Activer le suivi"
+msgstr "Uaktywnij follow-up"
 
 #: application/modules/admin/forms/Consultation.php:216
 msgid "Follow-Up phase explanation"
-msgstr "Explication du suivi"
+msgstr "Wprowadzenie do follow-up"
 
 #: application/modules/admin/forms/Consultation.php:223
 msgid "Terms & Conditions text"
-msgstr "Texte Modalités"
+msgstr "Tekst warunki korzystania"
 
 #: application/modules/admin/forms/Consultation.php:230
 msgid "Make public"
-msgstr "Publier"
+msgstr "Opublikuj"
 
 #: application/modules/admin/forms/Consultation.php:243
 msgid "Responsible administrator"
-msgstr "Administrateur responsable"
+msgstr "Odpowiedzialny admin"
 
 #: application/modules/admin/forms/ConsultationGroups.php:28
 #: application/modules/admin/forms/ConsultationGroups.php:173
 msgid "Activate"
-msgstr "Activer"
+msgstr "Uaktywnij"
 
 #: application/modules/admin/forms/ConsultationGroups.php:48
 #: application/modules/admin/forms/ConsultationGroups.php:87
@@ -991,11 +990,11 @@ msgstr "Activer"
 #: application/modules/admin/views/scripts/consultation/_groupsForm.phtml:195
 #: application/modules/admin/views/scripts/consultation/_groupsForm.phtml:236
 msgid "From"
-msgstr "De"
+msgstr "Od"
 
 #: application/modules/admin/forms/ConsultationGroups.php:68
 msgid "Activate “No Information” value"
-msgstr "Activer l'option \"aucune information\""
+msgstr "Uaktywnij opcję „żadnych informacji“"
 
 #: application/modules/admin/forms/ConsultationGroups.php:109
 #: application/modules/admin/forms/ConsultationGroups.php:153
@@ -1005,11 +1004,11 @@ msgstr "Activer l'option \"aucune information\""
 #: application/modules/admin/views/scripts/consultation/_groupsForm.phtml:204
 #: application/modules/admin/views/scripts/mail-sent/index.phtml:56
 msgid "To"
-msgstr "À"
+msgstr "Do"
 
 #: application/modules/admin/forms/ConsultationPhases.php:9
 msgid "Enable custom phase names"
-msgstr "Activer les noms de phase personnalisés"
+msgstr "Uaktywnij wybrane nazwy faz"
 
 #: application/modules/admin/forms/ConsultationPhases.php:13
 #: application/modules/admin/forms/Mail/Component.php:17
@@ -1023,13 +1022,13 @@ msgstr "Activer les noms de phase personnalisés"
 #: application/modules/admin/forms/User/Edit.php:30
 #, php-format
 msgid "Max %d characters"
-msgstr "au plus %d caractères"
+msgstr "maksymalnie %d znaków"
 
 #: application/modules/admin/forms/ConsultationPhases.php:17
 #: application/modules/admin/views/scripts/article/index.phtml:38
 #: application/modules/admin/views/scripts/index/index.phtml:59
 msgid "Info"
-msgstr "Informations"
+msgstr "Informacje"
 
 #: application/modules/admin/forms/ConsultationPhases.php:26
 #: application/modules/admin/views/helpers/ConsultationNavigation.php:33
@@ -1038,7 +1037,7 @@ msgstr "Informations"
 #: application/modules/admin/views/scripts/question/index.phtml:27
 #: application/modules/admin/views/scripts/voting/results.phtml:38
 msgid "Questions"
-msgstr "Questions"
+msgstr "Pytania"
 
 #: application/modules/admin/forms/ConsultationPhases.php:35
 #: application/modules/admin/views/helpers/ConsultationNavigation.php:46
@@ -1048,7 +1047,7 @@ msgstr "Questions"
 #: application/modules/admin/views/scripts/input/index.phtml:30
 #: application/modules/admin/views/scripts/input/index.phtml:90
 msgid "Contributions"
-msgstr "Contributions"
+msgstr "Wpisy"
 
 #: application/modules/admin/forms/ConsultationPhases.php:44
 #: application/modules/admin/views/helpers/ConsultationEditNavigation.php:28
@@ -1063,70 +1062,70 @@ msgstr "Contributions"
 #: application/modules/admin/views/scripts/votingprepare/_input-row.phtml:122
 #: application/modules/admin/views/scripts/votingprepare/overview.phtml:101
 msgid "Voting"
-msgstr "Vote"
+msgstr "Głosowanie"
 
 #: application/modules/admin/forms/ConsultationPhases.php:53
 #: application/modules/admin/views/helpers/ConsultationNavigation.php:103
 #: application/modules/admin/views/scripts/consultation/_consultationForm.phtml:97
 #: application/modules/admin/views/scripts/followup/index.phtml:27
 msgid "Follow-up"
-msgstr "Suivi"
+msgstr "follow-up"
 
 #: application/modules/admin/forms/ContributionSubmission.php:10
 msgid "Label for self-defined field"
-msgstr "Étiquette pour le champs défini librement"
+msgstr "Etykieta dowolnie zdefiniowanego pola"
 
 #: application/modules/admin/forms/ContributionSubmission.php:15
 msgid "Contribution confirmation info"
-msgstr "Information de la confirmation de contribution"
+msgstr "Informacje potwierdzenia wpisu"
 
 #: application/modules/admin/forms/ContributionSubmission.php:22
 msgid "Display field \"Name\""
-msgstr "Montre „Nom“"
+msgstr "Pokaż pole „imię“"
 
 #: application/modules/admin/forms/ContributionSubmission.php:26
 msgid "Display field \"Age\""
-msgstr "Montre „Age“"
+msgstr "Pokaż pole „wiek“"
 
 #: application/modules/admin/forms/ContributionSubmission.php:30
 msgid "Display self-defined field (e.g. \"State\")"
-msgstr "Montre le champs défini librement (p.ex. Land)"
+msgstr "Pokaż dowolnie zdefiniowane pole (n.p. województwo)"
 
 #: application/modules/admin/forms/ContributionSubmission.php:34
 msgid "Display field \"Comment Groups\""
-msgstr "Montre „Réaction“"
+msgstr "Pokaż „komentarz“"
 
 #: application/modules/admin/forms/ContributionSubmission.php:38
 msgid "Allow groups"
-msgstr "Permettre des groupes"
+msgstr "Dopuść grupę"
 
 #: application/modules/admin/forms/ContributionSubmission.php:42
 msgid "Display field \"Contribution Origin\""
-msgstr "Montrer „Source des contributions“"
+msgstr "Pokaż \"Źródło wpisów\""
 
 #: application/modules/admin/forms/ContributionSubmission.php:46
 msgid "Display field \"Group Size\""
-msgstr "Montrer „Taille du groupe“"
+msgstr "Pokaż \"Rozmiar grupy\""
 
 #: application/modules/admin/forms/ContributionSubmission.php:50
 msgid "Display field \"Group Name\""
-msgstr "Montrer „ Nom du groupe“"
+msgstr "Pokaż „Nazwa grupy“"
 
 #: application/modules/admin/forms/ContributionSubmission.php:54
 msgid "Display field \"Contact Person\""
-msgstr "Montrer „Personne de contact“"
+msgstr "Pokaż „Osoba kontaktowa“"
 
 #: application/modules/admin/forms/ContributionSubmission.php:58
 msgid "Display field \"Subscribe to Newsletter\""
-msgstr "Montrer „Abonner l’info-lettre“"
+msgstr "Pokaż „Subskrybuj newsletter“"
 
 #: application/modules/admin/forms/ContributionSubmission.php:62
 msgid "Display field \"Notification about Results\""
-msgstr "Montrer „Notifications des résultats“"
+msgstr "Pokaż „Powiadomienie o wynikach“"
 
 #: application/modules/admin/forms/CreateInput.php:27
 msgid "Contribution Author"
-msgstr "Auteur de la contribution"
+msgstr "Autor/ka wpisu"
 
 #: application/modules/admin/forms/Directory.php:10
 #: application/modules/admin/forms/Mail/Component.php:14
@@ -1142,11 +1141,11 @@ msgstr "Auteur de la contribution"
 #: application/modules/admin/views/scripts/media/folders.phtml:37
 #: application/modules/admin/views/scripts/user/index.phtml:37
 msgid "Name"
-msgstr "Nom"
+msgstr "Nazwa"
 
 #: application/modules/admin/forms/Followup/File.php:28
 msgid "Author"
-msgstr "Auteur"
+msgstr "Autor/ka"
 
 #: application/modules/admin/forms/Followup/File.php:34
 #: application/modules/admin/forms/Followup/Snippet.php:23
@@ -1154,28 +1153,28 @@ msgstr "Auteur"
 #: application/modules/admin/forms/Question.php:37
 #: application/modules/admin/views/scripts/votingprepare/_input-row.phtml:28
 msgid "Explanation"
-msgstr "Explication"
+msgstr "Wyjaśnienie"
 
 #: application/modules/admin/forms/Followup/File.php:41
 msgid "Time created"
-msgstr "Date de création"
+msgstr "Czas stworzenia"
 
 #: application/modules/admin/forms/Followup/File.php:43
 #, php-format
 msgid "Date format: %s"
-msgstr "Format date: %s"
+msgstr "Format daty: %s"
 
 #: application/modules/admin/forms/Followup/File.php:50
 msgid "Display month and year only"
-msgstr "Ne montrer que le mois et l’année"
+msgstr "Pokazuj tylko miesiąc i rok"
 
 #: application/modules/admin/forms/Followup/File.php:58
 msgid "Document"
-msgstr "Document"
+msgstr "Dokument"
 
 #: application/modules/admin/forms/Followup/File.php:64
 msgid "Document preview"
-msgstr "L’aperçu du document"
+msgstr "Podgląd dokumentu"
 
 #: application/modules/admin/forms/Followup/Snippet.php:32
 #: application/modules/admin/views/scripts/followup/snippets.phtml:75
@@ -1184,40 +1183,40 @@ msgstr "Typ"
 
 #: application/modules/admin/forms/Followup/Snippet.php:40
 msgid "Hierarchy"
-msgstr "Hiérarchie"
+msgstr "Hierarchia"
 
 #: application/modules/admin/forms/Followup/Snippet.php:44
 msgid "Footnote"
-msgstr "Annotation"
+msgstr "Stopka"
 
 #: application/modules/admin/forms/Followup/Snippet.php:46
 msgid "Heading 1"
-msgstr "Titre 1"
+msgstr "Nagłówek 1"
 
 #: application/modules/admin/forms/Followup/Snippet.php:47
 msgid "Heading 2"
-msgstr "Titre 2"
+msgstr "Nagłówek 2"
 
 #: application/modules/admin/forms/Followup/Snippet.php:48
 msgid "Heading 3"
-msgstr "Titre 3"
+msgstr "Nagłówek 3"
 
 #: application/modules/admin/forms/Followup/Snippet.php:49
 msgid "Heading 4"
-msgstr "Titre 4"
+msgstr "Nagłówek  4"
 
 #: application/modules/admin/forms/Followup/Snippet.php:50
 msgid "Heading 5"
-msgstr "Titre 5"
+msgstr "Nagłówek 5"
 
 #: application/modules/admin/forms/Followup/Snippet.php:67
 msgid "Save and continue editing"
-msgstr "Enregistrer et continuer à éditer"
+msgstr "Zapisz i kontynuuj pracę"
 
 #: application/modules/admin/forms/Followup/Snippet.php:73
 #: application/modules/admin/forms/Input.php:131
 msgid "Save and return to index"
-msgstr "Enregistrer et revenir à l’aperçu"
+msgstr "Zapisz i wróć do podglądu"
 
 #: application/modules/admin/forms/Input.php:49
 #: application/modules/admin/forms/Question.php:29
@@ -1225,21 +1224,21 @@ msgstr "Enregistrer et revenir à l’aperçu"
 #: application/modules/admin/views/scripts/question/index.phtml:36
 #: application/modules/admin/views/scripts/votingprepare/index.phtml:31
 msgid "Question"
-msgstr "Question"
+msgstr "Pytanie"
 
 #: application/modules/admin/forms/Input.php:57
 msgid "Thesis"
-msgstr "Thèse"
+msgstr "Teza"
 
 #: application/modules/admin/forms/Input.php:70
 #: application/modules/admin/views/scripts/input/list-by-question.phtml:95
 #: application/modules/admin/views/scripts/votingprepare/overview.phtml:139
 msgid "Tags"
-msgstr "Mots-clés"
+msgstr "Słowa kluczowe"
 
 #: application/modules/admin/forms/Input.php:78
 msgid "User confirmation"
-msgstr "Confirmation de l’utilisateur"
+msgstr "Potwierdzenie użytkownika /użytkowniczki"
 
 #: application/modules/admin/forms/Input.php:82
 #: application/modules/admin/forms/Input.php:95
@@ -1254,7 +1253,7 @@ msgstr "Confirmation de l’utilisateur"
 #: application/modules/admin/views/scripts/votingprepare/_input-row.phtml:136
 #: application/modules/admin/views/scripts/votingprepare/overview.phtml:109
 msgid "Unknown"
-msgstr "Inconnu"
+msgstr "Nieznane"
 
 #: application/modules/admin/forms/Input.php:83
 #: application/modules/admin/forms/Input.php:96
@@ -1268,16 +1267,16 @@ msgstr "Inconnu"
 #: application/modules/admin/views/scripts/votingprepare/_input-row.phtml:112
 #: application/modules/admin/views/scripts/votingprepare/overview.phtml:79
 msgid "Confirmed"
-msgstr "Confirmé"
+msgstr "Potwierdzone"
 
 #: application/modules/admin/forms/Input.php:84
 #: application/modules/admin/views/scripts/input/_inputBox.phtml:88
 msgid "Rejected"
-msgstr "Refusé"
+msgstr "Odrzucone"
 
 #: application/modules/admin/forms/Input.php:91
 msgid "Admin confirmation"
-msgstr "Confirmation de l’adminstrateur"
+msgstr "Potwierdzenie administratora /administratorki"
 
 #: application/modules/admin/forms/Input.php:97
 #: application/modules/admin/forms/User/Create.php:51
@@ -1290,11 +1289,11 @@ msgstr "Confirmation de l’adminstrateur"
 #: application/modules/admin/views/scripts/votingprepare/overview.phtml:80
 #: application/modules/admin/views/scripts/votingprepare/overview.phtml:111
 msgid "Blocked"
-msgstr "Bloqué"
+msgstr "Zablokowane"
 
 #: application/modules/admin/forms/Input.php:104
 msgid "Enable voting"
-msgstr "Activer le vote"
+msgstr "Aktywuj głosowanie"
 
 #: application/modules/admin/forms/Input.php:109
 #: application/modules/admin/forms/Input.php:142
@@ -1348,7 +1347,7 @@ msgstr "Activer le vote"
 #: application/modules/admin/views/scripts/votingprepare/overview.phtml:337
 #: application/modules/admin/views/scripts/votingprepare/overview.phtml:365
 msgid "No"
-msgstr "Non"
+msgstr "Nie"
 
 #: application/modules/admin/forms/Input.php:110
 #: application/modules/admin/forms/Input.php:141
@@ -1402,18 +1401,18 @@ msgstr "Non"
 #: application/modules/admin/views/scripts/votingprepare/overview.phtml:336
 #: application/modules/admin/views/scripts/votingprepare/overview.phtml:364
 msgid "Yes"
-msgstr "Oui"
+msgstr "Tak"
 
 #: application/modules/admin/forms/Input.php:117
 #: application/modules/admin/forms/User/Create.php:61
 #: application/modules/admin/forms/User/Edit.php:97
 #: application/modules/admin/views/scripts/votingprepare/_input-row.phtml:33
 msgid "Internal note"
-msgstr "Note interne"
+msgstr "Wewnętrzna notatka"
 
 #: application/modules/admin/forms/Input.php:133
 msgid "Save and continue"
-msgstr "Enregistrer et continuer "
+msgstr "Zapisz i kontynuuj"
 
 #: application/modules/admin/forms/Input.php:140
 #: application/modules/admin/views/scripts/input/list-by-question.phtml:180
@@ -1429,7 +1428,7 @@ msgstr "Enregistrer et continuer "
 #: application/modules/admin/views/scripts/input/list-by-user.phtml:232
 #: application/modules/admin/views/scripts/input/list-by-user.phtml:245
 msgid "Are you sure?"
-msgstr "Es-tu sûr?"
+msgstr "Na pewno? "
 
 #: application/modules/admin/forms/Input.php:143
 #: application/modules/admin/forms/Media/Delete.php:19
@@ -1444,42 +1443,42 @@ msgstr "Es-tu sûr?"
 #: application/modules/admin/views/scripts/media/folders.phtml:59
 #: application/modules/admin/views/scripts/votingprepare/overview.phtml:340
 msgid "Delete"
-msgstr "Supprimer"
+msgstr "Usuń"
 
 #: application/modules/admin/forms/InputSort.php:12
 msgid "Sort by date"
-msgstr "Trier par date"
+msgstr "Sortuj wg daty"
 
 #: application/modules/admin/forms/InputSort.php:13
 msgid "Sort by number of supporters"
-msgstr "Trier par nombre des supporteurs"
+msgstr "Sortuj wg liczby popierających"
 
 #: application/modules/admin/forms/InputSort.php:23
 msgid "Sort"
-msgstr "Trier"
+msgstr "Sortuj"
 
 #: application/modules/admin/forms/Mail/Component.php:24
 #: application/modules/admin/forms/Mail/Send.php:125
 #: application/modules/admin/forms/Mail/Template.php:40
 msgid "Message (plain text)"
-msgstr "Message (en texte en clair)"
+msgstr "Wiadomość (sam tekst)"
 
 #: application/modules/admin/forms/Mail/Component.php:31
 #: application/modules/admin/forms/Mail/Send.php:114
 #: application/modules/admin/forms/Mail/Template.php:47
 msgid "Message (HTML)"
-msgstr "Message (HTML)"
+msgstr "Wiadomość (HTML)"
 
 #: application/modules/admin/forms/Mail/Component.php:39
 msgid "Component description"
-msgstr "Description du composant "
+msgstr "Opis części składowych"
 
 #: application/modules/admin/forms/Mail/Send.php:17
 #: application/modules/admin/forms/Mail/Send.php:26
 #: application/modules/admin/forms/Mail/Send.php:35
 #, php-format
 msgid "Email address (max %d characters)"
-msgstr "Adresse courriel (au plus %d caractères)"
+msgstr "Adres E-Mail (maksymalnie %d znaków)"
 
 #: application/modules/admin/forms/Mail/Send.php:24
 #: application/modules/admin/views/scripts/mail-sent/index.phtml:60
@@ -1495,23 +1494,27 @@ msgstr "Bcc"
 #: application/modules/admin/views/helpers/ConsultationTabs.php:18
 #: application/modules/admin/views/scripts/media/consultations.phtml:32
 msgid "Consultation"
-msgstr "Cycle de participation"
+msgstr "Runda konsultacji"
 
 #: application/modules/admin/forms/Mail/Send.php:70
 msgid "All participants"
-msgstr "Tous les participants"
+msgstr "Wszyscy uczestnicy /Wszystkie uczestniczki"
 
 #: application/modules/admin/forms/Mail/Send.php:78
 msgid "Participants who voted"
-msgstr "Les participants qui ont participé au vote. "
+msgstr "Uczestnicy, którzy zagłosowali /Uczestniczki, które zagłosowały"
 
 #: application/modules/admin/forms/Mail/Send.php:86
 msgid "Participants who signed up to receive follow-ups"
-msgstr "Les participants qui veulent être informés du suivi. "
+msgstr ""
+"Uczestnicy, którzy chcą otrzymać follow-up /Uczestniczki, które chcą "
+"otrzymać follow-up"
 
 #: application/modules/admin/forms/Mail/Send.php:94
 msgid "Participants who signed up to receive newsletter"
-msgstr "Les participants qui veulent recevoir une info-lettre. "
+msgstr ""
+"Uczestnicy, którzy subskrybują newsletter /Uczestniczki, które subskrybują "
+"newsletter"
 
 #: application/modules/admin/forms/Mail/Send.php:102
 #: application/modules/admin/forms/Mail/Template.php:32
@@ -1519,70 +1522,70 @@ msgstr "Les participants qui veulent recevoir une info-lettre. "
 #: application/modules/admin/views/scripts/mail-sent/index.phtml:42
 #: application/modules/admin/views/scripts/mail-template/index.phtml:40
 msgid "Subject"
-msgstr "Sujet"
+msgstr "Temat"
 
 #: application/modules/admin/forms/Mail/Send.php:107
 #, php-format
 msgid "Subject (max %d characters)"
-msgstr "Thème (au plus %d caractères)"
+msgstr "Temat (maksymalnie %d znaków)"
 
 #: application/modules/admin/forms/Mail/Send.php:118
 msgid "Message as HTML"
-msgstr "Message en format HTML"
+msgstr "Wiadomość w formacie HTML"
 
 #: application/modules/admin/forms/Mail/Send.php:129
 msgid "Message as plain text"
-msgstr "Message en texte en clair"
+msgstr "Wiadomość jako tekst"
 
 #: application/modules/admin/forms/Mail/Send.php:152
 msgid "Add attachment"
-msgstr "Ajouter pièce jointe"
+msgstr "Dodaj załącznik"
 
 #: application/modules/admin/forms/Mail/Send.php:171
 msgid "Send"
-msgstr "Envoyer"
+msgstr "Wyślij"
 
 #: application/modules/admin/forms/Media/Delete.php:24
 msgid "Delete media?"
-msgstr "Supprimer le fichier?"
+msgstr "Usunąć plik?"
 
 #: application/modules/admin/forms/Media/FileDetail.php:32
 msgid ""
 "File name has to have an extension and can contain only characters a-z, 0-9 "
 "and -."
 msgstr ""
-"Le nom du fichier a besoin d'une extension et ne peut être composé que des "
-"caractères a-z, 0-9 et - ."
+"Nazwa pliku wymaga rozszerzenia i może zawierać wyłącznie znaki a-z, cyfry "
+"0-9 oraz znak -."
 
 #: application/modules/admin/forms/Media/FileDetail.php:64
 #: application/modules/admin/forms/Media/FolderDetail.php:50
 #: application/modules/admin/forms/Voting/Settings.php:78
 msgid "Submit"
-msgstr "Soumettre"
+msgstr "Wyślij"
 
 #: application/modules/admin/forms/Media/FolderDetail.php:25
 #: application/modules/admin/views/scripts/media/folder-detail.phtml:32
 msgid "Folder name can contain only characters a-z, 0-9 and -."
 msgstr ""
-"Le nom du dossier ne peut être composé que des caractères a-z, 0-9 et -."
+"Nazwa folderu może zawierać wyłącznie znaki a-z, cyfry 0-9 oraz znak -. "
 
 #: application/modules/admin/forms/Media/Upload.php:40
 #: application/modules/admin/views/helpers/MediaNavigation.php:30
 #: application/modules/admin/views/scripts/index/index.phtml:5
 #: application/modules/admin/views/scripts/media/consultations.phtml:26
 msgid "Consultations"
-msgstr "Cycles de participation"
+msgstr "Konsultacje"
 
 #: application/modules/admin/forms/Media/Upload.php:41
 #: application/modules/admin/views/helpers/MediaNavigation.php:44
 #: application/modules/admin/views/scripts/media/folders.phtml:30
 #: application/modules/admin/views/scripts/votingprepare/overview.phtml:184
 msgid "Folders"
-msgstr "Dossiers"
+msgstr "Folder"
 
 #: application/modules/admin/forms/Media/Upload.php:48
 msgid "Destination"
-msgstr "Destination"
+msgstr "Cel"
 
 #: application/modules/admin/forms/Media/Upload.php:60
 #: application/modules/admin/views/scripts/media/consultations.phtml:10
@@ -1592,37 +1595,35 @@ msgstr "Destination"
 #: application/modules/admin/views/scripts/media/index.phtml:10
 #: application/modules/admin/views/scripts/media/upload.phtml:10
 msgid "Upload"
-msgstr "Télécharger"
+msgstr "Prześlij"
 
 #: application/modules/admin/forms/Question.php:45
 msgid "Voting question"
-msgstr "Question de vote"
+msgstr "Pytanie głosowania"
 
 #: application/modules/admin/forms/Question.php:52
 msgid "Allow video in contributions"
-msgstr "Permettre des vidéos dans les contributions."
+msgstr "Dopuść wideo przy wpisach"
 
-# I believe that this label is the one that indicates the (new) textarea in the backend, which allows to change license text or data privacy information. Right? If yes, please change also the English label to: "Licence / Information"
-# - we have mostly used British English so far, so don't be surprised about "licence"
 #: application/modules/admin/forms/Settings/ContributionSubmission.php:17
 msgid "License"
-msgstr "License"
+msgstr "Licencja/informacja"
 
 #: application/modules/admin/forms/Settings/LookAndFeel.php:26
 msgid "Primary color"
-msgstr "Couleur primaire"
+msgstr "Kolor podstawowy"
 
 #: application/modules/admin/forms/Settings/LookAndFeel.php:33
 msgid "Accent color 1"
-msgstr "Couleur d'accent 1"
+msgstr "Kolor 1"
 
 #: application/modules/admin/forms/Settings/LookAndFeel.php:40
 msgid "Accent color 2"
-msgstr "Couleur d'accent 2"
+msgstr "Kolor 2"
 
 #: application/modules/admin/forms/Settings/LookAndFeel.php:47
 msgid "Add «Join In» bubble"
-msgstr "Ajouter bulle \"participer\" "
+msgstr "Dodaj chmurkę \"Weź udział“"
 
 #: application/modules/admin/forms/Settings/Services.php:15
 msgid "YouTube"
@@ -1641,44 +1642,44 @@ msgid ""
 "Used in page <title> tag, in DV.title and og:title meta tags and as a logo "
 "image alt text."
 msgstr ""
-"Utilisé dans <title>-Tag, dans DV.title et og:title et comme texte "
-"alternatif de description du logo "
+"Będzie używane w tagu <title>, w DV.tytuł oraz og:tytuł , a także jako "
+"alternatywny tekstu opisu loga."
 
 #: application/modules/admin/forms/Settings/Site.php:18
 msgid "Application Language"
-msgstr "Langue d'application"
+msgstr "Język aplikacji"
 
 #: application/modules/admin/forms/Settings/Site.php:25
 msgid "Site Title"
-msgstr "Titre du site"
+msgstr "Tytuł strony"
 
 #: application/modules/admin/forms/Settings/Site.php:31
 msgid "Used in description and og:description meta tags."
-msgstr "Utilisé dans la description et les \"og:description\" Metatag."
+msgstr "Będzie używane w opisie oraz w metatagach \"og:description\"."
 
 #: application/modules/admin/forms/Settings/Site.php:34
 msgid "Site Description"
-msgstr "Description de site"
+msgstr "Opis strony"
 
 #: application/modules/admin/forms/Settings/Site.php:40
 msgid "Used as a subtitle on all pages that are not consultation specific."
 msgstr ""
-"Utilisé comme sous-titre sur toutes les pages qui ne font pas partie d'un "
-"cycle de participation particulier."
+"Będzie używane jako podtytuł na wszystkich stronach, które nie należą do "
+"określonej rundy konsultacji."
 
 #: application/modules/admin/forms/Settings/Site.php:43
 msgid "Motto"
-msgstr "Devise"
+msgstr "Motto"
 
 #: application/modules/admin/forms/Settings/Site.php:53
 msgid "Site Information"
-msgstr "Informations de la site"
+msgstr "Informacje o stronie"
 
 #: application/modules/admin/forms/Settings/Site.php:56
 #: application/modules/admin/forms/Settings/Site.php:65
 #: application/modules/admin/forms/Settings/Site.php:74
 msgid "Used as a placeholder in email templates."
-msgstr "Utilisé comme caractère générique dans les modèles de courriel"
+msgstr "Będzie używany jako znacznik w szablonie E-Maila."
 
 #: application/modules/admin/forms/Settings/Site.php:68
 #: application/modules/admin/forms/User/Create.php:23
@@ -1694,29 +1695,29 @@ msgstr "Utilisé comme caractère générique dans les modèles de courriel"
 #: application/modules/admin/views/scripts/user/index.phtml:38
 #: application/modules/admin/views/scripts/voting/invitations.phtml:52
 msgid "Email"
-msgstr "Courriel"
+msgstr "E-Mail"
 
 #: application/modules/admin/forms/Settings/Site.php:77
 msgid "Website URL"
-msgstr "Adresse du site d'Internet"
+msgstr "Adres URL strony"
 
 #: application/modules/admin/forms/Settings/Site.php:86
 msgid "Contact Information"
-msgstr "Information du contact"
+msgstr "Informacje kontaktowe"
 
 #: application/modules/admin/forms/Settings/Voting.php:9
 msgid "Voting Question"
-msgstr "Question de vote"
+msgstr "Pytanie głosowania"
 
 #: application/modules/admin/forms/Tag.php:15
 msgid "New keyword"
-msgstr "Nouveau mot-clé"
+msgstr "Nowe słowo kluczowe"
 
 #: application/modules/admin/forms/User/Create.php:33
 #: application/modules/admin/forms/User/Edit.php:44
 #: application/modules/admin/views/scripts/user/index.phtml:39
 msgid "Role"
-msgstr "Rôle"
+msgstr "Rola"
 
 #: application/modules/admin/forms/User/Create.php:37
 #: application/modules/admin/forms/User/Edit.php:48
@@ -1725,58 +1726,58 @@ msgstr "Rôle"
 #: application/modules/admin/views/scripts/voting/index.phtml:43
 #: application/modules/admin/views/scripts/votingprepare/_input-row.phtml:99
 msgid "User"
-msgstr "Utilisateur"
+msgstr "Użytkownik/użytkowniczka"
 
 #: application/modules/admin/forms/User/Create.php:38
 #: application/modules/admin/forms/User/Edit.php:49
 #: application/modules/admin/views/scripts/user/index.phtml:67
 msgid "Editor"
-msgstr "Editeur"
+msgstr "Redaktor/ka"
 
 #: application/modules/admin/forms/User/Create.php:39
 #: application/modules/admin/forms/User/Edit.php:50
 #: application/modules/admin/views/scripts/votingprepare/_input-row.phtml:99
 msgid "Admin"
-msgstr "Administrateur"
+msgstr "Administrator/ka"
 
 #: application/modules/admin/forms/User/Create.php:47
 #: application/modules/admin/forms/User/Edit.php:58
 #: application/modules/admin/views/scripts/voting/participants.phtml:41
 msgid "Status"
-msgstr "Statut"
+msgstr "Status"
 
 #: application/modules/admin/forms/User/Create.php:52
 #: application/modules/admin/forms/User/Edit.php:63
 #: application/modules/admin/views/scripts/voting/participants.phtml:78
 msgid "Unconfirmed"
-msgstr "Non-confirmé"
+msgstr "niepotwierdzone"
 
 #: application/modules/admin/forms/User/Create.php:67
 #: application/modules/admin/forms/User/Edit.php:103
 msgid "Receive newsletter"
-msgstr "Recevoir le bulletin"
+msgstr "Otrzymuj newsletter"
 
 #: application/modules/admin/forms/User/Edit.php:72
 #: application/modules/admin/forms/User/Edit.php:78
 msgid "Password"
-msgstr "Mot de passe"
+msgstr "Hasło"
 
 #: application/modules/admin/forms/User/Edit.php:80
 msgid "Leave blank to leave unchanged."
-msgstr "Laisser vide, pour ne pas effectuer des changements. "
+msgstr "Pozostaw puste, jeśli nie chcesz zapisać zmian."
 
 #: application/modules/admin/forms/User/Edit.php:90
 msgid "Password confirmation"
-msgstr "Confirmer le mot de passe"
+msgstr "Potwierdź hasło"
 
 #: application/modules/admin/forms/Voting/Participantedit.php:22
 msgid "Select a participant"
-msgstr "Sélectionner un participant"
+msgstr "Wybierz uczestnika/uczetniczkę"
 
 #: application/modules/admin/forms/Voting/Rights.php:27
 #: application/modules/admin/forms/Voting/RightsAdd.php:56
 msgid "Weight"
-msgstr "Poids"
+msgstr "Waga"
 
 #: application/modules/admin/forms/Voting/Rights.php:34
 #: application/modules/admin/forms/Voting/RightsAdd.php:63
@@ -1784,209 +1785,207 @@ msgstr "Poids"
 #: application/modules/admin/views/scripts/voting/invitations.phtml:77
 #: application/modules/admin/views/scripts/voting/invitations.phtml:83
 msgid "Group size"
-msgstr "Taille du groupe"
+msgstr "Rozmiar grupy"
 
 #: application/modules/admin/forms/Voting/Rights.php:41
 #: application/modules/admin/forms/Voting/RightsAdd.php:74
 msgid "Access code"
-msgstr "Code d’accès"
+msgstr "Kod dostępu"
 
 #: application/modules/admin/forms/Voting/Rights.php:49
 msgid "Size according to user"
-msgstr "Taille selon l'utilisateur"
+msgstr "Rozmiar według użytkownika/użytkowniczki"
 
 #: application/modules/admin/forms/Voting/Settings.php:11
 msgid "Number of voting buttons"
-msgstr "Nombre de boutons de vote"
+msgstr "Liczba przycisków głosowania"
 
 #: application/modules/admin/forms/Voting/Settings.php:19
 #, php-format
 msgid "Comma separated, lower first, max. %d characters"
-msgstr ""
-"Séparé par une virgule, prémièrement les plus bas, au plus %d caractères."
+msgstr "Oddziel przecinkiem, najpierw mniejsze, maksymalnie %d znaków"
 
 #: application/modules/admin/forms/Voting/Settings.php:22
 msgid "Button labels"
-msgstr "Étiquettes des boutons"
+msgstr "Etykiety przycisków"
 
 #: application/modules/admin/forms/Voting/Settings.php:30
 msgid "Superbutton"
-msgstr "Superbutton"
+msgstr "Super przycisk"
 
 #: application/modules/admin/forms/Voting/Settings.php:34
 #: application/modules/admin/forms/Voting/Settings.php:46
 msgid "Enable"
-msgstr "Activer"
+msgstr "Aktywuj"
 
 #: application/modules/admin/forms/Voting/Settings.php:35
 #: application/modules/admin/forms/Voting/Settings.php:47
 msgid "Disable"
-msgstr "Désactiver"
+msgstr "Deaktywuj"
 
 #: application/modules/admin/forms/Voting/Settings.php:42
 msgid "No Opinion"
-msgstr "Aucune opinion"
+msgstr "Bez opinii"
 
 #: application/modules/admin/forms/Voting/Settings.php:53
 msgid "Superbutton label"
-msgstr "Étiquette du superbutton"
+msgstr "Etykieta super przycisku"
 
 #: application/modules/admin/forms/Voting/Settings.php:58
 msgid "Number of clicks allowed"
-msgstr "Nombre des clics permis"
+msgstr "Liczba dozwolonych kliknięć"
 
 #: application/modules/admin/forms/Voting/Settings.php:66
 msgid "Rating factor"
-msgstr "Facteur d’évaluation"
+msgstr "Faktor oceny"
 
-# Aus dem Deutschen übersetzt würde ich „poids“ nehmen, aus dem Englischen übersetzt würde ich „évaluation“ nehmen.
 #: application/modules/admin/forms/Voting/Settings.php:67
 msgid "Max. rating × factor = total points"
-msgstr "poids au maximum × facteur = points totals"
+msgstr "Maksymalna waga x faktor = punkty łącznie"
 
 #: application/modules/admin/views/helpers/ConsultationEditNavigation.php:16
 msgid "General"
-msgstr "En général"
+msgstr "Ogólne"
 
 #: application/modules/admin/views/helpers/ConsultationEditNavigation.php:21
 #: application/modules/admin/views/scripts/consultation/contribution-submission-form.phtml:23
 msgid "Participants' Data"
-msgstr "Les données des participants"
+msgstr "Dane uczestników /uczestniczek"
 
 #: application/modules/admin/views/helpers/ConsultationEditNavigation.php:33
 #: application/modules/admin/views/scripts/consultation/phases.phtml:23
 msgid "Phases"
-msgstr "Les phases"
+msgstr "Fazy"
 
 #: application/modules/admin/views/helpers/ConsultationEditNavigation.php:38
 #: application/modules/admin/views/scripts/consultation/groups.phtml:23
 msgid "Groups"
-msgstr "Groupes"
+msgstr "Grupy"
 
 #: application/modules/admin/views/helpers/ConsultationNavigation.php:16
 msgid "Dashboard"
-msgstr "Tableau de bord"
+msgstr "Panel sterowania"
 
 #: application/modules/admin/views/helpers/ConsultationNavigation.php:70
 #: application/modules/admin/views/scripts/voting/invitations.phtml:53
 msgid "Permissions"
-msgstr "Autorisations"
+msgstr "Zaproszenia"
 
 #: application/modules/admin/views/helpers/ConsultationNavigation.php:77
 msgid "Invitations"
-msgstr "Invitations"
+msgstr "Zaproszenia"
 
 #: application/modules/admin/views/helpers/ConsultationNavigation.php:84
 msgid "Participants"
-msgstr "Participants"
+msgstr "Uczestnicy/uczestniczki"
 
 #: application/modules/admin/views/helpers/ConsultationNavigation.php:91
 msgid "Results"
-msgstr "Résultats"
+msgstr "Wyniki"
 
 #: application/modules/admin/views/helpers/ConsultationNavigation.php:115
 #: application/modules/admin/views/scripts/consultation/report.phtml:21
 #: application/modules/admin/views/scripts/index/index.phtml:84
 msgid "Statistics"
-msgstr "Statistiques"
+msgstr "Statystyki"
 
 #: application/modules/admin/views/helpers/ConsultationTabs.php:24
 #: application/modules/admin/views/helpers/EmailTabs.php:23
 msgid "Settings"
-msgstr "Paramètres généraux"
+msgstr "Ustawienia"
 
 #: application/modules/admin/views/helpers/EmailNavigation.php:15
 msgid "Sent"
-msgstr "Envoyé"
+msgstr "Wysłany"
 
 #: application/modules/admin/views/helpers/EmailNavigation.php:20
 msgid "Queued"
-msgstr "En file d’attente"
+msgstr "W kolejce"
 
 #: application/modules/admin/views/helpers/EmailSettingsNavigation.php:15
 msgid "Templates"
-msgstr "Gabarits"
+msgstr "Wzory"
 
 #: application/modules/admin/views/helpers/EmailSettingsNavigation.php:21
 #: application/modules/admin/views/scripts/_partials/mail-replacable-tokens.phtml:16
 msgid "Components"
-msgstr "Composants"
+msgstr "Części składowe"
 
 #: application/modules/admin/views/helpers/EmailTabs.php:17
 msgid "Emailing"
-msgstr "Courriels"
+msgstr "Maile"
 
 #: application/modules/admin/views/helpers/SecondaryNavigation.php:64
 msgid "Create new item"
-msgstr "Créer une nouvelle contribution"
+msgstr "Utwórz nowy wpis"
 
 #: application/modules/admin/views/helpers/SettingsNavigation.php:15
 #: application/modules/admin/views/scripts/settings/index.phtml:16
 msgid "Site"
-msgstr "Site"
+msgstr "Strona"
 
 #: application/modules/admin/views/helpers/SettingsNavigation.php:20
 #: application/modules/admin/views/scripts/article/index.phtml:40
 msgid "Pages"
-msgstr "Pages"
+msgstr "Strony"
 
 #: application/modules/admin/views/helpers/SettingsNavigation.php:26
 #: application/modules/admin/views/scripts/tag/index.phtml:20
 msgid "Keywords"
-msgstr "Mots-clés"
+msgstr "Słowa kluczowe"
 
 #: application/modules/admin/views/helpers/SettingsNavigation.php:32
 #: application/modules/admin/views/scripts/settings/contribution-submission-form.phtml:16
 #: application/modules/admin/views/scripts/votingprepare/_input-row.phtml:23
 msgid "Contribution"
-msgstr "Contribution"
+msgstr "Wpis"
 
 #: application/modules/admin/views/helpers/SettingsNavigation.php:42
 #: application/modules/admin/views/scripts/settings/help-text-edit.phtml:3
 msgid "Help Texts"
-msgstr "Textes d’aide"
+msgstr "Teksty pomocy"
 
 #: application/modules/admin/views/helpers/SettingsNavigation.php:47
 #: application/modules/admin/views/scripts/settings/footer.phtml:16
 msgid "Footer"
-msgstr "Pied de page"
+msgstr "Stopka"
 
 #: application/modules/admin/views/helpers/SettingsNavigation.php:52
 #: application/modules/admin/views/scripts/settings/services.phtml:16
 msgid "Services"
-msgstr "Services"
+msgstr "Funkcje"
 
 #: application/modules/admin/views/helpers/SettingsNavigation.php:57
 #: application/modules/admin/views/scripts/settings/look-and-feel.phtml:16
 msgid "Look and Feel"
-msgstr "Apparence"
+msgstr "Wygląd"
 
 #: application/modules/admin/views/scripts/_helpers/helpText.phtml:3
 #: application/modules/admin/views/scripts/_partials/pageLinks.phtml:8
 msgid "Help"
-msgstr "Aide"
+msgstr "Pomoc"
 
 #: application/modules/admin/views/scripts/_helpers/helpText.phtml:18
 msgid "Close"
-msgstr "Fermer"
+msgstr "Zamknij"
 
 #: application/modules/admin/views/scripts/_partials/mail-replacable-tokens.phtml:2
 #: application/modules/admin/views/scripts/consultation/_consultationForm.phtml:107
 #: application/modules/admin/views/scripts/mail-component/detail.phtml:33
 msgid "Placeholders"
-msgstr "Caractères génériques"
+msgstr "Znaczniki"
 
 #: application/modules/admin/views/scripts/_partials/media-thumbnails.phtml:19
 msgid "Select"
-msgstr "Sélectionner"
+msgstr "Wybierz"
 
 #: application/modules/admin/views/scripts/_partials/media-thumbnails.phtml:29
 msgid "Open"
-msgstr "Ouvrir"
+msgstr "Otwórz"
 
 #: application/modules/admin/views/scripts/_partials/media-thumbnails.phtml:64
 msgid "Download"
-msgstr "Télécharger"
+msgstr "Pobierz"
 
 #: application/modules/admin/views/scripts/article/create.phtml:9
 #: application/modules/admin/views/scripts/article/edit.phtml:9
@@ -2001,135 +2000,131 @@ msgstr "Télécharger"
 #: application/modules/admin/views/scripts/tag/create.phtml:3
 #: application/modules/admin/views/scripts/tag/index.phtml:3
 msgid "General Settings"
-msgstr "Paramètres généraux"
+msgstr "Ustawienia ogólne"
 
 #: application/modules/admin/views/scripts/article/create.phtml:29
 #: application/modules/admin/views/scripts/article/edit.phtml:29
 msgid "Back to Articles"
-msgstr "Revenir aux Articles"
+msgstr "Z powrotem do artykułów"
 
 #: application/modules/admin/views/scripts/article/create.phtml:30
 #: application/modules/admin/views/scripts/article/index.phtml:32
 msgid "New Article"
-msgstr "Nouvel article"
+msgstr "Nowy artykuł"
 
 #: application/modules/admin/views/scripts/article/create.phtml:32
 #: application/modules/admin/views/scripts/article/edit.phtml:32
 msgid "Back to Pages"
-msgstr "Revenir aux Pages"
+msgstr "Z powrotem do strony"
 
 #: application/modules/admin/views/scripts/article/create.phtml:33
 #: application/modules/admin/views/scripts/article/index.phtml:34
 msgid "New Page"
-msgstr "Nouvelle page"
+msgstr "Nowa strona"
 
 #: application/modules/admin/views/scripts/article/edit.phtml:30
 msgid "Edit Article"
-msgstr "Éditer l’article"
+msgstr "Edytuj artykuł"
 
 #: application/modules/admin/views/scripts/article/edit.phtml:33
 msgid "Edit Page"
-msgstr "Éditer la page"
+msgstr "Edytuj stronę"
 
 #: application/modules/admin/views/scripts/article/index.phtml:46
 msgid "There are no articles yet."
-msgstr "Il n’y a pas encore d’articles."
+msgstr "Obecnie nie ma żadnych artykułów."
 
 #: application/modules/admin/views/scripts/article/index.phtml:67
 #: application/modules/admin/views/scripts/article/index.phtml:76
 #: application/modules/admin/views/scripts/article/index.phtml:107
 #: application/modules/admin/views/scripts/article/index.phtml:116
 msgid "Edit article"
-msgstr "Éditer l’article."
+msgstr "Edytuj artykuł"
 
 #: application/modules/admin/views/scripts/article/index.phtml:86
 #: application/modules/admin/views/scripts/article/index.phtml:126
 msgid "Delete article?"
-msgstr "Supprimer l’article?"
+msgstr "Usunąć artykuł?"
 
 #: application/modules/admin/views/scripts/article/preview.phtml:6
 msgid "Warning: this is just a preview, no changes have been saved yet."
-msgstr ""
-"Attention: Ce n’est qu’un aperçu, les changements n’ont pas encore été "
-"enregistrés. "
+msgstr "Uwaga: to tylko podgląd, zmiany nie zostały jeszcze zapisane."
 
 #: application/modules/admin/views/scripts/consultation/_consultationForm.phtml:34
 msgid "Support"
-msgstr "Soutenir"
+msgstr "Wesprzyj"
 
 #: application/modules/admin/views/scripts/consultation/_consultationForm.phtml:50
 msgid "Discussion"
-msgstr "Discussion"
+msgstr "Dyskusja"
 
 #: application/modules/admin/views/scripts/consultation/_consultationForm.phtml:72
 #: application/modules/admin/views/scripts/question/create.phtml:46
 #: application/modules/admin/views/scripts/question/edit.phtml:46
 msgid "Video Services Settings"
-msgstr "Paramètres des services vidéo"
+msgstr "Ustawienia wideo"
 
 #: application/modules/admin/views/scripts/consultation/_consultationForm.phtml:103
 msgid "Terms & Conditions"
-msgstr "Modalités"
+msgstr "Warunki korzystania"
 
 #: application/modules/admin/views/scripts/consultation/_consultationForm.phtml:112
 msgid ""
 "Title of the publication terms for this website as mentioned in general "
 "footer."
-msgstr ""
-"Titre de la licence de publication de ce site web (comme dans le pied de "
-"page général) "
+msgstr "Tytuł licencji publikacji tej strony (tak jak w stopce)."
 
 #: application/modules/admin/views/scripts/consultation/_consultationForm.phtml:116
 msgid ""
 "The link to the web page with more information on the selected terms or "
 "license."
-msgstr "Lien à une page avec plus d'informations sur la licence sélectionnée. "
+msgstr "Link do strony z dalszymi informacjami na temat licencji publikacji."
 
 #: application/modules/admin/views/scripts/consultation/_groupsForm.phtml:18
 msgid "Categories Of Age Groups"
-msgstr "Catégories des groupes d’âge"
+msgstr "Kategorie grup wiekowych"
 
 #: application/modules/admin/views/scripts/consultation/_groupsForm.phtml:21
 #: application/modules/admin/views/scripts/consultation/_groupsForm.phtml:139
 msgid ""
 "Intervals include the border numbers. Eg. 10–12 includes everything between "
 "10 and 12, including 10 and 12."
-msgstr "Les intervalles includent les nombres le plus bas et plus hauts. "
+msgstr "Przedziały zawierają także liczby graniczne."
 
 #: application/modules/admin/views/scripts/consultation/_groupsForm.phtml:32
 #: application/modules/admin/views/scripts/consultation/_groupsForm.phtml:107
 #: application/modules/admin/views/scripts/consultation/_groupsForm.phtml:149
 #: application/modules/admin/views/scripts/consultation/_groupsForm.phtml:239
 msgid "Up To"
-msgstr "Jusqu’à"
+msgstr "Do"
 
 #: application/modules/admin/views/scripts/consultation/_groupsForm.phtml:45
 #: application/modules/admin/views/scripts/consultation/_groupsForm.phtml:67
 #: application/modules/admin/views/scripts/consultation/_groupsForm.phtml:76
 #: application/modules/admin/views/scripts/consultation/_groupsForm.phtml:117
 msgid "Years"
-msgstr "Ans"
+msgstr "lat"
 
 #: application/modules/admin/views/scripts/consultation/_groupsForm.phtml:53
 #: application/modules/admin/views/scripts/consultation/_groupsForm.phtml:84
 #: application/modules/admin/views/scripts/consultation/_groupsForm.phtml:185
 #: application/modules/admin/views/scripts/consultation/_groupsForm.phtml:216
 msgid "Delete interval"
-msgstr "Supprimer l’intervalle"
+msgstr "od"
 
 #: application/modules/admin/views/scripts/consultation/_groupsForm.phtml:96
 #: application/modules/admin/views/scripts/consultation/_groupsForm.phtml:228
 msgid "Add interval"
-msgstr "Ajouter l’intervalle "
+msgstr "Dodaj przedział"
 
 #: application/modules/admin/views/scripts/consultation/_groupsForm.phtml:121
 #: application/modules/admin/views/scripts/consultation/_groupsForm.phtml:253
 msgid "Infinity"
-msgstr "Illimité"
+msgstr "nieograniczone"
 
 #: application/modules/admin/views/scripts/consultation/_groupsForm.phtml:136
 msgid "Categories of Group Sizes"
-msgstr "Catégories de la taille des groupes"
+msgstr "Kategorie rozmiarów grup"
 
 #: application/modules/admin/views/scripts/consultation/_groupsForm.phtml:159
 #: application/modules/admin/views/scripts/consultation/_groupsForm.phtml:165
@@ -2138,458 +2133,440 @@ msgstr "Catégories de la taille des groupes"
 #: application/modules/admin/views/scripts/consultation/_groupsForm.phtml:208
 #: application/modules/admin/views/scripts/consultation/_groupsForm.phtml:249
 msgid "Persons"
-msgstr "Personnes"
+msgstr "Osoby"
 
 #: application/modules/admin/views/scripts/consultation/_serverTimeTooltip.phtml:5
 msgid "Server time (when opening this page):"
-msgstr "L’heure du serveur (au moment d’accès de la page) "
+msgstr "Servery czasu  (przy otwarciu strony):"
 
 #: application/modules/admin/views/scripts/consultation/edit.phtml:50
 msgid "Consultation Settings"
-msgstr "Paramètres de cycle de participation"
+msgstr "Ustawienia konsultacji"
 
 #: application/modules/admin/views/scripts/consultation/index.phtml:27
 msgid "New Contributions"
-msgstr "Nouvelles contributions"
+msgstr "Nowe wpisy"
 
 #: application/modules/admin/views/scripts/consultation/index.phtml:42
 #: application/modules/admin/views/scripts/index/index.phtml:107
 #: application/modules/admin/views/scripts/input/_inputBox.phtml:144
 #: application/modules/admin/views/scripts/votingprepare/_input-row.phtml:170
 msgid "Delete contribution?"
-msgstr "Supprimer la contribution?"
+msgstr "Usunąć wpis?"
 
 #: application/modules/admin/views/scripts/consultation/index.phtml:62
 #: application/modules/admin/views/scripts/index/index.phtml:129
 msgid "Show contributions by"
-msgstr "Montrer les contributions d’après"
+msgstr "Pokaż wpisy wg"
 
 #: application/modules/admin/views/scripts/consultation/index.phtml:75
 msgid "There are no unprocessed contributions."
-msgstr "Il n'y a pas de contribution non-traitées."
+msgstr "Nie ma żadnych nieedytowanych wpisów."
 
 #: application/modules/admin/views/scripts/consultation/index.phtml:83
 msgid "Discussion Posts"
-msgstr "Contributions à la discussion"
+msgstr "Wpisy w dyskusji"
 
 #: application/modules/admin/views/scripts/consultation/index.phtml:98
 #: application/modules/admin/views/scripts/index/index.phtml:170
 msgid "Delete discussion post?"
-msgstr "Supprimer la contribution à la discussion?"
+msgstr "Usunąć wpis w dyskusji? "
 
 #: application/modules/admin/views/scripts/consultation/index.phtml:126
 #: application/modules/admin/views/scripts/input-discussion/index.phtml:170
 msgid "There are no discussion posts yet."
-msgstr "Il n'y a pas encore de contribution à la discussion. "
+msgstr "Nie znaleziono żadnych wpisów w dyskusji."
 
 #: application/modules/admin/views/scripts/consultation/new.phtml:4
 #: application/modules/admin/views/scripts/index/index.phtml:9
 msgid "New Consultation"
-msgstr "Nouveau cycle de participation."
+msgstr "Nowa konsultacja"
 
 #: application/modules/admin/views/scripts/consultation/new.phtml:11
 #: application/modules/admin/views/scripts/media/index.phtml:40
 msgid "Back to Consultations"
-msgstr "Revenir au cycle de participation."
+msgstr "Z powrotem do konsultacji"
 
 #: application/modules/admin/views/scripts/consultation/report.phtml:28
 msgid "All Contributors"
-msgstr "Tous les contributeurs"
+msgstr "Wszyscy uczestnicy /wszystkie uczestniczki "
 
 #: application/modules/admin/views/scripts/consultation/report.phtml:29
 msgid "Number of contributors in current consultation"
-msgstr "Nombre de contributeurs dans ce cycle de participation"
+msgstr "Liczba uczestników i uczestniczek w tej rundzie konsultacji"
 
-# „even if …“ means that they are counted as 2 individuals/groups in case they came back?
-# Maybe it should be written like:
-# Accumulated number of individuals and groups (returning users are counted several times).
-# In German the following bracket would then be added
-# (Wiederkehrende werden jeweils separat gezählt)
-# Hier gehen die englische und die deutsche Vorlage auseinander, habe jetzt die deutsche ins Französische übersetzt
 #: application/modules/admin/views/scripts/consultation/report.phtml:33
 msgid ""
 "Accumulated number of individuals and groups, even if they contributed in "
 "several sessions in this particular consultation"
-msgstr "Nombre total des personnes et groupes qui ont contribués. "
+msgstr "Ogólna liczba uczestniczących osób i grup"
 
 #: application/modules/admin/views/scripts/consultation/report.phtml:36
 msgid ""
 "All contributions in the contribution period including admin contributions"
-msgstr "Toutes les contributions inclus les contributions administratives "
+msgstr "Wszystkie wpisy w fazie konsultacji wraz z wpisami administracyjnymi"
 
 #: application/modules/admin/views/scripts/consultation/report.phtml:40
 msgid "of which the contributions that were confirmed"
-msgstr "dont contributions confirmées"
+msgstr "z tego potwierdzone wpisy"
 
 #: application/modules/admin/views/scripts/consultation/report.phtml:43
 msgid "of which remained unconfirmed or anonymous"
-msgstr "dont non-confirmées ou anonymes"
+msgstr "z tego niepotwierdzone lub anonimowe"
 
 #: application/modules/admin/views/scripts/consultation/report.phtml:46
 msgid "of which were blocked by organisers"
-msgstr "dont bloquées par l'administrateur"
+msgstr "z tego zablokowane przez administratora /administratorkę"
 
-# Is that the number of contributions that could theoretically be voted on (including the ones that are not allowed) - or the number of contributions that were set as voting=yes?
-# In the staging deploy I don't understand it...
 #: application/modules/admin/views/scripts/consultation/report.phtml:50
 msgid "Contributions that were available to vote on"
-msgstr "Contributions qui étaient disponible pour le vote "
+msgstr "Wpisy do głosowania"
 
 #: application/modules/admin/views/scripts/consultation/report.phtml:51
 #: application/modules/admin/views/scripts/consultation/report.phtml:74
 msgid "All contributions except ones with voting disabled"
-msgstr "Toutes les contributions, sauf ceux qui ne sont pas permis au vote "
+msgstr " Wszystkie wpisy oprócz tych niedopuszczonych do głosowania"
 
 #: application/modules/admin/views/scripts/consultation/report.phtml:64
 msgid "See Contribution"
-msgstr "Voir la contribution"
+msgstr "Zobacz wpis"
 
 #: application/modules/admin/views/scripts/consultation/report.phtml:70
 msgid "Number of confirmed user contributions"
-msgstr "Nombre de contributions confirmées des utilisateurs "
+msgstr "Liczba wpisów potwierdzonych przez użytkowników /użytkowniczki"
 
 #: application/modules/admin/views/scripts/consultation/report.phtml:73
 msgid "Number of contributions for voting"
-msgstr "Nombre de contributions pour le vote"
+msgstr "Liczba wpisów do głosowania"
 
 #: application/modules/admin/views/scripts/consultation/report.phtml:79
 msgid "Votes"
-msgstr "Votes"
+msgstr "Głosuj"
 
 #: application/modules/admin/views/scripts/consultation/report.phtml:86
 #: application/modules/admin/views/scripts/consultation/report.phtml:88
 msgid "Absolute number of votes"
-msgstr "Nombre total des votes"
+msgstr "Liczba oddanych głosów"
 
 #: application/modules/admin/views/scripts/consultation/report.phtml:90
 msgid "Raw amount, voting weight not taken into account"
-msgstr "Nombre sans tenir compte le poids de vote"
+msgstr "Liczba bez uwzględnienie wagi głosów"
 
 #: application/modules/admin/views/scripts/consultation/report.phtml:98
 #: application/modules/admin/views/scripts/consultation/report.phtml:100
 msgid ""
 "Groups that have voting rights and number of actually participating ones"
-msgstr ""
-"Groupes avec permission de vote et nombre de ceux qui ont effectivement "
-"participés"
+msgstr "Grupy z prawem do głosowania i liczba faktycznie uczestniczących osób"
 
 #: application/modules/admin/views/scripts/consultation/report.phtml:105
 msgid "Voting weights"
-msgstr "Poids du vote"
+msgstr "Waga głosów"
 
 #: application/modules/admin/views/scripts/consultation/report.phtml:112
 msgid "Test accounts"
-msgstr "Comptes de teste"
+msgstr "Dostęp testowy"
 
 #: application/modules/admin/views/scripts/consultation/report.phtml:115
 msgid "Individuals"
-msgstr "Individus"
+msgstr "Osoby indywidualne"
 
 #: application/modules/admin/views/scripts/consultation/report.phtml:118
 msgid "Group weight"
-msgstr "Poids du groupe"
+msgstr "Waga grupy"
 
 #: application/modules/admin/views/scripts/followup/followup-detail.phtml:21
 #: application/modules/admin/views/scripts/followup/snippets.phtml:24
 msgid "Back to Follow-ups"
-msgstr "Revenir au suivi"
+msgstr "Z powrotem do Follow-Up"
 
 #: application/modules/admin/views/scripts/followup/index.phtml:25
 msgid "New Follow-up"
-msgstr "Nouveau suivi"
+msgstr "Nowy Follow-Up"
 
 #: application/modules/admin/views/scripts/followup/index.phtml:32
 msgid "There are no follow-ups yet."
-msgstr "Il n’y a pas encore de suivis."
+msgstr "Follow-Up jeszcze nie istnieje."
 
 #: application/modules/admin/views/scripts/followup/index.phtml:42
 msgid "Time Added"
-msgstr "Ajouté à: "
+msgstr "Dodano:"
 
 #: application/modules/admin/views/scripts/followup/index.phtml:43
 msgid "Stakeholder"
-msgstr "Partie prenante"
+msgstr "Stakeholder"
 
 #: application/modules/admin/views/scripts/followup/index.phtml:61
 msgid "Edit follow-up"
-msgstr "Éditer le suivi"
+msgstr "Edytuj follow-Up"
 
 #: application/modules/admin/views/scripts/followup/index.phtml:68
 msgid "Edit snippets"
-msgstr "Éditer les fragments"
+msgstr "Edytuj fragment"
 
 #: application/modules/admin/views/scripts/followup/index.phtml:77
 msgid "Delete follow-up?"
-msgstr "Supprimer le suivi?"
+msgstr "Chcesz usunąć follow-Up?"
 
 #: application/modules/admin/views/scripts/followup/index.phtml:80
 msgid "Delete follow-up"
-msgstr "Supprimer le suivi"
+msgstr "Usuń follow-up"
 
 #: application/modules/admin/views/scripts/followup/snippet-detail.phtml:21
 #: application/modules/admin/views/scripts/followup/snippet-reference.phtml:21
 msgid "Back to Snippets"
-msgstr "Revenir aux fragments"
+msgstr "Z powrotem do fragmentów"
 
 #: application/modules/admin/views/scripts/followup/snippet-reference.phtml:23
 msgid "Snippet Links"
-msgstr "Liens du fragment"
+msgstr "Połączenia fragementów"
 
 #: application/modules/admin/views/scripts/followup/snippet-reference.phtml:29
 #: application/modules/admin/views/scripts/followup/snippet-reference.phtml:101
 msgid "Save contribution links"
-msgstr "Enregistrer les liens des contributions"
+msgstr "Zapisz linki do wpisów"
 
 #: application/modules/admin/views/scripts/followup/snippet-reference.phtml:90
 #: application/modules/admin/views/scripts/input/list-by-question.phtml:366
 msgid "There are no contributions for this question yet."
-msgstr "Il n’y a pas encore de contributions pour cette question. "
+msgstr "Obecnie nie ma żadnych wpisów przy tym pytaniu."
 
 #: application/modules/admin/views/scripts/followup/snippet-reference.phtml:107
 msgid "There are no questions for this consultation yet."
-msgstr "Il n'y a pas encore de questions pour ce cycle de participation"
+msgstr "Obecnie nie ma żadnych pytań w tej rundzie konsultacji."
 
 #: application/modules/admin/views/scripts/followup/snippet-reference.phtml:115
 #: application/modules/admin/views/scripts/followup/snippet-reference.phtml:172
 msgid "Save snippet links"
-msgstr "Enregistrer le lien du fragment"
+msgstr "Zapisz połączenia fragmentów"
 
 #: application/modules/admin/views/scripts/followup/snippet-reference.phtml:118
 #: application/modules/admin/views/scripts/followup/snippets.phtml:27
 msgid "Follow-Up Snippets"
-msgstr "Fragments du suivi"
+msgstr "Fragmenty follow-Up"
 
 #: application/modules/admin/views/scripts/followup/snippet-reference.phtml:160
 #: application/modules/admin/views/scripts/followup/snippets.phtml:138
 msgid "There are no snippets for this follow-up yet."
-msgstr "Il n’y a pas encore de fragment pour ce suivi. "
+msgstr "Obecnie nie ma żadnych fragmentów dla tego follow-up."
 
 #: application/modules/admin/views/scripts/followup/snippet-reference.phtml:178
 #: application/modules/admin/views/scripts/followup/snippet-reference.phtml:219
 msgid "There are no follow-ups for this consultation yet."
-msgstr "Il n'y a pas encore de suivi pour ce cycle de participation."
+msgstr "Obecnie nie ma jeszcze żadnego follow-up w tej rundzie konsultacji."
 
 #: application/modules/admin/views/scripts/followup/snippet-reference.phtml:183
 msgid "Follow-Ups"
-msgstr "Suivi"
+msgstr "Follow-up"
 
 #: application/modules/admin/views/scripts/followup/snippet-reference.phtml:189
 #: application/modules/admin/views/scripts/followup/snippet-reference.phtml:213
 msgid "Save follow-up links"
-msgstr "Enregistrer le lien du suivi"
+msgstr "Zapisz linki follow-up speichern"
 
 #: application/modules/admin/views/scripts/followup/snippets.phtml:35
 msgid "New Snippet"
-msgstr "Nouveau fragment"
+msgstr "Nowy fragment"
 
 #: application/modules/admin/views/scripts/followup/snippets.phtml:45
 #: application/modules/admin/views/scripts/followup/snippets.phtml:130
 #: application/modules/admin/views/scripts/votingprepare/overview.phtml:225
 msgid "Save changes"
-msgstr "Enregistrer les changements"
+msgstr "Zapisz zmiany"
 
 #: application/modules/admin/views/scripts/followup/snippets.phtml:62
 #: application/modules/admin/views/scripts/followup/snippets.phtml:92
 msgid "Snippet links"
-msgstr "Lien au fragment"
+msgstr "Linki fragmentów"
 
-# Hier kommt es jetzt darauf an, was mit „in“ gemeint ist.
-# Räumlich: Dans (also, wenn sich etwas wirklich in einem Raum befindet)
-# Räumlich2: à (à la maison, zuhause; à Paris, in Paris)
-# Gegenteil zu ausgehend (sortant): entrant
 #: application/modules/admin/views/scripts/followup/snippets.phtml:64
 msgid "in"
-msgstr "dans"
+msgstr "w"
 
 #: application/modules/admin/views/scripts/followup/snippets.phtml:67
 msgid "out"
-msgstr "sortant"
+msgstr "wychodzące"
 
 #: application/modules/admin/views/scripts/followup/snippets.phtml:71
 msgid "Level"
-msgstr "Niveau"
+msgstr "Poziom"
 
 #: application/modules/admin/views/scripts/followup/snippets.phtml:104
 msgid "Edit snippet"
-msgstr "Éditer le fragment"
+msgstr "Edytuj fragment"
 
 #: application/modules/admin/views/scripts/followup/snippets.phtml:114
 msgid "Delete snippet?"
-msgstr "Supprimer le fragment?"
+msgstr "Chcesz skasować fragment?"
 
 #: application/modules/admin/views/scripts/followup/snippets.phtml:117
 msgid "Delete snippet"
-msgstr "Supprimer le fragment"
+msgstr "Usuń fragment"
 
 #: application/modules/admin/views/scripts/index/index.phtml:27
 msgid "Consultation settings"
-msgstr "Paramètres du cycle de participation"
+msgstr "Ustawienia rundy konsultacji"
 
 #: application/modules/admin/views/scripts/index/index.phtml:42
 msgid "Open media manager for"
-msgstr "Ouvrir le media manager pour"
+msgstr "Otwórz manager mediów dla"
 
 #: application/modules/admin/views/scripts/index/index.phtml:78
 msgid "Follow Up"
-msgstr "Suivi"
+msgstr "Follow-up"
 
 #: application/modules/admin/views/scripts/index/index.phtml:93
 msgid "Latest Contributions"
-msgstr "Contributions les plus récentes"
+msgstr "Najnowsze wpis"
 
 #: application/modules/admin/views/scripts/index/index.phtml:143
 #: application/modules/admin/views/scripts/input/list-by-question.phtml:133
 msgid "Show all contributions"
-msgstr "Montrer toutes les contributions. "
+msgstr "Pokaż wszystkie wpisy"
 
 #: application/modules/admin/views/scripts/index/index.phtml:149
 msgid "No contributions yet."
-msgstr "Il n’y pas encore de contributions. "
+msgstr "Wpisy nie istnieją"
 
 #: application/modules/admin/views/scripts/index/index.phtml:156
 msgid "Latest Discussion Posts"
-msgstr "Les contributions à la discussion les plus récentes"
+msgstr "Najnowsze wpisy w dyskusji"
 
 #: application/modules/admin/views/scripts/index/index.phtml:198
 msgid "Show all discussion posts"
-msgstr "Montre toutes les contributions à la discussion"
+msgstr "Pokaż wszystkie wpisy w dyskusji"
 
 #: application/modules/admin/views/scripts/index/index.phtml:203
 msgid "No posts yet."
-msgstr "Il n’y a pas encore de contributions."
+msgstr "Wpisy nie istnieją"
 
 #: application/modules/admin/views/scripts/index/index.phtml:218
 msgid "There are no consultations yet."
-msgstr "Il n'y a pas encore de cycles de participation"
+msgstr "Obecnie nie ma żadnych run konsultacji."
 
 #: application/modules/admin/views/scripts/input-discussion/index.phtml:26
 #: application/modules/admin/views/scripts/input/create.phtml:21
 #: application/modules/admin/views/scripts/input/edit.phtml:21
 msgid "Back to Contributions"
-msgstr "Revenir aux Contributions"
+msgstr "Z powrotem do wpisów."
 
 #: application/modules/admin/views/scripts/input-discussion/index.phtml:29
 msgid "Contribution Discussion"
-msgstr "Discussion sur la contribution"
+msgstr "Dyskusja nt. wpisu"
 
 #: application/modules/admin/views/scripts/input-discussion/index.phtml:58
 #: application/modules/admin/views/scripts/input/_inputBox.phtml:79
 #: application/modules/admin/views/scripts/input/list-by-question.phtml:57
 msgid "User Confirmation"
-msgstr "Confirmation d’utilisateur"
+msgstr "Potwierdzenie użytkownika /użytkowniczki"
 
 #: application/modules/admin/views/scripts/input-discussion/index.phtml:62
 msgid "User confirmed"
-msgstr "Confirmé par l’utilisateur"
+msgstr "Potwierdzone przez użytkownika /użytkowniczkę"
 
 #: application/modules/admin/views/scripts/input-discussion/index.phtml:67
 msgid "Not user confirmed"
-msgstr "Pas (encore) confirmé par l’utilisateur"
+msgstr "(Jeszcze) niepotwierdzone przez użytkownika/użytkowniczkę"
 
 #: application/modules/admin/views/scripts/input-discussion/index.phtml:72
 msgid "Visibility"
-msgstr "Visibilité"
+msgstr "Widoczność"
 
 #: application/modules/admin/views/scripts/input-discussion/index.phtml:76
 msgid "Visible"
-msgstr "Visible"
+msgstr "Widoczny/widoczna"
 
 #: application/modules/admin/views/scripts/input-discussion/index.phtml:81
 msgid "Hidden"
-msgstr "Masqué"
+msgstr "Ukryty/ukryta"
 
 #: application/modules/admin/views/scripts/input-discussion/index.phtml:90
 msgid "Confirm"
-msgstr "Confirmer"
+msgstr "Potwierdź"
 
 #: application/modules/admin/views/scripts/input-discussion/index.phtml:94
 msgid "Mark as user confirmed?"
-msgstr "Marquer l’utilisateur comme confirmé? "
+msgstr "Oznacz jako potwierdzone przez użytkownika/użytkowniczkę?"
 
 #: application/modules/admin/views/scripts/input-discussion/index.phtml:103
 msgid "Deny"
-msgstr "Refuser"
+msgstr "Odrzuć"
 
 #: application/modules/admin/views/scripts/input-discussion/index.phtml:107
 msgid "Remove user confirmation?"
-msgstr "Enlever la confirmation d’utilisateur?"
+msgstr "Usuń potwierdzenie użytkownika/użytkowniczki"
 
 #: application/modules/admin/views/scripts/input-discussion/index.phtml:118
 msgid "Mark as hidden"
-msgstr "Marquer comme masqué"
+msgstr "Oznacz jako ukryte"
 
 #: application/modules/admin/views/scripts/input-discussion/index.phtml:122
 msgid "Mark as hidden?"
-msgstr "Marquer comme masquer?"
+msgstr "Chcesz oznaczyć jako ukryte?"
 
 #: application/modules/admin/views/scripts/input-discussion/index.phtml:132
 msgid "Mark as visible"
-msgstr "Marquer comme visible"
+msgstr "Oznacz jako widoczne"
 
 #: application/modules/admin/views/scripts/input-discussion/index.phtml:135
 msgid "Mark as visible?"
-msgstr "Marquer comme visible?"
+msgstr "Chcesz oznaczyć jako widoczne"
 
 #: application/modules/admin/views/scripts/input-discussion/index.phtml:150
 msgid "Create an input from this discussion contribution."
-msgstr ""
-"Créer une contribution à partir de cette contribution à la discussion pour "
-"ce cycle de participation."
+msgstr "Utwórz wpis dla rundy konsultacji z tego wpisu w dyskusji."
 
 #: application/modules/admin/views/scripts/input-discussion/index.phtml:153
 msgid "Create an input from this discussion contribution?"
-msgstr ""
-"Créer une contribution à partir de cette contribution à la discussion pour "
-"ce cycle de participation?"
+msgstr "Chcesz utworzyć wpis dla rundy konsultacji z tego wpisu w dyskusji?"
 
 #: application/modules/admin/views/scripts/input/_inputBox.phtml:34
 #, php-format
 msgid "Supported by %d users."
-msgstr "Soutenu par %d d'utilisateurs."
+msgstr "Wsparte przez %d uczestniczących."
 
 #: application/modules/admin/views/scripts/input/_inputBox.phtml:53
 msgid "Created from discussion post."
-msgstr "Créé d’après un article de discussion."
+msgstr "Utworzone z wpisu w dyskusji."
 
 #: application/modules/admin/views/scripts/input/_inputBox.phtml:60
 #: application/modules/admin/views/scripts/input/list-by-question.phtml:38
 #: application/modules/admin/views/scripts/votingprepare/_input-row.phtml:103
 #: application/modules/admin/views/scripts/votingprepare/overview.phtml:70
 msgid "Admin Confirmation"
-msgstr "Confirmation de l’administrateur"
+msgstr "Potwierdzenie administratora /administratorki"
 
 #: application/modules/admin/views/scripts/input/_inputBox.phtml:127
 msgid "Show discussion"
-msgstr "Montrer la disussion"
+msgstr "Pokaż dyskusję"
 
 #: application/modules/admin/views/scripts/input/_inputBox.phtml:135
 #: application/modules/admin/views/scripts/votingprepare/_input-row.phtml:147
 msgid "Edit contribution"
-msgstr "Éditer la contribution"
+msgstr "Edytuj wpis"
 
 #: application/modules/admin/views/scripts/input/_inputBox.phtml:147
 #: application/modules/admin/views/scripts/votingprepare/_input-row.phtml:173
 msgid "Delete contribution"
-msgstr "Effacer la contribution"
+msgstr "Usuń wpis"
 
 #: application/modules/admin/views/scripts/input/create.phtml:23
 #: application/modules/admin/views/scripts/input/index.phtml:26
 #: application/modules/admin/views/scripts/votingprepare/merge.phtml:35
 #: application/modules/admin/views/scripts/votingprepare/split.phtml:35
 msgid "New Contribution"
-msgstr "Nouvelle contribution"
+msgstr "Nowy wpis"
 
 #: application/modules/admin/views/scripts/input/edit.phtml:23
 msgid "Edit Contribution"
-msgstr "Éditer la contribution"
+msgstr "Edytuj wpis"
 
 #: application/modules/admin/views/scripts/input/edit.phtml:32
 msgid "List of contributions from this author"
-msgstr "Toutes les contributions de ce participant"
+msgstr "Wszystkie wpisy tego uczestnika/tej uczestniczki"
 
 #: application/modules/admin/views/scripts/input/index.phtml:35
 msgid "There are no contributions yet."
-msgstr "Il n’y a pas encore de contributions."
+msgstr "Wpisy nie istnieją."
 
 #: application/modules/admin/views/scripts/input/index.phtml:38
 #, php-format
@@ -2597,61 +2574,59 @@ msgid ""
 "You can prepare contributions for voting <a href=\"%s\">in the Voting "
 "section</a>."
 msgstr ""
-"Tu peux préparer des contributions à la vote <a href=%s\"> dans la section "
-"de vote </a>."
 
 #: application/modules/admin/views/scripts/input/index.phtml:45
 msgid "By Question"
-msgstr "D’après la question"
+msgstr "Wg pytania"
 
 #: application/modules/admin/views/scripts/input/index.phtml:51
 msgid "Unread"
-msgstr "Non lu"
+msgstr "Nieprzeczytane"
 
 #: application/modules/admin/views/scripts/input/index.phtml:52
 msgid "Total"
-msgstr "Totalement"
+msgstr "W sumie"
 
 #: application/modules/admin/views/scripts/input/index.phtml:62
 #: application/modules/admin/views/scripts/input/index.phtml:70
 #: application/modules/admin/views/scripts/input/index.phtml:109
 msgid "Show"
-msgstr "Affiche"
+msgstr "Pokaż"
 
 #: application/modules/admin/views/scripts/input/index.phtml:83
 msgid "By User"
-msgstr "D’après l’utilisateur"
+msgstr "Wg użytkownika /użytkowniczki"
 
 #: application/modules/admin/views/scripts/input/index.phtml:91
 #: application/modules/admin/views/scripts/input/list-by-user.phtml:103
 msgid "Comment"
-msgstr "Il y a encore de la place pour des réactions. "
+msgstr "Tutaj jest miejsce na komentarze"
 
 #: application/modules/admin/views/scripts/input/inputForm.phtml:24
 msgid "Video"
-msgstr "Vidéo"
+msgstr "Wideo"
 
 #: application/modules/admin/views/scripts/input/inputForm.phtml:75
 #: application/modules/admin/views/scripts/question/create.phtml:53
 #: application/modules/admin/views/scripts/question/edit.phtml:53
 msgid "or"
-msgstr "ou"
+msgstr "albo"
 
 #: application/modules/admin/views/scripts/input/inputForm.phtml:76
 #: application/modules/admin/views/scripts/question/create.phtml:54
 #: application/modules/admin/views/scripts/question/edit.phtml:54
 msgid "Cancel"
-msgstr "Annuler"
+msgstr "Anuluj"
 
 #: application/modules/admin/views/scripts/input/list-by-question.phtml:22
 #: application/modules/admin/views/scripts/input/list-by-user.phtml:22
 #: application/modules/admin/views/scripts/votingprepare/add-related.phtml:21
 msgid "Back to Overview"
-msgstr "Revenir à l’aperçu"
+msgstr "Z powrotem do przeglądu"
 
 #: application/modules/admin/views/scripts/input/list-by-question.phtml:25
 msgid "Contributions for"
-msgstr "Contributions pour"
+msgstr "Wpisy dla"
 
 #: application/modules/admin/views/scripts/input/list-by-question.phtml:46
 #: application/modules/admin/views/scripts/input/list-by-question.phtml:65
@@ -2660,29 +2635,28 @@ msgstr "Contributions pour"
 #: application/modules/admin/views/scripts/votingprepare/overview.phtml:93
 #: application/modules/admin/views/scripts/votingprepare/overview.phtml:108
 msgid "All"
-msgstr "Tous"
+msgstr "Wszystkie"
 
 #: application/modules/admin/views/scripts/input/list-by-question.phtml:47
 #: application/modules/admin/views/scripts/input/list-by-question.phtml:66
 #: application/modules/admin/views/scripts/votingprepare/overview.phtml:78
 msgid "Waiting for revision"
-msgstr "Attendant vérification"
+msgstr "Oczekujące na przegląd"
 
 #: application/modules/admin/views/scripts/input/list-by-question.phtml:86
 #: application/modules/admin/views/scripts/votingprepare/overview.phtml:110
 msgid "Allowed"
-msgstr "Autorisé"
+msgstr "Dopuszczone"
 
 #: application/modules/admin/views/scripts/input/list-by-question.phtml:123
 #: application/modules/admin/views/scripts/votingprepare/overview.phtml:166
 msgid "Reset Filter"
-msgstr "Réinitialiser le filtre"
+msgstr "Zresetuj filtr"
 
 #: application/modules/admin/views/scripts/input/list-by-question.phtml:132
 #, php-format
 msgid "Only contributions with &ldquo;%s&rdquo; keywords are listed."
-msgstr ""
-"Seul les contributions avec le mot-clé &rdquo;%s&ldquo; seront listées."
+msgstr "Tylko wpisy z słowem kluczowym &rdquo;%s&ldquo; są pokazywane."
 
 #: application/modules/admin/views/scripts/input/list-by-question.phtml:162
 #: application/modules/admin/views/scripts/input/list-by-question.phtml:168
@@ -2695,14 +2669,14 @@ msgstr ""
 #: application/modules/admin/views/scripts/votingprepare/overview.phtml:247
 #: application/modules/admin/views/scripts/votingprepare/overview.phtml:253
 msgid "Mark all contributions"
-msgstr "Choisir toutes les contributions"
+msgstr "Wybierz wszystkie wpisy"
 
 #: application/modules/admin/views/scripts/input/list-by-question.phtml:185
 #: application/modules/admin/views/scripts/input/list-by-question.phtml:260
 #: application/modules/admin/views/scripts/input/list-by-user.phtml:144
 #: application/modules/admin/views/scripts/input/list-by-user.phtml:224
 msgid "Publish"
-msgstr "Publier"
+msgstr "Opublikuj"
 
 #: application/modules/admin/views/scripts/input/list-by-question.phtml:198
 #: application/modules/admin/views/scripts/input/list-by-question.phtml:273
@@ -2710,83 +2684,83 @@ msgstr "Publier"
 #: application/modules/admin/views/scripts/input/list-by-user.phtml:237
 #: application/modules/admin/views/scripts/votingprepare/overview.phtml:295
 msgid "Block"
-msgstr "Bloquer"
+msgstr "Zablokuj"
 
 #: application/modules/admin/views/scripts/input/list-by-question.phtml:301
 msgid "CSV Export"
-msgstr "CSV-Export"
+msgstr "Eksport CSV"
 
 #: application/modules/admin/views/scripts/input/list-by-question.phtml:310
 #: application/modules/admin/views/scripts/input/list-by-question.phtml:356
 msgid "All contributions"
-msgstr "Toutes les contributions"
+msgstr "Wszystkie wpisy"
 
 #: application/modules/admin/views/scripts/input/list-by-question.phtml:317
 msgid "Confirmed contributions"
-msgstr "Contributions confirmées"
+msgstr "Potwierdzone wpisy"
 
 #: application/modules/admin/views/scripts/input/list-by-question.phtml:324
 msgid "Unconfirmed contributions"
-msgstr "Contributions non confirmées"
+msgstr "Niepotwierdzone wpisy"
 
 #: application/modules/admin/views/scripts/input/list-by-question.phtml:331
 msgid "Voting theses"
-msgstr "Contributions de vote"
+msgstr "Wpisy do głosowania"
 
 #: application/modules/admin/views/scripts/input/list-by-question.phtml:338
 msgid "Voting theses – edited"
-msgstr "Contributions de vote - modifié"
+msgstr "Wpisy poddane do głosowania - zredagowane"
 
 #: application/modules/admin/views/scripts/input/list-by-question.phtml:347
 msgid "MS Excel Export"
-msgstr "MS Excel-Export"
+msgstr "Eksport MS Excel"
 
 #: application/modules/admin/views/scripts/input/list-by-user.phtml:33
 msgid "Last activity"
-msgstr "Dernière activité"
+msgstr "Ostatnia aktywność"
 
 #: application/modules/admin/views/scripts/input/list-by-user.phtml:41
 msgid "Contact person"
-msgstr "Personne de contact"
+msgstr "Osoba kontaktowa"
 
 #: application/modules/admin/views/scripts/input/list-by-user.phtml:47
 #: application/modules/admin/views/scripts/voting/invitations.phtml:82
 msgid "Group name"
-msgstr "Nom de groupe"
+msgstr "Nazwa grupy"
 
 #: application/modules/admin/views/scripts/input/list-by-user.phtml:53
 msgid "Source"
-msgstr "Source"
+msgstr "Źródło"
 
 #: application/modules/admin/views/scripts/input/list-by-user.phtml:59
 msgid "Description"
-msgstr "Description"
+msgstr "Opis"
 
 #: application/modules/admin/views/scripts/input/list-by-user.phtml:70
 #: application/modules/admin/views/scripts/input/list-by-user.phtml:86
 #: application/modules/admin/views/scripts/user/index.phtml:54
 msgid "Not available"
-msgstr "Non disponible"
+msgstr "Niedostępne"
 
 #: application/modules/admin/views/scripts/input/list-by-user.phtml:75
 msgid "Region"
-msgstr "Région"
+msgstr "Region"
 
 #: application/modules/admin/views/scripts/input/list-by-user.phtml:81
 msgid "Age groups"
-msgstr "Groupes d’âge"
+msgstr "Grupa wiekowa"
 
 #: application/modules/admin/views/scripts/input/list-by-user.phtml:91
 msgid "Newsletter"
-msgstr "Infolettre"
+msgstr "Newsletter"
 
 #: application/modules/admin/views/scripts/input/list-by-user.phtml:97
 msgid "Inform about consultation results"
-msgstr "Informations sur les résultats du cycle de participation"
+msgstr "Informacja o wynikach głosowania"
 
 #: application/modules/admin/views/scripts/input/list-by-user.phtml:261
 msgid "This user has not contributed yet."
-msgstr "Il n’y a pas encore de contributions de cet utilisateur."
+msgstr "Obecnie nie ma żadnych wpisów tego użytkownika /tej użytkowniczki."
 
 #: application/modules/admin/views/scripts/mail-component/detail.phtml:10
 #: application/modules/admin/views/scripts/mail-component/index.phtml:10
@@ -2796,116 +2770,116 @@ msgstr "Il n’y a pas encore de contributions de cet utilisateur."
 #: application/modules/admin/views/scripts/mail-template/detail.phtml:10
 #: application/modules/admin/views/scripts/mail-template/index.phtml:10
 msgid "New Email"
-msgstr "Nouveau courriel"
+msgstr "Nowy E-Mail"
 
 #: application/modules/admin/views/scripts/mail-component/detail.phtml:27
 msgid "Back to Email Components"
-msgstr "Revenir au Composants du courriel"
+msgstr "Z powrotem do część składowych E-Maila"
 
 #: application/modules/admin/views/scripts/mail-component/detail.phtml:29
 msgid "Email Component"
-msgstr "Composant du courriel"
+msgstr "Części składowe E-Maila"
 
 #: application/modules/admin/views/scripts/mail-component/index.phtml:29
 msgid "New Email Component"
-msgstr "Nouveau composant du courriel"
+msgstr "Nowe części składowe E-Maila"
 
 #: application/modules/admin/views/scripts/mail-component/index.phtml:31
 msgid "Email Components"
-msgstr "Composants du courriel"
+msgstr "Części składowe E-Maila"
 
 #: application/modules/admin/views/scripts/mail-component/index.phtml:36
 msgid "There are no email components yet."
-msgstr "Il n’y a pas encore de composants du courriel."
+msgstr "Nie istnieją żadne części składowe E-Maila."
 
 #: application/modules/admin/views/scripts/mail-component/index.phtml:59
 msgid "Edit component"
-msgstr "Éditer le composant"
+msgstr "Edytuj części składowe."
 
 #: application/modules/admin/views/scripts/mail-component/index.phtml:68
 msgid "Delete component"
-msgstr "Éditer le composant"
+msgstr "Usuń części składowe"
 
 #: application/modules/admin/views/scripts/mail-component/index.phtml:70
 msgid "Delete email component?"
-msgstr "Supprimer le composant du courriel?"
+msgstr "Chcesz usunąć części składowe E-Maila?"
 
 #: application/modules/admin/views/scripts/mail-queued/index.phtml:31
 msgid "Send all emails"
-msgstr "Envoyer tous les courriels"
+msgstr "Wyślij wszystkie  E-Maile"
 
 #: application/modules/admin/views/scripts/mail-queued/index.phtml:33
 msgid "Queued Emails"
-msgstr "Courriels dans la file d’attente"
+msgstr "Oczekujące E-Maile"
 
 #: application/modules/admin/views/scripts/mail-queued/index.phtml:38
 msgid "There are no emails in the queue to be sent."
-msgstr "Il n’y a aucun courriel à envoyer dans la file d’attente."
+msgstr "Nie ma żadnych E-Maili oczekujących na wysłanie"
 
 #: application/modules/admin/views/scripts/mail-queued/index.phtml:45
 msgid "Time Queued"
-msgstr "Temps d’attente"
+msgstr "Czas oczekiwania"
 
 #: application/modules/admin/views/scripts/mail-send/index.phtml:12
 msgid "Back to Sent Emails"
-msgstr "Revenir au Courriels envoyés"
+msgstr "Z powrotem do wysłanych E-Maili"
 
 #: application/modules/admin/views/scripts/mail-send/index.phtml:19
 msgid "Create from template"
-msgstr "Créer d'après gabarit"
+msgstr "Utwórz z szablonu"
 
 #: application/modules/admin/views/scripts/mail-sent/index.phtml:27
 msgid "Sent Emails"
-msgstr "Courriels envoyés"
+msgstr "Wysłane E-Maile"
 
 #: application/modules/admin/views/scripts/mail-sent/index.phtml:32
 msgid "No emails have been sent yet."
-msgstr "Aucun courriel a été envoyé actuellement. "
+msgstr "Nie wysłano jeszcze żadnych E-Maili"
 
 #: application/modules/admin/views/scripts/mail-sent/index.phtml:41
 msgid "Time Sent"
-msgstr "Moment de la distribution"
+msgstr "Czas wysłania"
 
 #: application/modules/admin/views/scripts/mail-sent/index.phtml:43
 msgid "Recipient"
-msgstr "Destinataire"
+msgstr "Adresat"
 
 #: application/modules/admin/views/scripts/mail-sent/index.phtml:73
 msgid "Resend email?"
-msgstr "Renvoyer le courriel?"
+msgstr "Czy chcesz ponownie wysłać E-Mail?"
 
 #: application/modules/admin/views/scripts/mail-sent/index.phtml:77
 msgid "Resend email"
-msgstr "Renvoyer le courriel"
+msgstr "Wyślij E-Mail ponownie"
 
 #: application/modules/admin/views/scripts/mail-template/detail.phtml:28
 msgid "Back to Email Templates"
-msgstr "Revenir au gabarit du courriel"
+msgstr "Z powrotem do szablonów E-Maili"
 
 #: application/modules/admin/views/scripts/mail-template/detail.phtml:31
 #: application/modules/admin/views/scripts/mail-template/index.phtml:29
 msgid "New Email Template"
-msgstr "Nouveau gabarit du courriel"
+msgstr "Nowy szablon E-Maili"
 
 #: application/modules/admin/views/scripts/mail-template/detail.phtml:31
 msgid "Edit Email Template"
-msgstr "Éditer les gabarits du courriel"
+msgstr "Edytuj szablony E-Maili"
 
 #: application/modules/admin/views/scripts/mail-template/index.phtml:31
 msgid "Email Templates"
-msgstr "Gabarits du courriel"
+msgstr "Szablony E-Maili"
 
 #: application/modules/admin/views/scripts/mail-template/index.phtml:51
 msgid "Edit template"
-msgstr "Éditer le gabarit"
+msgstr "Edytuj szablon"
 
 #: application/modules/admin/views/scripts/mail-template/index.phtml:60
 msgid "Delete email template?"
-msgstr "Supprimer le gabarit du courriel?"
+msgstr "Chcesz usunąć szablon E-Maila?"
 
 #: application/modules/admin/views/scripts/mail-template/index.phtml:64
 msgid "Delete template"
-msgstr "Éditer le gabarit"
+msgstr "Usuń szablon"
 
 #: application/modules/admin/views/scripts/media/consultations.phtml:5
 #: application/modules/admin/views/scripts/media/edit-file.phtml:5
@@ -2914,101 +2888,101 @@ msgstr "Éditer le gabarit"
 #: application/modules/admin/views/scripts/media/index.phtml:5
 #: application/modules/admin/views/scripts/media/upload.phtml:5
 msgid "Media"
-msgstr "Médias"
+msgstr "Media"
 
 #: application/modules/admin/views/scripts/media/edit-file.phtml:28
 msgid "Back to Folder"
-msgstr "Revenir à Dossier"
+msgstr "Z powrotem do folderu"
 
 #: application/modules/admin/views/scripts/media/edit-file.phtml:29
 msgid "Edit File"
-msgstr "Éditer le fichier"
+msgstr "Edytuj plik"
 
 #: application/modules/admin/views/scripts/media/folder-detail.phtml:26
 #: application/modules/admin/views/scripts/media/index.phtml:36
 msgid "Back to Folders"
-msgstr "Revenir à Dossiers"
+msgstr "Z powrotem do folderów"
 
 #: application/modules/admin/views/scripts/media/folders.phtml:28
 msgid "New Folder"
-msgstr "Nouveau dossier"
+msgstr "Nowy folder"
 
 #: application/modules/admin/views/scripts/media/folders.phtml:50
 msgid "Edit"
-msgstr "Éditer"
+msgstr "Edytuj"
 
 #: application/modules/admin/views/scripts/media/folders.phtml:56
 #: application/modules/admin/views/scripts/votingprepare/overview.phtml:213
 msgid "Delete folder?"
-msgstr "Supprimer le dossier?"
+msgstr "Chcesz usunąć folder?"
 
 #: application/modules/admin/views/scripts/media/folders.phtml:62
 msgid "This folder contains one or more files and cannot be deleted."
 msgstr ""
-"Ce dossier contient un ou plusieurs fichiers et ne peut pas être supprimé. "
+"Ten folder zwiera jeden lub więcej plików i dlatego nie może zostać usunięty."
 
 #: application/modules/admin/views/scripts/media/index.phtml:68
 msgid "No media has been uploaded yet."
-msgstr "Aucun médium a été téléchargé actuellement."
+msgstr "Nie przesłano żadnych mediów."
 
 #: application/modules/admin/views/scripts/media/upload.phtml:30
 msgid "Back to Media"
-msgstr "Revenir à Média"
+msgstr "Z powrotem do mediów"
 
 #: application/modules/admin/views/scripts/media/upload.phtml:32
 msgid "Back to All Media"
-msgstr "Revenir à Tous les médias"
+msgstr "Z powrotem do wszystkich mediów"
 
 #: application/modules/admin/views/scripts/media/upload.phtml:35
 msgid "File Upload"
-msgstr "Télécharger le fichier"
+msgstr "Prześlij plik"
 
 #: application/modules/admin/views/scripts/media/upload.phtml:42
 msgid "Following file types are allowed:"
-msgstr "Les fichiers suivants sont permis: "
+msgstr "Dostępne typy plików:"
 
 #: application/modules/admin/views/scripts/question/create.phtml:21
 #: application/modules/admin/views/scripts/question/edit.phtml:21
 #: application/modules/admin/views/scripts/votingprepare/overview.phtml:21
 msgid "Back to Questions"
-msgstr "Revenir aux questions "
+msgstr "Z powrotem do przeglądu pytań"
 
 #: application/modules/admin/views/scripts/question/create.phtml:23
 #: application/modules/admin/views/scripts/question/index.phtml:25
 msgid "New Question"
-msgstr "Nouvelle question"
+msgstr "Nowe pytanie"
 
 #: application/modules/admin/views/scripts/question/edit.phtml:23
 msgid "Edit Question"
-msgstr "Éditer la question"
+msgstr "Edytuj pytanie"
 
 #: application/modules/admin/views/scripts/question/index.phtml:49
 msgid "Edit question"
-msgstr "Éditer la question"
+msgstr "Edytuj pytanie"
 
 #: application/modules/admin/views/scripts/question/index.phtml:58
 msgid "Delete question?"
-msgstr "Supprimer la question?"
+msgstr "Chcesz usunąć pytanie?"
 
 #: application/modules/admin/views/scripts/question/index.phtml:73
 #: application/modules/admin/views/scripts/votingprepare/index.phtml:51
 msgid "There are no questions yet."
-msgstr "Il n’y a pas encore de questions."
+msgstr "Obecnie nie ma jeszcze żadnych pytań."
 
 #: application/modules/admin/views/scripts/settings/help-text-edit.phtml:16
 msgid "Back to Help Texts"
-msgstr "Revenir aux textes d’aide"
+msgstr "Z powrotem do tekstu pomocy"
 
 #: application/modules/admin/views/scripts/settings/help-text-index.phtml:16
 msgid "Frontend"
-msgstr "Frontend"
+msgstr "Backend"
 
 #: application/modules/admin/views/scripts/settings/help-text-index.phtml:33
 #: application/modules/admin/views/scripts/settings/help-text-index.phtml:42
 #: application/modules/admin/views/scripts/settings/help-text-index.phtml:69
 #: application/modules/admin/views/scripts/settings/help-text-index.phtml:78
 msgid "Edit help text"
-msgstr "Éditer le texte d’aide"
+msgstr "Edytuj tekst pomocy"
 
 #: application/modules/admin/views/scripts/settings/help-text-index.phtml:52
 msgid "Backend"
@@ -3020,19 +2994,19 @@ msgstr "Logo"
 
 #: application/modules/admin/views/scripts/settings/lookAndFeelForm.phtml:12
 msgid "Icon"
-msgstr "Icône"
+msgstr "Ikona"
 
 #: application/modules/admin/views/scripts/settings/lookAndFeelForm.phtml:15
 msgid "Header"
-msgstr "En-tête"
+msgstr "Nagłówek"
 
 #: application/modules/admin/views/scripts/settings/lookAndFeelForm.phtml:18
 msgid "Predefined themes"
-msgstr "Thèmes prédéfinis"
+msgstr "Uprzednio zdefiniowany motyw"
 
 #: application/modules/admin/views/scripts/settings/lookAndFeelForm.phtml:45
 msgid "Custom Colours"
-msgstr "Couleurs personnalisées"
+msgstr "Wybrane farby"
 
 #: application/modules/admin/views/scripts/settings/services.phtml:20
 msgid ""
@@ -3040,461 +3014,466 @@ msgid ""
 "it is probably due to misconfiguration of service access applications in the "
 "ePartool configuration files."
 msgstr ""
-"Au cas un ou plusieurs des services apparaissent grisés et ne peuvent pas "
-"être activés, la raison est probablement un paramètre de service manquant ou "
-"faux dans les fichiers de configuration du ePartool. "
+"Jeśli ta lub więcej usług jest wyświetlona na szaro i nie może zostać "
+"aktywowana, prawdopodobnie wynika to z brakujących lub nieprawidłowych "
+"ustawień usługi lub dostępu w plikach konfiguracji "
 
 #: application/modules/admin/views/scripts/tag/create.phtml:16
 msgid "Back to Keywords"
-msgstr "Revenir aux mots-clés"
+msgstr "Z powrotem do słów kluczowych"
 
 #: application/modules/admin/views/scripts/tag/create.phtml:17
 msgid "Add New Keyword"
-msgstr "Ajouter un nouveau mot-clé"
+msgstr "Dodaj nowe słowo kluczowe"
 
 #: application/modules/admin/views/scripts/tag/index.phtml:18
 msgid "New Keyword"
-msgstr "Nouveau mot-clé"
+msgstr "Nowe słowo kluczowe"
 
 #: application/modules/admin/views/scripts/tag/index.phtml:25
 msgid "There are no keywords yet."
-msgstr "Il n’y a pas encore de mots-clés."
+msgstr "Nie istnieją żadne słowa kluczowe."
 
 #: application/modules/admin/views/scripts/tag/index.phtml:44
 #: application/modules/admin/views/scripts/tag/index.phtml:99
 msgid "Save Changes"
-msgstr "Enregistrer les modifications."
+msgstr "Zapisz zmiany"
 
 #: application/modules/admin/views/scripts/tag/index.phtml:47
 #: application/modules/admin/views/scripts/tag/index.phtml:102
 msgid "Please note only unused keywords can be deleted."
-msgstr "Note que seuleument des mots-clés inutilisés peuvent être supprimés."
+msgstr "Nieużywane słowa kluczowe zostaną usunięte."
 
 #: application/modules/admin/views/scripts/tag/index.phtml:75
 msgid "Delete keyword?"
-msgstr "Supprimer le mot-clé?"
+msgstr "Usunąć słowo kluczowe?"
 
 #: application/modules/admin/views/scripts/user/create.phtml:3
 #: application/modules/admin/views/scripts/user/edit.phtml:10
 #: application/modules/admin/views/scripts/user/index.phtml:10
 msgid "New User"
-msgstr "Nouvel utilisateur"
+msgstr "Nowy użytkownik/nowa użytkowniczka"
 
 #: application/modules/admin/views/scripts/user/create.phtml:9
 #: application/modules/admin/views/scripts/user/edit.phtml:19
 #: application/modules/admin/views/scripts/user/transfer-contributions.phtml:9
 msgid "Back to Users"
-msgstr "Revenir à l’aperçu des utilisateurs "
+msgstr "Z powrotem do przeglądu użytkowników/użytkowniczek"
 
 #: application/modules/admin/views/scripts/user/edit.phtml:5
 msgid "Edit User"
-msgstr "Éditer l’utilisateur"
+msgstr "Edytuj użytkownika/użytkowniczkę"
 
 #: application/modules/admin/views/scripts/user/index.phtml:5
 msgid "Users"
-msgstr "Utilisateurs"
+msgstr "Użytkownik/użytkowniczka"
 
 #: application/modules/admin/views/scripts/user/index.phtml:22
 msgid "There are no users yet."
-msgstr "Il n’y a pas encore d’utilisateurs."
+msgstr "Obecnie brak użytkowników/użytkowniczek"
 
 #: application/modules/admin/views/scripts/user/index.phtml:40
 msgid "Last Activity"
-msgstr "Dernière activité"
+msgstr "Ostatnia aktywność"
 
 #: application/modules/admin/views/scripts/user/index.phtml:56
 msgid "Send email to user"
-msgstr "Envoyer un courriel à l’utilisateur"
+msgstr "Wyślij E-Mail do użytkownika /użytkowniczki"
 
 #: application/modules/admin/views/scripts/user/index.phtml:70
 msgid "Administrator"
-msgstr "Administrateur"
+msgstr "Administrator /administratorka"
 
 #: application/modules/admin/views/scripts/user/index.phtml:79
 msgid "Edit user"
-msgstr "Éditer l’utilisateur"
+msgstr "Edytuj użytkownika /użytkowniczkę"
 
 #: application/modules/admin/views/scripts/user/index.phtml:85
 msgid "Transfer contributions to another user"
-msgstr "Transférer les contributions à un autre utilisateur "
+msgstr "Przenieś wpisy na innego użytkownika /użytkowniczkę"
 
 #: application/modules/admin/views/scripts/user/index.phtml:94
 msgid "Are you sure? All contributions by this user will be made anonymous."
 msgstr ""
-"Es-tu sûr? Toutes les contributions de cet utilisateur seront anonymisées."
+"Jesteś pewny /pewna? Wszystkie wpisy tego użytkownika /tej użytkowniczki "
+"będą anonimowe"
 
 #: application/modules/admin/views/scripts/user/transfer-contributions.phtml:3
 msgid "Transfer User Contributions"
-msgstr "Transferer des contributions d’utilisateur"
+msgstr "Przenieś wpisy użytkownika /użytkowniczki"
 
 #: application/modules/admin/views/scripts/user/transfer-contributions.phtml:21
 msgid "Last contribution on:"
-msgstr "Dernière contribution"
+msgstr "Ostatni wpis"
 
 #: application/modules/admin/views/scripts/user/transfer-contributions.phtml:24
 msgid "No contributions yet"
-msgstr "Il n’y a pas encore de contributions"
+msgstr "Brak wpisów"
 
 #: application/modules/admin/views/scripts/voting/create-rights.phtml:21
 #: application/modules/admin/views/scripts/voting/editrights.phtml:21
 msgid "Back to Voting Permissions"
-msgstr "Revenir aux autorisations de vote"
+msgstr "Z powrotem do uprawnień głosowania"
 
 #: application/modules/admin/views/scripts/voting/create-rights.phtml:23
 #: application/modules/admin/views/scripts/voting/index.phtml:25
 msgid "New Permission"
-msgstr "Nouvelle autorisation"
+msgstr "Nowe uprawnienia"
 
 #: application/modules/admin/views/scripts/voting/editrights.phtml:23
 msgid "Voting Permissions for"
-msgstr "Autorisations de vote pour"
+msgstr "Uprawienia głosowania dla"
 
 #: application/modules/admin/views/scripts/voting/index.phtml:28
 msgid "Voting Permissions"
-msgstr "Autorisations de vote"
+msgstr "Uprawnienia do głosowania"
 
 #: application/modules/admin/views/scripts/voting/index.phtml:33
 msgid "new users added recently."
-msgstr "nouveaux utilisateurs récemment ajoutés "
+msgstr "ostatnio dodane osoby z uprawnieniami"
 
 #: application/modules/admin/views/scripts/voting/index.phtml:44
 msgid "Voting Weight"
-msgstr "Poids du vote"
+msgstr "Waga głosowania"
 
 #: application/modules/admin/views/scripts/voting/index.phtml:45
 msgid "Access Code"
-msgstr "Code d’accès"
+msgstr "Kod dostępu"
 
 #: application/modules/admin/views/scripts/voting/index.phtml:46
 msgid "Accepted Size"
-msgstr "Taille acceptée"
+msgstr "Dopuszczalna wielkość"
 
 #: application/modules/admin/views/scripts/voting/index.phtml:47
 msgid "Stated Size"
-msgstr "Taille indiquée"
+msgstr "Podana wielkość"
 
 #: application/modules/admin/views/scripts/voting/index.phtml:68
 #: application/modules/admin/views/scripts/voting/invitations.phtml:134
 msgid "Show all contributions by this user"
-msgstr "Montrer toutes le contributions de cet utilisateur"
+msgstr "Pokaż wszystkie wpisy użytkownika/użytkowniczki"
 
 #: application/modules/admin/views/scripts/voting/index.phtml:75
 msgid "Edit permissions"
-msgstr "Éditer les autorisations"
+msgstr "Edytuj uprawnienia"
 
 #: application/modules/admin/views/scripts/voting/index.phtml:88
 msgid "There are no permissions to be set."
-msgstr "Il n’a pas de nouvelles autorisations"
+msgstr "Nie ma nowych powiadomień."
 
 #: application/modules/admin/views/scripts/voting/invitations.phtml:35
 msgid "Compose an email for all invited users"
-msgstr "Envoyer un courriel externe à tous les utilisateurs autorisés. "
+msgstr "Wyślij E-Maile dla uprawionych osób"
 
 #: application/modules/admin/views/scripts/voting/invitations.phtml:40
 #: application/modules/admin/views/scripts/voting/sendinvitation.phtml:22
 msgid "Voting Invitations"
-msgstr "Invitations de vote"
+msgstr "Zaproszenie do głosowania."
 
 #: application/modules/admin/views/scripts/voting/invitations.phtml:51
 msgid "User Name"
-msgstr "Nom d’utilisateur"
+msgstr "Podaj nazwę użytkownika /użytkowniczki!"
 
 #: application/modules/admin/views/scripts/voting/invitations.phtml:76
 msgid "Voting weight"
-msgstr "Poids du vote"
+msgstr "Waga głosowania"
 
 #: application/modules/admin/views/scripts/voting/invitations.phtml:81
 msgid "Partner"
-msgstr "Partenaire"
+msgstr "Partner"
 
 #: application/modules/admin/views/scripts/voting/invitations.phtml:93
 msgid "Preview and send invitation"
-msgstr "Prévisualiser les invitations et envoyer "
+msgstr "Zobacz i wyślij zaproszenia"
 
 #: application/modules/admin/views/scripts/voting/invitations.phtml:104
 msgid "Do you really want to send invitation to this user again?"
-msgstr "Voudriez-vous vraiment envoyer cette invitation encore une fois? "
+msgstr "Czy chcesz ponownie wysłać to zaproszenie?"
 
 #: application/modules/admin/views/scripts/voting/invitations.phtml:107
 #, php-format
 msgid "Invitation has been sent at %s"
-msgstr "L’invitation a été envoyée à %s"
+msgstr "Zaproszenie wysłano o %s"
 
 #: application/modules/admin/views/scripts/voting/invitations.phtml:122
 msgid "Do you really want to send invitation to this user?"
-msgstr "Veux-tu vraiment envoyer une invitation à cet utilisateur? "
+msgstr ""
+"Na pewno chcesz wysłać zaproszenie do tego użytkownika/tej użytkowniczki?"
 
 #: application/modules/admin/views/scripts/voting/invitations.phtml:125
 msgid "Send invitation"
-msgstr "Envoyer l’invitation"
+msgstr "Wyślij zaproszenie"
 
 #: application/modules/admin/views/scripts/voting/invitations.phtml:148
 msgid "There are no participants to be invited."
-msgstr "Il n’y a aucun participant disponible pour une invitation. "
+msgstr ""
+"Nie ma żadnych uczestników/uczestniczek do wyboru, by wysłać zaproszenie."
 
 #: application/modules/admin/views/scripts/voting/participantedit.phtml:22
 msgid "Back to Voting Participants"
-msgstr "Revenir aux participants de vote"
+msgstr "Z powrotem do użytkowników/użytkowniczki głosowania"
 
 #: application/modules/admin/views/scripts/voting/participantedit.phtml:26
 msgid "Edit Voting Participant:"
-msgstr "Éditer le participant de vote:"
+msgstr "Edytuj użytkowników/użytkowniczki głosowania"
 
+# Bitte wähle doppelte_n Teilnehmer_in aus, die/den du löschen willst. Die Daten der/des Teilnehmenden werden zu aktuell ausgewählter/m Teilnehmenden transferiert. Anschließend wird Teilnehmende_r gelöscht.
 #: application/modules/admin/views/scripts/voting/participantedit.phtml:32
 msgid ""
 "Please select a duplicate participant to be deleted. The data of selected "
 "participant will be transferred to currently edited participant. Eventually, "
 "the selected participant will be removed."
 msgstr ""
-"Choisis le participant doublé que tu veux supprimer. Les données du "
-"participant seront transférées aux participant actuellement sélectionné. "
-"Ensuite, le participant sera supprimé.  "
+"Proszę zaznacz powtarzających się użytkowników/powtarzające się "
+"użytkowniczki, których /które chcesz usunąć. Dane zostaną przetransferowane "
+"do wybranych użytkowników /użytkowniczek. Następnie użytkownik /"
+"użytkowniczka zostanie usunięty /usunięta."
 
 #: application/modules/admin/views/scripts/voting/participants.phtml:23
 msgid "Voting Participants"
-msgstr "Tous les participants de vote"
+msgstr "Uczestnicy /Uczestniczki głosowania"
 
 #: application/modules/admin/views/scripts/voting/participants.phtml:29
 msgid "Total participants"
-msgstr "Tous les participants"
+msgstr "Wszyscy uczestnicy /wszystkie uczestniczki"
 
 #: application/modules/admin/views/scripts/voting/participants.phtml:39
 msgid "Group"
-msgstr "Groupe"
+msgstr "Grupa"
 
 #: application/modules/admin/views/scripts/voting/participants.phtml:40
 msgid "Participant"
-msgstr "Participant_e"
+msgstr "Użytkownik /użytkowniczka"
 
 #: application/modules/admin/views/scripts/voting/participants.phtml:42
 msgid "Votes Left"
-msgstr "Votes manquants"
+msgstr "Brakujące głosy"
 
 #: application/modules/admin/views/scripts/voting/participants.phtml:73
 msgid "Denied"
-msgstr "Refusé"
+msgstr "Odrzucony / odrzucona"
 
 #: application/modules/admin/views/scripts/voting/participants.phtml:87
 msgid "Merge participants"
-msgstr "Combiner les participants de vote"
+msgstr "Połącz głosujących/głosujące"
 
 #: application/modules/admin/views/scripts/voting/participants.phtml:103
 msgid "Confirm voting participant?"
-msgstr "Confirmer le participant de vote?"
+msgstr "Dopuść użytkownika /użytkowniczkę do głosowania?"
 
 #: application/modules/admin/views/scripts/voting/participants.phtml:106
 #: application/modules/admin/views/scripts/voting/participants.phtml:109
 msgid "Confirm participant"
-msgstr "Confirmer le participant"
+msgstr "Potwierdź użytkownika/użytkowniczkę"
 
 #: application/modules/admin/views/scripts/voting/participants.phtml:120
 msgid "Deny voting participant?"
-msgstr "Refuser le participant de vote?"
+msgstr "Odrzuć głosującego /głosującą?"
 
 #: application/modules/admin/views/scripts/voting/participants.phtml:123
 #: application/modules/admin/views/scripts/voting/participants.phtml:126
 msgid "Deny participant"
-msgstr "Refuser le participant"
+msgstr "Odrzuć użytkownika /użytkowniczkę"
 
 #: application/modules/admin/views/scripts/voting/participants.phtml:137
 msgid "Delete voting participant?"
-msgstr "Supprimer l’évaluation?"
+msgstr "Usuń oceny?"
 
 #: application/modules/admin/views/scripts/voting/participants.phtml:140
 #: application/modules/admin/views/scripts/voting/participants.phtml:143
 msgid "Delete participant"
-msgstr "Supprimer le participant?"
+msgstr "Usuń uczestnika /uczestniczkę"
 
 #: application/modules/admin/views/scripts/voting/participants.phtml:153
 #: application/modules/admin/views/scripts/voting/participants.phtml:156
 #: application/modules/admin/views/scripts/voting/participants.phtml:165
 #: application/modules/admin/views/scripts/voting/participants.phtml:168
 msgid "Send reminder"
-msgstr "Envoyez rappel"
+msgstr "Wyślij przypomnienie"
 
 #: application/modules/admin/views/scripts/voting/participants.phtml:184
 msgid "There are no participants yet."
-msgstr "Il n’y a pas encore de participants"
+msgstr "Aktualnie nie ma żadnych uczestników /uczestniczek"
 
 #: application/modules/admin/views/scripts/voting/results.phtml:31
 msgid "Download table as file"
-msgstr "Télécharger le tableau comme fichier"
+msgstr "Pobierz tabele jako plik"
 
 #: application/modules/admin/views/scripts/voting/results.phtml:33
 msgid "Voting Results"
-msgstr "Résultats de vote"
+msgstr "Wyniki głosowania"
 
 #: application/modules/admin/views/scripts/voting/results.phtml:73
 msgid "Weighted points"
-msgstr "Points pondérés"
+msgstr "ważone punkty"
 
 #: application/modules/admin/views/scripts/voting/results.phtml:73
 msgid "votes"
-msgstr "Votes"
+msgstr "Głosy"
 
 #: application/modules/admin/views/scripts/voting/results.phtml:93
 #: application/modules/admin/views/scripts/voting/results.phtml:100
 msgid "There are no voting results to be shown at the moment."
-msgstr "Il n'y a pas de résultats de vote à montrer actuellement. "
+msgstr "W tym momencie wyniki głosowania nie mogą być pokazane."
 
 #: application/modules/admin/views/scripts/voting/settings.phtml:23
 msgid "Voting Settings"
-msgstr "Paramètres de vote"
+msgstr "Ustawienia głosowania"
 
 #: application/modules/admin/views/scripts/votingprepare/_input-row.phtml:56
 msgid "Related"
-msgstr "Lien"
+msgstr "Pokrewne"
 
 #: application/modules/admin/views/scripts/votingprepare/_input-row.phtml:60
 msgid "Add related contributions"
-msgstr "Ajouter des contributions liées"
+msgstr "Dodaj pokrewne wpisy"
 
 #: application/modules/admin/views/scripts/votingprepare/_input-row.phtml:80
 #: application/modules/admin/views/scripts/votingprepare/_input-row.phtml:81
 msgid "Unlink contribution"
-msgstr "Supprimer le lien de la contribution"
+msgstr "Usuń link wpisu"
 
 #: application/modules/admin/views/scripts/votingprepare/_input-row.phtml:96
 #: application/modules/admin/views/scripts/votingprepare/overview.phtml:86
 msgid "Origin"
-msgstr "Origine"
+msgstr "Pochodzenie"
 
 #: application/modules/admin/views/scripts/votingprepare/_input-row.phtml:154
 msgid "Copy contribution"
-msgstr "Recopier la contribution"
+msgstr "Kopiuj wpis"
 
 #: application/modules/admin/views/scripts/votingprepare/_input-row.phtml:161
 msgid "Split contribution"
-msgstr "Diviser la contribution"
+msgstr "Podziel wpis"
 
 #: application/modules/admin/views/scripts/votingprepare/add-related.phtml:22
 msgid "Link contributions"
-msgstr "Lier les contributions"
+msgstr "Dodaj link do wpisów"
 
 #: application/modules/admin/views/scripts/votingprepare/add-related.phtml:31
 msgid "Original contribution"
-msgstr "Contribution originale"
+msgstr "Oryginalny wpis"
 
 #: application/modules/admin/views/scripts/votingprepare/add-related.phtml:64
 msgid "Search text"
-msgstr "Recherche de texte"
+msgstr "Szukaj tekstu"
 
 #: application/modules/admin/views/scripts/votingprepare/add-related.phtml:99
 msgid "Link selection to original contribution"
-msgstr "Lier la contribution avec la contribution originale"
+msgstr "Dodaj link do oryginalnego wpisu"
 
 #: application/modules/admin/views/scripts/votingprepare/copy.phtml:21
 #: application/modules/admin/views/scripts/votingprepare/create-directory.phtml:21
 #: application/modules/admin/views/scripts/votingprepare/merge.phtml:21
 #: application/modules/admin/views/scripts/votingprepare/split.phtml:21
 msgid "Back to Voting Preparation"
-msgstr "Revenir à la préparation du vote "
+msgstr "Z powrotem do przygotowania głosowania"
 
 #: application/modules/admin/views/scripts/votingprepare/copy.phtml:22
 msgid "Copy Contribution"
-msgstr "Copier la contribution"
+msgstr "Kopiuj folder"
 
 #: application/modules/admin/views/scripts/votingprepare/create-directory.phtml:23
 msgid "Create Folder"
-msgstr "Créer un dossier"
+msgstr "Utwórz folder"
 
 #: application/modules/admin/views/scripts/votingprepare/index.phtml:23
 #: application/modules/admin/views/scripts/votingprepare/overview.phtml:22
 msgid "Voting Preparation"
-msgstr "Préparations de vote"
+msgstr "Przygotowanie głosowania"
 
 #: application/modules/admin/views/scripts/votingprepare/merge.phtml:22
 msgid "Merge Contributions"
-msgstr "Combiner les contributions"
+msgstr "Połącz wpisy"
 
 #: application/modules/admin/views/scripts/votingprepare/merge.phtml:24
 msgid "Original Contributions"
-msgstr "Contributions originales"
+msgstr "Wpisy oryginalne"
 
 #: application/modules/admin/views/scripts/votingprepare/overview.phtml:33
 msgid "Search contributions"
-msgstr "Chercher des contributions"
+msgstr "Szukaj wpisów"
 
 #: application/modules/admin/views/scripts/votingprepare/overview.phtml:38
 msgid "Search"
-msgstr "Recherche"
+msgstr "Szukaj"
 
 #: application/modules/admin/views/scripts/votingprepare/overview.phtml:55
 msgid "Filter"
-msgstr "Filtre"
+msgstr "Filter"
 
 #: application/modules/admin/views/scripts/votingprepare/overview.phtml:94
 msgid "User created"
-msgstr "L’utilisateur a été créé"
+msgstr "Utwórz konto użytkownika /użytkowniczki"
 
 #: application/modules/admin/views/scripts/votingprepare/overview.phtml:95
 msgid "Admin created"
-msgstr "L’administrateur a été créé"
+msgstr "Utwórz administratora /administratorkę"
 
 #: application/modules/admin/views/scripts/votingprepare/overview.phtml:127
 msgid "All folders"
-msgstr "Tous les dossiers"
+msgstr "Wszystkie foldery"
 
 #: application/modules/admin/views/scripts/votingprepare/overview.phtml:128
 #: application/modules/admin/views/scripts/votingprepare/overview.phtml:349
 msgid "Folder root"
-msgstr "Origine du dossier"
+msgstr "Pochodzenie folderu"
 
 #: application/modules/admin/views/scripts/votingprepare/overview.phtml:194
 msgid "Add folder"
-msgstr "Ajouter un dossier"
+msgstr "Dodaj folder"
 
 #: application/modules/admin/views/scripts/votingprepare/overview.phtml:266
 msgid "Merge"
-msgstr "Combiner"
+msgstr "Połącz"
 
 #: application/modules/admin/views/scripts/votingprepare/overview.phtml:277
 msgid "Release contributions?"
-msgstr "Partager les contributions?"
+msgstr "Dopuść wpisy?"
 
 #: application/modules/admin/views/scripts/votingprepare/overview.phtml:282
 msgid "Release"
-msgstr "Partager"
+msgstr "Dopuść"
 
 #: application/modules/admin/views/scripts/votingprepare/overview.phtml:290
 msgid "Block contributions?"
-msgstr "Bloquer ces contributions?"
+msgstr "Zablokuj wpisy?"
 
 #: application/modules/admin/views/scripts/votingprepare/overview.phtml:306
 msgid "Set contributions for voting?"
-msgstr "Déterminer des contributions pour le vote?"
+msgstr "Ustaw wpisy do głosowania?"
 
 #: application/modules/admin/views/scripts/votingprepare/overview.phtml:311
 msgid "Allow for voting"
-msgstr "Autoriser à voter"
+msgstr "Dopuszczone do głosowania"
 
 #: application/modules/admin/views/scripts/votingprepare/overview.phtml:319
 msgid "Ban contributions from voting?"
-msgstr "Exclure ces contribution du vote?"
+msgstr "Wyłączyć wpisy z głosowania?"
 
 #: application/modules/admin/views/scripts/votingprepare/overview.phtml:324
 msgid "Ban from voting"
-msgstr "Exclure du vote"
+msgstr "Wyłącz z głosowania"
 
 #: application/modules/admin/views/scripts/votingprepare/overview.phtml:335
 msgid "Delete contributions?"
-msgstr "Supprimer les contributions?"
+msgstr "Usuń wpisy?"
 
 #: application/modules/admin/views/scripts/votingprepare/overview.phtml:363
 msgid "Move contributions?"
-msgstr "Déplacer les contributions?"
+msgstr "Przenieś wpisy?"
 
 #: application/modules/admin/views/scripts/votingprepare/overview.phtml:367
 msgid "Move to folder"
-msgstr "Déplacer vers un dossier"
+msgstr "Przenieś do folderu"
 
 #: application/modules/admin/views/scripts/votingprepare/split.phtml:22
 msgid "Split Contribution"
-msgstr "Diviser la contribution"
+msgstr "Podziel wpis"
 
 #: application/modules/admin/views/scripts/votingprepare/split.phtml:24
 msgid "Original Contribution"
-msgstr "Contribution initiale"
+msgstr "Oryginalny wpis"
 
 #~ msgid "The title of the terms selected for the project."
 #~ msgstr "Titel der Bedingungen für dieses Projekt"

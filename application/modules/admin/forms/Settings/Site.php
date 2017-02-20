@@ -17,7 +17,16 @@ class Admin_Form_Settings_Site extends Dbjr_Form_Admin
         $locale
             ->setLabel('Application Language')
             ->setRequired(true)
-            ->setMultiOptions(['en_US' => 'English', 'de_DE' => 'Deutsch']);
+            ->setMultiOptions([
+                'en_US' => 'English',
+                'de_DE' => 'Deutsch',
+                'fr_FR' => 'Français',
+                'es_ES' => 'Español',
+                'pl_PL' => 'Polski',
+                'cs_CZ' => 'Čeština',
+                'ru_RU' => 'Ррусский',
+                'ar_AE' => 'العربية',
+            ]);
         $this->addElement($locale);
 
         $siteTitle = $this->createElement('text', 'site_title');
