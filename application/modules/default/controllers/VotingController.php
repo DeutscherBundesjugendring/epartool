@@ -190,7 +190,7 @@ class VotingController extends Zend_Controller_Action
         $this->view->questions = $questionModel->getByConsultation($kid);
         // Tags for Tagcloud
         $tagModel = new Model_Tags();
-        $this->view->tags = $tagModel->getAllByConsultation($kid, 'y');
+        $this->view->tags = $tagModel->getAllByConsultation($kid, true);
 
         // count of votable inputs
         $inputModel = new Model_Inputs();

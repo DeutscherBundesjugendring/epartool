@@ -97,14 +97,14 @@ class Model_Votes_Individual extends Dbjr_Db_Table_Abstract
             $select->where('sub_uid = ?', $subUid);
 
             $row = $this->fetchRow($select);
-            $row->pts = $pts;
-            $row->is_pimp = $pimp;
-            $row->upd = new Zend_Db_Expr('NOW()');
+            $row['pts'] = $pts;
+            $row['is_pimp'] = (int) $pimp;
+            $row['upd'] = new Zend_Db_Expr('NOW()');
 
             if ($row->save()) {
                 return [
-                    'points' => $row->pts,
-                    'is_pimp' => $row->is_pimp
+                    'points' => $row['pts'],
+                    'is_pimp' => $row['is_pimp']
                 ];
 
             } else {
@@ -116,7 +116,7 @@ class Model_Votes_Individual extends Dbjr_Db_Table_Abstract
                 'tid' => $tid,
                 'sub_uid' => $subUid,
                 'pts' => $pts,
-                'is_pimp' => $pimp,
+                'is_pimp' => (int) $pimp,
                 'status' => Service_Voting::STATUS_VOTED,
                 'confirmation_hash' => $confirmationHash,
                 'upd' =>new Zend_Db_Expr('NOW()'),
@@ -124,8 +124,8 @@ class Model_Votes_Individual extends Dbjr_Db_Table_Abstract
             $row->save();
             if ($row) {
                 return [
-                    'points' => $row->pts,
-                    'is_pimp' => $row->pimp
+                    'points' => $row['pts'],
+                    'is_pimp' => $row['is_pimp']
                 ];
             }
 

@@ -127,7 +127,7 @@ class IndexController extends Zend_Controller_Action
         $consultations = $consModel->fetchAll(
             $consModel
                 ->select()
-                ->where('public=?', 'y')
+                ->where('is_public = ?', true)
                 ->order('ord DESC')
                 ->limit(0, self::LAST_CONSULTATION_COUNT)
         );
