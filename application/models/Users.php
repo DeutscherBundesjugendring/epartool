@@ -502,7 +502,7 @@ class Model_Users extends Dbjr_Db_Table_Abstract
     public function getAllConfirmed()
     {
         $select = $this->select();
-        $select->where(['is_confirmed = ?' => true])->order(['name', 'email']);
+        $select->where('is_confirmed = ?', true)->order(['name', 'email']);
 
         return $this->fetchAll($select)->toArray();
     }
