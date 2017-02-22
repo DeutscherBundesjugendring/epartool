@@ -1813,3 +1813,12 @@ ALTER TABLE `vt_final` ALTER `is_followups` SET DEFAULT 0;
 ALTER TABLE `vt_grps` ALTER `is_member` SET DEFAULT NULL;
 ALTER TABLE `vt_indiv` ALTER `is_pimp` SET DEFAULT 0;
 ALTER TABLE `vt_settings` ALTER `is_btn_important` SET DEFAULT 0;
+
+-- Migration 20170222165108_dbjr1098.php
+ALTER TABLE `cnslt`
+CHANGE inp_fr inp_fr datetime NULL COMMENT 'Input possible from date on' AFTER proj,
+CHANGE inp_to inp_to datetime NULL COMMENT 'Input possible till' AFTER inp_fr,
+CHANGE spprt_fr spprt_fr datetime NULL COMMENT 'support button clickable from' AFTER spprt_show,
+CHANGE spprt_to spprt_to datetime NULL COMMENT 'Supporting possible until' AFTER spprt_fr,
+CHANGE vot_fr vot_fr datetime NULL COMMENT 'Voting possible from date on' AFTER spprt_ct,
+CHANGE vot_to vot_to datetime NULL COMMENT 'Voting possible till' AFTER vot_fr;
