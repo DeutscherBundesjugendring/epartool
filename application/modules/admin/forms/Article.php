@@ -59,9 +59,9 @@ class Admin_Form_Article extends Dbjr_Form_Admin
 
         $hide = $this->createElement('checkbox', 'is_showed');
         $hide
-            ->setLabel('Unpublished')
-            ->setCheckedValue('y')
-            ->setUncheckedValue('n');
+            ->setLabel('Published')
+            ->setCheckedValue('1')
+            ->setUncheckedValue('0');
         $this->addElement($hide);
 
         $projects = (new Model_Projects())->getAll();

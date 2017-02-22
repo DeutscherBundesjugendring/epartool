@@ -189,7 +189,7 @@
     <?=$this->partial('_partials/pageLinks.phtml', ['help' => 'help-text-consultation-voting']);?>
 
     <!-- Supervotes modal -->
-    <?php if ($this->settings['btn_important'] == 'y'): ?>
+    <?php if ($this->settings['is_btn_important']): ?>
         <div class="modal fade" id="modalVoting" tabindex="-1" role="dialog" aria-labelledby="modalVotingLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">

@@ -49,8 +49,8 @@ class Admin_Form_Followup_File extends Dbjr_Form_Admin
         $showNoDay
             ->setLabel('Display month and year only')
             ->setRequired(true)
-            ->setCheckedValue('y')
-            ->setUncheckedValue('n');
+            ->setCheckedValue('1')
+            ->setUncheckedValue('0');
         $this->addElement($showNoDay);
 
         $file = $this->createElement('media', 'ref_doc');

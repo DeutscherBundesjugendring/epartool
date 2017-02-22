@@ -43,8 +43,8 @@ class Admin_Form_Voting_Settings extends Dbjr_Form_Admin
             ->setRequired(true)
             ->setMultiOptions(
                 [
-                    'y' => $translator->translate('Enable'),
-                    'n' => $translator->translate('Disable'),
+                    '1' => $translator->translate('Enable'),
+                    '0' => $translator->translate('Disable'),
                 ]
             );
         $this->addElement($buttonImportant);

@@ -16,7 +16,7 @@
 <ul class="list-inline rating-bar-buttons">
 
     <!-- Super button -->
-    <?php if ($settings['btn_important'] == 'y'): ?>
+    <?php if ($settings['is_btn_important']): ?>
         <?php $linkOptions['pts'] = 'y'; ?>
         <li class="offset-bottom-small">
             <div class="offset-bottom-small">
@@ -33,7 +33,7 @@
                         title="<?=$this->escape($settings['btn_important_label']);?>"
                     />
                     <br />
-                    <strong<?=$this->pimp == 'y' ? ' class="text-danger"' : '';?>>
+                    <strong<?=$this['is_pimp'] ? ' class="text-danger"' : '';?>>
                         <?=$this->escape($settings['btn_important_label']);?>
                         <br />
                         (<span class="js-supervotes-used"><?=$votingBasket['countvotes'];?></span>

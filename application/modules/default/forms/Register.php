@@ -156,8 +156,8 @@ class Default_Form_Register extends Dbjr_Form_Web
             $sendResults = $this->createElement('checkbox', 'is_receiving_consultation_results');
             $sendResults
                 ->setLabel('I want to get informed about outcomes of the consultation round.')
-                ->setCheckedValue('y')
-                ->setUnCheckedValue('n');
+                ->setCheckedValue('1')
+                ->setUnCheckedValue('0');
             $this->addElement($sendResults);
         }
 
@@ -165,8 +165,8 @@ class Default_Form_Register extends Dbjr_Form_Web
             $newsletter = $this->createElement('checkbox', 'is_subscribed_newsletter');
             $newsletter
                 ->setLabel('I would like to subscribe to the newsletter.')
-                ->setCheckedValue('y')
-                ->setUnCheckedValue('n');
+                ->setCheckedValue('1')
+                ->setUnCheckedValue('0');
             $this->addElement($newsletter);
         }
 

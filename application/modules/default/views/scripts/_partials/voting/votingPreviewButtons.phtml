@@ -5,8 +5,8 @@
 
 <ul class="nav nav-justified nav-voting text-center small">
 
-    <?php if ($settings['btn_important'] == 'y'): ?>
-        <li class="nav-voting-superbutton<?=$this->pimp == 'y' ? ' active' : '';?>">
+    <?php if ($settings['is_btn_important']): ?>
+        <li class="nav-voting-superbutton<?=$this['is_pimp'] ? ' active' : '';?>">
             <a href="#"
                data-tid="<?=$this->tid;?>"
                data-kid="<?=$settings['kid'];?>"

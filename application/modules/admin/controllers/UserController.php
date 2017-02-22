@@ -70,6 +70,7 @@ class Admin_UserController extends Zend_Controller_Action
                 } else {
                     unset($values['password']);
                 }
+                $values['is_confirmed'] = (int) $values['is_confirmed'];
                 $user->setFromArray($values);
                 $user->save();
                 $this->_flashMessenger->addMessage('Changes saved.', 'success');

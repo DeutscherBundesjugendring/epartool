@@ -68,8 +68,8 @@ class Admin_Form_User_Create extends Dbjr_Form_Admin
             ->setRequired(true)
             ->setOptions(
                 [
-                    'checkedValue' => 'y',
-                    'uncheckedValue' => 'n',
+                    'checkedValue' => '1',
+                    'uncheckedValue' => '0',
                 ]
             )
             ->setValue('n');
