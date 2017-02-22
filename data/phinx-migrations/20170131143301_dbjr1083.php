@@ -951,6 +951,7 @@ class Dbjr1083 extends AbstractMigration
         'users' => [
             'is_confirmed' => null,
             'is_subscribed_newsletter' => 0,
+            'is_receiving_consultation_results' => 1,
         ],
         'user_info' => ['is_receiving_consultation_results' => 1],
         'vt_final' => ['is_followups' => 0],
@@ -966,7 +967,7 @@ class Dbjr1083 extends AbstractMigration
         foreach (self::RESTORE_DEFAULT_NULLABLE_COMMENTS as $table => $columns) {
             foreach ($columns as $column => $params) {
                 $default = "";
-                if (strpos($params['datatype'], 'text') === FALSE) {
+                if (strpos($params['type'], 'text') === FALSE) {
                     $default = "DEFAULT '" . $params['default'] . "' ";
                 }
 

@@ -20,7 +20,7 @@ class Dbjr972 extends AbstractMigration
             'ref_nm' => 'varchar(191)',
             'lng' => 'char(2)',
             'desc' => 'varchar(255)',
-            'type' => 'enum(\'g\',\'n\')',
+            'type' => 'enum(\'g\',\'b\')',
             'scope' => 'enum(\'none\',\'info\',\'voting\',\'followup\',\'static\')',
         ],
         'cnslt' => [
