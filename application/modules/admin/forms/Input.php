@@ -191,6 +191,13 @@ class Admin_Form_Input extends Dbjr_Form_Admin
         if (isset($data['video_id']) && $data['video_id']) {
             $this->getElement('thes')->setRequired(false);
         }
+
+        foreach (['is_confirmed_by_user', 'is_confirmed', 'is_votable'] as $element) {
+            if (array_key_exists($element, $data)) {
+                $this->getElement($element)->setRequired(false);
+            }
+        }
+
         return parent::isValid($data);
     }
 }

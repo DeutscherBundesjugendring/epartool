@@ -48,12 +48,12 @@ class Admin_Form_User_Create extends Dbjr_Form_Admin
             ->setRequired(true)
             ->setMultiOptions(
                 [
-                    'b' => $translator->translate('Blocked'),
-                    'u' => $translator->translate('Unconfirmed'),
-                    'c' => $translator->translate('Confirmed'),
+                    '0' => $translator->translate('Blocked'),
+                    '' => $translator->translate('Unconfirmed'),
+                    '1' => $translator->translate('Confirmed'),
                 ]
             )
-            ->setValue('b');
+            ->setValue('0');
         $this->addElement($block);
 
         $note = $this->createElement('textarea', 'cmnt');
@@ -72,7 +72,7 @@ class Admin_Form_User_Create extends Dbjr_Form_Admin
                     'uncheckedValue' => '0',
                 ]
             )
-            ->setValue('n');
+            ->setValue('0');
         $this->addElement($newsletter);
 
         // CSRF Protection

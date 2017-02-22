@@ -350,6 +350,7 @@ class Admin_InputController extends Zend_Controller_Action
             if ($form->isValid($data)) {
                 $formValues = $form->getValues();
                 $formValues['tags'] = $formValues['tags'] ? $formValues['tags'] : [];
+
                 $inputModel->getAdapter()->beginTransaction();
                 try {
                     $inputModel->createContribution($formValues);

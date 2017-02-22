@@ -100,9 +100,14 @@ class Dbjr_Form extends Zend_Form
     {
         $values = parent::getValues($suppressArrayNotation);
         $wysiwyg = new Service_Wysiwyg((new Zend_View_Helper_BaseUrl())->getBaseUrl());
+        $boolValue = new Service_BoolValue();
         foreach ($this->getElements() as $element) {
             if ($element instanceof Dbjr_Form_Element_Textarea && $element->isWysiwygType()) {
                 $values[$element->getName()] = $wysiwyg->stripForbiddenTags($element->basePathToPlaceholder());
+            } elseif (($element instanceof Dbjr_Form_Element_Checkbox || $element instanceof Dbjr_Form_Element_Radio)
+                && in_array($element->getValue(), ['1', '0', ''], false)
+            ) {
+                $values[$element->getName()] = $boolValue->convertForDb($element->getValue());
             }
         }
         return $values;
