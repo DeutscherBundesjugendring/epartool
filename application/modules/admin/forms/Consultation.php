@@ -71,9 +71,9 @@ class Admin_Form_Consultation extends Dbjr_Form_Admin
             ->setRequired(true)
             ->setAttrib('data-toggle', 'disable')
             ->setAttrib('data-disable-target', '.js-input-dates')
-            ->setCheckedValue('y')
-            ->setUncheckedValue('n')
-            ->setValue('y');
+            ->setCheckedValue('1')
+            ->setUncheckedValue('0')
+            ->setValue('1');
         $this->addElement($inputShow);
 
         $inputFrom = $this->createElement('text', 'inp_fr');
@@ -100,9 +100,9 @@ class Admin_Form_Consultation extends Dbjr_Form_Admin
             ->setRequired(true)
             ->setAttrib('data-toggle', 'disable')
             ->setAttrib('data-disable-target', '.js-support-dates')
-            ->setCheckedValue('y')
-            ->setUncheckedValue('n')
-            ->setValue('y');
+            ->setCheckedValue('1')
+            ->setUncheckedValue('0')
+            ->setValue('1');
         $this->addElement($supportShow);
 
         $supportFrom = $this->createElement('text', 'spprt_fr');
@@ -129,9 +129,9 @@ class Admin_Form_Consultation extends Dbjr_Form_Admin
             ->setRequired(true)
             ->setAttrib('data-toggle', 'disable')
             ->setAttrib('data-disable-target', '.js-vote-dates')
-            ->setCheckedValue('y')
-            ->setUncheckedValue('n')
-            ->setValue('y');
+            ->setCheckedValue('1')
+            ->setUncheckedValue('0')
+            ->setValue('1');
         $this->addElement($voteShow);
 
         $voteFrom = $this->createElement('text', 'vot_fr');
@@ -156,8 +156,8 @@ class Admin_Form_Consultation extends Dbjr_Form_Admin
         $voteResShow
             ->setLabel('Make voting results public')
             ->setRequired(true)
-            ->setCheckedValue('y')
-            ->setUncheckedValue('n');
+            ->setCheckedValue('1')
+            ->setUncheckedValue('0');
         $this->addElement($voteResShow);
 
         $explVoting = $this->createElement('textarea', 'vot_expl');
@@ -173,9 +173,9 @@ class Admin_Form_Consultation extends Dbjr_Form_Admin
             ->setRequired(true)
             ->setAttrib('data-toggle', 'disable')
             ->setAttrib('data-disable-target', '.js-discussion-dates')
-            ->setCheckedValue(1)
-            ->setUncheckedValue(0)
-            ->setValue(1);
+            ->setCheckedValue('1')
+            ->setUncheckedValue('0')
+            ->setValue('1');
         $this->addElement($discussionActive);
 
         $discussionFrom = $this->createElement('text', 'discussion_from');
@@ -206,8 +206,8 @@ class Admin_Form_Consultation extends Dbjr_Form_Admin
         $followupShow
             ->setLabel('Enable follow-ups')
             ->setRequired(true)
-            ->setCheckedValue('y')
-            ->setUncheckedValue('n');
+            ->setCheckedValue('1')
+            ->setUncheckedValue('0');
         $this->addElement($followupShow);
 
         $followUpExplanation = $this->createElement('textarea', 'follow_up_explanation');
@@ -228,8 +228,8 @@ class Admin_Form_Consultation extends Dbjr_Form_Admin
         $isPublic
             ->setLabel('Make public')
             ->setRequired(true)
-            ->setCheckedValue('y')
-            ->setUncheckedValue('n');
+            ->setCheckedValue('1')
+            ->setUncheckedValue('0');
         $this->addElement($isPublic);
 
         $options = [0 => 'Please select…'];
