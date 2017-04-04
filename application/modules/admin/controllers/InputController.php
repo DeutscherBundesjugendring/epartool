@@ -87,7 +87,7 @@ class Admin_InputController extends Zend_Controller_Action
             $questionsModel->info(Model_Questions::NAME) . '.kid = ?' => $this->_consultation['kid'],
         ];
         if ($isUnread) {
-            $wheres[] = (new Model_Inputs())->info(Model_Inputs::NAME) . '.is_confirmed IS NULL';
+            $wheres[(new Model_Inputs())->info(Model_Inputs::NAME) . '.is_confirmed IS NULL'] = "";
         }
 
         $inputModel = new Model_Inputs();

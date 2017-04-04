@@ -98,7 +98,7 @@ class Model_Users extends Dbjr_Db_Table_Abstract
                 [
                     'is_confirmed' => null,
                     'email' => $data['email'],
-                    'is_subscribed_newsletter' => false,
+                    'is_subscribed_newsletter' => (int) false,
                 ]
             );
             $isNew = true;
