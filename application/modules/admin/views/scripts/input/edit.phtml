@@ -21,6 +21,7 @@
                 <a href="<?=$this->returnUrl;?>" class="back"><?=$this->translate('Back to Contributions');?></a>
 
                 <h2><?=$this->translate('Edit Contribution');?></h2>
+                <?php if ($this->authorId): ?>
                 <a
                     href="<?=$this->url(
                         ['action' => 'list-by-user', 'uid' => $this->authorId, 'tid' => null, 'qi' => null]
@@ -31,6 +32,7 @@
                     <span aria-hidden="true" class="glyphicon glyphicon-list offset-right"></span>
                     <?=$this->translate('List of contributions from this author');?>
                 </a>
+                <?php endif; ?>
                 <?=$this->form;?>
 
             </div>
