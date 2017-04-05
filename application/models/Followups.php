@@ -8,6 +8,8 @@ class Model_Followups extends Zend_Db_Table_Abstract
     const TYPE_REJECTION = 'rejected';
     const TYPE_END = 'end';
 
+    const ERROR_CODE_DUPLICATE_ENTRY = 23000;
+
     protected $_name = 'fowups';
     protected $_primary = 'fid';
 
@@ -210,7 +212,16 @@ class Model_Followups extends Zend_Db_Table_Abstract
                   $followupSupportsRow = $modelFollowupsSupports->createRow();
                   $followupSupportsRow->fid = $fid;
                   $followupSupportsRow->tmphash = $tmphash;
-                  $followupSupportsRow->save();
+                  try {
+                      $followupSupportsRow->save();
+                  } catch (Zend_Db_Statement_Exception $e) {
+                      if ($e->getCode() !== self::ERROR_CODE_DUPLICATE_ENTRY) {
+                          throw $e;
+                      }
+
+                      return (int) $count;
+                  }
+
 
                   $snippet = $this->find($fid)->current();
                   $count = $snippet[$field] + 1;
