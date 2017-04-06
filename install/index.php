@@ -111,6 +111,8 @@ if (!empty($_POST)) {
             $form->getElement('dbName')->addError('The specified db credentials are invalid.');
             $form->getElement('dbUsername')->addError('The specified db credentials are invalid.');
             $form->getElement('dbPass')->addError('The specified db credentials are invalid.');
+        } catch (Exception $e) {
+            $form->getElement('dbUsername')->addError('Cannot complete db initialization. Please check access rights.');
         }
     }
 }
