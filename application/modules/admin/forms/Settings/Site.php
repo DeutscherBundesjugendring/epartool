@@ -24,7 +24,7 @@ class Admin_Form_Settings_Site extends Dbjr_Form_Admin
                 'es_ES' => 'Español',
                 'pl_PL' => 'Polski',
                 'cs_CZ' => 'Čeština',
-                'ru_RU' => 'Ррусский',
+                'ru_RU' => 'Русский',
                 'ar_AE' => 'العربية',
             ]);
         $this->addElement($locale);
