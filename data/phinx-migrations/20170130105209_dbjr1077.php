@@ -9,7 +9,7 @@ class Dbjr1077 extends AbstractMigration
         'inpt' => ['block', 'user_conf', 'vot'],
         'user_info' => ['newsl_subscr'],
         'vt_grps' => ['member'],
-        'users' => ['block'],
+        'users' => ['block', 'cnslt_results'],
     ];
 
     const REVERSE_BOOL_VALUES = [
