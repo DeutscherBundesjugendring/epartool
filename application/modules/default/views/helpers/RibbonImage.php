@@ -11,6 +11,7 @@ class Module_Default_View_Helper_RibbonImage extends Zend_View_Helper_Abstract
     {
         $nowDatePlusOne = Zend_Date::now()->addDay(1);
         $nowDate = Zend_Date::now();
+        $text = null;
 
         if ($nowDatePlusOne->isEarlier(new Zend_Date($con->inp_to, Zend_Date::ISO_8601))) {
             $text = $this->view->translate('Participate');
@@ -40,8 +41,10 @@ class Module_Default_View_Helper_RibbonImage extends Zend_View_Helper_Abstract
             $text = $this->view->translate('Reaction');
         }
 
-        $html = '<div class="sticker hidden-print"><div class="sticker-label sticker-label-accent">' . $text . '</div></div>';
+        if ($text) {
+            return '<div class="sticker hidden-print"><div class="sticker-label sticker-label-accent">' . $text . '</div></div>';
+        }
 
-        return $html;
+        return '';
     }
 }

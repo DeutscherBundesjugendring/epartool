@@ -80,7 +80,7 @@ class VotingController extends Zend_Controller_Action
             $this->_flashMessenger->addMessage('It is not possible to vote at the moment.', 'info');
             $this->redirect('/');
         } elseif ($nowDate->isLater(new Zend_Date($this->_consultation->vot_to, Zend_Date::ISO_8601))
-            && $this->_consultation->vot_to != '0000-00-00 00:00:00'
+            && $this->_consultation->vot_to
             && $this->_consultation->is_voting_result_phase_showed
         ) {
             $this->_flashMessenger->addMessage('The Voting is finished. You can check the results below.', 'info');
@@ -766,7 +766,7 @@ class VotingController extends Zend_Controller_Action
         $form = new Default_Form_VotesConfirmation();
 
         if ($this->_request->isPost()) {
-            if ($this->_consultation['vot_to'] === '0000-00-00 00:00:00'
+            if (!$this->_consultation['vot_to']
                 || Zend_Date::now()->isEarlier(new Zend_Date($this->_consultation['vot_to'], Zend_Date::ISO_8601))
             ) {
                 $data = $this->_request->getPost();
@@ -801,7 +801,7 @@ class VotingController extends Zend_Controller_Action
             $votesData = (new Model_Votes_Uservotes())->fetchVotesToConfirm($confirmationHash);
             $this->view->votesData = $votesData;
 
-            if ($this->_consultation['vot_to'] !== '0000-00-00 00:00:00'
+            if ($this->_consultation['vot_to']
                 && Zend_Date::now()->isLater(new Zend_Date($this->_consultation['vot_to'], Zend_Date::ISO_8601))
             ) {
                 $form->disable();
@@ -832,7 +832,7 @@ class VotingController extends Zend_Controller_Action
             $this->redirect('/');
         }
 
-        if ($this->_consultation['vot_to'] !== '0000-00-00 00:00:00'
+        if ($this->_consultation['vot_to']
             && Zend_Date::now()->isLater(new Zend_Date($this->_consultation['vot_to'], Zend_Date::ISO_8601))
         ) {
             $this->_flashMessenger->addMessage('Voting period has ended and it is not possible to change voting results; the voting results are no longer subject to change.', 'error');

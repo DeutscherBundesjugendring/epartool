@@ -60,7 +60,7 @@
                         <strong><?=$this->inputs;?></strong>
                     </p>
 
-                    <?php if ($this->consultation['vot_to'] !== '0000-00-00 00:00:00'
+                    <?php if ($this->consultation['vot_to']
                         && Zend_Date::now()->isLater(new Zend_Date($this->consultation['vot_to'], Zend_Date::ISO_8601))
                     ): ?>
                         <p class="alert alert-info">
@@ -94,7 +94,7 @@
                                                     name="deny"
                                                     data-toggle="confirm"
                                                     data-confirm-message="<?=$this->translate('Deny voting participant?');?>"
-                                                    <?php if ($this->consultation['vot_to'] !== '0000-00-00 00:00:00'
+                                                    <?php if ($this->consultation['vot_to']
                                                         && Zend_Date::now()->isLater(new Zend_Date($this->consultation['vot_to'], Zend_Date::ISO_8601))
                                                     ): ?>
                                                         disabled="disabled"
@@ -111,7 +111,7 @@
                                                     name="confirm"
                                                     data-toggle="confirm"value
                                                     data-confirm-message="<?=$this->translate('Confirm voting participant?');?>"
-                                                    <?php if ($this->consultation['vot_to'] !== '0000-00-00 00:00:00'
+                                                    <?php if ($this->consultation['vot_to']
                                                         && Zend_Date::now()->isLater(new Zend_Date($this->consultation['vot_to'], Zend_Date::ISO_8601))
                                                     ): ?>
                                                         disabled="disabled"
@@ -128,7 +128,7 @@
                                                     name="delete"
                                                     data-toggle="confirm"
                                                     data-confirm-message="<?=$this->translate('Delete voting participant?');?>"
-                                                    <?php if ($this->consultation['vot_to'] !== '0000-00-00 00:00:00'
+                                                    <?php if ($this->consultation['vot_to']
                                                         && Zend_Date::now()->isLater(new Zend_Date($this->consultation['vot_to'], Zend_Date::ISO_8601))
                                                     ): ?>
                                                         disabled="disabled"

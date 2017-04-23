@@ -789,8 +789,8 @@ class Model_Inputs extends Dbjr_Db_Table_Abstract
 
             if (Zend_Date::now()->isLater(new Zend_Date($consultation->spprt_fr, Zend_Date::ISO_8601))
                 && Zend_Date::now()->isEarlier(new Zend_Date($consultation->spprt_to, Zend_Date::ISO_8601))
-                || $consultation->spprt_fr !== '0000-00-00 00:00:00'
-                || $consultation->spprt_to !== '0000-00-00 00:00:00'
+                || $consultation->spprt_fr
+                || $consultation->spprt_to
                 || $consultation->is_support_phase_showed
             ) {
                 $row->spprts++;

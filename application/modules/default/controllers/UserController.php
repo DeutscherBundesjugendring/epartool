@@ -252,7 +252,7 @@ class UserController extends Zend_Controller_Action
         $form = new Admin_Form_ListControl();
 
         if ($form->isValid($this->getRequest()->getPost())) {
-            if ($this->_consultation['vot_to'] === '0000-00-00 00:00:00'
+            if (!$this->_consultation['vot_to']
                 || Zend_Date::now()->isEarlier(new Zend_Date($this->_consultation['vot_to'], Zend_Date::ISO_8601))
             ) {
                 $votesGroupsModel = new Model_Votes_Groups();
