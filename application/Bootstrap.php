@@ -147,13 +147,18 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
             'scan' => Zend_Translate::LOCALE_DIRECTORY,
             'disableNotices' => true,
         ]);
-        $translatorAdditionalLanguages = new Zend_Translate([
-            'adapter' => 'array',
-            'content' => APPLICATION_PATH . '/../languages_zend',
-            'scan' => Zend_Translate::LOCALE_DIRECTORY,
-        ]);
 
-        $translator->addTranslation(array('content' => $translatorAdditionalLanguages));
+        // martin@visionapps.cz on 2017-04-23
+        // For languages not supported by Zend natively we have to add some system translations.
+        foreach (['ar', 'pl'] as $locale) {
+            $translatorAdditionalLanguages = new Zend_Translate([
+                'adapter' => 'array',
+                'content' => APPLICATION_PATH . '/../languages_zend',
+                'locale' => $locale,
+            ]);
+            $translator->addTranslation(array('content' => $translatorAdditionalLanguages));
+        }
+
         Zend_Validate_Abstract::setDefaultTranslator($translator);
     }
 }
