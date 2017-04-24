@@ -201,28 +201,6 @@ class Admin_ConsultationController extends Zend_Controller_Action
                 $form->populate($form->getValues());
             }
         } else {
-            // Martin 2014-11-28
-            // This should not be here as the default values in db should be null.
-            // However that is not the case and changing it could break all the display logic on the front end.
-            if ($this->_consultation->inp_fr === '0000-00-00 00:00:00') {
-                $this->_consultation->inp_fr = null;
-            }
-            if ($this->_consultation->inp_to === '0000-00-00 00:00:00') {
-                $this->_consultation->inp_to = null;
-            }
-            if ($this->_consultation->vot_fr === '0000-00-00 00:00:00') {
-                $this->_consultation->vot_fr = null;
-            }
-            if ($this->_consultation->vot_to === '0000-00-00 00:00:00') {
-                $this->_consultation->vot_to = null;
-            }
-            if ($this->_consultation->spprt_fr === '0000-00-00 00:00:00') {
-                $this->_consultation->spprt_fr = null;
-            }
-            if ($this->_consultation->spprt_to === '0000-00-00 00:00:00') {
-                $this->_consultation->spprt_to = null;
-            }
-
             $form->populate($this->_consultation->toArray());
             $form->getElement('proj')->setValue(explode(',', $this->_consultation['proj']));
         }

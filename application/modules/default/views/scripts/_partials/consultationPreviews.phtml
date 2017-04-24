@@ -8,27 +8,29 @@
     $votingIsOpen = false;
 
     // Phases are enabled.
-    if (!(Zend_Date::now()->isEarlier(new Zend_Date($consultation->inp_fr, Zend_Date::ISO_8601))
-        || $consultation->inp_fr == '0000-00-00 00:00:00')) {
+    if ($consultation->inp_fr
+        && !Zend_Date::now()->isEarlier(new Zend_Date($consultation->inp_fr, Zend_Date::ISO_8601))
+    ) {
         $inputIsEnabled = true;
     }
 
-    if (!(Zend_Date::now()->isEarlier(new Zend_Date($consultation->vot_fr, Zend_Date::ISO_8601))
-        || $consultation->vot_fr == '0000-00-00 00:00:00')) {
+    if ($consultation->vot_fr
+        && !Zend_Date::now()->isEarlier(new Zend_Date($consultation->vot_fr, Zend_Date::ISO_8601))
+    ) {
         $votingIsEnabled = true;
     }
 
     // Additionally disable voting back under certain conditions.
-    if ($consultation->vot_to != '0000-00-00 00:00:00'
+    if ($consultation->vot_to
         && Zend_Date::now()->isLater(new Zend_Date($consultation->vot_to, Zend_Date::ISO_8601))
         && !$consultation->is_voting_result_phase_showed
     ) {
         $votingIsEnabled = false;
     }
 
-    if (!(!Zend_Date::now()->isLater(new Zend_Date($consultation->vot_to, Zend_Date::ISO_8601))
-        || $consultation->vot_to == '0000-00-00 00:00:00'
-        || !$consultation->is_followup_phase_showed)
+    if ($consultation->is_followup_phase_showed
+        && $consultation->vot_to
+        && !Zend_Date::now()->isLater(new Zend_Date($consultation->vot_to, Zend_Date::ISO_8601))
     ) {
         $followupIsEnabled = true;
     }

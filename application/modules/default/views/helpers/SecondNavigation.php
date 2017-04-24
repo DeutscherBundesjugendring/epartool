@@ -11,14 +11,14 @@ class Module_Default_View_Helper_SecondNavigation extends Zend_View_Helper_Abstr
             'question' => false,
             'input' => ($nowDate->isEarlier(new Zend_Date($con->inp_fr, Zend_Date::ISO_8601))),
             'follow-up' => (!$nowDate->isLater(new Zend_Date($con->vot_to, Zend_Date::ISO_8601)) || !$con->is_followup_phase_showed),
-            'voting' => ($nowDate->isEarlier(new Zend_Date($con->vot_fr, Zend_Date::ISO_8601)) || $con->vot_to == '0000-00-00 00:00:00'),
+            'voting' => ($nowDate->isEarlier(new Zend_Date($con->vot_fr, Zend_Date::ISO_8601)) || !$con->vot_to),
         );
 
         // Voting disable result
-        if ($con->vot_to != '0000-00-00 00:00:00' && $nowDate->isLater($con->vot_to) && !$con->is_voting_result_phase_showed) {
+        if ($con->vot_to && $nowDate->isLater($con->vot_to) && !$con->is_voting_result_phase_showed) {
             $disabled['voting'] = true;
         }
-
+                                                    
         $items = array(
             'article' => array(
                 'url' => $this->view->baseUrl() . '/article/show/kid/' . $con->kid,

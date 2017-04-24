@@ -6,8 +6,8 @@
     $supportsDisabled = (
         Zend_Date::now()->isEarlier(new Zend_Date($this->consultation->spprt_fr, Zend_Date::ISO_8601))
         || Zend_Date::now()->isLater(new Zend_Date($this->consultation->spprt_to, Zend_Date::ISO_8601))
-        || $this->consultation->spprt_fr == '0000-00-00 00:00:00'
-        || $this->consultation->spprt_to == '0000-00-00 00:00:00'
+        || !$this->consultation->spprt_fr
+        || !$this->consultation->spprt_to
         || !$this->consultation->is_support_phase_showed
     );
 ?>
