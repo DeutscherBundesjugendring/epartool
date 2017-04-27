@@ -18,8 +18,7 @@ class BufferedOutput extends Output
 
     public function doWrite($message, $newline)
     {
-        echo $message;
-        $this->buffer .= $message. ($newline? PHP_EOL: '');
+        $this->buffer .= $message . ($newline ? '<br />' : '');
     }
 
     public function getBuffer()
@@ -28,11 +27,12 @@ class BufferedOutput extends Output
     }
 }
 
-$input = new \Symfony\Component\Console\Input\StringInput('migrate -c ../application/configs/phinx.local.yml -e production');
+$command = 'migrate -c ../application/configs/phinx.local.yml -e production';
+$input = new \Symfony\Component\Console\Input\StringInput($command);
 $output = new BufferedOutput;
 
 $app = new Phinx\Console\PhinxApplication();
 $app->setAutoExit(false);
 
-var_dump($app->run($input, $output));
-var_dump($output->getBuffer());
+$app->run($input, $output);
+echo $output->getBuffer();
