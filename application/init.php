@@ -15,7 +15,7 @@ set_include_path(
 
 // Enable Tracy for error visualization
 Tracy\Debugger::enable(
-    APPLICATION_ENV !== 'development' || APPLICATION_ENV === 'test'
+    APPLICATION_ENV === 'development' || APPLICATION_ENV === 'test'
         ? Tracy\Debugger::DEVELOPMENT
         : Tracy\Debugger::PRODUCTION
 );
