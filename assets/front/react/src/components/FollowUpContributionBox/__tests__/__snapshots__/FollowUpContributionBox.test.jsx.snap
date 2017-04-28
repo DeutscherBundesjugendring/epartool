@@ -1,0 +1,24 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`rendering renders correctly 1`] = `
+<div
+  className="followup-timeline-box"
+>
+  <div
+    className="well well-bordered"
+  >
+    <p>
+      Text
+    </p>
+    <div
+      className="text-accent"
+    >
+      Text
+    </div>
+  </div>
+  <ArrowButton
+    label="1"
+    type="followup-timeline-count"
+  />
+</div>
+`;

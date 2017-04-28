@@ -1,0 +1,17 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`rendering renders correctly left 1`] = `
+<span
+  className="followup-link followup-timeline-count followup-sprite followup-sprite-timeline-count followup-link-left"
+>
+  1
+</span>
+`;
+
+exports[`rendering renders correctly right 1`] = `
+<span
+  className="followup-link followup-timeline-count followup-sprite followup-sprite-timeline-count"
+>
+  1
+</span>
+`;
