@@ -30,7 +30,7 @@
 
     if ($consultation->is_followup_phase_showed
         && $consultation->vot_to
-        && !Zend_Date::now()->isLater(new Zend_Date($consultation->vot_to, Zend_Date::ISO_8601))
+        && Zend_Date::now()->isLater(new Zend_Date($consultation->vot_to, Zend_Date::ISO_8601))
     ) {
         $followupIsEnabled = true;
     }
