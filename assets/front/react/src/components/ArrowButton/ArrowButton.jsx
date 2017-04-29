@@ -15,18 +15,22 @@ const ArrowButton = (props) => {
   }
 
   return (
-    <span className={classes}>
+    <button onTouchTap={props.onTouchTap} disabled={props.disabled} className={classes}>
       {props.label}
-    </span>
+    </button>
   );
+};
+
+ArrowButton.defaultProps = {
+  disabled: false,
 };
 
 ArrowButton.propTypes = {
   label: React.PropTypes.string.isRequired,
   type: React.PropTypes.oneOf(['followup-timeline-count']).isRequired,
   direction: React.PropTypes.oneOf(['left', 'right']).isRequired,
-
+  onTouchTap: React.PropTypes.func.isRequired,
+  disabled: React.PropTypes.bool,
 };
-
 
 export default ArrowButton;

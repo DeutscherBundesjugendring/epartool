@@ -3,39 +3,39 @@ import { shallowToJson } from 'enzyme-to-json';
 import sinon from 'sinon';
 import React from 'react';
 import injectTapEventPlugin from 'react-tap-event-plugin';
-import ArrowButton from '../ArrowButton';
+import ThumbButton from '../ThumbButton';
 
 
 injectTapEventPlugin();
 
 describe('rendering', () => {
-  it('renders correctly right', () => {
+  it('renders correctly like', () => {
     const tree = shallow(
-      <ArrowButton type="followup-timeline-count" label="1" direction="right" onTouchTap={() => {}} />
+      <ThumbButton type="like" onTouchTap={() => {}} />
     );
 
     expect(shallowToJson(tree)).toMatchSnapshot();
   });
 
-  it('renders correctly left', () => {
+  it('renders correctly dislike', () => {
     const tree = shallow(
-      <ArrowButton type="followup-timeline-count" label="1" direction="left" onTouchTap={() => {}} />
+      <ThumbButton type="dislike" onTouchTap={() => {}} />
     );
 
     expect(shallowToJson(tree)).toMatchSnapshot();
   });
 
-  it('renders correctly right disabled', () => {
+  it('renders correctly disabled like', () => {
     const tree = shallow(
-      <ArrowButton type="followup-timeline-count" label="1" direction="right" onTouchTap={() => {}} disabled />
+      <ThumbButton type="like" onTouchTap={() => {}} disabled />
     );
 
     expect(shallowToJson(tree)).toMatchSnapshot();
   });
 
-  it('renders correctly left disabled', () => {
+  it('renders correctly disabled dislike', () => {
     const tree = shallow(
-      <ArrowButton type="followup-timeline-count" label="1" direction="left" onTouchTap={() => {}} disabled />
+      <ThumbButton type="dislike" onTouchTap={() => {}} disabled />
     );
 
     expect(shallowToJson(tree)).toMatchSnapshot();
@@ -46,7 +46,7 @@ describe('functionality', () => {
   it('calls onTouchTap', () => {
     const spy = sinon.spy();
     const component = shallow(
-      <ArrowButton type="followup-timeline-count" label="1" direction="right" onTouchTap={spy} />
+      <ThumbButton type="like" onTouchTap={spy} />
     );
 
     component.simulate('touchTap', { preventDefault: () => {} });

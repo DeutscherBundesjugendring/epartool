@@ -1,0 +1,91 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`rendering renders correctly 1`] = `
+<div
+  className="followup-timeline-box"
+  onTouchTap={[Function]}
+>
+  <div
+    className="well well-bordered followup-well followup-well-link"
+  >
+    <img
+      alt="Snippet"
+      className="followup-timeline-box-image"
+      src="image.jpg"
+      width="80"
+    />
+    Snippet
+    <div
+      className="offset-bottom-small"
+    >
+      <span
+        className="badge"
+      >
+        0
+      </span>
+      <ThumbButton
+        disabled={false}
+        onTouchTap={[Function]}
+        type="like"
+      />
+      <span
+        className="badge"
+      >
+        0
+      </span>
+      <ThumbButton
+        disabled={false}
+        onTouchTap={[Function]}
+        type="dislike"
+      />
+    </div>
+    <RaisedButton
+      disabled={false}
+      label="Continue"
+      onTouchTap={[Function]}
+    />
+  </div>
+</div>
+`;
+
+exports[`rendering renders correctly without optional props 1`] = `
+<div
+  className="followup-timeline-box"
+  onTouchTap={[Function]}
+>
+  <div
+    className="well well-bordered followup-well followup-well-link"
+  >
+    Snippet
+    <div
+      className="offset-bottom-small"
+    >
+      <span
+        className="badge"
+      >
+        0
+      </span>
+      <ThumbButton
+        disabled={false}
+        onTouchTap={[Function]}
+        type="like"
+      />
+      <span
+        className="badge"
+      >
+        0
+      </span>
+      <ThumbButton
+        disabled={false}
+        onTouchTap={[Function]}
+        type="dislike"
+      />
+    </div>
+    <RaisedButton
+      disabled={false}
+      label="Continue"
+      onTouchTap={[Function]}
+    />
+  </div>
+</div>
+`;
