@@ -1,0 +1,14 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`rendering renders correctly 1`] = `
+<div
+  className="followup-timeline-box"
+  onTouchTap={[Function]}
+>
+  <div
+    className="well well-bordered followup-well followup-well-link"
+  >
+    Document
+  </div>
+</div>
+`;
