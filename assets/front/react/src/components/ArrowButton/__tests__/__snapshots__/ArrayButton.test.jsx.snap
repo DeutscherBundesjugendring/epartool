@@ -1,17 +1,41 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`rendering renders correctly left 1`] = `
-<span
+<button
   className="followup-link followup-timeline-count followup-sprite followup-sprite-timeline-count followup-link-left"
+  disabled={false}
+  onTouchTap={[Function]}
 >
   1
-</span>
+</button>
+`;
+
+exports[`rendering renders correctly left disabled 1`] = `
+<button
+  className="followup-link followup-timeline-count followup-sprite followup-sprite-timeline-count followup-link-left"
+  disabled={true}
+  onTouchTap={[Function]}
+>
+  1
+</button>
 `;
 
 exports[`rendering renders correctly right 1`] = `
-<span
+<button
   className="followup-link followup-timeline-count followup-sprite followup-sprite-timeline-count"
+  disabled={false}
+  onTouchTap={[Function]}
 >
   1
-</span>
+</button>
+`;
+
+exports[`rendering renders correctly right disabled 1`] = `
+<button
+  className="followup-link followup-timeline-count followup-sprite followup-sprite-timeline-count"
+  disabled={true}
+  onTouchTap={[Function]}
+>
+  1
+</button>
 `;
