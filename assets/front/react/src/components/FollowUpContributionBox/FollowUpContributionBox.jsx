@@ -13,7 +13,6 @@ const FollowUpContributionBox = props => (
       </div>
     </div>
     <ArrayButton
-      type="followup-timeline-count"
       direction="right"
       label={props.childCount.toString()}
       onTouchTap={() => {}}

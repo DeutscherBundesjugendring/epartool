@@ -1,0 +1,133 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`rendering renders correctly with elements in all columns 1`] = `
+<div
+  className="well well-bordered well-accent"
+>
+  <div
+    className="row offset-bottom-large"
+  >
+    <div
+      className="col-sm-4"
+    >
+      <a
+        className="followup-back-link followup-link media link-unstyled link-unstyled-alt"
+        href="#"
+        title="Link"
+      >
+        <div
+          className="media-left"
+        >
+          <div
+            aria-hidden="true"
+            className="followup-back-link-question-mark followup-sprite followup-sprite-question-mark"
+          >
+            ?
+          </div>
+        </div>
+        <div
+          className="media-body"
+        >
+          <strong
+            className="small"
+          >
+            Text
+          </strong>
+        </div>
+      </a>
+    </div>
+  </div>
+  <div
+    className="followup"
+  >
+    <div
+      className="row"
+    >
+      <div
+        className="col-sm-4"
+      >
+        <div>
+          <div>
+            Left column element
+          </div>
+        </div>
+      </div>
+      <div
+        className="col-sm-4"
+      >
+        <div>
+          <div>
+            Center column element
+          </div>
+        </div>
+      </div>
+      <div
+        className="col-sm-4"
+      >
+        <div>
+          <div>
+            Right column element
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`rendering renders correctly without elements 1`] = `
+<div
+  className="well well-bordered well-accent"
+>
+  <div
+    className="row offset-bottom-large"
+  >
+    <div
+      className="col-sm-4"
+    >
+      <a
+        className="followup-back-link followup-link media link-unstyled link-unstyled-alt"
+        href="#"
+        title="Link"
+      >
+        <div
+          className="media-left"
+        >
+          <div
+            aria-hidden="true"
+            className="followup-back-link-question-mark followup-sprite followup-sprite-question-mark"
+          >
+            ?
+          </div>
+        </div>
+        <div
+          className="media-body"
+        >
+          <strong
+            className="small"
+          >
+            Text
+          </strong>
+        </div>
+      </a>
+    </div>
+  </div>
+  <div
+    className="followup"
+  >
+    <div
+      className="row"
+    >
+      <div
+        className="col-sm-4"
+      />
+      <div
+        className="col-sm-4"
+      />
+      <div
+        className="col-sm-4"
+      />
+    </div>
+  </div>
+</div>
+`;
