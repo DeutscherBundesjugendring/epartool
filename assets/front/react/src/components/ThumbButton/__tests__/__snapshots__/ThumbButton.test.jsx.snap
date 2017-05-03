@@ -1,0 +1,53 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`rendering renders correctly disabled dislike 1`] = `
+<button
+  className="link-alt link-unstyled"
+  disabled={true}
+  onTouchTap={[Function]}
+>
+  <span
+    aria-hidden="true"
+    className="glyphicon glyphicon-thumbs-down"
+  />
+</button>
+`;
+
+exports[`rendering renders correctly disabled like 1`] = `
+<button
+  className="link-alt link-unstyled"
+  disabled={true}
+  onTouchTap={[Function]}
+>
+  <span
+    aria-hidden="true"
+    className="glyphicon glyphicon-thumbs-up"
+  />
+</button>
+`;
+
+exports[`rendering renders correctly dislike 1`] = `
+<button
+  className="link-alt link-unstyled"
+  disabled={false}
+  onTouchTap={[Function]}
+>
+  <span
+    aria-hidden="true"
+    className="glyphicon glyphicon-thumbs-down"
+  />
+</button>
+`;
+
+exports[`rendering renders correctly like 1`] = `
+<button
+  className="link-alt link-unstyled"
+  disabled={false}
+  onTouchTap={[Function]}
+>
+  <span
+    aria-hidden="true"
+    className="glyphicon glyphicon-thumbs-up"
+  />
+</button>
+`;

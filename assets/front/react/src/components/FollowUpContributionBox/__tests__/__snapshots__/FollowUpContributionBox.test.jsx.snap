@@ -17,7 +17,10 @@ exports[`rendering renders correctly 1`] = `
     </div>
   </div>
   <ArrowButton
+    direction="right"
+    disabled={false}
     label="1"
+    onTouchTap={[Function]}
     type="followup-timeline-count"
   />
 </div>
