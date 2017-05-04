@@ -32,29 +32,15 @@ const FollowUpTimeLine = props => (
     </div>
 
     <div className="followup">
-      <div className="row">
-        <div className="col-sm-4">
-          {props.leftColumn && props.leftColumn.map((element, index) => (
-            <div key={index}>
+      {props.columns && props.columns.map((elements, columnKey) => (
+        <div className="followup-column offset-right" key={columnKey}>
+          {elements && elements.map((element, elementKey) => (
+            <div className="followup-column-element" key={elementKey}>
               {element}
             </div>
           ))}
         </div>
-        <div className="col-sm-4">
-          {props.centerColumn && props.centerColumn.map((element, index) => (
-            <div key={index}>
-              {element}
-            </div>
-          ))}
-        </div>
-        <div className="col-sm-4">
-          {props.rightColumn && props.rightColumn.map((element, index) => (
-            <div key={index}>
-              {element}
-            </div>
-          ))}
-        </div>
-      </div>
+      ))}
     </div>
 
   </div>
@@ -64,9 +50,7 @@ FollowUpTimeLine.propTypes = {
   infoLink: React.PropTypes.string.isRequired,
   infoLinkTitle: React.PropTypes.string.isRequired,
   infoText: React.PropTypes.string.isRequired,
-  leftColumn: React.PropTypes.arrayOf(React.PropTypes.element),
-  centerColumn: React.PropTypes.arrayOf(React.PropTypes.element),
-  rightColumn: React.PropTypes.arrayOf(React.PropTypes.element),
+  columns: React.PropTypes.arrayOf(React.PropTypes.arrayOf(React.PropTypes.element)),
 };
 
 export default FollowUpTimeLine;
