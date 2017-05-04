@@ -1,5 +1,5 @@
 import React from 'react';
-import ArrayButton from '../ArrowButton/ArrowButton';
+import ArrowButton from '../ArrowButton/ArrowButton';
 
 
 const FollowUpContributionBox = props => (
@@ -12,8 +12,7 @@ const FollowUpContributionBox = props => (
         {props.votingResults}
       </div>
     </div>
-    <ArrayButton
-      type="followup-timeline-count"
+    <ArrowButton
       direction="right"
       label={props.childCount.toString()}
       onTouchTap={() => {}}
