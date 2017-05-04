@@ -18,7 +18,7 @@ class Plugin_Headers extends Zend_Controller_Plugin_Abstract
                 . "*.facebook.net *.doubleclick.net *.twitter.com *.gstatic.com; "
                 . "style-src 'self' 'unsafe-inline' 'unsafe-eval' *.googleapis.com;"
                 . "connect-src 'self';"
-                . "child-src *.youtube.com *.vimeo.com *.facebook.com *.google.com *.twitter.com;"
+                . "child-src *.youtube.com *.vimeo.com *.facebook.com *.google.com *.twitter.com prezi.com *.prezi.com;"
             )
             ->setHeader('X-Content-Type-Options', "nosniff");
     }
