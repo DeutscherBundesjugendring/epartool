@@ -8,20 +8,21 @@ import FollowUpSnippetBox from '../FollowUpSnippetBox';
 
 injectTapEventPlugin();
 
+const element = <FollowUpSnippetBox
+  snippet="Snippet"
+  modalAction={() => {}}
+  likeAction={() => {}}
+  likeCount={0}
+  dislikeAction={() => {}}
+  dislikeCount={0}
+  continueAction={() => {}}
+  continueLabel="Continue"
+/>;
+
 describe('rendering', () => {
   it('renders correctly', () => {
     const tree = shallow(
-      <FollowUpSnippetBox
-        snippet="Snippet"
-        snippetImageSrc="image.jpg"
-        modalAction={() => {}}
-        likeAction={() => {}}
-        likeCount={0}
-        dislikeAction={() => {}}
-        dislikeCount={0}
-        continueAction={() => {}}
-        continueLabel="Continue"
-      />
+      React.cloneElement(element, { snippetImageSrc: 'image.jpg' })
     );
 
     expect(shallowToJson(tree)).toMatchSnapshot();
@@ -29,16 +30,7 @@ describe('rendering', () => {
 
   it('renders correctly without optional props', () => {
     const tree = shallow(
-      <FollowUpSnippetBox
-        snippet="Snippet"
-        modalAction={() => {}}
-        likeAction={() => {}}
-        likeCount={0}
-        dislikeAction={() => {}}
-        dislikeCount={0}
-        continueAction={() => {}}
-        continueLabel="Continue"
-      />
+      React.cloneElement(element)
     );
 
     expect(shallowToJson(tree)).toMatchSnapshot();
@@ -49,17 +41,7 @@ describe('functionality', () => {
   it('calls modal action', () => {
     const spy = sinon.spy();
     const component = shallow(
-      <FollowUpSnippetBox
-        snippet="Snippet"
-        snippetImageSrc="example.jpg"
-        modalAction={spy}
-        likeAction={() => {}}
-        likeCount={0}
-        dislikeAction={() => {}}
-        dislikeCount={0}
-        continueAction={() => {}}
-        continueLabel="Continue"
-      />
+      React.cloneElement(element, { modalAction: spy })
     );
 
     component.find('div').first().simulate('touchTap', { preventDefault: () => {} });
@@ -69,17 +51,7 @@ describe('functionality', () => {
   it('calls like action', () => {
     const spy = sinon.spy();
     const component = shallow(
-      <FollowUpSnippetBox
-        snippet="Snippet"
-        snippetImageSrc="example.jpg"
-        modalAction={() => {}}
-        likeAction={spy}
-        likeCount={0}
-        dislikeAction={() => {}}
-        dislikeCount={0}
-        continueAction={() => {}}
-        continueLabel="Continue"
-      />
+      React.cloneElement(element, { likeAction: spy })
     );
 
     component.find('ThumbButton').first().simulate('touchTap', { preventDefault: () => {} });
@@ -89,17 +61,7 @@ describe('functionality', () => {
   it('calls dislike action', () => {
     const spy = sinon.spy();
     const component = shallow(
-      <FollowUpSnippetBox
-        snippet="Snippet"
-        snippetImageSrc="example.jpg"
-        modalAction={() => {}}
-        likeAction={() => {}}
-        likeCount={0}
-        dislikeAction={spy}
-        dislikeCount={0}
-        continueAction={() => {}}
-        continueLabel="Continue"
-      />
+      React.cloneElement(element, { dislikeAction: spy })
     );
 
     component.find('ThumbButton').at(1).simulate('touchTap', { preventDefault: () => {} });
@@ -109,17 +71,7 @@ describe('functionality', () => {
   it('calls continue action', () => {
     const spy = sinon.spy();
     const component = shallow(
-      <FollowUpSnippetBox
-        snippet="Snippet"
-        snippetImageSrc="example.jpg"
-        modalAction={() => {}}
-        likeAction={() => {}}
-        likeCount={0}
-        dislikeAction={() => {}}
-        dislikeCount={0}
-        continueAction={spy}
-        continueLabel="Continue"
-      />
+      React.cloneElement(element, { continueAction: spy })
     );
 
     component.find('RaisedButton').first().simulate('touchTap', { preventDefault: () => {} });
