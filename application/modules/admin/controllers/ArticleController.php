@@ -5,7 +5,7 @@ class Admin_ArticleController extends Zend_Controller_Action
     protected $_flashMessenger = null;
 
     protected $_adminIndexURL = null;
-    
+
     private $_kid;
     private $_consultation;
 
@@ -149,7 +149,8 @@ class Admin_ArticleController extends Zend_Controller_Action
                 $mainArticleSum = $articleModel->getCountByConsultationAndType($this->_kid, 'article_explanation');
                 if ($article['ref_nm'] === 'article_explanation') {
                     if ($mainArticleSum === 1 && $article['is_showed']) {
-                        $form->getElement('is_showed')->setAttrib('disabled', 'disabled');
+                        $form->getElement('is_showed')->setAttrib('disabled', 'disabled')
+                            ->setAttrib('disableHidden', true);
                     }
                 }
                 if ($this->getRequest()->isPost() && empty($isRetFromPreview)) {
@@ -157,10 +158,14 @@ class Admin_ArticleController extends Zend_Controller_Action
                     $article = $this->setProject($article);
                     if ($form->isValid($article)) {
                         $values = $form->getValues();
+                        if (!isset($article['is_showed'])) {
+                            unset($values['is_showed']);
+                        }
                         $articleRow = $articleModel->find($aid)->current();
 
                         if ($articleRow['ref_nm'] === 'article_explanation') {
-                            if ($mainArticleSum === 1 && $articleRow['is_showed'] && !$values['is_showed']) {
+                            if ($mainArticleSum === 1 && $articleRow['is_showed'] && isset($article['is_showed'])
+                                && !$values['is_showed']) {
                                 $this->_flashMessenger->addMessage('This article could not be hidden.', 'error');
                                 $this->redirect($this->view->url(['action' => 'index']), ['prependBase' => false]);
                             }
@@ -183,7 +188,8 @@ class Admin_ArticleController extends Zend_Controller_Action
                 } else {
                     $article['proj'] = explode(',', $article['proj']);
                 }
-                $form->populate($article);
+
+                $form->populate(isset($articleRow) ? $articleRow->toArray() : $article);
             }
 
             $this->view->form = $form;
