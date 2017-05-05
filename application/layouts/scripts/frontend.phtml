@@ -302,7 +302,10 @@ $license = (new Model_License())->find($projectSettings['license'], $lang . '_' 
 <script>
     var baseUrl = '<?=$this->baseUrl()?>';
 </script>
-<script src="https://apis.google.com/js/client:platform.js?onload=initGoogle" async defer></script>
+
+<?php if (Zend_Registry::get('systemconfig')->webservice->google->clientId): ?>
+    <script src="https://apis.google.com/js/client:platform.js?onload=initGoogle" async defer></script>
+<?php endif; ?>
 <script src="<?=$this->baseUrl('/index/i18n');?>?v=<?=$this->toolVersion();?>"></script>
 
 <?php if (isset($this->hasFollowupTimeline)): ?>
