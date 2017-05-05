@@ -92,7 +92,7 @@
                         alt="<?=$this->escape($consultation->img_expl);?>"
                     />
                     <div class="consultation-phases-preview-image-description">
-                        <p><?=nl2br($this->escape(strip_tags(htmlspecialchars_decode($consultation->expl_short))));?></p>
+                        <p><?=nl2br($this->escape(strip_tags($consultation->expl_short)));?></p>
                     </div>
                 </a>
             </li>

@@ -425,7 +425,6 @@ class Admin_VotingController extends Zend_Controller_Action
         $form->setAction($this->view->baseUrl() . '/admin/voting/settings/kid/' . $this->_consultation->kid);
 
         $settings = array_merge($this->_settings->toArray(), $this->_consultation->toArray());
-        $settings['vot_expl'] = htmlspecialchars_decode($settings['vot_expl'], ENT_COMPAT);
         $post = $this->_request->getPost();
 
         if ($post) {
