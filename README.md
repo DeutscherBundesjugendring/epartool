@@ -11,12 +11,12 @@ the installation wizard starts automatically.
 ### Requirements:
 
 #### Runtime
-* PHP 5.6
+* PHP 7.0
 * PHP extensions:
     * GD
     * mbstring
     * pdo_mysql
-* MySQL 5.5 database with utf8 encoding
+* MySQL 5.6 database with utf8 encoding
 * memory_limit: 256M
 
 #### Build Tools
@@ -46,6 +46,6 @@ You can use the file `application/configs/config.local-example.ini` as a templat
 
 Upgrading the tool version consists of the following steps:
 1. Updating the project files
-2. Run `robo build`
+2. Run `robo update`
 3. Apply database patch if needed. All patches are located in `data/db-migrations` and in `data/phinx-migrations`.
 
