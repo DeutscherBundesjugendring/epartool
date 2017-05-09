@@ -140,7 +140,7 @@ class Admin_ConsultationController extends Zend_Controller_Action
                         'artcl' => '',
                         'sidebar' => '',
                         'parent' => null,
-                        'time_modified' => 'NOW()',
+                        'time_modified' => date('Y-m-d H:i:s'),
                     ])->save()) {
                         throw new \Exception('Create default article page for new consultation failed');
                     }
@@ -418,7 +418,7 @@ class Admin_ConsultationController extends Zend_Controller_Action
 
         $this->view->form = $form;
     }
-    
+
     public function groupsAction()
     {
         $consultationId = $this->_request->getParam('kid', 0);

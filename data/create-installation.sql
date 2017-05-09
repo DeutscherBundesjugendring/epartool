@@ -1700,11 +1700,11 @@ ALTER TABLE `articles` CHANGE `artcl` `artcl` text NOT NULL COMMENT 'Article its
 ALTER TABLE `articles` CHANGE `desc` `desc` varchar(255) NOT NULL DEFAULT '' COMMENT 'Readable descr for admin';
 ALTER TABLE `articles` CHANGE `proj` `proj` varchar(255) NOT NULL DEFAULT '' COMMENT 'which project';
 ALTER TABLE `articles` CHANGE `ref_nm` `ref_nm` varchar(191) NULL DEFAULT '' COMMENT 'Article reference name';
-ALTER TABLE `articles` CHANGE `sidebar` `sidebar` text NOT NULL COMMENT 'Content for sidebar';
+ALTER TABLE `articles` CHANGE `sidebar` `sidebar` text NULL COMMENT 'Content for sidebar';
 ALTER TABLE `articles_refnm` CHANGE `desc` `desc` varchar(255) NOT NULL DEFAULT '' COMMENT 'readable description';
 ALTER TABLE `articles_refnm` CHANGE `lng` `lng` char(2) NOT NULL DEFAULT '' COMMENT 'language code';
 ALTER TABLE `articles_refnm` CHANGE `ref_nm` `ref_nm` varchar(191) NOT NULL DEFAULT '' COMMENT 'article reference name';
-ALTER TABLE `cnslt` CHANGE `contribution_confirmation_info` `contribution_confirmation_info` text NOT NULL COMMENT '';
+ALTER TABLE `cnslt` CHANGE `contribution_confirmation_info` `contribution_confirmation_info` text NULL COMMENT '';
 ALTER TABLE `cnslt` CHANGE `expl_short` `expl_short` text NOT NULL COMMENT '';
 ALTER TABLE `cnslt` CHANGE `follow_up_explanation` `follow_up_explanation` text NULL COMMENT '';
 ALTER TABLE `cnslt` CHANGE `img_expl` `img_expl` varchar(255) NOT NULL DEFAULT '' COMMENT 'explanatory text for title graphics';
@@ -1721,10 +1721,10 @@ ALTER TABLE `cnslt` CHANGE `state_field_label` `state_field_label` varchar(255) 
 ALTER TABLE `cnslt` CHANGE `titl` `titl` varchar(255) NOT NULL DEFAULT '' COMMENT 'Title of consultation';
 ALTER TABLE `cnslt` CHANGE `titl_short` `titl_short` varchar(255) NOT NULL DEFAULT '' COMMENT 'Shortened title (for slider, mails etc.)';
 ALTER TABLE `cnslt` CHANGE `titl_sub` `titl_sub` varchar(255) NOT NULL DEFAULT '' COMMENT 'subtitle (optional)';
-ALTER TABLE `cnslt` CHANGE `vot_expl` `vot_expl` text NOT NULL COMMENT 'info text for voting start';
+ALTER TABLE `cnslt` CHANGE `vot_expl` `vot_expl` text NULL COMMENT 'info text for voting start';
 ALTER TABLE `dirs` CHANGE `dir_name` `dir_name` varchar(255) NOT NULL DEFAULT '' COMMENT '';
-ALTER TABLE `email` CHANGE `body_html` `body_html` text NULL COMMENT '';
-ALTER TABLE `email` CHANGE `body_text` `body_text` text NULL COMMENT '';
+ALTER TABLE `email` CHANGE `body_html` `body_html` text NOT NULL COMMENT '';
+ALTER TABLE `email` CHANGE `body_text` `body_text` text NOT NULL COMMENT '';
 ALTER TABLE `email` CHANGE `project_code` `project_code` char(2) NOT NULL DEFAULT '' COMMENT '';
 ALTER TABLE `email` CHANGE `sent_by_user` `sent_by_user` varchar(255) NULL DEFAULT '' COMMENT '';
 ALTER TABLE `email` CHANGE `subject` `subject` varchar(255) NULL DEFAULT '' COMMENT '';
