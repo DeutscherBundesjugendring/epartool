@@ -11,6 +11,7 @@ const config = {
   },
   entry: {
     'followup-timeline': [
+      'whatwg-fetch',
       'babel-polyfill',
       './assets/front/react/src/main.jsx',
     ],
