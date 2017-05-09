@@ -76,11 +76,11 @@ class Model_Inputs extends Dbjr_Db_Table_Abstract
             $data['video_service'] = null;
             $data['video_id'] = null;
         }
-        
+
         $row = $this->createRow($data);
 
         $contributionId = (int) $row->save();
-        
+
         $modelInputsTags = new Model_InputsTags();
         if (!empty($data['tags'])) {
             $modelInputsTags->insertByInputsId($contributionId, $data['tags']);
@@ -297,7 +297,7 @@ class Model_Inputs extends Dbjr_Db_Table_Abstract
                 ->where('is_confirmed <> ?', false)
                 ->where('is_confirmed_by_user = ?', true);
         }
-        
+
         if ($withoutAdmin) {
             $select->where('(uid IS NOT NULL OR confirmation_key IS NOT NULL)');
         }
@@ -624,7 +624,7 @@ class Model_Inputs extends Dbjr_Db_Table_Abstract
             $data['video_service'] = null;
             $data['video_id'] = null;
         }
-        
+
         if (is_array($ids) && !empty($ids)) {
             foreach ($ids as $id) {
                 $this->updateById($id, $data);
@@ -761,8 +761,8 @@ class Model_Inputs extends Dbjr_Db_Table_Abstract
         $rowSet = $stmt->fetchAll();
         foreach ($rowSet as $row) {
             $csv.='"' . $row['tid'] . '";"'
-                . html_entity_decode($row['thes'], ENT_COMPAT, 'UTF-8') . '";"'
-                . html_entity_decode($row['expl'], ENT_COMPAT, 'UTF-8') . '";"'
+                . $row['thes'] . '";"'
+                . $row['expl'] . '";"'
                 . $row['tags'] . '"' . "\r\n";
         }
 
@@ -1537,7 +1537,7 @@ class Model_Inputs extends Dbjr_Db_Table_Abstract
             ->from($this, array(new Zend_Db_Expr('COUNT(*) as count')))
             ->where('qi = ?', $qid);
     }
-    
+
     /**
      * @param int $kid
      * @return \Zend_Db_Select
