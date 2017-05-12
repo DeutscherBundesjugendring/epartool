@@ -56,15 +56,25 @@
     <?=$this->element->tags;?>
 
     <div class="row offset-bottom">
-        <div class="col-sm-4">
-            <?=$this->element->is_confirmed_by_user;?>
-        </div>
-        <div class="col-sm-4">
-            <?=$this->element->is_confirmed;?>
-        </div>
-        <div class="col-sm-4">
-            <?=$this->element->is_votable;?>
-        </div>
+        <?php foreach (['is_confirmed_by_user', 'is_confirmed', 'is_votable'] as $element): ?>
+            <div class="col-sm-4">
+                <div id="<?=$this->element->{$element}->getName();?>" class="checkbox radio">
+                    <h3><?=$this->element->{$element}->getLabel();?></h3>
+                    <?php foreach ($this->element->{$element}->options as $value => $option): ?>
+                        <label>
+                            <input
+                                type="radio"
+                                name="<?=$this->element->{$element}->getName();?>"
+                                id="<?=$this->element->{$element}->getName();?>-<?=$value;?>"
+                                value="<?=$value;?>"
+                                <?=(string) $this->element->{$element}->getValue() === (string) $value ? 'checked' : '';?>
+                            > <?=$option;?>
+                        </label>
+                        <br>
+                    <?php endforeach; ?>
+                </div>
+            </div>
+        <?php endforeach; ?>
     </div>
 
     <?=$this->element->notiz;?>
