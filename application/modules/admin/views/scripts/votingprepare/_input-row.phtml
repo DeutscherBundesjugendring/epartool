@@ -101,29 +101,29 @@
         </p>
         <p>
             <?=$this->translate('Admin Confirmation');?><br />
-            <?php if (!$this->input['is_confirmed']): ?>
+            <?php if ($this->input['is_confirmed'] === null): ?>
+                <span class="label label-default">
+                    <span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span>
+                    <?=$this->translate('Unknown');?>
+                </span>
+            <?php elseif (!$this->input['is_confirmed']): ?>
                 <span class="label label-danger">
                     <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
                     <?=$this->translate('Blocked');?>
                 </span>
-            <?php elseif ($this->input['is_confirmed']): ?>
+            <?php else: ?>
                 <span class="label label-success">
                     <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
                     <?=$this->translate('Confirmed');?>
-                </span>
-            <?php else: ?>
-                <span class="label label-default">
-                    <span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span>
-                    <?=$this->translate('Unknown');?>
                 </span>
             <?php endif; ?>
         </p>
         <p>
             <?=$this->translate('Voting');?><br />
-            <?php if ($this->input['is_votable']): ?>
-                <span class="label label-success">
-                    <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
-                    <?=$this->translate('Yes');?>
+            <?php if ($this->input['is_votable'] === null): ?>
+                <span class="label label-default">
+                    <span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span>
+                    <?=$this->translate('Unknown');?>
                 </span>
             <?php elseif (!$this->input['is_votable']): ?>
                 <span class="label label-danger">
@@ -131,9 +131,9 @@
                     <?=$this->translate('No');?>
                 </span>
             <?php else: ?>
-                <span class="label label-default">
-                    <span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span>
-                    <?=$this->translate('Unknown');?>
+                <span class="label label-success">
+                    <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                    <?=$this->translate('Yes');?>
                 </span>
             <?php endif; ?>
         </p>
