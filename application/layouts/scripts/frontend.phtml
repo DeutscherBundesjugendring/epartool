@@ -248,8 +248,10 @@ $license = (new Model_License())->find($projectSettings['license'], $lang . '_' 
 
         </main>
 
-
     </div><!-- .frame -->
+
+    <div id="followup-timeline"></div>
+
 </div><!-- .container -->
 
 
@@ -296,7 +298,6 @@ $license = (new Model_License())->find($projectSettings['license'], $lang . '_' 
 </footer>
 
 
-
 <!-- Scripts -->
 <script>
     var baseUrl = '<?=$this->baseUrl()?>';
@@ -307,12 +308,14 @@ $license = (new Model_License())->find($projectSettings['license'], $lang . '_' 
 <?php endif; ?>
 <script src="<?=$this->baseUrl('/index/i18n');?>?v=<?=$this->toolVersion();?>"></script>
 
-<?php if (isset($this->hasFollowupTimeline)): ?>
     <?php if (APPLICATION_ENV === 'development') : ?>
         <script src="<?=$this->baseUrl('js/followup-timeline.js');?>?v=<?=$this->toolVersion();?>"></script>
     <?php else : ?>
         <script src="<?=$this->baseUrl('js/followup-timeline.min.js');?>?v=<?=$this->toolVersion();?>"></script>
     <?php endif;?>
+
+<?php if (isset($this->hasFollowupTimeline)): ?>
+
     <script>
         $(document).ready(function() {
             var followUp = new FollowUp(<?=$this->consultation['kid'];?>);

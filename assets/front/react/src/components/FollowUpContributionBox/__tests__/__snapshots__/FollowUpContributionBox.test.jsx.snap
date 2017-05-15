@@ -2,25 +2,15 @@
 
 exports[`rendering renders correctly 1`] = `
 <div
-  className="followup-timeline-box"
+  className="well well-bordered"
 >
+  <p>
+    Text
+  </p>
   <div
-    className="well well-bordered"
+    className="text-accent"
   >
-    <p>
-      Text
-    </p>
-    <div
-      className="text-accent"
-    >
-      Text
-    </div>
+    Text
   </div>
-  <ArrowButton
-    direction="right"
-    disabled={false}
-    label="1"
-    onTouchTap={[Function]}
-  />
 </div>
 `;

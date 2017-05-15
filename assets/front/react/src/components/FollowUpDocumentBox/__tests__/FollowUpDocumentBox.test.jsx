@@ -11,27 +11,9 @@ injectTapEventPlugin();
 describe('rendering', () => {
   it('renders correctly', () => {
     const tree = shallow(
-      <FollowUpDocumentBox
-        document="Document"
-        modalAction={() => {}}
-      />
+      <FollowUpDocumentBox document="Document" />
     );
 
     expect(shallowToJson(tree)).toMatchSnapshot();
-  });
-});
-
-describe('functionality', () => {
-  it('calls modal action', () => {
-    const spy = sinon.spy();
-    const component = shallow(
-      <FollowUpDocumentBox
-        document="Document"
-        modalAction={spy}
-      />
-    );
-
-    component.find('div').first().simulate('touchTap', { preventDefault: () => {} });
-    expect(spy.calledOnce).toEqual(true);
   });
 });

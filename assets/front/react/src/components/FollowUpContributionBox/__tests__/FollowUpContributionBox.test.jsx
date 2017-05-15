@@ -7,9 +7,9 @@ import FollowUpContributionBox from '../FollowUpContributionBox';
 describe('rendering', () => {
   it('renders correctly', () => {
     const tree = shallow(
-      <FollowUpContributionBox contribution="Text" votingResults="Text" childCount={1} />
+      <FollowUpContributionBox contribution="Text" votingResults="Text" />
     );
 
     expect(shallowToJson(tree)).toMatchSnapshot();
-  });;
+  });
 });

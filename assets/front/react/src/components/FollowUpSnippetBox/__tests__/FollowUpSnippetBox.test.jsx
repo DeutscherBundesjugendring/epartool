@@ -10,7 +10,6 @@ injectTapEventPlugin();
 
 const element = <FollowUpSnippetBox
   snippet="Snippet"
-  modalAction={() => {}}
   likeAction={() => {}}
   likeCount={0}
   dislikeAction={() => {}}
@@ -38,16 +37,6 @@ describe('rendering', () => {
 });
 
 describe('functionality', () => {
-  it('calls modal action', () => {
-    const spy = sinon.spy();
-    const component = shallow(
-      React.cloneElement(element, { modalAction: spy })
-    );
-
-    component.find('div').first().simulate('touchTap', { preventDefault: () => {} });
-    expect(spy.calledOnce).toEqual(true);
-  });
-
   it('calls like action', () => {
     const spy = sinon.spy();
     const component = shallow(

@@ -2,13 +2,8 @@
 
 exports[`rendering renders correctly 1`] = `
 <div
-  className="followup-timeline-box"
-  onTouchTap={[Function]}
+  className="well well-bordered followup-well followup-well-link"
 >
-  <div
-    className="well well-bordered followup-well followup-well-link"
-  >
-    Document
-  </div>
+  Document
 </div>
 `;

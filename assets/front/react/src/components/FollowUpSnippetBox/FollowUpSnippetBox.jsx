@@ -4,35 +4,32 @@ import RaisedButton from '../RaisedButton/RaisedButton';
 
 
 const FollowUpSnippetBox = props => (
-  <div className="followup-timeline-box" onTouchTap={props.modalAction}>
-    <div className="well well-bordered followup-well followup-well-link">
-      {props.snippetImageSrc &&
-        <img
-          src={props.snippetImageSrc}
-          alt="Snippet"
-          width="80"
-          className="followup-timeline-box-image"
-        />
-      }
+  <div className="well well-bordered followup-well followup-well-link">
+    {props.snippetImageSrc &&
+      <img
+        src={props.snippetImageSrc}
+        alt="Snippet"
+        width="80"
+        className="followup-timeline-box-image"
+      />
+    }
 
-      {props.snippet}
+    {props.snippet}
 
-      <div className="offset-bottom-small">
-        <span className="badge">{props.likeCount}</span>
-        <ThumbButton type="like" onTouchTap={props.likeAction} />
-        <span className="badge">{props.dislikeCount}</span>
-        <ThumbButton type="dislike" onTouchTap={props.dislikeAction} />
-      </div>
-
-      <RaisedButton label={props.continueLabel} onTouchTap={props.continueAction} />
+    <div className="offset-bottom-small">
+      <span className="badge">{props.likeCount}</span>
+      <ThumbButton type="like" onTouchTap={props.likeAction} />
+      <span className="badge">{props.dislikeCount}</span>
+      <ThumbButton type="dislike" onTouchTap={props.dislikeAction} />
     </div>
+
+    <RaisedButton label={props.continueLabel} onTouchTap={props.continueAction} />
   </div>
 );
 
 FollowUpSnippetBox.propTypes = {
   snippet: React.PropTypes.string.isRequired,
   snippetImageSrc: React.PropTypes.string,
-  modalAction: React.PropTypes.func.isRequired,
   likeAction: React.PropTypes.func.isRequired,
   likeCount: React.PropTypes.number.isRequired,
   dislikeAction: React.PropTypes.func.isRequired,
