@@ -243,16 +243,9 @@
                   _showInTimelineLink = '<a class="btn btn-default" href="' + data.doc.fowups[i].show_in_timeline_link + '">' + i18n['Follow path'] + '</a>';
                 }
 
-                var _highlightClass = '';
-                if (data.doc.fowups[i].hlvl > 1) {
-                  _highlightClass = 'well-heading';
-                } else if (data.doc.fowups[i].hlvl == 1) {
-                  _highlightClass = 'well-standard';
-                }
-
                 _edgeRight = data.doc.fowups[i].type !== 'general' ? '<div class="followup-typ edge-right followup-typ-'+data.doc.fowups[i].type + '"> </div>' : '';
 
-                _snippets += '<div class="well well-simple well-simple-light text-left ' + _activeSnippetClass + ' ' + _highlightClass + '" data-fid="' + data.doc.fowups[i].fid + '">' +
+                _snippets += '<div class="well well-simple well-simple-light text-left ' + _activeSnippetClass + '" data-fid="' + data.doc.fowups[i].fid + '">' +
                         _edgeRight +
                         data.doc.fowups[i].expl +
                         '<div class="text-right offset-top-small offset-bottom-small"><span class="offset-right">' +
