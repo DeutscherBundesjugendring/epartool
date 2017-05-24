@@ -38,8 +38,8 @@ class Application_View_Helper_MediaPresenter extends Zend_View_Helper_Abstract
             ->$context;
 
         if (!is_array($file)) {
-            $file = pathinfo($file);
-            $file = reset((new Service_Media())->loadFileDetails([$file]));
+            $file = (new Service_Media())->loadFileDetails([pathinfo($file)]);
+            $file = reset($file);
         }
 
         if (empty($file['icon'])) {
