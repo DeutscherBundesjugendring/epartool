@@ -40,7 +40,7 @@ mail:
     ports:
         - 127.0.0.1:82:8025
 phantomjs:
-    image: cmfatih/phantomjs
+    image: wernight/phantomjs
     ports:
         - 8910
     entrypoint: phantomjs

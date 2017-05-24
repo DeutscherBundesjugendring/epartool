@@ -108,7 +108,7 @@ class Model_FollowupFiles extends Zend_Db_Table_Abstract
      * get fowups by fowups_fls.ffid
      * @param  integer              $ffid
      * @param  string               $order
-     * @return Zend_DB_Table_Rowset
+     * @return Zend_DB_Table_Rowset|array
      */
     public function getFollowupsById($ffid, $order = null)
     {
@@ -130,6 +130,21 @@ class Model_FollowupFiles extends Zend_Db_Table_Abstract
         }
 
         return [];
+    }
+
+    /**
+     * @param int $ffid
+     * @return int
+     */
+    public function getFollowupsCountById($ffid)
+    {
+        $followups = new Model_Followups();
+
+        $select = $followups->select()
+            ->from(['f' => $followups->info(self::NAME)], [new Zend_Db_Expr('COUNT(*) as count')])
+            ->where('f.ffid = ?', (int) $ffid);
+
+        return (int) $followups->fetchAll($select)->current()->count;
     }
 
     /**
