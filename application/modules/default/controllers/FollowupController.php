@@ -70,7 +70,6 @@ class FollowupController extends Zend_Controller_Action
         }
         $this->view->followups = $followups;
         $this->view->subscriptionForm = $sbsForm;
-        $this->view->hasFollowupTimeline = true;
     }
 
     public function inputsByQuestionAction()
@@ -164,7 +163,11 @@ class FollowupController extends Zend_Controller_Action
         $this->view->relatedCount = count($relSnippets) + count($relInputs);
         $this->view->relInput = $relInputs;
         $this->view->relSnippets = $relSnippets;
-        $this->view->hasFollowupTimeline = true;
+        $this->view->followupApiUrl = $this->view->url(
+            ['module' => 'api', 'controller' => 'followup', 'action' => 'index'],
+            null,
+            true
+        );
     }
 
     /**
@@ -230,7 +233,6 @@ class FollowupController extends Zend_Controller_Action
         $this->view->snippet = $snippet;
         $this->view->reltothis_snippets = $relToThisSnippets;
         $this->view->reltothis_inputs = $relToThisInputs;
-        $this->view->hasFollowupTimeline = true;
         $this->view->followupApiUrl = $this->view->url(
             ['module' => 'api', 'controller' => 'followup', 'action' => 'index'],
             null,
