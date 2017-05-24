@@ -12,12 +12,12 @@ const checkStatus = (response) => {
   return response;
 };
 
-const parseJson = response => response.json();
+const payload = response => response.json();
 
 const callApi = (url, method = 'GET') => (
   fetch(url, { method })
     .then(checkStatus)
-    .then(parseJson)
+    .then(payload)
 );
 
 export default callApi;
