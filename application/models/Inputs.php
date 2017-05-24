@@ -1065,6 +1065,68 @@ class Model_Inputs extends Dbjr_Db_Table_Abstract
     }
 
     /**
+     * @param int $id
+     * @return array
+     */
+    public function getChildrenByParentId($id)
+    {
+        $select = $this
+            ->select()
+            ->setIntegrityCheck(false)
+            ->from(['r' => (new Model_InputRelations())->info(Model_InputRelations::NAME)])
+            ->join(['i' => $this->info(self::NAME)], 'i.tid = r.child_id')
+            ->where('r.parent_id = ?', (int) $id);
+        $result = $this->fetchAll($select)->toArray();
+
+        return $result;
+    }
+
+    /**
+     * @param int $id
+     * @return int
+     */
+    public function getChildrenCountByParentId($id)
+    {
+        $contributionRelations = new Model_InputRelations();
+        $select = $contributionRelations->select()
+            ->from(['f' => $contributionRelations->info(self::NAME)], [new Zend_Db_Expr('COUNT(*) as count')])
+            ->where('f.parent_id = ?', (int) $id);
+
+        return (int) $contributionRelations->fetchAll($select)->current()->count;
+    }
+
+    /**
+     * @param int $id
+     * @return array
+     */
+    public function getParentsByChildId($id)
+    {
+        $select = $this
+            ->select()
+            ->setIntegrityCheck(false)
+            ->from(['r' => (new Model_InputRelations())->info(Model_InputRelations::NAME)])
+            ->join(['i' => $this->info(self::NAME)], 'i.tid = r.parent_id')
+            ->where('r.child_id = ?', (int) $id);
+        $result = $this->fetchAll($select)->toArray();
+
+        return $result;
+    }
+
+    /**
+     * @param int $id
+     * @return int
+     */
+    public function getParentsCountByChildId($id)
+    {
+        $contributionRelations = new Model_InputRelations();
+        $select = $contributionRelations->select()
+            ->from(['f' => $contributionRelations->info(self::NAME)], [new Zend_Db_Expr('COUNT(*) as count')])
+            ->where('f.child_id = ?', (int) $id);
+
+        return (int) $contributionRelations->fetchAll($select)->current()->count;
+    }
+
+    /**
      * getFollowups
      * get the follow-ups by a given tid
      * @param int $id
@@ -1097,6 +1159,20 @@ class Model_Inputs extends Dbjr_Db_Table_Abstract
         }
 
         return $result;
+    }
+
+    /**
+     * @param int $id
+     * @return int
+     */
+    public function getFollowupsCount($id)
+    {
+        $followupsRef = new Model_FollowupsRef();
+        $select = $followupsRef->select()
+            ->from(['f' => $followupsRef->info(self::NAME)], [new Zend_Db_Expr('COUNT(*) as count')])
+            ->where('f.tid = ?', (int) $id);
+
+        return (int) $followupsRef->fetchAll($select)->current()->count;
     }
 
     /**
@@ -1554,5 +1630,25 @@ class Model_Inputs extends Dbjr_Db_Table_Abstract
                 []
             )
             ->where('kid = ?', $kid);
+    }
+
+    /**
+     * @param int $id
+     * @return int
+     */
+    public function getConsultationIdByContribution($id)
+    {
+        $select = $this->select()
+            ->setIntegrityCheck(false)
+            ->from(['c' => $this->info(self::NAME)], [])
+            ->joinLeft(['q' => (new Model_Questions())->info(self::NAME)], 'q.qi = c.qi', ['kid'])
+            ->where('c.tid = ?', (int) $id);
+
+        $contribution = $this->fetchAll($select)->current();
+        if (!$contribution || !isset($contribution['kid'])) {
+            return -1;
+        }
+
+        return (int) $contribution['kid'];
     }
 }

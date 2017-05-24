@@ -231,6 +231,11 @@ class FollowupController extends Zend_Controller_Action
         $this->view->reltothis_snippets = $relToThisSnippets;
         $this->view->reltothis_inputs = $relToThisInputs;
         $this->view->hasFollowupTimeline = true;
+        $this->view->followupApiUrl = $this->view->url(
+            ['module' => 'api', 'controller' => 'followup', 'action' => 'index'],
+            null,
+            true
+        );
     }
 
     public function jsonAction()

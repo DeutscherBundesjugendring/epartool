@@ -126,6 +126,20 @@ class Model_FollowupsRef extends Zend_Db_Table_Abstract
 
         return $result;
     }
+
+    /**
+     * @param int $fid
+     * @return int
+     */
+    public function getRelatedFollowupCountByFid($fid)
+    {
+        $select = $this->select()
+            ->from(['f' => $this->info(self::NAME)], [new Zend_Db_Expr('COUNT(*) as count')])
+            ->where('f.fid = ?', (int) $fid);
+
+        return (int) $this->fetchAll($select)->current()->count;
+    }
+
     public function getRelatedInputsByFid($fid)
     {
         $validator = new Zend_Validate_Int();

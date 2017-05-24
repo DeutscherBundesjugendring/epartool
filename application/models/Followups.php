@@ -139,9 +139,23 @@ class Model_Followups extends Zend_Db_Table_Abstract
      }
 
     /**
+     * @param int $id
+     * @return int
+     */
+     public function getRelatedCount($id)
+     {
+         $followupsRef = new Model_FollowupsRef();
+         $select = $followupsRef->select()
+             ->from(['f' => $followupsRef->info(self::NAME)], [new Zend_Db_Expr('COUNT(*) as count')])
+             ->where('f.fid_ref = ?', (int) $id);
+
+         return (int) $followupsRef->fetchAll($select)->current()->count;
+     }
+
+    /**
     * getById
     * get follow-up by fowups.fid
-    * @param integer $fid
+    * @param int $id
     * @return array
     */
     public function getById($id)
@@ -286,5 +300,25 @@ class Model_Followups extends Zend_Db_Table_Abstract
         }
 
         return $followUps;
+    }
+
+    /**
+     * @param int $id
+     * @return int
+     */
+    public function getConsultationIdBySnippet($id)
+    {
+        $select = $this->select()
+            ->setIntegrityCheck(false)
+            ->from(['f' => $this->info(self::NAME)], [])
+            ->joinLeft(['d' => (new Model_FollowupFiles)->info(self::NAME)], 'd.ffid = f.ffid', ['kid'])
+            ->where('f.fid = ?', (int) $id);
+
+        $snippet = $this->fetchAll($select)->current();
+        if (!$snippet || !isset($snippet['kid'])) {
+            return -1;
+        }
+
+        return (int) $snippet['kid'];
     }
 }
