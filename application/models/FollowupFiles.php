@@ -2,11 +2,30 @@
 
 class Model_FollowupFiles extends Zend_Db_Table_Abstract
 {
+    const TYPE_GENERAL = 'general';
+    const TYPE_SUPPORTING = 'supporting';
+    const TYPE_ACTION = 'action';
+    const TYPE_REJECTION = 'rejected';
+    const TYPE_END = 'end';
+
     const UPLOAD_SCENARIO_THUMB = 'followup_document_thumb';
 
     protected $_name = 'fowup_fls';
     protected $_primary = 'ffid';
     protected $_dependentTables = array('Model_Followups');
+
+    /**
+     * @return array
+     */
+    public static function getTypes() {
+        return [
+            self::TYPE_GENERAL => self::TYPE_GENERAL,
+            self::TYPE_SUPPORTING => self::TYPE_SUPPORTING,
+            self::TYPE_ACTION => self::TYPE_ACTION,
+            self::TYPE_REJECTION => self::TYPE_REJECTION,
+            self::TYPE_END => self::TYPE_END,
+        ];
+    }
 
     /**
      * getByKid
