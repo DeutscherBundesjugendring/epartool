@@ -350,6 +350,7 @@ class Api_FollowupController extends Dbjr_Api_BaseController
             'ref_doc' => $document['ref_doc'],
             'ref_view' => $document['ref_view'],
             'gfx_who' => $document['gfx_who'],
+            'type' => $document['type']
         ];
     }
 
