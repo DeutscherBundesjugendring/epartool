@@ -3,6 +3,7 @@
 exports[`rendering renders correctly with both arrows 1`] = `
 <div
   className="followup-timeline-box"
+  id="contribution-1"
 >
   <ArrowButton
     direction="left"
@@ -25,6 +26,7 @@ exports[`rendering renders correctly with both arrows 1`] = `
 exports[`rendering renders correctly with left arrow 1`] = `
 <div
   className="followup-timeline-box"
+  id="contribution-1"
 >
   <ArrowButton
     direction="left"
@@ -41,6 +43,7 @@ exports[`rendering renders correctly with left arrow 1`] = `
 exports[`rendering renders correctly with right arrow 1`] = `
 <div
   className="followup-timeline-box"
+  id="contribution-1"
 >
   <div>
     Element
@@ -57,6 +60,7 @@ exports[`rendering renders correctly with right arrow 1`] = `
 exports[`rendering renders correctly without arrows 1`] = `
 <div
   className="followup-timeline-box"
+  id="contribution-1"
 >
   <div>
     Element

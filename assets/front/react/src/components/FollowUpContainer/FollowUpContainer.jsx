@@ -1,7 +1,11 @@
 import React from 'react';
 import FollowUpTimeline from '../FollowUpTimeline/FollowUpTimeline';
 import resolveElement from '../../service/resolveElement';
-import { fetchFollowUpElement } from '../../actions';
+import {
+  fetchFollowUpElement,
+  fetchFollowUpElementParents,
+  fetchFollowUpElementChildren,
+} from '../../actions';
 
 
 class FollowUpContainer extends React.Component {
@@ -10,6 +14,7 @@ class FollowUpContainer extends React.Component {
 
     this.state = {
       columns: [[]],
+      hasError: false,
     };
   }
 
@@ -18,22 +23,102 @@ class FollowUpContainer extends React.Component {
 
     fetchFollowUpElement(followUpType, followUpId)
       .then((response) => {
-        if (response.type === 'contribution' || response.type === 'snippet') {
+        const resolvedElement = resolveElement(
+          response,
+          () => this.getParents(followUpType, followUpId),
+          () => this.getChildren(followUpType, followUpId)
+        );
+
+        this.setState({ columns: [[resolvedElement]] });
+      })
+      .catch(() => this.setState({ hasError: true }));
+  }
+
+  getElementColumnIndex(followUpType, followUpId) {
+    let columnIndex = null;
+
+    this.state.columns.forEach((column, index) => {
+      column.forEach((element) => {
+        if (followUpType === element.props.type && followUpId === element.props.id) {
+          columnIndex = index;
+        }
+      });
+    });
+
+    return columnIndex;
+  }
+
+  getParents(followUpType, followUpId) {
+    const columnIndex = this.getElementColumnIndex(followUpType, followUpId);
+    let clearParentalColumns = true;
+
+    fetchFollowUpElementParents(followUpType, followUpId)
+      .then((multipleResponse) => {
+        multipleResponse.forEach((response) => {
           const resolvedElement = resolveElement(
             response,
-            () => console.log('Parent'),
-            () => console.log('Child')
+            () => this.getParents(response.type, parseInt(response.id, 10)),
+            () => this.getChildren(response.type, parseInt(response.id, 10))
           );
 
-          this.setState({
-            columns: [[resolvedElement]],
-          });
-        }
+          let columns = Object.assign([], this.state.columns);
+          if (clearParentalColumns) {
+            clearParentalColumns = false;
+
+            columns = columns.slice(columnIndex);
+            columns.unshift([]);
+          }
+          columns[0].push(resolvedElement);
+
+          this.setState({ columns });
+        });
       })
-      .catch(error => console.error(error));
+      .catch((error) => {
+        console.error(error);
+        this.setState({ hasError: true });
+      });
+  }
+
+  getChildren(followUpType, followUpId) {
+    const columnIndex = this.getElementColumnIndex(followUpType, followUpId);
+    let clearChildColumns = true;
+
+    fetchFollowUpElementChildren(followUpType, followUpId)
+      .then((multipleResponse) => {
+        multipleResponse.forEach((response) => {
+          const resolvedElement = resolveElement(
+            response,
+            () => this.getParents(response.type, parseInt(response.id, 10)),
+            () => this.getChildren(response.type, parseInt(response.id, 10))
+          );
+
+          let columns = Object.assign([], this.state.columns);
+          if (clearChildColumns) {
+            clearChildColumns = false;
+
+            columns = columns.slice(0, columnIndex + 1);
+            columns.push([]);
+          }
+          columns[columnIndex + 1].push(resolvedElement);
+
+          this.setState({ columns });
+        });
+      })
+      .catch((error) => {
+        console.error(error);
+        this.setState({ hasError: true });
+      });
   }
 
   render() {
+    if (this.state.hasError) {
+      return (
+        <p className="alert-error text-center">
+          Error occurred. Followup timeline cannot be loaded.
+        </p>
+      );
+    }
+
     return (
       <FollowUpTimeline
         infoLink={`/followup/index/kid/${this.props.consultationId}`}

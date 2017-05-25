@@ -41,7 +41,7 @@ exports[`rendering renders correctly with element in one column and one row 1`] 
     className="followup"
   >
     <div
-      className="followup-column offset-right"
+      className="followup-column"
     >
       <div
         className="followup-column-element"
@@ -96,7 +96,7 @@ exports[`rendering renders correctly with elements in more columns and more rows
     className="followup"
   >
     <div
-      className="followup-column offset-right"
+      className="followup-column"
     >
       <div
         className="followup-column-element"
@@ -121,7 +121,7 @@ exports[`rendering renders correctly with elements in more columns and more rows
       </div>
     </div>
     <div
-      className="followup-column offset-right"
+      className="followup-column"
     >
       <div
         className="followup-column-element"
@@ -139,7 +139,7 @@ exports[`rendering renders correctly with elements in more columns and more rows
       </div>
     </div>
     <div
-      className="followup-column offset-right"
+      className="followup-column"
     >
       <div
         className="followup-column-element"

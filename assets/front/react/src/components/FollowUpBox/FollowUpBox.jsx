@@ -3,7 +3,11 @@ import ArrowButton from '../ArrowButton/ArrowButton';
 
 
 const FollowUpBox = props => (
-  <div className="followup-timeline-box" onTouchTap={props.modalAction}>
+  <div
+    id={`${props.type}-${props.id}`}
+    className="followup-timeline-box"
+    onTouchTap={props.modalAction}
+  >
     {!!props.parentCount && <ArrowButton
       direction="left"
       label={props.parentCount.toString()}
@@ -19,6 +23,8 @@ const FollowUpBox = props => (
 );
 
 FollowUpBox.propTypes = {
+  id: React.PropTypes.number.isRequired,
+  type: React.PropTypes.string.isRequired,
   element: React.PropTypes.element.isRequired,
   parentCount: React.PropTypes.number.isRequired,
   parentAction: React.PropTypes.func.isRequired,

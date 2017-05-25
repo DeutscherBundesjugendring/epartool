@@ -62,8 +62,10 @@ const resolveElement = (response, parentAction, childAction) => {
   if (element) {
     return (
       <FollowUpBox
+        id={parseInt(response.id, 10)}
+        type={response.type}
         element={element}
-        parentCount={parseInt(response.parent_count, 10)}
+        parentCount={parseInt(response.parents_count, 10)}
         parentAction={parentAction}
         childCount={parseInt(response.children_count, 10)}
         childAction={childAction}

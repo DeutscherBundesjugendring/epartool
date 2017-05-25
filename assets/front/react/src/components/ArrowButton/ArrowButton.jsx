@@ -5,9 +5,9 @@ const ArrowButton = (props) => {
   let classes = 'followup-link followup-timeline-count followup-sprite followup-sprite-timeline-count';
 
   if (props.direction === 'left') {
-    // Bedřich Schindler <bedrich@visionapps.cz>, 28. 4. 2017 16:00
-    // TODO: Add css class followup-link-right
-    classes += ' followup-link-left';
+    classes += ' followup-timeline-count-left';
+  } else {
+    classes += ' followup-timeline-count-right';
   }
 
   return (

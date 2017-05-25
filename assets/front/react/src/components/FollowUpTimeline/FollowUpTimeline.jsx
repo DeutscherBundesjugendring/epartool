@@ -33,7 +33,7 @@ const FollowUpTimeLine = props => (
 
     <div className="followup">
       {props.columns && props.columns.map((elements, columnKey) => (
-        <div className="followup-column offset-right" key={columnKey}>
+        <div className="followup-column" key={columnKey}>
           {elements && elements.map((element, elementKey) => (
             <div className="followup-column-element" key={elementKey}>
               {element}

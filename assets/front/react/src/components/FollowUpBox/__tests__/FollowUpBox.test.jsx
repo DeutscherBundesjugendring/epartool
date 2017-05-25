@@ -12,6 +12,8 @@ describe('rendering', () => {
   it('renders correctly without arrows', () => {
     const tree = shallow(
       <FollowUpBox
+        id={1}
+        type="contribution"
         element={<div>Element</div>}
         parentCount={0}
         parentAction={() => {}}
@@ -26,6 +28,8 @@ describe('rendering', () => {
   it('renders correctly with right arrow', () => {
     const tree = shallow(
       <FollowUpBox
+        id={1}
+        type="contribution"
         element={<div>Element</div>}
         parentCount={0}
         parentAction={() => {}}
@@ -40,6 +44,8 @@ describe('rendering', () => {
   it('renders correctly with left arrow', () => {
     const tree = shallow(
       <FollowUpBox
+        id={1}
+        type="contribution"
         element={<div>Element</div>}
         parentCount={1}
         parentAction={() => {}}
@@ -54,6 +60,8 @@ describe('rendering', () => {
   it('renders correctly with both arrows', () => {
     const tree = shallow(
       <FollowUpBox
+        id={1}
+        type="contribution"
         element={<div>Element</div>}
         parentCount={1}
         parentAction={() => {}}
@@ -71,6 +79,8 @@ describe('functionality', () => {
     const spy = sinon.spy();
     const component = shallow(
       <FollowUpBox
+        id={1}
+        type="contribution"
         element={<div>Element</div>}
         parentCount={0}
         parentAction={() => {}}
