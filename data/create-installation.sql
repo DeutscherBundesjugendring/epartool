@@ -1829,9 +1829,9 @@ ALTER TABLE `video_service` CHANGE `name` `name` varchar(191) NOT NULL DEFAULT '
 ALTER TABLE `vt_final` CHANGE `id` `id` varchar(191) NOT NULL DEFAULT '' COMMENT 'md5 (tid\'.-.\'uid)';
 ALTER TABLE `vt_grps` CHANGE `sub_uid` `sub_uid` char(32) NOT NULL DEFAULT '' COMMENT 'md5 of mail.kid';
 ALTER TABLE `vt_grps` CHANGE `sub_user` `sub_user` varchar(255) NOT NULL DEFAULT '' COMMENT 'email address';
-ALTER TABLE `vt_grps` CHANGE `vt_inp_list` `vt_inp_list` text NOT NULL COMMENT 'list of votable tids';
-ALTER TABLE `vt_grps` CHANGE `vt_rel_qid` `vt_rel_qid` text NOT NULL COMMENT 'list of rel QIDs';
-ALTER TABLE `vt_grps` CHANGE `vt_tg_list` `vt_tg_list` text NOT NULL COMMENT 'list of all (still) available tags for this user';
+ALTER TABLE `vt_grps` CHANGE `vt_inp_list` `vt_inp_list` text NULL COMMENT 'list of votable tids';
+ALTER TABLE `vt_grps` CHANGE `vt_rel_qid` `vt_rel_qid` text NULL COMMENT 'list of rel QIDs';
+ALTER TABLE `vt_grps` CHANGE `vt_tg_list` `vt_tg_list` text NULL COMMENT 'list of all (still) available tags for this user';
 ALTER TABLE `vt_indiv` CHANGE `confirmation_hash` `confirmation_hash` char(32) NULL DEFAULT '' COMMENT '';
 ALTER TABLE `vt_indiv` CHANGE `sub_uid` `sub_uid` char(32) NOT NULL DEFAULT '' COMMENT 'individual subuser';
 ALTER TABLE `vt_rights` CHANGE `vt_code` `vt_code` char(8) NOT NULL DEFAULT '' COMMENT 'Voting access code for this group';
