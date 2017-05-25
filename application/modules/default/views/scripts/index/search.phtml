@@ -118,7 +118,7 @@
                             <h4><?=$this->translate('Reactions');?></h4>
                             <ul>
                                 <?php foreach ($followUp['snippets'] as $snippet): ?>
-                                    <li class="level-<?php echo $snippet['hierarchyLevel']?>">
+                                    <li>
                                         <p class="followup-snippet">
                                             <?=$this->wysiwyg($snippet['text']);?>
                                         </p>

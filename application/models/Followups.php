@@ -21,16 +21,6 @@ class Model_Followups extends Zend_Db_Table_Abstract
       )
     );
 
-    private static $_hierarchyLevels = [
-        "Fußnote",
-        "Fließtext",
-        "Überschrift 1",
-        "Überschrift 2",
-        "Überschrift 3",
-        "Überschrift 4",
-        "Überschrift 5",
-    ];
-
     public static function getTypes() {
         return [
             self::TYPE_GENERAL => self::TYPE_GENERAL,
@@ -39,10 +29,6 @@ class Model_Followups extends Zend_Db_Table_Abstract
             self::TYPE_REJECTION => self::TYPE_REJECTION,
             self::TYPE_END => self::TYPE_END,
         ];
-    }
-
-    public static function getHierarchyLevels() {
-        return self::$_hierarchyLevels;
     }
 
     public function getByKid($kid, $order = NULL, $limit = NULL)
@@ -259,8 +245,7 @@ class Model_Followups extends Zend_Db_Table_Abstract
                 ->getAdapter()
                 ->select()
                 ->from(
-                    array('f' => 'fowups'),
-                    array('expl', 'hlvl')
+                    array('f' => 'fowups')
                 )
                 ->join(
                     array('ff' => 'fowup_fls'),
@@ -278,7 +263,6 @@ class Model_Followups extends Zend_Db_Table_Abstract
             if (isset($followUps[$followUp['ffid']])) {
                 $followUps[$followUp['ffid']]['snippets'][] = array(
                     'text' => $followUp['expl'],
-                    'hierarchyLevel' => $followUp['hlvl'],
                 );
             } else {
                 $followUps[$followUp['ffid']] = array(
@@ -292,7 +276,6 @@ class Model_Followups extends Zend_Db_Table_Abstract
                     'snippets' => array(
                         array(
                             'text' => $followUp['expl'],
-                            'hierarchyLevel' => $followUp['hlvl'],
                         ),
                     ),
                 );
