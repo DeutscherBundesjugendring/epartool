@@ -16,12 +16,10 @@ const resolveElement = (response, parentAction, childAction) => {
         contributionExplanation={data.expl}
         videoService={data.video_service}
         videoId={data.video_id}
-        votable={data.is_votable}
+        votable={!!data.is_votable}
         votingText="Ergebnis der Abstimmung:"
         votingResults={`${data.votes}. Rang`}
-        votingLink={() => {
-          window.location = `/input/show/kid/${response.kid}/qid/${data.qi}`;
-        }}
+        votingLink={`/input/show/kid/${response.kid}/qid/${data.qi}`}
       />
     );
   }
@@ -33,9 +31,9 @@ const resolveElement = (response, parentAction, childAction) => {
       <FollowUpSnippetBox
         snippetExplanation={data.expl}
         likeAction={() => {}}
-        likeCount={data.lkyea}
+        likeCount={parseInt(data.lkyea, 10)}
         dislikeAction={() => {}}
-        dislikeCount={data.lknay}
+        dislikeCount={parseInt(data.lknay, 10)}
         followPathAction={() => {
           window.location = `/followup/show-by-snippet/kid/${response.kid}/fid/${data.fid}`;
         }}
@@ -65,9 +63,9 @@ const resolveElement = (response, parentAction, childAction) => {
     return (
       <FollowUpBox
         element={element}
-        parentCount={response.parent_count}
+        parentCount={parseInt(response.parent_count, 10)}
         parentAction={parentAction}
-        childCount={response.children_count}
+        childCount={parseInt(response.children_count, 10)}
         childAction={childAction}
         modalAction={() => {}}
       />

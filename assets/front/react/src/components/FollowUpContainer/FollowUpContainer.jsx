@@ -1,12 +1,13 @@
 import React from 'react';
 import FollowUpTimeline from '../FollowUpTimeline/FollowUpTimeline';
-import { resolveElement } from '../../service/resolveElement';
+import resolveElement from '../../service/resolveElement';
 import { fetchFollowUpElement } from '../../actions';
 
 
-class FollowUp extends React.Component {
+class FollowUpContainer extends React.Component {
   constructor(props) {
     super(props);
+
     this.state = {
       columns: [[]],
     };
@@ -20,8 +21,8 @@ class FollowUp extends React.Component {
         if (response.type === 'contribution' || response.type === 'snippet') {
           const resolvedElement = resolveElement(
             response,
-            this.getParentElement,
-            this.getChildElement
+            () => console.log('Parent'),
+            () => console.log('Child')
           );
 
           this.setState({
@@ -30,14 +31,6 @@ class FollowUp extends React.Component {
         }
       })
       .catch(error => console.error(error));
-  }
-
-  getParentElement() {
-    console.log('Parent');
-  }
-
-  getChildElement() {
-    console.log('Child');
   }
 
   render() {
@@ -55,8 +48,10 @@ class FollowUp extends React.Component {
   }
 }
 
-FollowUp.propTypes = {
+FollowUpContainer.propTypes = {
   consultationId: React.PropTypes.number.isRequired,
   followUpType: React.PropTypes.oneOf(['contribution', 'snippet']).isRequired,
   followUpId: React.PropTypes.number.isRequired,
 };
+
+export default FollowUpContainer;

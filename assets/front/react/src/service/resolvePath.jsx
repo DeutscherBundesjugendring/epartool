@@ -1,13 +1,25 @@
 const resolvePath = (currentPath) => {
-  if (currentPath.startsWith('/followup/')) {
-    const path = currentPath.replace('/followup/', '');
+  const pathStartsWith = currentPath.indexOf('/followup/');
+
+  if (pathStartsWith !== -1) {
+    const path = currentPath.substr(pathStartsWith).replace('/followup/', '');
     const params = path.split('/');
 
-    if (params.length === 4 && params[0] === 'kid' && params[3] === 'fid') {
+    // Show by contribution
+    if (params.length === 7 && params[0] === 'show' && params[1] === 'kid' && params[5] === 'tid') {
       return ({
-        consultationId: params[1],
-        followUpType: params[3],
-        followUpId: params[3],
+        consultationId: parseInt(params[2], 10),
+        followUpId: parseInt(params[6], 10),
+        followUpType: 'contribution',
+      });
+    }
+
+    // Show by snippet
+    if (params.length === 5 && params[0] === 'show-by-snippet' && params[1] === 'kid' && params[3] === 'fid') {
+      return ({
+        consultationId: parseInt(params[2], 10),
+        followUpId: parseInt(params[4], 10),
+        followUpType: 'snippet',
       });
     }
   }
