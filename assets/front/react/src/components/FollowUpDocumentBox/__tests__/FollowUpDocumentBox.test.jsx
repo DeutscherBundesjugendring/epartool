@@ -8,12 +8,36 @@ import FollowUpDocumentBox from '../FollowUpDocumentBox';
 
 injectTapEventPlugin();
 
+const element = (
+  <FollowUpDocumentBox
+    title="Document title"
+    author="Author of document"
+    description="Description of document"
+    previewImageLink="http://www.example.com/image.jpg"
+    downloadAction={() => {}}
+    downloadLabel="Download document"
+  />
+);
+
+
 describe('rendering', () => {
   it('renders correctly', () => {
     const tree = shallow(
-      <FollowUpDocumentBox document="Document" />
+      React.cloneElement(element)
     );
 
     expect(shallowToJson(tree)).toMatchSnapshot();
+  });
+});
+
+describe('functionality', () => {
+  it('calls download action', () => {
+    const spy = sinon.spy();
+    const component = shallow(
+      React.cloneElement(element, { downloadAction: spy })
+    );
+
+    component.find('RaisedButton').first().simulate('touchTap', { preventDefault: () => {} });
+    expect(spy.calledOnce).toEqual(true);
   });
 });

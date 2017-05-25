@@ -4,13 +4,15 @@ exports[`rendering renders correctly 1`] = `
 <div
   className="well well-bordered followup-well followup-well-link"
 >
-  <img
-    alt="Snippet"
-    className="followup-timeline-box-image"
-    src="image.jpg"
-    width="80"
+  <EmbeddedVideo
+    height={120}
+    videoId="youtube-video-id"
+    videoService="youtube"
+    width={240}
   />
-  Snippet
+  <p>
+    Snippet
+  </p>
   <div
     className="offset-bottom-small"
   >
@@ -37,7 +39,7 @@ exports[`rendering renders correctly 1`] = `
   </div>
   <RaisedButton
     disabled={false}
-    label="Continue"
+    label="Follow path"
     onTouchTap={[Function]}
   />
 </div>
@@ -47,7 +49,9 @@ exports[`rendering renders correctly without optional props 1`] = `
 <div
   className="well well-bordered followup-well followup-well-link"
 >
-  Snippet
+  <p>
+    Snippet
+  </p>
   <div
     className="offset-bottom-small"
   >
@@ -74,7 +78,7 @@ exports[`rendering renders correctly without optional props 1`] = `
   </div>
   <RaisedButton
     disabled={false}
-    label="Continue"
+    label="Follow path"
     onTouchTap={[Function]}
   />
 </div>

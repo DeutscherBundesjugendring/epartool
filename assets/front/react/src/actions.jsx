@@ -3,14 +3,14 @@ import callApi from './service/callApi';
 
 /* global followupApiUrl */
 
-export const fetchFollowUpElement = (consultationId, followupId) =>
-  callApi(`${followupApiUrl}/followup/element/${consultationId}/${followupId}`);
+export const fetchFollowUpElement = (type, followupId) =>
+  callApi(`${followupApiUrl}/followup/element/${type}/${followupId}`);
 
-export const fetchFollowUpElementChildren = (consultationId, followupId) =>
-  callApi(`${followupApiUrl}/followup/element/${consultationId}/${followupId}/children`);
+export const fetchFollowUpElementChildren = (type, followupId) =>
+  callApi(`${followupApiUrl}/followup/element/${type}/${followupId}/children`);
 
-export const fetchFollowUpElementParents = (consultationId, followupId) =>
-  callApi(`${followupApiUrl}/followup/element/${consultationId}/${followupId}/parents`);
+export const fetchFollowUpElementParents = (type, followupId) =>
+  callApi(`${followupApiUrl}/followup/element/${type}/${followupId}/parents`);
 
 export const fetchFollowUpDocument = documentId =>
   callApi(`${followupApiUrl}/followup/document/${documentId}`);

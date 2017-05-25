@@ -1,16 +1,44 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`rendering renders correctly 1`] = `
+exports[`rendering renders correctly with all texts, embedded video and voting 1`] = `
 <div
   className="well well-bordered"
 >
+  <EmbeddedVideo
+    height={120}
+    videoId="youtube-video-id"
+    videoService="youtube"
+    width={240}
+  />
   <p>
-    Text
+    Contribution thesis
+  </p>
+  <p>
+    Contribution explanation
   </p>
   <div
     className="text-accent"
   >
-    Text
+    <p>
+      Voting results
+    </p>
+    <p>
+      <a
+        href="http://www.example.com/"
+      >
+        0 votes
+      </a>
+    </p>
   </div>
+</div>
+`;
+
+exports[`rendering renders correctly with contribution text only 1`] = `
+<div
+  className="well well-bordered"
+>
+  <p>
+    Contribution thesis
+  </p>
 </div>
 `;

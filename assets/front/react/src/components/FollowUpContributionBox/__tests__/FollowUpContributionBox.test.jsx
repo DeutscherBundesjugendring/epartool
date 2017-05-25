@@ -5,9 +5,29 @@ import FollowUpContributionBox from '../FollowUpContributionBox';
 
 
 describe('rendering', () => {
-  it('renders correctly', () => {
+  it('renders correctly with contribution text only', () => {
     const tree = shallow(
-      <FollowUpContributionBox contribution="Text" votingResults="Text" />
+      <FollowUpContributionBox
+        contributionThesis="Contribution thesis"
+        votable={false}
+      />
+    );
+
+    expect(shallowToJson(tree)).toMatchSnapshot();
+  });
+
+  it('renders correctly with all texts, embedded video and voting', () => {
+    const tree = shallow(
+      <FollowUpContributionBox
+        contributionThesis="Contribution thesis"
+        contributionExplanation="Contribution explanation"
+        videoService="youtube"
+        videoId="youtube-video-id"
+        votable
+        votingText="Voting results"
+        votingResults="0 votes"
+        votingLink="http://www.example.com/"
+      />
     );
 
     expect(shallowToJson(tree)).toMatchSnapshot();

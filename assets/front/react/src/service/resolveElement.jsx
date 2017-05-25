@@ -5,36 +5,58 @@ import FollowUpDocumentBox from '../components/FollowUpDocumentBox/FollowUpDocum
 import FollowUpSnippetBox from '../components/FollowUpSnippetBox/FollowUpSnippetBox';
 
 
-const resolveElement = (data, parentAction, childAction) => {
+const resolveElement = (response, parentAction, childAction) => {
+  const { data } = response;
   let element = null;
 
-  if (data.type === 'contribution') {
+  if (response.type === 'contribution') {
     element = (
       <FollowUpContributionBox
-        contribution={data.expl}
-        votingResults={data.votes}
+        contributionThesis={data.thes}
+        contributionExplanation={data.expl}
+        videoService={data.video_service}
+        videoId={data.video_id}
+        votable={data.is_votable}
+        votingText="Ergebnis der Abstimmung:"
+        votingResults={`${data.votes}. Rang`}
+        votingLink={() => {
+          window.location = `/input/show/kid/${response.kid}/qid/${data.qi}`;
+        }}
       />
     );
   }
 
-  if (data.type === 'snippet') {
+  if (response.type === 'snippet') {
     element = (
+      // TODO: video_service and video_id is not returned by API, embed is returned instead
+      // Bedrich Schindler <bedrich@visionapps.cz>, 24. 5. 2017 12:33
       <FollowUpSnippetBox
-        snippet={data.expl}
+        snippetExplanation={data.expl}
         likeAction={() => {}}
         likeCount={data.lkyea}
         dislikeAction={() => {}}
         dislikeCount={data.lknay}
-        continueAction={() => {}}
-        continueLabel=""
+        followPathAction={() => {
+          window.location = `/followup/show-by-snippet/kid/${response.kid}/fid/${data.fid}`;
+        }}
+        followPathLabel="Diesem Pfad folgen"
+        videoService={data.video_service}
+        videoId={data.video_id}
       />
     );
   }
 
-  if (data.type === 'document') {
+  if (response.type === 'document') {
     element = (
       <FollowUpDocumentBox
-        document=""
+        title={data.titl}
+        author={data.who}
+        description={data.ref_view}
+        previewImageLink={data.gfx_who}
+        downloadAction={() => {
+          window.location = data.ref_doc;
+        }}
+        downloadLabel="Dokument herunterladen"
       />
     );
   }
@@ -43,10 +65,11 @@ const resolveElement = (data, parentAction, childAction) => {
     return (
       <FollowUpBox
         element={element}
-        parentCount={data.parent_count}
+        parentCount={response.parent_count}
         parentAction={parentAction}
-        childCount={data.children_count}
+        childCount={response.children_count}
         childAction={childAction}
+        modalAction={() => {}}
       />
     );
   }

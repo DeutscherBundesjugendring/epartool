@@ -1,41 +1,40 @@
 import React from 'react';
+import EmbeddedVideo from '../EmbeddedVideo/EmbeddedVideo';
 import ThumbButton from '../ThumbButton/ThumbButton';
 import RaisedButton from '../RaisedButton/RaisedButton';
 
 
 const FollowUpSnippetBox = props => (
   <div className="well well-bordered followup-well followup-well-link">
-    {props.snippetImageSrc &&
-      <img
-        src={props.snippetImageSrc}
-        alt="Snippet"
-        width="80"
-        className="followup-timeline-box-image"
+    {!!props.videoService && !!props.videoId &&
+      <EmbeddedVideo
+        videoService={props.videoService}
+        videoId={props.videoId}
       />
     }
-
-    {props.snippet}
-
+    <p>
+      {props.snippetExplanation}
+    </p>
     <div className="offset-bottom-small">
       <span className="badge">{props.likeCount}</span>
       <ThumbButton type="like" onTouchTap={props.likeAction} />
       <span className="badge">{props.dislikeCount}</span>
       <ThumbButton type="dislike" onTouchTap={props.dislikeAction} />
     </div>
-
-    <RaisedButton label={props.continueLabel} onTouchTap={props.continueAction} />
+    <RaisedButton label={props.followPathLabel} onTouchTap={props.followPathAction} />
   </div>
 );
 
 FollowUpSnippetBox.propTypes = {
-  snippet: React.PropTypes.string.isRequired,
-  snippetImageSrc: React.PropTypes.string,
+  snippetExplanation: React.PropTypes.string.isRequired,
   likeAction: React.PropTypes.func.isRequired,
   likeCount: React.PropTypes.number.isRequired,
   dislikeAction: React.PropTypes.func.isRequired,
   dislikeCount: React.PropTypes.number.isRequired,
-  continueAction: React.PropTypes.func.isRequired,
-  continueLabel: React.PropTypes.string.isRequired,
+  followPathAction: React.PropTypes.func.isRequired,
+  followPathLabel: React.PropTypes.string.isRequired,
+  videoService: React.PropTypes.string,
+  videoId: React.PropTypes.string,
 };
 
 export default FollowUpSnippetBox;

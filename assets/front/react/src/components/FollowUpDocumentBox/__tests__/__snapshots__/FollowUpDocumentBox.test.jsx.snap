@@ -4,6 +4,23 @@ exports[`rendering renders correctly 1`] = `
 <div
   className="well well-bordered followup-well followup-well-link"
 >
-  Document
+  <p>
+    Document title
+  </p>
+  <p>
+    Author of document
+  </p>
+  <img
+    alt="Document title"
+    className="followup-timeline-box-image"
+    src="http://www.example.com/image.jpg"
+    width="80"
+  />
+  Description of document
+  <RaisedButton
+    disabled={false}
+    label="Download document"
+    onTouchTap={[Function]}
+  />
 </div>
 `;
