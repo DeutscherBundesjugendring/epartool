@@ -2,11 +2,30 @@
 
 class Model_FollowupFiles extends Zend_Db_Table_Abstract
 {
+    const TYPE_GENERAL = 'general';
+    const TYPE_SUPPORTING = 'supporting';
+    const TYPE_ACTION = 'action';
+    const TYPE_REJECTION = 'rejected';
+    const TYPE_END = 'end';
+
     const UPLOAD_SCENARIO_THUMB = 'followup_document_thumb';
 
     protected $_name = 'fowup_fls';
     protected $_primary = 'ffid';
     protected $_dependentTables = array('Model_Followups');
+
+    /**
+     * @return array
+     */
+    public static function getTypes() {
+        return [
+            self::TYPE_GENERAL => self::TYPE_GENERAL,
+            self::TYPE_SUPPORTING => self::TYPE_SUPPORTING,
+            self::TYPE_ACTION => self::TYPE_ACTION,
+            self::TYPE_REJECTION => self::TYPE_REJECTION,
+            self::TYPE_END => self::TYPE_END,
+        ];
+    }
 
     /**
      * getByKid
@@ -89,7 +108,7 @@ class Model_FollowupFiles extends Zend_Db_Table_Abstract
      * get fowups by fowups_fls.ffid
      * @param  integer              $ffid
      * @param  string               $order
-     * @return Zend_DB_Table_Rowset
+     * @return Zend_DB_Table_Rowset|array
      */
     public function getFollowupsById($ffid, $order = null)
     {
@@ -111,6 +130,21 @@ class Model_FollowupFiles extends Zend_Db_Table_Abstract
         }
 
         return [];
+    }
+
+    /**
+     * @param int $ffid
+     * @return int
+     */
+    public function getFollowupsCountById($ffid)
+    {
+        $followups = new Model_Followups();
+
+        $select = $followups->select()
+            ->from(['f' => $followups->info(self::NAME)], [new Zend_Db_Expr('COUNT(*) as count')])
+            ->where('f.ffid = ?', (int) $ffid);
+
+        return (int) $followups->fetchAll($select)->current()->count;
     }
 
     /**

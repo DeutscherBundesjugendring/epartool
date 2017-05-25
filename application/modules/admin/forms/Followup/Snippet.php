@@ -12,8 +12,6 @@ class Admin_Form_Followup_Snippet extends Dbjr_Form_Admin
 
     public function init()
     {
-        $translator = Zend_Registry::get('Zend_Translate');
-
         $this
             ->setAttrib('class', 'offset-bottom')
             ->setCancelLink(['url' => $this->_cancelUrl]);
@@ -26,31 +24,13 @@ class Admin_Form_Followup_Snippet extends Dbjr_Form_Admin
             ->setWysiwygType(Dbjr_Form_Element_Textarea::WYSIWYG_TYPE_STANDARD);
         $this->addElement($expl);
 
-        $type = $this->createElement('radio', 'type');
+        $type = $this->createElement('radio', 'typ');
         $type
             ->setLabel('Type')
             ->setRequired(true)
             ->setMultioptions(Model_Followups::getTypes())
             ->setValue(Model_Followups::TYPE_GENERAL);
         $this->addElement($type);
-
-        $hierarchy = $this->createElement('radio', 'hlvl');
-        $hierarchy
-            ->setLabel('Hierarchy')
-            ->setRequired(true)
-            ->setMultiOptions(
-                [
-                    '0' => $translator->translate('Footnote'),
-                    '1' => $translator->translate('Body'),
-                    '2' => $translator->translate('Heading 1'),
-                    '3' => $translator->translate('Heading 2'),
-                    '4' => $translator->translate('Heading 3'),
-                    '5' => $translator->translate('Heading 4'),
-                    '6' => $translator->translate('Heading 5'),
-                ]
-            )
-            ->setValue(1);
-        $this->addElement($hierarchy);
 
         // CSRF Protection
         $hash = $this->createElement('hash', 'csrf_token_snippet', array('salt' => 'unique'));

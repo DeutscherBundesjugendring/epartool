@@ -70,7 +70,6 @@ class FollowupController extends Zend_Controller_Action
         }
         $this->view->followups = $followups;
         $this->view->subscriptionForm = $sbsForm;
-        $this->view->hasFollowupTimeline = true;
     }
 
     public function inputsByQuestionAction()
@@ -164,7 +163,11 @@ class FollowupController extends Zend_Controller_Action
         $this->view->relatedCount = count($relSnippets) + count($relInputs);
         $this->view->relInput = $relInputs;
         $this->view->relSnippets = $relSnippets;
-        $this->view->hasFollowupTimeline = true;
+        $this->view->followupApiUrl = $this->view->url(
+            ['module' => 'api', 'controller' => 'followup', 'action' => 'index'],
+            null,
+            true
+        );
     }
 
     /**
@@ -212,6 +215,7 @@ class FollowupController extends Zend_Controller_Action
 
         $snippet['expl'] = $this->view->wysiwyg($snippet['expl']);
         $snippet['relFowupCount'] = isset($countArr[$snippet['fid']]) ? (int) $countArr[$snippet['fid']] : 0;
+        $snippet['type'] = $indexedDocs[(int)$snippet['ffid']]['type'];
         $snippet['gfx_who'] = $this->view->baseUrl()
             . MEDIA_URL . '/consultations/' . $this->consultation->kid
             . '/' . $indexedDocs[(int)$snippet['ffid']]['gfx_who'];
@@ -230,7 +234,11 @@ class FollowupController extends Zend_Controller_Action
         $this->view->snippet = $snippet;
         $this->view->reltothis_snippets = $relToThisSnippets;
         $this->view->reltothis_inputs = $relToThisInputs;
-        $this->view->hasFollowupTimeline = true;
+        $this->view->followupApiUrl = $this->view->url(
+            ['module' => 'api', 'controller' => 'followup', 'action' => 'index'],
+            null,
+            true
+        );
     }
 
     public function jsonAction()

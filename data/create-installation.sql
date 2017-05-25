@@ -1867,3 +1867,6 @@ CHANGE spprt_fr spprt_fr datetime NULL COMMENT 'support button clickable from' A
 CHANGE spprt_to spprt_to datetime NULL COMMENT 'Supporting possible until' AFTER spprt_fr,
 CHANGE vot_fr vot_fr datetime NULL COMMENT 'Voting possible from date on' AFTER spprt_ct,
 CHANGE vot_to vot_to datetime NULL COMMENT 'Voting possible till' AFTER vot_fr;
+
+-- Migration 20170523104756_dbjr1095.php
+ALTER TABLE `fowups`DROP `hlvl`;

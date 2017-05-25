@@ -65,6 +65,14 @@ class Admin_Form_Followup_File extends Dbjr_Form_Admin
             ->setRequired(true);
         $this->addElement($filePreview);
 
+        $type = $this->createElement('radio', 'type');
+        $type
+            ->setLabel('Type')
+            ->setRequired(true)
+            ->setMultioptions(Model_FollowupFiles::getTypes())
+            ->setValue(Model_FollowupFiles::TYPE_GENERAL);
+        $this->addElement($type);
+
         // CSRF Protection
         $hash = $this->createElement('hash', 'csrf_token_followup', array('salt' => 'unique'));
         $hash->setSalt(md5(mt_rand(1, 100000) . time()));

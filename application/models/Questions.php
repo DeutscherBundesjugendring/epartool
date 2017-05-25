@@ -283,7 +283,7 @@ class Model_Questions extends Dbjr_Db_Table_Abstract
                 (new Model_Inputs())->info(Model_Inputs::NAME),
                 $this->info(self::NAME) . '.qi = ' . (new Model_Inputs())->info(Model_Inputs::NAME) . '.qi'
             )
-            ->order('tid');
+            ->order(['nr','tid']);
 
         foreach ($wheres as $cond => $value) {
             $select->where($cond, $value);
@@ -295,7 +295,8 @@ class Model_Questions extends Dbjr_Db_Table_Abstract
         foreach ($res as $input) {
             if (!isset($inputs[$input['qi']])) {
                 $inputs[$input['qi']] = [
-                    'q' => $input->q,
+                    'q' => $input['q'],
+                    'nr' => $input['nr'],
                     'inputs' => [],
                 ];
             }
