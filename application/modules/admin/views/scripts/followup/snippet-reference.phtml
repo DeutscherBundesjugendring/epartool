@@ -41,6 +41,9 @@
                                         <a data-toggle="collapse" data-parent="#accordionContributions" href="#collapseContributions<?=$i;?>" aria-controls="collapseContributions<?=$i;?>">
                                             <h4 class="panel-title">
                                                 <span class="pull-right glyphicon glyphicon-chevron-down" aria-hidden="true"></span>
+                                                <?php if (!empty($question['nr'])) : ?>
+                                                    [<?=$this->escape($question['nr']);?>]
+                                                <?php endif; ?>
                                                 <?=$this->escape($question['q']);?>
                                             </h4>
                                         </a>
