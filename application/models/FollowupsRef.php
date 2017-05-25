@@ -162,5 +162,4 @@ class Model_FollowupsRef extends Zend_Db_Table_Abstract
         $where = $db->quoteInto('fid_ref = ?', $fidRef) . ' AND ' .  $db->quoteInto($reftype . ' = ?', $refid);
         $this->delete($where);
     }
-
 }
