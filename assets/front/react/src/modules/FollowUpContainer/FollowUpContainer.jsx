@@ -8,6 +8,8 @@ import {
   fetchFollowUpElementChildren,
   fetchFollowUpDocument,
   fetchFollowUpDocumentSnippets,
+  likeFollowUpDocumentSnippet,
+  dislikeFollowUpDocumentSnippet,
 } from '../../actions';
 
 
@@ -22,6 +24,8 @@ class FollowUpContainer extends React.Component {
       modal: null,
       hasError: false,
     };
+
+    this.handleError = this.handleError.bind(this);
   }
 
   componentDidMount() {
@@ -29,11 +33,10 @@ class FollowUpContainer extends React.Component {
 
     fetchFollowUpElement(followUpType, followUpId)
       .then((response) => {
-        const resolvedElement = resolveElement(
-          response,
-          () => this.getParents(followUpType, followUpId),
-          () => this.getChildren(followUpType, followUpId),
-          () => this.getDocumentBox(response)
+        const resolvedElement = this.prepareResolveElement(
+          followUpType,
+          followUpId,
+          response
         );
 
         this.setState({ columns: [[resolvedElement]] });
@@ -62,11 +65,10 @@ class FollowUpContainer extends React.Component {
     fetchFollowUpElementParents(followUpType, followUpId)
       .then((multipleResponse) => {
         multipleResponse.forEach((response) => {
-          const resolvedElement = resolveElement(
-            response,
-            () => this.getParents(response.type, parseInt(response.id, 10)),
-            () => this.getChildren(response.type, parseInt(response.id, 10)),
-            () => this.getDocumentBox(response)
+          const resolvedElement = this.prepareResolveElement(
+            response.type,
+            parseInt(response.id, 10),
+            response
           );
 
           let columns = Object.assign([], this.state.columns);
@@ -98,11 +100,10 @@ class FollowUpContainer extends React.Component {
     fetchFollowUpElementChildren(followUpType, followUpId)
       .then((multipleResponse) => {
         multipleResponse.forEach((response) => {
-          const resolvedElement = resolveElement(
-            response,
-            () => this.getParents(response.type, parseInt(response.id, 10)),
-            () => this.getChildren(response.type, parseInt(response.id, 10)),
-            () => this.getDocumentBox(response)
+          const resolvedElement = this.prepareResolveElement(
+            response.type,
+            parseInt(response.id, 10),
+            response
           );
 
           let columns = Object.assign([], this.state.columns);
@@ -170,6 +171,63 @@ class FollowUpContainer extends React.Component {
       })
       .catch(this.handleError);
     }
+  }
+
+  snippetLike(followUpType, followUpId, response) {
+    likeFollowUpDocumentSnippet(followUpId)
+      .then((likeResponse) => {
+        let changedColumns = Object.assign([], this.state.columns);
+        changedColumns = changedColumns.map(column => (
+          column.map((element) => {
+            if (element.props.type === 'snippet' && element.props.id === followUpId) {
+              const responseCopy = Object.assign([], response);
+              responseCopy.data.lkyea = likeResponse.lkyea;
+
+              return this.prepareResolveElement(followUpType, followUpId, responseCopy);
+            }
+
+            return element;
+          })
+        ));
+
+        this.setState({ columns: changedColumns });
+      })
+      .catch(this.handleError);
+  }
+
+  snippetDislike(followUpType, followUpId, response) {
+    dislikeFollowUpDocumentSnippet(followUpId)
+      .then((dislikeResponse) => {
+        let changedColumns = Object.assign([], this.state.columns);
+        changedColumns = changedColumns.map(column => (
+          column.map((element) => {
+            if (element.props.type === 'snippet' && element.props.id === followUpId) {
+              const responseCopy = Object.assign([], response);
+              responseCopy.data.lknay = dislikeResponse.lknay;
+
+              return this.prepareResolveElement(followUpType, followUpId, responseCopy);
+            }
+
+            return element;
+          })
+        ));
+
+        this.setState({ columns: changedColumns });
+      })
+      .catch(this.handleError);
+  }
+
+  prepareResolveElement(followUpType, followUpId, response) {
+    return resolveElement(
+      response,
+      () => this.getParents(followUpType, parseInt(followUpId, 10)),
+      () => this.getChildren(followUpType, parseInt(followUpId, 10)),
+      () => this.getDocumentBox(response),
+      followUpType === 'snippet' ? {
+        snippetLikeAction: () => this.snippetLike(followUpType, followUpId, response),
+        snippetDislikeAction: () => this.snippetDislike(followUpType, followUpId, response),
+      } : null
+    );
   }
 
   handleError() {

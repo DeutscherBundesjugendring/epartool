@@ -7,7 +7,7 @@ import FollowUpSnippetBox from '../components/FollowUpSnippetBox/FollowUpSnippet
 
 /* global baseUrl */
 
-const resolveElement = (response, parentAction, childAction, modalAction = null) => {
+const resolveElement = (response, parentAction, childAction, modalAction, otherActions) => {
   const { data } = response;
   let element = null;
 
@@ -30,9 +30,9 @@ const resolveElement = (response, parentAction, childAction, modalAction = null)
     element = (
       <FollowUpSnippetBox
         snippetExplanation={data.expl}
-        likeAction={() => {}}
+        likeAction={otherActions.snippetLikeAction}
         likeCount={parseInt(data.lkyea, 10)}
-        dislikeAction={() => {}}
+        dislikeAction={otherActions.snippetDislikeAction}
         dislikeCount={parseInt(data.lknay, 10)}
         followPathAction={() => {
           window.location = `${baseUrl}/followup/show-by-snippet/kid/${response.kid}/fid/${data.fid}`;
