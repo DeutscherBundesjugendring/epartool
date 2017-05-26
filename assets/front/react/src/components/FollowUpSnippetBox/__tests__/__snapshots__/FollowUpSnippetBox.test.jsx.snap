@@ -4,51 +4,6 @@ exports[`rendering renders correctly 1`] = `
 <div
   className="well well-bordered followup-well followup-well-link"
 >
-  <EmbeddedVideo
-    height={120}
-    videoId="youtube-video-id"
-    videoService="youtube"
-    width={240}
-  />
-  <p>
-    Snippet
-  </p>
-  <div
-    className="offset-bottom-small"
-  >
-    <span
-      className="badge"
-    >
-      0
-    </span>
-    <ThumbButton
-      disabled={false}
-      onTouchTap={[Function]}
-      type="like"
-    />
-    <span
-      className="badge"
-    >
-      0
-    </span>
-    <ThumbButton
-      disabled={false}
-      onTouchTap={[Function]}
-      type="dislike"
-    />
-  </div>
-  <RaisedButton
-    disabled={false}
-    label="Follow path"
-    onTouchTap={[Function]}
-  />
-</div>
-`;
-
-exports[`rendering renders correctly without optional props 1`] = `
-<div
-  className="well well-bordered followup-well followup-well-link"
->
   <p>
     Snippet
   </p>

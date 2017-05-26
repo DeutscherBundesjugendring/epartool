@@ -23,17 +23,6 @@ const element = (
 describe('rendering', () => {
   it('renders correctly', () => {
     const tree = shallow(
-      React.cloneElement(element, {
-        videoService: 'youtube',
-        videoId: 'youtube-video-id',
-      })
-    );
-
-    expect(shallowToJson(tree)).toMatchSnapshot();
-  });
-
-  it('renders correctly without optional props', () => {
-    const tree = shallow(
       React.cloneElement(element)
     );
 

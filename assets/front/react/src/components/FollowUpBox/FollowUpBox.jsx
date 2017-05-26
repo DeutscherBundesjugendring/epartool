@@ -24,7 +24,7 @@ const FollowUpBox = props => (
 
 FollowUpBox.propTypes = {
   id: React.PropTypes.number.isRequired,
-  type: React.PropTypes.string.isRequired,
+  type: React.PropTypes.oneOf(['contribution', 'snippet', 'document']).isRequired,
   element: React.PropTypes.element.isRequired,
   parentCount: React.PropTypes.number.isRequired,
   parentAction: React.PropTypes.func.isRequired,

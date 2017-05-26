@@ -35,17 +35,17 @@ class FollowUpContainer extends React.Component {
   }
 
   getElementColumnIndex(followUpType, followUpId) {
-    let columnIndex = null;
+    let colIndex = null;
 
     this.state.columns.forEach((column, index) => {
       column.forEach((element) => {
-        if (followUpType === element.props.type && followUpId === element.props.id) {
-          columnIndex = index;
+        if (!colIndex && followUpType === element.props.type && followUpId === element.props.id) {
+          colIndex = index;
         }
       });
     });
 
-    return columnIndex;
+    return colIndex;
   }
 
   getParents(followUpType, followUpId) {
@@ -67,16 +67,20 @@ class FollowUpContainer extends React.Component {
 
             columns = columns.slice(columnIndex);
             columns.unshift([]);
+
+            columns[1] = columns[1].filter((element) => {
+              if (followUpType === element.props.type && followUpId === element.props.id) {
+                return element;
+              }
+              return null;
+            });
           }
           columns[0].push(resolvedElement);
 
           this.setState({ columns });
         });
       })
-      .catch((error) => {
-        console.error(error);
-        this.setState({ hasError: true });
-      });
+      .catch(() => this.setState({ hasError: true }));
   }
 
   getChildren(followUpType, followUpId) {
@@ -98,16 +102,20 @@ class FollowUpContainer extends React.Component {
 
             columns = columns.slice(0, columnIndex + 1);
             columns.push([]);
+
+            columns[columnIndex] = columns[columnIndex].filter((element) => {
+              if (followUpType === element.props.type && followUpId === element.props.id) {
+                return element;
+              }
+              return null;
+            });
           }
           columns[columnIndex + 1].push(resolvedElement);
 
           this.setState({ columns });
         });
       })
-      .catch((error) => {
-        console.error(error);
-        this.setState({ hasError: true });
-      });
+      .catch(() => this.setState({ hasError: true }));
   }
 
   render() {
