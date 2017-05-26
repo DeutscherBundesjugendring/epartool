@@ -1,5 +1,4 @@
 import React from 'react';
-import EmbeddedVideo from '../EmbeddedVideo/EmbeddedVideo';
 import ThumbButton from '../ThumbButton/ThumbButton';
 import RaisedButton from '../RaisedButton/RaisedButton';
 

@@ -146,9 +146,9 @@ class FollowUpContainer extends React.Component {
                   snippets={snippetResponse.map(response => ({
                     snippetExplanation: response.expl,
                     likeAction: () => {},
-                    likeCount: response.lkyea,
+                    likeCount: parseInt(response.lkyea, 10),
                     dislikeAction: () => {},
-                    dislikeCount: response.lkyea,
+                    dislikeCount: parseInt(response.lkyea, 10),
                     followPathAction: () => {
                       if (elementResponse.id === response.ffid) {
                         this.setState({ modal: null });
@@ -156,7 +156,7 @@ class FollowUpContainer extends React.Component {
                         window.location = `/followup/show-by-snippet/kid/${documentResponse.kid}/fid/${response.fid}`;
                       }
                     },
-                    followPathLabel: elementResponse.id === response.ffid ? 'Zurück zur Zeitleiste' : 'Folge Verlauf',
+                    followPathLabel: elementResponse.id === response.fid ? 'Zurück zur Zeitleiste' : 'Folge Verlauf',
                   }))}
                   closeAction={() => this.setState({ modal: null })}
                 />
