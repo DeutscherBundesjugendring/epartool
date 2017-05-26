@@ -5,7 +5,7 @@ import FollowUpDocumentBox from '../components/FollowUpDocumentBox/FollowUpDocum
 import FollowUpSnippetBox from '../components/FollowUpSnippetBox/FollowUpSnippetBox';
 
 
-const resolveElement = (response, parentAction, childAction) => {
+const resolveElement = (response, parentAction, childAction, modalAction = null) => {
   const { data } = response;
   let element = null;
 
@@ -56,7 +56,7 @@ const resolveElement = (response, parentAction, childAction) => {
         downloadAction={() => {
           window.location = data.ref_doc;
         }}
-        downloadLabel="Dokument herunterladen"
+        downloadLabel="Herunterladen"
       />
     );
   }
@@ -71,7 +71,7 @@ const resolveElement = (response, parentAction, childAction) => {
         parentAction={parentAction}
         childCount={parseInt(response.children_count, 10)}
         childAction={childAction}
-        modalAction={() => {}}
+        modalAction={modalAction}
       />
     );
   }

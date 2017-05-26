@@ -11,7 +11,14 @@ const ArrowButton = (props) => {
   }
 
   return (
-    <button onTouchTap={props.onTouchTap} disabled={props.disabled} className={classes}>
+    <button
+      onTouchTap={(e) => {
+        e.stopPropagation();
+        props.onTouchTap();
+      }}
+      disabled={props.disabled}
+      className={classes}
+    >
       {props.label}
     </button>
   );

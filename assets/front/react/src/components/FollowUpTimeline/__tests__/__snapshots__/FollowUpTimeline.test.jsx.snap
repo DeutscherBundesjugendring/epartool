@@ -55,6 +55,64 @@ exports[`rendering renders correctly with element in one column and one row 1`] 
 </div>
 `;
 
+exports[`rendering renders correctly with element in one column and one row and with modal 1`] = `
+<div
+  className="well well-bordered well-accent"
+>
+  <div
+    className="row offset-bottom-large"
+  >
+    <div
+      className="col-sm-4"
+    >
+      <a
+        className="followup-back-link followup-link media link-unstyled link-unstyled-alt"
+        href="#"
+        title="Link"
+      >
+        <div
+          className="media-left"
+        >
+          <div
+            aria-hidden="true"
+            className="followup-back-link-question-mark followup-sprite followup-sprite-question-mark"
+          >
+            ?
+          </div>
+        </div>
+        <div
+          className="media-body"
+        >
+          <strong
+            className="small"
+          >
+            Text
+          </strong>
+        </div>
+      </a>
+    </div>
+  </div>
+  <div
+    className="followup"
+  >
+    <div
+      className="followup-column"
+    >
+      <div
+        className="followup-column-element"
+      >
+        <div>
+          Left column element
+        </div>
+      </div>
+    </div>
+  </div>
+  <div>
+    Modal element
+  </div>
+</div>
+`;
+
 exports[`rendering renders correctly with elements in more columns and more rows 1`] = `
 <div
   className="well well-bordered well-accent"

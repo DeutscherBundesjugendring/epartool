@@ -1,10 +1,13 @@
 import React from 'react';
 import FollowUpTimeline from '../FollowUpTimeline/FollowUpTimeline';
+import FollowUpDocumentModal from '../FollowUpDocumentModal/FollowUpDocumentModal';
 import resolveElement from '../../service/resolveElement';
 import {
   fetchFollowUpElement,
   fetchFollowUpElementParents,
   fetchFollowUpElementChildren,
+  fetchFollowUpDocument,
+  fetchFollowUpDocumentSnippets,
 } from '../../actions';
 
 
@@ -14,6 +17,7 @@ class FollowUpContainer extends React.Component {
 
     this.state = {
       columns: [[]],
+      modal: null,
       hasError: false,
     };
   }
@@ -26,12 +30,13 @@ class FollowUpContainer extends React.Component {
         const resolvedElement = resolveElement(
           response,
           () => this.getParents(followUpType, followUpId),
-          () => this.getChildren(followUpType, followUpId)
+          () => this.getChildren(followUpType, followUpId),
+          () => this.getDocumentBox(response)
         );
 
         this.setState({ columns: [[resolvedElement]] });
       })
-      .catch(() => this.setState({ hasError: true }));
+      .catch(this.handleError);
   }
 
   getElementColumnIndex(followUpType, followUpId) {
@@ -58,7 +63,8 @@ class FollowUpContainer extends React.Component {
           const resolvedElement = resolveElement(
             response,
             () => this.getParents(response.type, parseInt(response.id, 10)),
-            () => this.getChildren(response.type, parseInt(response.id, 10))
+            () => this.getChildren(response.type, parseInt(response.id, 10)),
+            () => this.getDocumentBox(response)
           );
 
           let columns = Object.assign([], this.state.columns);
@@ -80,7 +86,7 @@ class FollowUpContainer extends React.Component {
           this.setState({ columns });
         });
       })
-      .catch(() => this.setState({ hasError: true }));
+      .catch(this.handleError);
   }
 
   getChildren(followUpType, followUpId) {
@@ -93,7 +99,8 @@ class FollowUpContainer extends React.Component {
           const resolvedElement = resolveElement(
             response,
             () => this.getParents(response.type, parseInt(response.id, 10)),
-            () => this.getChildren(response.type, parseInt(response.id, 10))
+            () => this.getChildren(response.type, parseInt(response.id, 10)),
+            () => this.getDocumentBox(response)
           );
 
           let columns = Object.assign([], this.state.columns);
@@ -115,7 +122,57 @@ class FollowUpContainer extends React.Component {
           this.setState({ columns });
         });
       })
-      .catch(() => this.setState({ hasError: true }));
+      .catch(this.handleError);
+  }
+
+  getDocumentBox(elementResponse) {
+    if (elementResponse.type === 'snippet' || elementResponse.type === 'document') {
+      fetchFollowUpDocument(elementResponse.data.ffid)
+        .then((documentResponse) => {
+          fetchFollowUpDocumentSnippets(elementResponse.data.ffid)
+            .then((snippetResponse) => {
+              const resolvedElement = (
+                <FollowUpDocumentModal
+                  title={documentResponse.titl}
+                  author={documentResponse.who}
+                  description={documentResponse.ref_view}
+                  date={new Date(documentResponse.when)}
+                  dateMonthYearOnly={!!documentResponse.is_only_month_year_showed}
+                  previewImageLink={documentResponse.gfx_who}
+                  downloadAction={() => {
+                    window.location = documentResponse.ref_doc;
+                  }}
+                  downloadLabel="Herunterladen"
+                  snippets={snippetResponse.map(response => ({
+                    snippetExplanation: response.expl,
+                    likeAction: () => {},
+                    likeCount: response.lkyea,
+                    dislikeAction: () => {},
+                    dislikeCount: response.lkyea,
+                    followPathAction: () => {
+                      if (elementResponse.id === response.ffid) {
+                        this.setState({ modal: null });
+                      } else {
+                        window.location = `/followup/show-by-snippet/kid/${documentResponse.kid}/fid/${response.fid}`;
+                      }
+                    },
+                    followPathLabel: elementResponse.id === response.ffid ? 'Zurück zur Zeitleiste' : 'Folge Verlauf',
+                  }))}
+                  closeAction={() => this.setState({ modal: null })}
+                />
+              );
+
+              this.setState({ modal: resolvedElement });
+            })
+            .catch(this.handleError);
+        })
+        .catch(this.handleError);
+    }
+  }
+
+  handleError(error) {
+    console.log(error);
+    this.setState({ hasError: true });
   }
 
   render() {
@@ -136,6 +193,7 @@ class FollowUpContainer extends React.Component {
           'Klicke auf die Pfeile für nächste Schritte.'
         }
         columns={this.state.columns}
+        modal={this.state.modal}
       />
     );
   }

@@ -43,6 +43,8 @@ const FollowUpTimeLine = props => (
       ))}
     </div>
 
+    {props.modal}
+
   </div>
 );
 
@@ -51,6 +53,7 @@ FollowUpTimeLine.propTypes = {
   infoLinkTitle: React.PropTypes.string.isRequired,
   infoText: React.PropTypes.string.isRequired,
   columns: React.PropTypes.arrayOf(React.PropTypes.arrayOf(React.PropTypes.element)),
+  modal: React.PropTypes.element,
 };
 
 export default FollowUpTimeLine;
