@@ -376,7 +376,7 @@ class Api_FollowupController extends Dbjr_Api_BaseController
             'ffid' => $snippet['ffid'],
             'lkyea' => $snippet['lkyea'],
             'lknay' => $snippet['lknay'],
-            'typ' => $snippet['typ'],
+            'type' => $snippet['type'],
             'gfx_who' => (new Model_FollowupFiles())->getById($snippet['ffid'])['gfx_who'],
         ];
     }
