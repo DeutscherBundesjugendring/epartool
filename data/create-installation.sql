@@ -1666,7 +1666,7 @@ UPDATE `fowups` SET `typ` = 'action' WHERE `typ` = 'a';
 UPDATE `fowups` SET `typ` = 'rejected' WHERE `typ` = 'r';
 UPDATE `fowups` SET `typ` = 'end' WHERE `typ` = 'e';
 UPDATE `fowups` SET `typ` = NULL WHERE `typ` = '';
-ALTER TABLE `fowups` CHANGE `typ` `typ` varchar(191) COLLATE 'utf8mb4_unicode_ci' NULL DEFAULT 'general', ADD FOREIGN KEY (`typ`) REFERENCES `fowups_type` (`name`) ON DELETE RESTRICT;
+ALTER TABLE `fowups` CHANGE `typ` `type` varchar(191) COLLATE 'utf8mb4_unicode_ci' NULL DEFAULT 'general', ADD FOREIGN KEY (`typ`) REFERENCES `fowups_type` (`name`) ON DELETE RESTRICT;
 ALTER TABLE `users` CHANGE `lvl` `role` varchar(191) COLLATE 'utf8mb4_unicode_ci' NULL AFTER `cmnt`;
 CREATE TABLE `users_role` (`name` varchar(191) COLLATE 'utf8mb4_unicode_ci' NOT NULL) ENGINE='InnoDB';
 ALTER TABLE `users_role` ADD PRIMARY KEY `pk_name` (`name`);
