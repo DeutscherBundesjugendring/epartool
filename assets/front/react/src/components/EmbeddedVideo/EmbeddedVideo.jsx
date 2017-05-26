@@ -2,28 +2,22 @@ import React from 'react';
 
 
 const EmbeddedVideo = (props) => {
+  let src = null;
+
   if (props.videoService === 'youtube') {
-    return (
-      <iframe
-        width={props.width}
-        height={props.height}
-        src={`https://www.youtube.com/embed/${props.videoId}`}
-      />
-    );
+    src = `https://www.youtube.com/embed/${props.videoId}`;
   } else if (props.videoService === 'vimeo') {
-    return (
-      <iframe
-        width={props.width}
-        height={props.height}
-        src={`https://player.vimeo.com/video/${props.videoId}`}
-      />
-    );
+    src = `https://player.vimeo.com/video/${props.videoId}`;
   } else if (props.videoService === 'facebook') {
+    src = `https://www.facebook.com/video/embed?video_id=${props.videoId}`;
+  }
+
+  if (src) {
     return (
       <iframe
         width={props.width}
         height={props.height}
-        src={`https://www.facebook.com/video/embed?video_id=${props.videoId}`}
+        src={src}
       />
     );
   }

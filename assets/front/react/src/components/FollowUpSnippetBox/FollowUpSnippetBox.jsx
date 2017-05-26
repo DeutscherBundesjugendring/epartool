@@ -6,12 +6,6 @@ import RaisedButton from '../RaisedButton/RaisedButton';
 
 const FollowUpSnippetBox = props => (
   <div className="well well-bordered followup-well followup-well-link">
-    {!!props.videoService && !!props.videoId &&
-      <EmbeddedVideo
-        videoService={props.videoService}
-        videoId={props.videoId}
-      />
-    }
     <p>
       {props.snippetExplanation}
     </p>
@@ -33,8 +27,6 @@ FollowUpSnippetBox.propTypes = {
   dislikeCount: React.PropTypes.number.isRequired,
   followPathAction: React.PropTypes.func.isRequired,
   followPathLabel: React.PropTypes.string.isRequired,
-  videoService: React.PropTypes.string,
-  videoId: React.PropTypes.string,
 };
 
 export default FollowUpSnippetBox;

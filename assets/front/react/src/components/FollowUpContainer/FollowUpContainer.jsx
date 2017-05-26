@@ -40,17 +40,17 @@ class FollowUpContainer extends React.Component {
   }
 
   getElementColumnIndex(followUpType, followUpId) {
-    let columnIndex = null;
+    let colIndex = null;
 
     this.state.columns.forEach((column, index) => {
       column.forEach((element) => {
-        if (followUpType === element.props.type && followUpId === element.props.id) {
-          columnIndex = index;
+        if (!colIndex && followUpType === element.props.type && followUpId === element.props.id) {
+          colIndex = index;
         }
       });
     });
 
-    return columnIndex;
+    return colIndex;
   }
 
   getParents(followUpType, followUpId) {

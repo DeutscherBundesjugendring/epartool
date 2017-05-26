@@ -26,8 +26,6 @@ const resolveElement = (response, parentAction, childAction, modalAction = null)
 
   if (response.type === 'snippet') {
     element = (
-      // TODO: video_service and video_id is not returned by API, embed is returned instead
-      // Bedrich Schindler <bedrich@visionapps.cz>, 24. 5. 2017 12:33
       <FollowUpSnippetBox
         snippetExplanation={data.expl}
         likeAction={() => {}}
@@ -38,8 +36,6 @@ const resolveElement = (response, parentAction, childAction, modalAction = null)
           window.location = `/followup/show-by-snippet/kid/${response.kid}/fid/${data.fid}`;
         }}
         followPathLabel="Diesem Pfad folgen"
-        videoService={data.video_service}
-        videoId={data.video_id}
       />
     );
   }
