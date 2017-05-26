@@ -168,7 +168,7 @@ class FollowUpContainer extends React.Component {
 
         this.setState({ modal: resolvedElement });
       })
-        .catch(this.handleError);
+      .catch(this.handleError);
     }
   }
 
