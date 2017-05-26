@@ -345,12 +345,13 @@ class Api_FollowupController extends Dbjr_Api_BaseController
             'ffid' => $document['ffid'],
             'kid' => $document['kid'],
             'titl' => $document['titl'],
-            'who' => $document['when'],
+            'when' => $this->convertDateTime($document['when']),
             'is_only_month_year_showed' => $document['is_only_month_year_showed'],
             'ref_doc' => $document['ref_doc'],
             'ref_view' => $document['ref_view'],
             'gfx_who' => $document['gfx_who'],
-            'type' => $document['type']
+            'type' => $document['type'],
+            'who' => $document['who'],
         ];
     }
 
@@ -401,7 +402,7 @@ class Api_FollowupController extends Dbjr_Api_BaseController
             'qi' => $contribution['qi'],
             'thes' => $contribution['thes'],
             'uid' => $contribution['uid'],
-            'when' => $contribution['when'],
+            'when' => $this->convertDateTime($contribution['when']),
             'is_votable' => $contribution['is_votable'],
             'spprts' => $contribution['spprts'],
             'votes' => $contribution['votes'],
@@ -490,5 +491,14 @@ class Api_FollowupController extends Dbjr_Api_BaseController
         } else {
             throw new Exception(sprintf('%s is invalid type of element.', $type));
         }
+    }
+
+    /**
+     * @param string $dateTime
+     * @return string
+     */
+    private function convertDateTime($dateTime)
+    {
+        return DateTime::createFromFormat('Y-m-d H:i:s', $dateTime)->format(DateTime::ISO8601);
     }
 }
