@@ -1,0 +1,49 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`rendering renders correctly facebook embedded video 1`] = `
+<iframe
+  height={120}
+  src="https://www.facebook.com/video/embed?video_id=facebook-video-id"
+  width={240}
+/>
+`;
+
+exports[`rendering renders correctly facebook embedded video with specific size 1`] = `
+<iframe
+  height={1080}
+  src="https://www.facebook.com/video/embed?video_id=facebook-video-id"
+  width={1920}
+/>
+`;
+
+exports[`rendering renders correctly vimeo embedded video 1`] = `
+<iframe
+  height={120}
+  src="https://player.vimeo.com/video/vimeo-video-id"
+  width={240}
+/>
+`;
+
+exports[`rendering renders correctly vimeo embedded video with specific size 1`] = `
+<iframe
+  height={1080}
+  src="https://player.vimeo.com/video/vimeo-video-id"
+  width={1920}
+/>
+`;
+
+exports[`rendering renders correctly youtube embedded video 1`] = `
+<iframe
+  height={120}
+  src="https://www.youtube.com/embed/youtube-video-id"
+  width={240}
+/>
+`;
+
+exports[`rendering renders correctly youtube embedded video with specific size 1`] = `
+<iframe
+  height={1080}
+  src="https://www.youtube.com/embed/youtube-video-id"
+  width={1920}
+/>
+`;

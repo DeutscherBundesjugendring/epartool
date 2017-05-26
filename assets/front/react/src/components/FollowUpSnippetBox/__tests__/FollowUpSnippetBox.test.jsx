@@ -8,27 +8,20 @@ import FollowUpSnippetBox from '../FollowUpSnippetBox';
 
 injectTapEventPlugin();
 
-const element = <FollowUpSnippetBox
-  snippet="Snippet"
-  modalAction={() => {}}
-  likeAction={() => {}}
-  likeCount={0}
-  dislikeAction={() => {}}
-  dislikeCount={0}
-  continueAction={() => {}}
-  continueLabel="Continue"
-/>;
+const element = (
+  <FollowUpSnippetBox
+    snippetExplanation="Snippet"
+    likeAction={() => {}}
+    likeCount={0}
+    dislikeAction={() => {}}
+    dislikeCount={0}
+    followPathAction={() => {}}
+    followPathLabel="Follow path"
+  />
+);
 
 describe('rendering', () => {
   it('renders correctly', () => {
-    const tree = shallow(
-      React.cloneElement(element, { snippetImageSrc: 'image.jpg' })
-    );
-
-    expect(shallowToJson(tree)).toMatchSnapshot();
-  });
-
-  it('renders correctly without optional props', () => {
     const tree = shallow(
       React.cloneElement(element)
     );
@@ -38,16 +31,6 @@ describe('rendering', () => {
 });
 
 describe('functionality', () => {
-  it('calls modal action', () => {
-    const spy = sinon.spy();
-    const component = shallow(
-      React.cloneElement(element, { modalAction: spy })
-    );
-
-    component.find('div').first().simulate('touchTap', { preventDefault: () => {} });
-    expect(spy.calledOnce).toEqual(true);
-  });
-
   it('calls like action', () => {
     const spy = sinon.spy();
     const component = shallow(
@@ -68,10 +51,10 @@ describe('functionality', () => {
     expect(spy.calledOnce).toEqual(true);
   });
 
-  it('calls continue action', () => {
+  it('calls follow path action', () => {
     const spy = sinon.spy();
     const component = shallow(
-      React.cloneElement(element, { continueAction: spy })
+      React.cloneElement(element, { followPathAction: spy })
     );
 
     component.find('RaisedButton').first().simulate('touchTap', { preventDefault: () => {} });

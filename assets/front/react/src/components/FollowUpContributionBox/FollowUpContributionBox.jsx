@@ -1,29 +1,47 @@
 import React from 'react';
-import ArrowButton from '../ArrowButton/ArrowButton';
+import EmbeddedVideo from '../EmbeddedVideo/EmbeddedVideo';
 
 
 const FollowUpContributionBox = props => (
-  <div className="followup-timeline-box">
-    <div className="well well-bordered">
+  <div className="well well-bordered">
+    {!!props.videoService && !!props.videoId &&
+      <EmbeddedVideo
+        videoService={props.videoService}
+        videoId={props.videoId}
+      />
+    }
+    <p>
+      {props.contributionThesis}
+    </p>
+    {!!props.contributionExplanation &&
       <p>
-        {props.contribution}
+        {props.contributionExplanation}
       </p>
+    }
+    {props.votable &&
       <div className="text-accent">
-        {props.votingResults}
+        <p>
+          {props.votingText}
+        </p>
+        <p>
+          <a href={props.votingLink}>
+            {props.votingResults}
+          </a>
+        </p>
       </div>
-    </div>
-    <ArrowButton
-      direction="right"
-      label={props.childCount.toString()}
-      onTouchTap={() => {}}
-    />
+    }
   </div>
 );
 
 FollowUpContributionBox.propTypes = {
-  contribution: React.PropTypes.string.isRequired,
-  votingResults: React.PropTypes.string.isRequired,
-  childCount: React.PropTypes.number.isRequired,
+  contributionThesis: React.PropTypes.string.isRequired,
+  contributionExplanation: React.PropTypes.string,
+  votable: React.PropTypes.bool.isRequired,
+  votingText: React.PropTypes.string,
+  votingResults: React.PropTypes.string,
+  votingLink: React.PropTypes.string,
+  videoService: React.PropTypes.string,
+  videoId: React.PropTypes.string,
 };
 
 export default FollowUpContributionBox;

@@ -8,13 +8,32 @@ import FollowUpDocumentBox from '../FollowUpDocumentBox';
 
 injectTapEventPlugin();
 
+const element = (
+  <FollowUpDocumentBox
+    title="Document title"
+    author="Author of document"
+    description="Description of document"
+    date={new Date()}
+    dateMonthYearOnly={false}
+    previewImageLink="http://www.example.com/image.jpg"
+    downloadAction={() => {}}
+    downloadLabel="Download document"
+  />
+);
+
+
 describe('rendering', () => {
-  it('renders correctly', () => {
+  it('renders correctly with long date', () => {
     const tree = shallow(
-      <FollowUpDocumentBox
-        document="Document"
-        modalAction={() => {}}
-      />
+      React.cloneElement(element)
+    );
+
+    expect(shallowToJson(tree)).toMatchSnapshot();
+  });
+
+  it('renders correctly with short date', () => {
+    const tree = shallow(
+      React.cloneElement(element, { dateMonthYearOnly: true })
     );
 
     expect(shallowToJson(tree)).toMatchSnapshot();
@@ -22,16 +41,13 @@ describe('rendering', () => {
 });
 
 describe('functionality', () => {
-  it('calls modal action', () => {
+  it('calls download action', () => {
     const spy = sinon.spy();
     const component = shallow(
-      <FollowUpDocumentBox
-        document="Document"
-        modalAction={spy}
-      />
+      React.cloneElement(element, { downloadAction: spy })
     );
 
-    component.find('div').first().simulate('touchTap', { preventDefault: () => {} });
+    component.find('RaisedButton').first().simulate('touchTap', { preventDefault: () => {} });
     expect(spy.calledOnce).toEqual(true);
   });
 });
