@@ -64,8 +64,11 @@ const FollowDocumentModal = props => (
 
             <hr />
 
-            {props.snippets.map(snippet => (
-              <div className="well well-simple well-simple-light text-left well-heading">
+            {!!props.snippets && props.snippets.map((snippet, index) => (
+              <div
+                className="well well-simple well-simple-light text-left well-heading"
+                key={index}
+              >
                 {!!snippet.videoService && !!snippet.videoId &&
                   <EmbeddedVideo
                     videoService={snippet.videoService}
