@@ -13,6 +13,8 @@ const element = (
     title="Document title"
     author="Author of document"
     description="Description of document"
+    date={new Date()}
+    dateMonthYearOnly={false}
     previewImageLink="http://www.example.com/image.jpg"
     downloadAction={() => {}}
     downloadLabel="Download document"
@@ -21,9 +23,17 @@ const element = (
 
 
 describe('rendering', () => {
-  it('renders correctly', () => {
+  it('renders correctly with long date', () => {
     const tree = shallow(
       React.cloneElement(element)
+    );
+
+    expect(shallowToJson(tree)).toMatchSnapshot();
+  });
+
+  it('renders correctly with short date', () => {
+    const tree = shallow(
+      React.cloneElement(element, { dateMonthYearOnly: true })
     );
 
     expect(shallowToJson(tree)).toMatchSnapshot();

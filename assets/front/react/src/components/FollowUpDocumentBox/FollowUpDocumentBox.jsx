@@ -1,4 +1,5 @@
 import React from 'react';
+import moment from 'moment';
 import RaisedButton from '../RaisedButton/RaisedButton';
 
 
@@ -8,6 +9,13 @@ const FollowDocumentBox = props => (
       {props.title}
     </p>
     <p>
+      {props.author}
+    </p>
+    <p>
+      {props.dateMonthYearOnly
+        ? moment(props.date).format('MMMM YYYY')
+        : moment(props.date).format('D MMMM YYYY')
+      }
       {props.author}
     </p>
     <img
@@ -25,6 +33,8 @@ FollowDocumentBox.propTypes = {
   title: React.PropTypes.string.isRequired,
   author: React.PropTypes.string.isRequired,
   description: React.PropTypes.string.isRequired,
+  date: React.PropTypes.objectOf(Date).isRequired,
+  dateMonthYearOnly: React.PropTypes.bool.isRequired,
   previewImageLink: React.PropTypes.string.isRequired,
   downloadAction: React.PropTypes.func.isRequired,
   downloadLabel: React.PropTypes.string.isRequired,

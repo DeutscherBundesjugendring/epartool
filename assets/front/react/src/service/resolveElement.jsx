@@ -50,6 +50,8 @@ const resolveElement = (response, parentAction, childAction) => {
         title={data.titl}
         author={data.who}
         description={data.ref_view}
+        date={new Date(data.when)}
+        dateMonthYearOnly={!!data.is_only_month_year_showed}
         previewImageLink={data.gfx_who}
         downloadAction={() => {
           window.location = data.ref_doc;

@@ -70,6 +70,7 @@
     "webpack-dev-server": "^2.4.5"
   },
   "dependencies": {
+    "moment": "^2.18.1",
     "react": "15.4.1",
     "react-dom": "15.4.1",
     "react-tap-event-plugin": "^2.0.1",
