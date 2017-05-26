@@ -274,7 +274,7 @@ class Api_FollowupController extends Dbjr_Api_BaseController
                 'children_count' => $this->getChildrenCount(self::TYPE_SNIPPET, $snippet['fid_ref']),
                 'parents_count' => $this->getParentsCount(self::TYPE_SNIPPET, $snippet['fid_ref']),
                 'kid' => $this->getConsultationId(self::TYPE_SNIPPET, $snippet['fid_ref']),
-                'data' => $this->getContributionData($snippet['fid_ref']),
+                'data' => $this->getSnippetData($snippet['fid_ref']),
             ];
         }
 
