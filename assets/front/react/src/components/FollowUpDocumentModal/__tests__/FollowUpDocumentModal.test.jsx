@@ -10,6 +10,7 @@ injectTapEventPlugin();
 
 const element = (
   <FollowUpDocumentModal
+    type="general"
     title="Document title"
     author="Author of document"
     date={new Date()}

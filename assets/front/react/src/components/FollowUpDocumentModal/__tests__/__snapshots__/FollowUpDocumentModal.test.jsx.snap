@@ -55,6 +55,9 @@ exports[`rendering renders correctly with long date without snippets 1`] = `
               <div
                 className="col-sm-3"
               >
+                <span>
+                  general
+                </span>
                 <img
                   alt="Document title"
                   className="img-responsive pull-left"
@@ -147,6 +150,9 @@ exports[`rendering renders correctly with one snippet 1`] = `
               <div
                 className="col-sm-3"
               >
+                <span>
+                  general
+                </span>
                 <img
                   alt="Document title"
                   className="img-responsive pull-left"
@@ -279,6 +285,9 @@ exports[`rendering renders correctly with short date without snippets 1`] = `
               <div
                 className="col-sm-3"
               >
+                <span>
+                  general
+                </span>
                 <img
                   alt="Document title"
                   className="img-responsive pull-left"

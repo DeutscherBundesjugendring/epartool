@@ -10,6 +10,7 @@ injectTapEventPlugin();
 
 const element = (
   <FollowUpDocumentBox
+    type="general"
     title="Document title"
     author="Author of document"
     description="Description of document"

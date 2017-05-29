@@ -17,6 +17,7 @@ const FollowDocumentBox = props => (
         : moment(props.date).format('D MMMM YYYY')
       }
     </p>
+    <span>{props.type}</span>
     <img
       src={props.previewImageLink}
       alt={props.title}
@@ -29,6 +30,7 @@ const FollowDocumentBox = props => (
 );
 
 FollowDocumentBox.propTypes = {
+  type: React.PropTypes.string.isRequired,
   title: React.PropTypes.string.isRequired,
   author: React.PropTypes.string.isRequired,
   description: React.PropTypes.string.isRequired,

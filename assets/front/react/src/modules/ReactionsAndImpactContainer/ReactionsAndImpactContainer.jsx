@@ -40,6 +40,7 @@ class ReactionsAndImpactContainer extends React.Component {
 
       const resolvedElement = (
         <FollowUpDocumentModal
+          type={documentResponse.type}
           title={documentResponse.titl}
           author={documentResponse.who}
           description={documentResponse.ref_view}

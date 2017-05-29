@@ -45,6 +45,7 @@ const resolveElement = (response, parentAction, childAction, modalAction, otherA
   if (response.type === 'document') {
     element = (
       <FollowUpDocumentBox
+        type={data.type}
         title={data.titl}
         author={data.who}
         description={data.ref_view}

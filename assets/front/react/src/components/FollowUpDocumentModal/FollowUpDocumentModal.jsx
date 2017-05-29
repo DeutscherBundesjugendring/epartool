@@ -35,6 +35,7 @@ const FollowDocumentModal = props => (
             <div className="well well-accent ">
               <div className="row">
                 <div className="col-sm-3">
+                  <span>{props.type}</span>
                   <img
                     className="img-responsive pull-left"
                     src={props.previewImageLink}
@@ -102,6 +103,7 @@ const FollowDocumentModal = props => (
 );
 
 FollowDocumentModal.propTypes = {
+  type: React.PropTypes.string.isRequired,
   title: React.PropTypes.string.isRequired,
   author: React.PropTypes.string.isRequired,
   date: React.PropTypes.objectOf(Date).isRequired,
