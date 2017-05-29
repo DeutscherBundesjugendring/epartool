@@ -1,6 +1,6 @@
 import React from 'react';
-import FollowUpTimeline from '../FollowUpTimeline/FollowUpTimeline';
-import FollowUpDocumentModal from '../FollowUpDocumentModal/FollowUpDocumentModal';
+import FollowUpTimeline from '../../components/FollowUpTimeline/FollowUpTimeline';
+import FollowUpDocumentModal from '../../components/FollowUpDocumentModal/FollowUpDocumentModal';
 import resolveElement from '../../service/resolveElement';
 import {
   fetchFollowUpElement,
@@ -10,6 +10,8 @@ import {
   fetchFollowUpDocumentSnippets,
 } from '../../actions';
 
+
+/* global baseUrl */
 
 class FollowUpContainer extends React.Component {
   constructor(props) {
@@ -155,7 +157,7 @@ class FollowUpContainer extends React.Component {
                 if (elementResponse.id === response.ffid) {
                   this.setState({ modal: null });
                 } else {
-                  window.location = `/followup/show-by-snippet/kid/${documentResponse.kid}/fid/${response.fid}`;
+                  window.location = `${baseUrl}/followup/show-by-snippet/kid/${documentResponse.kid}/fid/${response.fid}`;
                 }
               },
               followPathLabel: elementResponse.id === response.fid ? 'Zurück zur Zeitleiste' : 'Folge Verlauf',
@@ -185,7 +187,7 @@ class FollowUpContainer extends React.Component {
 
     return (
       <FollowUpTimeline
-        infoLink={`/followup/index/kid/${this.props.consultationId}`}
+        infoLink={`${baseUrl}/followup/index/kid/${this.props.consultationId}`}
         infoLinkTitle="Zurück zur Übersicht Reaktionen & Wirkungen"
         infoText={
           'Verfolge hier, welche Reaktionen es auf den Beitrag gab. ' +
