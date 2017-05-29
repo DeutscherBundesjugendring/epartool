@@ -5,6 +5,8 @@ import FollowUpDocumentBox from '../components/FollowUpDocumentBox/FollowUpDocum
 import FollowUpSnippetBox from '../components/FollowUpSnippetBox/FollowUpSnippetBox';
 
 
+/* global baseUrl */
+
 const resolveElement = (response, parentAction, childAction, modalAction = null) => {
   const { data } = response;
   let element = null;
@@ -19,7 +21,7 @@ const resolveElement = (response, parentAction, childAction, modalAction = null)
         votable={!!data.is_votable}
         votingText="Ergebnis der Abstimmung:"
         votingResults={`${data.votes}. Rang`}
-        votingLink={`/input/show/kid/${response.kid}/qid/${data.qi}`}
+        votingLink={`${baseUrl}/input/show/kid/${response.kid}/qid/${data.qi}`}
       />
     );
   }
@@ -33,7 +35,7 @@ const resolveElement = (response, parentAction, childAction, modalAction = null)
         dislikeAction={() => {}}
         dislikeCount={parseInt(data.lknay, 10)}
         followPathAction={() => {
-          window.location = `/followup/show-by-snippet/kid/${response.kid}/fid/${data.fid}`;
+          window.location = `${baseUrl}/followup/show-by-snippet/kid/${response.kid}/fid/${data.fid}`;
         }}
         followPathLabel="Diesem Pfad folgen"
       />

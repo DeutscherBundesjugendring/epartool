@@ -9,6 +9,8 @@ import {
 } from '../../actions';
 
 
+/* global baseUrl */
+
 class ReactionsAndImpactContainer extends React.Component {
   constructor(props) {
     super(props);
@@ -47,7 +49,7 @@ class ReactionsAndImpactContainer extends React.Component {
             dislikeAction: () => {},
             dislikeCount: parseInt(response.lkyea, 10),
             followPathAction: () => {
-              window.location = `/followup/show-by-snippet/kid/${documentResponse.kid}/fid/${response.fid}`;
+              window.location = `${baseUrl}/followup/show-by-snippet/kid/${documentResponse.kid}/fid/${response.fid}`;
             },
             followPathLabel: 'Folge Verlauf',
           }))}
