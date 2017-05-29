@@ -1,15 +1,12 @@
 import React from 'react';
 
+/* global embedVideoUrl */
 
 const EmbeddedVideo = (props) => {
   let src = null;
 
-  if (props.videoService === 'youtube') {
-    src = `https://www.youtube.com/embed/${props.videoId}`;
-  } else if (props.videoService === 'vimeo') {
-    src = `https://player.vimeo.com/video/${props.videoId}`;
-  } else if (props.videoService === 'facebook') {
-    src = `https://www.facebook.com/video/embed?video_id=${props.videoId}`;
+  if (embedVideoUrl[props.videoService] !== undefined) {
+    src = embedVideoUrl[props.videoService].replace('%s', props.videoId);
   }
 
   if (src) {

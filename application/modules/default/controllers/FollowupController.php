@@ -158,6 +158,11 @@ class FollowupController extends Zend_Controller_Action
         $countArr = $followupRefsModel->getFollowupCountByFids($snippetIds, 'tid = 0');
         $relSnippets = $this->setSnippetData($relSnippets, $countArr, $indexedDocs);
 
+        $embedVideoUrl = [];
+        foreach (Zend_Registry::get('systemconfig')->video->url as $videoServiceName => $videoServiceConfig) {
+            $embedVideoUrl[$videoServiceName] = $videoServiceConfig->embed->link;
+        }
+
         $this->view->question = (new Model_Questions())->getById($qid);
         $this->view->input = $input;
         $this->view->relatedCount = count($relSnippets) + count($relInputs);
@@ -168,6 +173,7 @@ class FollowupController extends Zend_Controller_Action
             null,
             true
         );
+        $this->view->embedVideoUrl = $embedVideoUrl;
     }
 
     /**
@@ -231,6 +237,11 @@ class FollowupController extends Zend_Controller_Action
             );
         }
 
+        $embedVideoUrl = [];
+        foreach (Zend_Registry::get('systemconfig')->video->url as $videoServiceName => $videoServiceConfig) {
+            $embedVideoUrl[$videoServiceName] = $videoServiceConfig->embed->link;
+        }
+
         $this->view->snippet = $snippet;
         $this->view->reltothis_snippets = $relToThisSnippets;
         $this->view->reltothis_inputs = $relToThisInputs;
@@ -239,6 +250,7 @@ class FollowupController extends Zend_Controller_Action
             null,
             true
         );
+        $this->view->embedVideoUrl = $embedVideoUrl;
     }
 
     public function jsonAction()

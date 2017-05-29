@@ -6,6 +6,11 @@
 
     <script type="text/javascript">
       var followupApiUrl = '<?=$this->followupApiUrl?>';
+      var embedVideoUrl = {
+        <?php foreach ($this->embedVideoUrl as $key => $url): ?>
+            <?=$key?>: '<?=$url?>',
+        <? endforeach; ?>
+      };
     </script>
 
     <div id="followup-timeline"></div>
