@@ -30,6 +30,20 @@ describe('rendering', () => {
     expect(shallowToJson(tree)).toMatchSnapshot();
   });
 
+  it('renders correctly with element in one column and one row and with modal', () => {
+    const tree = shallow(
+      <FollowUpTimeline
+        infoLink="#"
+        infoLinkTitle="Link"
+        infoText="Text"
+        columns={[[<div>Left column element</div>]]}
+        modal={<div>Modal element</div>}
+      />
+    );
+
+    expect(shallowToJson(tree)).toMatchSnapshot();
+  });
+
   it('renders correctly with elements in more columns and more rows', () => {
     const tree = shallow(
       <FollowUpTimeline

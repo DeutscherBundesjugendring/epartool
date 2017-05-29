@@ -5,7 +5,14 @@ const RaisedButton = (props) => {
   const linkClasses = 'btn btn-default';
 
   return (
-    <button onTouchTap={props.onTouchTap} disabled={props.disabled} className={linkClasses}>
+    <button
+      onTouchTap={(e) => {
+        e.stopPropagation();
+        props.onTouchTap();
+      }}
+      disabled={props.disabled}
+      className={linkClasses}
+    >
       {props.label}
     </button>
   );

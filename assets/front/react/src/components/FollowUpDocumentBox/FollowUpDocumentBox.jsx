@@ -16,7 +16,6 @@ const FollowDocumentBox = props => (
         ? moment(props.date).format('MMMM YYYY')
         : moment(props.date).format('D MMMM YYYY')
       }
-      {props.author}
     </p>
     <img
       src={props.previewImageLink}

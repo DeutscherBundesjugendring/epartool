@@ -49,7 +49,7 @@ describe('functionality', () => {
       <ThumbButton type="like" onTouchTap={spy} />
     );
 
-    component.simulate('touchTap', { preventDefault: () => {} });
+    component.simulate('touchTap', { stopPropagation: () => {} });
     expect(spy.calledOnce).toEqual(true);
   });
 });

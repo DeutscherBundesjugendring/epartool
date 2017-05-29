@@ -14,7 +14,14 @@ const ThumbButton = (props) => {
   }
 
   return (
-    <button onTouchTap={props.onTouchTap} className={linkClasses} disabled={props.disabled}>
+    <button
+      onTouchTap={(e) => {
+        e.stopPropagation();
+        props.onTouchTap();
+      }}
+      className={linkClasses}
+      disabled={props.disabled}
+    >
       <span className={iconClasses} aria-hidden="true" />
     </button>
   );

@@ -12,7 +12,6 @@ exports[`rendering renders correctly with long date 1`] = `
   </p>
   <p>
     26 May 2017
-    Author of document
   </p>
   <img
     alt="Document title"
@@ -41,7 +40,6 @@ exports[`rendering renders correctly with short date 1`] = `
   </p>
   <p>
     May 2017
-    Author of document
   </p>
   <img
     alt="Document title"
