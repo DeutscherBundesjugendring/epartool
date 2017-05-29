@@ -11,7 +11,7 @@ exports[`rendering renders correctly with long date 1`] = `
     Author of document
   </p>
   <p>
-    26 May 2017
+    1 January 2017
   </p>
   <img
     alt="Document title"
@@ -39,7 +39,7 @@ exports[`rendering renders correctly with short date 1`] = `
     Author of document
   </p>
   <p>
-    May 2017
+    January 2017
   </p>
   <img
     alt="Document title"

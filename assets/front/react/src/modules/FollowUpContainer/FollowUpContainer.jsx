@@ -128,7 +128,12 @@ class FollowUpContainer extends React.Component {
       .catch(this.handleError);
   }
 
-  getDocumentBox(elementResponse) {
+  getDocumentModal(
+    elementResponse,
+    rewriteSnippetId = null,
+    rewriteSnippetLike = null,
+    rewriteSnippetDislike = null
+  ) {
     if (elementResponse.type === 'snippet' || elementResponse.type === 'document') {
       const documentPromise = fetchFollowUpDocument(elementResponse.data.ffid);
       const documentSnippetsPromise = fetchFollowUpDocumentSnippets(elementResponse.data.ffid);
@@ -150,10 +155,16 @@ class FollowUpContainer extends React.Component {
             downloadLabel="Herunterladen"
             snippets={snippetResponse.map(response => ({
               snippetExplanation: response.expl,
-              likeAction: () => {},
-              likeCount: parseInt(response.lkyea, 10),
-              dislikeAction: () => {},
-              dislikeCount: parseInt(response.lkyea, 10),
+              likeAction: () => this.modalSnippetLike(response.fid, elementResponse),
+              likeCount: parseInt(
+                rewriteSnippetId && rewriteSnippetLike ? rewriteSnippetLike : response.lkyea,
+                10
+              ),
+              dislikeAction: () => this.modalSnippetDislike(response.fid, elementResponse),
+              dislikeCount: parseInt(
+                rewriteSnippetId && rewriteSnippetDislike ? rewriteSnippetDislike : response.lknay,
+                10
+              ),
               followPathAction: () => {
                 if (elementResponse.id === response.ffid) {
                   this.setState({ modal: null });
@@ -171,6 +182,22 @@ class FollowUpContainer extends React.Component {
       })
       .catch(this.handleError);
     }
+  }
+
+  modalSnippetLike(followUpId, elementResponse) {
+    likeFollowUpDocumentSnippet(followUpId)
+      .then((response) => {
+        this.getDocumentModal(elementResponse, followUpId, response.lkyea);
+      })
+      .catch(this.handleError);
+  }
+
+  modalSnippetDislike(followUpId, elementResponse) {
+    dislikeFollowUpDocumentSnippet(followUpId)
+      .then((response) => {
+        this.getDocumentModal(elementResponse, followUpId, null, response.lknay);
+      })
+      .catch(this.handleError);
   }
 
   snippetLike(followUpType, followUpId, response) {
@@ -222,7 +249,7 @@ class FollowUpContainer extends React.Component {
       response,
       () => this.getParents(followUpType, parseInt(followUpId, 10)),
       () => this.getChildren(followUpType, parseInt(followUpId, 10)),
-      () => this.getDocumentBox(response),
+      () => this.getDocumentModal(response),
       followUpType === 'snippet' ? {
         snippetLikeAction: () => this.snippetLike(followUpType, followUpId, response),
         snippetDislikeAction: () => this.snippetDislike(followUpType, followUpId, response),
