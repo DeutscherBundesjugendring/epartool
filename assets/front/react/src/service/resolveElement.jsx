@@ -4,6 +4,7 @@ import FollowUpContributionBox from '../components/FollowUpContributionBox/Follo
 import FollowUpDocumentBox from '../components/FollowUpDocumentBox/FollowUpDocumentBox';
 import FollowUpSnippetBox from '../components/FollowUpSnippetBox/FollowUpSnippetBox';
 
+/* global followupTranslations */
 
 const resolveElement = (response, parentAction, childAction, modalAction = null) => {
   const { data } = response;
@@ -17,8 +18,8 @@ const resolveElement = (response, parentAction, childAction, modalAction = null)
         videoService={data.video_service}
         videoId={data.video_id}
         votable={!!data.is_votable}
-        votingText="Ergebnis der Abstimmung:"
-        votingResults={`${data.votes}. Rang`}
+        votingText={followupTranslations.votingResult}
+        votingResults={`${data.votes}. ${followupTranslations.position}`}
         votingLink={`/input/show/kid/${response.kid}/qid/${data.qi}`}
       />
     );
@@ -35,7 +36,7 @@ const resolveElement = (response, parentAction, childAction, modalAction = null)
         followPathAction={() => {
           window.location = `/followup/show-by-snippet/kid/${response.kid}/fid/${data.fid}`;
         }}
-        followPathLabel="Diesem Pfad folgen"
+        followPathLabel={followupTranslations.followPath}
       />
     );
   }
@@ -52,7 +53,7 @@ const resolveElement = (response, parentAction, childAction, modalAction = null)
         downloadAction={() => {
           window.location = data.ref_doc;
         }}
-        downloadLabel="Herunterladen"
+        downloadLabel={followupTranslations.downloadLabel}
       />
     );
   }
