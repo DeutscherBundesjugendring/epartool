@@ -347,9 +347,11 @@ class Api_FollowupController extends Dbjr_Api_BaseController
             'titl' => $document['titl'],
             'when' => $this->convertDateTime($document['when']),
             'is_only_month_year_showed' => $document['is_only_month_year_showed'],
-            'ref_doc' => $document['ref_doc'],
+            'ref_doc' => $this->view->baseUrl() . MEDIA_URL . '/consultations/' . $document['kid'] . '/'
+                . $document['ref_doc'],
             'ref_view' => $document['ref_view'],
-            'gfx_who' => $document['gfx_who'],
+            'gfx_who' => $this->view->baseUrl() . MEDIA_URL . '/consultations/' . $document['kid'] . '/'
+                . $document['gfx_who'],
             'type' => $document['type'],
             'who' => $document['who'],
         ];
@@ -378,7 +380,6 @@ class Api_FollowupController extends Dbjr_Api_BaseController
             'lkyea' => $snippet['lkyea'],
             'lknay' => $snippet['lknay'],
             'type' => $snippet['type'],
-            'gfx_who' => (new Model_FollowupFiles())->getById($snippet['ffid'])['gfx_who'],
         ];
     }
 
@@ -421,10 +422,17 @@ class Api_FollowupController extends Dbjr_Api_BaseController
     {
         $result = (new Model_FollowupFiles())->getFollowupsById($documentId);
         if ($result instanceof Zend_Db_Table_Rowset) {
-            return $result->toArray();
+            $resultArray = $result->toArray();
+        } else {
+            $resultArray = $result;
         }
 
-        return $result;
+        foreach ($resultArray as $key => $snippet) {
+            $resultArray[$key]['parents_count'] = $this->getParentsCount(self::TYPE_SNIPPET, $snippet['fid']);
+            $resultArray[$key]['children_count'] = $this->getChildrenCount(self::TYPE_SNIPPET, $snippet['fid']);
+        }
+
+        return $resultArray;
     }
 
     /**
