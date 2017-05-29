@@ -114,8 +114,19 @@ class Admin_VotingprepareController extends Zend_Controller_Action
             Admin_Form_Input::AFTER_SUBMIT_SPLIT_NEXT
         );
         $form->getElement('qi')->setAttrib('disabled', 'disabled');
+
         $origInputId = $this->getRequest()->getParam('inputId');
         $origInputData = $inputModel->find($origInputId)->current();
+
+        $projectSettings = (new Model_Projects())->find(Zend_Registry::get('systemconfig')->project)->current();
+        $question = (new Model_Questions())->find($origInputData['qi'])->current();
+        $form->setVideoEnabled(
+            $question['video_enabled']
+            && ($projectSettings['video_facebook_enabled']
+                || $projectSettings['video_youtube_enabled']
+                || $projectSettings['video_vimeo_enabled']
+            )
+        );
 
         if ($this->getRequest()->isPost()) {
             $postData = $this->getRequest()->getPost();

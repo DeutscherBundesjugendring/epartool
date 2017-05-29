@@ -1765,10 +1765,10 @@ ALTER TABLE `inpt` CHANGE `notiz` `notiz` varchar(300) NOT NULL DEFAULT '' COMME
 ALTER TABLE `inpt` CHANGE `tg_nrs` `tg_nrs` varchar(255) NOT NULL DEFAULT '' COMMENT 'Nummern der Keywords (100-999), max 14 Tags';
 ALTER TABLE `inpt` CHANGE `thes` `thes` varchar(330) NOT NULL DEFAULT '' COMMENT 'User reply';
 ALTER TABLE `inpt` CHANGE `video_id` `video_id` varchar(255) NULL DEFAULT '' COMMENT '';
-ALTER TABLE `inpt` CHANGE `video_service` `video_service` varchar(191) NULL DEFAULT '' COMMENT '';
+ALTER TABLE `inpt` CHANGE `video_service` `video_service` varchar(191) NULL COMMENT '';
 ALTER TABLE `input_discussion` CHANGE `body` `body` text NULL COMMENT '';
 ALTER TABLE `input_discussion` CHANGE `video_id` `video_id` varchar(191) NULL DEFAULT '' COMMENT '';
-ALTER TABLE `input_discussion` CHANGE `video_service` `video_service` varchar(191) NULL DEFAULT '' COMMENT '';
+ALTER TABLE `input_discussion` CHANGE `video_service` `video_service` varchar(191) NULL COMMENT '';
 ALTER TABLE `language` CHANGE `code` `code` varchar(191) NOT NULL DEFAULT '' COMMENT '';
 ALTER TABLE `license` CHANGE `alt` `alt` varchar(255) NOT NULL DEFAULT '' COMMENT '';
 ALTER TABLE `license` CHANGE `description` `description` varchar(255) NOT NULL DEFAULT '' COMMENT '';
@@ -1825,7 +1825,7 @@ ALTER TABLE `user_info` CHANGE `name_pers` `name_pers` varchar(255) NULL DEFAULT
 ALTER TABLE `user_info` CHANGE `regio_pax` `regio_pax` varchar(255) NULL DEFAULT '' COMMENT 'Bundesländer';
 ALTER TABLE `user_info` CHANGE `source` `source` set('d','g','p','m') NULL DEFAULT '' COMMENT 'Dialogue, Group, Misc, Position paper';
 ALTER TABLE `user_info` CHANGE `src_misc` `src_misc` varchar(300) NULL DEFAULT '' COMMENT 'explanation of misc source';
-ALTER TABLE `video_service` CHANGE `name` `name` varchar(191) NOT NULL DEFAULT '' COMMENT '';
+ALTER TABLE `video_service` CHANGE `name` `name` varchar(191) NOT NULL COMMENT '';
 ALTER TABLE `vt_final` CHANGE `id` `id` varchar(191) NOT NULL DEFAULT '' COMMENT 'md5 (tid\'.-.\'uid)';
 ALTER TABLE `vt_grps` CHANGE `sub_uid` `sub_uid` char(32) NOT NULL DEFAULT '' COMMENT 'md5 of mail.kid';
 ALTER TABLE `vt_grps` CHANGE `sub_user` `sub_user` varchar(255) NOT NULL DEFAULT '' COMMENT 'email address';
