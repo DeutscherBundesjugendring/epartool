@@ -1,6 +1,6 @@
 import React from 'react';
-import FollowUpTimeline from '../FollowUpTimeline/FollowUpTimeline';
-import FollowUpDocumentModal from '../FollowUpDocumentModal/FollowUpDocumentModal';
+import FollowUpTimeline from '../../components/FollowUpTimeline/FollowUpTimeline';
+import FollowUpDocumentModal from '../../components/FollowUpDocumentModal/FollowUpDocumentModal';
 import resolveElement from '../../service/resolveElement';
 import {
   fetchFollowUpElement,

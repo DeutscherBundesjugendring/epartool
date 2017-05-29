@@ -70,6 +70,11 @@ class FollowupController extends Zend_Controller_Action
         }
         $this->view->followups = $followups;
         $this->view->subscriptionForm = $sbsForm;
+        $this->view->followupApiUrl = $this->view->url(
+            ['module' => 'api', 'controller' => 'followup', 'action' => 'index'],
+            null,
+            true
+        );
     }
 
     public function inputsByQuestionAction()

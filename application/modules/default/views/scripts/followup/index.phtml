@@ -58,8 +58,7 @@
                                         </h4>
                                         <div class="offset-bottom-small">
                                             <img
-                                                class="followup-well-link img-responsive followup-timeline-box followup-timeline-box-border js-openoverlay js-timeline-box type-<?=$followup['type'];?>"
-                                                data-href="<?=$this->url(['action' => 'json', 'ffid' => (int) $followup['ffid'], 'fid' => null, 'tid' => null, 'page' => null]);?>"
+                                                class="followup-well-link img-responsive followup-timeline-box followup-timeline-box-border type-<?=$followup['type'];?> js-reactions-and-impact-view"
                                                 data-ffid="<?=(int) $followup['ffid'];?>"
                                                 src="<?=$this->mediaCnsltDir . $followup['gfx_who'];?>" alt="<?=$this->translate('Preview');?>"
                                             />
@@ -77,8 +76,7 @@
                                         </p>
                                         <span class="glyphicon glyphicon-menu-right icon-offset text-muted" aria-hidden="true"></span>
                                         <button
-                                            class="btn-link followup-timeline-box js-openoverlay js-timeline-box"
-                                            data-href="<?=$this->url(['action' => 'json', 'ffid' => (int) $followup['ffid'], 'fid' => null, 'tid' => null, 'page' => null]);?>"
+                                            class="btn-link js-reactions-and-impact-view"
                                             data-ffid="<?=(int) $followup['ffid'];?>"
                                         >
                                             <?=$this->translate('View');?>
@@ -87,7 +85,7 @@
                                             <form method="post" action="<?= $this->url(['action' => 'download', 'page' => null]);?>">
                                                 <input type="hidden" name="filename" value="<?=$followup['ref_doc'];?>" />
                                                 <span class="glyphicon glyphicon-file icon-offset text-muted" aria-hidden="true"></span>
-                                                <button type="submit" class="btn-link">
+                                                <button type="submit" class="btn-link js-reactions-and-impact-download">
                                                     <?=$this->translate('Download');?>
                                                 </button>
                                             </form>
@@ -104,6 +102,12 @@
 
                     <!-- Loader -->
                     <div id="followuploader"><?=$this->translate('Loading…');?></div>
+
+                    <div id="reactions-and-impact"></div>
+
+                    <script type="text/javascript">
+                      var followupApiUrl = '<?=$this->followupApiUrl?>';
+                    </script>
                 <?php else: ?>
                     <p class="alert alert-info text-left">
                         <span class="glyphicon glyphicon-info-sign icon-offset" aria-hidden="true"></span>
