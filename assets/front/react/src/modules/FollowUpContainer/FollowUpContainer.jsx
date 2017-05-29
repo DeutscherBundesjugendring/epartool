@@ -157,12 +157,16 @@ class FollowUpContainer extends React.Component {
               snippetExplanation: response.expl,
               likeAction: () => this.modalSnippetLike(response.fid, elementResponse),
               likeCount: parseInt(
-                rewriteSnippetId && rewriteSnippetLike ? rewriteSnippetLike : response.lkyea,
+                rewriteSnippetId === response.fid && rewriteSnippetLike
+                  ? rewriteSnippetLike
+                  : response.lkyea,
                 10
               ),
               dislikeAction: () => this.modalSnippetDislike(response.fid, elementResponse),
               dislikeCount: parseInt(
-                rewriteSnippetId && rewriteSnippetDislike ? rewriteSnippetDislike : response.lknay,
+                rewriteSnippetId && rewriteSnippetDislike
+                  ? rewriteSnippetDislike
+                  : response.lknay,
                 10
               ),
               followPathAction: () => {
@@ -184,18 +188,50 @@ class FollowUpContainer extends React.Component {
     }
   }
 
-  modalSnippetLike(followUpId, elementResponse) {
+  modalSnippetLike(followUpId, response) {
     likeFollowUpDocumentSnippet(followUpId)
-      .then((response) => {
-        this.getDocumentModal(elementResponse, followUpId, response.lkyea);
+      .then((likeReponse) => {
+        this.getDocumentModal(response, followUpId, likeReponse.lkyea);
+
+        let changedColumns = Object.assign([], this.state.columns);
+        changedColumns = changedColumns.map(column => (
+          column.map((element) => {
+            if (element.props.type === 'snippet' && element.props.id === parseInt(followUpId, 10)) {
+              const responseCopy = Object.assign([], response);
+              responseCopy.data.lkyea = likeReponse.lkyea;
+
+              return this.prepareResolveElement('snippet', followUpId, responseCopy);
+            }
+
+            return element;
+          })
+        ));
+
+        this.setState({ columns: changedColumns });
       })
       .catch(this.handleError);
   }
 
-  modalSnippetDislike(followUpId, elementResponse) {
+  modalSnippetDislike(followUpId, response) {
     dislikeFollowUpDocumentSnippet(followUpId)
-      .then((response) => {
-        this.getDocumentModal(elementResponse, followUpId, null, response.lknay);
+      .then((dislikeResponse) => {
+        this.getDocumentModal(response, followUpId, null, dislikeResponse.lknay);
+
+        let changedColumns = Object.assign([], this.state.columns);
+        changedColumns = changedColumns.map(column => (
+          column.map((element) => {
+            if (element.props.type === 'snippet' && element.props.id === parseInt(followUpId, 10)) {
+              const responseCopy = Object.assign([], response);
+              responseCopy.data.lknay = dislikeResponse.lknay;
+
+              return this.prepareResolveElement('snippet', followUpId, responseCopy);
+            }
+
+            return element;
+          })
+        ));
+
+        this.setState({ columns: changedColumns });
       })
       .catch(this.handleError);
   }

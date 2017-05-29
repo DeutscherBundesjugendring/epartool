@@ -4,13 +4,19 @@ import React from 'react';
 import EmbeddedVideo from '../EmbeddedVideo';
 
 
+global.embedVideoUrl = {
+  youtube: 'https://www.youtube.com/embed/%s',
+  vimeo: 'https://player.vimeo.com/video/%s',
+  facebook: 'https://www.facebook.com/video/embed?video_id=%s',
+};
+
 describe('rendering', () => {
   it('renders correctly youtube embedded video', () => {
     const tree = shallow(
       <EmbeddedVideo
         videoService="youtube"
         videoId="youtube-video-id"
-      />
+      />,
     );
 
     expect(shallowToJson(tree)).toMatchSnapshot();

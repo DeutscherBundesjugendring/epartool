@@ -6,6 +6,8 @@ import FollowUpDocumentModal from '../../components/FollowUpDocumentModal/Follow
 import {
   fetchFollowUpDocument,
   fetchFollowUpDocumentSnippets,
+  likeFollowUpDocumentSnippet,
+  dislikeFollowUpDocumentSnippet,
 } from '../../actions';
 
 
@@ -22,10 +24,16 @@ class ReactionsAndImpactContainer extends React.Component {
   }
 
   componentDidMount() {
-    const { followUpId } = this.props;
+    this.getDocumentModal();
+  }
 
-    const documentPromise = fetchFollowUpDocument(followUpId);
-    const documentSnippetsPromise = fetchFollowUpDocumentSnippets(followUpId);
+  getDocumentModal(
+    rewriteSnippetId = null,
+    rewriteSnippetLike = null,
+    rewriteSnippetDislike = null
+  ) {
+    const documentPromise = fetchFollowUpDocument(this.props.followUpId);
+    const documentSnippetsPromise = fetchFollowUpDocumentSnippets(this.props.followUpId);
 
     Promise.all([documentPromise, documentSnippetsPromise]).then((responses) => {
       const [documentResponse, snippetResponse] = responses;
@@ -44,10 +52,20 @@ class ReactionsAndImpactContainer extends React.Component {
           downloadLabel="Herunterladen"
           snippets={snippetResponse.map(response => ({
             snippetExplanation: response.expl,
-            likeAction: () => {},
-            likeCount: parseInt(response.lkyea, 10),
-            dislikeAction: () => {},
-            dislikeCount: parseInt(response.lkyea, 10),
+            likeAction: () => this.modalSnippetLike(response.fid),
+            likeCount: parseInt(
+              rewriteSnippetId === response.fid && rewriteSnippetLike
+                ? rewriteSnippetLike
+                : response.lkyea,
+              10
+            ),
+            dislikeAction: () => this.modalSnippetDislike(response.fid),
+            dislikeCount: parseInt(
+              rewriteSnippetId === response.fid && rewriteSnippetDislike
+                ? rewriteSnippetDislike
+                : response.lknay,
+              10
+            ),
             followPathAction: () => {
               window.location = `${baseUrl}/followup/show-by-snippet/kid/${documentResponse.kid}/fid/${response.fid}`;
             },
@@ -59,7 +77,23 @@ class ReactionsAndImpactContainer extends React.Component {
 
       this.setState({ modal: resolvedElement });
     })
-    .catch(this.handleError);
+      .catch(this.handleError);
+  }
+
+  modalSnippetLike(followUpId) {
+    likeFollowUpDocumentSnippet(followUpId)
+      .then((response) => {
+        this.getDocumentModal(followUpId, response.lkyea);
+      })
+      .catch(this.handleError);
+  }
+
+  modalSnippetDislike(followUpId) {
+    dislikeFollowUpDocumentSnippet(followUpId)
+      .then((response) => {
+        this.getDocumentModal(followUpId, null, response.lknay);
+      })
+      .catch(this.handleError);
   }
 
   handleError() {
