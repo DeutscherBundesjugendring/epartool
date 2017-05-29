@@ -1222,6 +1222,14 @@ class Model_Inputs extends Dbjr_Db_Table_Abstract
             $data['video_id'] = null;
         }
 
+        foreach (['is_confirmed', 'is_confirmed_by_user', 'is_votable'] as $flag) {
+            if (isset($data[$flag]) && empty($data[$flag]) && $data[$flag] !== '0') {
+                $data[$flag] = null;
+            } else {
+                $data[$flag] = (int) $data[$flag];
+            }
+        }
+
         $row = $this->createRow($data);
         $tid = (int) $row->save();
 
