@@ -127,51 +127,50 @@ class FollowUpContainer extends React.Component {
 
   getDocumentBox(elementResponse) {
     if (elementResponse.type === 'snippet' || elementResponse.type === 'document') {
-      fetchFollowUpDocument(elementResponse.data.ffid)
-        .then((documentResponse) => {
-          fetchFollowUpDocumentSnippets(elementResponse.data.ffid)
-            .then((snippetResponse) => {
-              const resolvedElement = (
-                <FollowUpDocumentModal
-                  title={documentResponse.titl}
-                  author={documentResponse.who}
-                  description={documentResponse.ref_view}
-                  date={new Date(documentResponse.when)}
-                  dateMonthYearOnly={!!documentResponse.is_only_month_year_showed}
-                  previewImageLink={documentResponse.gfx_who}
-                  downloadAction={() => {
-                    window.location = documentResponse.ref_doc;
-                  }}
-                  downloadLabel="Herunterladen"
-                  snippets={snippetResponse.map(response => ({
-                    snippetExplanation: response.expl,
-                    likeAction: () => {},
-                    likeCount: parseInt(response.lkyea, 10),
-                    dislikeAction: () => {},
-                    dislikeCount: parseInt(response.lkyea, 10),
-                    followPathAction: () => {
-                      if (elementResponse.id === response.ffid) {
-                        this.setState({ modal: null });
-                      } else {
-                        window.location = `/followup/show-by-snippet/kid/${documentResponse.kid}/fid/${response.fid}`;
-                      }
-                    },
-                    followPathLabel: elementResponse.id === response.fid ? 'Zurück zur Zeitleiste' : 'Folge Verlauf',
-                  }))}
-                  closeAction={() => this.setState({ modal: null })}
-                />
-              );
+      const documentPromise = fetchFollowUpDocument(elementResponse.data.ffid);
+      const documentSnippetsPromise = fetchFollowUpDocumentSnippets(elementResponse.data.ffid);
 
-              this.setState({ modal: resolvedElement });
-            })
-            .catch(this.handleError);
-        })
+      Promise.all([documentPromise, documentSnippetsPromise]).then((responses) => {
+        const [documentResponse, snippetResponse] = responses;
+
+        const resolvedElement = (
+          <FollowUpDocumentModal
+            title={documentResponse.titl}
+            author={documentResponse.who}
+            description={documentResponse.ref_view}
+            date={new Date(documentResponse.when)}
+            dateMonthYearOnly={!!documentResponse.is_only_month_year_showed}
+            previewImageLink={documentResponse.gfx_who}
+            downloadAction={() => {
+              window.location = documentResponse.ref_doc;
+            }}
+            downloadLabel="Herunterladen"
+            snippets={snippetResponse.map(response => ({
+              snippetExplanation: response.expl,
+              likeAction: () => {},
+              likeCount: parseInt(response.lkyea, 10),
+              dislikeAction: () => {},
+              dislikeCount: parseInt(response.lkyea, 10),
+              followPathAction: () => {
+                if (elementResponse.id === response.ffid) {
+                  this.setState({ modal: null });
+                } else {
+                  window.location = `/followup/show-by-snippet/kid/${documentResponse.kid}/fid/${response.fid}`;
+                }
+              },
+              followPathLabel: elementResponse.id === response.fid ? 'Zurück zur Zeitleiste' : 'Folge Verlauf',
+            }))}
+            closeAction={() => this.setState({ modal: null })}
+          />
+        );
+
+        this.setState({ modal: resolvedElement });
+      })
         .catch(this.handleError);
     }
   }
 
-  handleError(error) {
-    console.log(error);
+  handleError() {
     this.setState({ hasError: true });
   }
 
