@@ -114,8 +114,19 @@ class Admin_VotingprepareController extends Zend_Controller_Action
             Admin_Form_Input::AFTER_SUBMIT_SPLIT_NEXT
         );
         $form->getElement('qi')->setAttrib('disabled', 'disabled');
+
         $origInputId = $this->getRequest()->getParam('inputId');
         $origInputData = $inputModel->find($origInputId)->current();
+
+        $projectSettings = (new Model_Projects())->find(Zend_Registry::get('systemconfig')->project)->current();
+        $question = (new Model_Questions())->find($origInputData['qi'])->current();
+        $form->setVideoEnabled(
+            $question['video_enabled']
+            && ($projectSettings['video_facebook_enabled']
+                || $projectSettings['video_youtube_enabled']
+                || $projectSettings['video_vimeo_enabled']
+            )
+        );
 
         if ($this->getRequest()->isPost()) {
             $postData = $this->getRequest()->getPost();
@@ -166,6 +177,11 @@ class Admin_VotingprepareController extends Zend_Controller_Action
             } else {
                 $this->_flashMessenger->addMessage('Form is not valid, please check the values entered.', 'error');
             }
+        } else {
+            $this->_flashMessenger->addMessage(
+                'Video contribution settings are inherited from Question, therefore it is possible to add a video only after saving this Contribution thus linking it to a Question.',
+                'info'
+            );
         }
 
         $this->view->inputs = $inputModel->fetchAllInputs(['tid IN (?)' => $origInputIds]);
@@ -180,7 +196,19 @@ class Admin_VotingprepareController extends Zend_Controller_Action
     {
         $inputModel = new Model_Inputs();
         $origInputId = $this->getRequest()->getParam('inputId');
+        $origData = $inputModel->getById($origInputId);
         $form = new Admin_Form_Input($this->view->url(['action' => 'overview']));
+
+        $projectSettings = (new Model_Projects())->find(Zend_Registry::get('systemconfig')->project)->current();
+        $question = (new Model_Questions())->find($origData['qi'])->current();
+        $form->setVideoEnabled(
+            $question['video_enabled']
+            && ($projectSettings['video_facebook_enabled']
+                || $projectSettings['video_youtube_enabled']
+                || $projectSettings['video_vimeo_enabled']
+            )
+        );
+
 
         if ($this->getRequest()->isPost()) {
             $postData = $this->getRequest()->getPost();
@@ -198,7 +226,6 @@ class Admin_VotingprepareController extends Zend_Controller_Action
                 $this->_flashMessenger->addMessage('Form is not valid, please check the values entered.', 'error');
             }
         } else {
-            $origData = $inputModel->getById($origInputId);
             $origData['uid'] = null;
             unset($origData['when']);
             unset($origData['tags']);
