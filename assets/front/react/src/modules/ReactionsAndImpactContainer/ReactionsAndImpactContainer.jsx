@@ -71,6 +71,7 @@ class ReactionsAndImpactContainer extends React.Component {
               window.location = `${baseUrl}/followup/show-by-snippet/kid/${documentResponse.kid}/fid/${response.fid}`;
             },
             followPathLabel: 'Folge Verlauf',
+            showFollowPathButton: response.parents_count !== 0 || response.children_count !== 0,
           }))}
           closeAction={() => this.setState({ modal: null })}
         />

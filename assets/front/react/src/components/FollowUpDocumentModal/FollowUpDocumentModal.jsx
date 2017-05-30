@@ -88,10 +88,12 @@ const FollowDocumentModal = props => (
                     <span className="badge">{snippet.dislikeCount}</span>
                     <ThumbButton type="dislike" onTouchTap={snippet.dislikeAction} />
                   </span>
-                  <RaisedButton
-                    label={snippet.followPathLabel}
-                    onTouchTap={snippet.followPathAction}
-                  />
+                  {snippet.showFollowPathButton &&
+                    <RaisedButton
+                      label={snippet.followPathLabel}
+                      onTouchTap={snippet.followPathAction}
+                    />
+                  }
                 </div>
               </div>
             ))}
@@ -120,6 +122,7 @@ FollowDocumentModal.propTypes = {
     dislikeCount: React.PropTypes.number.isRequired,
     followPathAction: React.PropTypes.func.isRequired,
     followPathLabel: React.PropTypes.string.isRequired,
+    showFollowPathButton: React.PropTypes.bool.isRequired,
   })),
 };
 

@@ -13,7 +13,7 @@ const element = (
     type="general"
     title="Document title"
     author="Author of document"
-    date={new Date()}
+    date={new Date('2017-01-01')}
     dateMonthYearOnly={false}
     previewImageLink="http://www.example.com/image.jpg"
     downloadAction={() => {}}
@@ -30,6 +30,7 @@ const snippetElement = {
   dislikeCount: 0,
   followPathAction: () => {},
   followPathLabel: 'Follow path',
+  showFollowPathButton: true,
 };
 
 

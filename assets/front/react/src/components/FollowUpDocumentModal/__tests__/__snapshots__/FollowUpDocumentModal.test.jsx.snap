@@ -73,7 +73,7 @@ exports[`rendering renders correctly with long date without snippets 1`] = `
                 <p
                   className="small"
                 >
-                  29 May 2017
+                  1 January 2017
                 </p>
                 <button
                   className="btn btn-default btn-default-alt"
@@ -168,7 +168,7 @@ exports[`rendering renders correctly with one snippet 1`] = `
                 <p
                   className="small"
                 >
-                  29 May 2017
+                  1 January 2017
                 </p>
                 <button
                   className="btn btn-default btn-default-alt"
@@ -303,7 +303,7 @@ exports[`rendering renders correctly with short date without snippets 1`] = `
                 <p
                   className="small"
                 >
-                  May 2017
+                  January 2017
                 </p>
                 <button
                   className="btn btn-default btn-default-alt"
