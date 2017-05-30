@@ -31,26 +31,6 @@ describe('rendering', () => {
 });
 
 describe('functionality', () => {
-  it('calls like action', () => {
-    const spy = sinon.spy();
-    const component = shallow(
-      React.cloneElement(element, { likeAction: spy })
-    );
-
-    component.find('ThumbButton').first().simulate('touchTap', { preventDefault: () => {} });
-    expect(spy.calledOnce).toEqual(true);
-  });
-
-  it('calls dislike action', () => {
-    const spy = sinon.spy();
-    const component = shallow(
-      React.cloneElement(element, { dislikeAction: spy })
-    );
-
-    component.find('ThumbButton').at(1).simulate('touchTap', { preventDefault: () => {} });
-    expect(spy.calledOnce).toEqual(true);
-  });
-
   it('calls follow path action', () => {
     const spy = sinon.spy();
     const component = shallow(

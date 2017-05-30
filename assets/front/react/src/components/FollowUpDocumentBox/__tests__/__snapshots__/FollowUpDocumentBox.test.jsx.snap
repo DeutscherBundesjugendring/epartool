@@ -22,7 +22,13 @@ exports[`rendering renders correctly with long date 1`] = `
     src="http://www.example.com/image.jpg"
     width="80"
   />
-  Description of document
+  <div
+    dangerouslySetInnerHTML={
+      Object {
+        "__html": "Description of document",
+      }
+    }
+  />
   <RaisedButton
     disabled={false}
     label="Download document"
@@ -53,7 +59,13 @@ exports[`rendering renders correctly with short date 1`] = `
     src="http://www.example.com/image.jpg"
     width="80"
   />
-  Description of document
+  <div
+    dangerouslySetInnerHTML={
+      Object {
+        "__html": "Description of document",
+      }
+    }
+  />
   <RaisedButton
     disabled={false}
     label="Download document"

@@ -75,7 +75,10 @@ class ReactionsAndImpactContainer extends React.Component {
             followPathLabel: followupTranslations.followPath,
             showFollowPathButton: response.parents_count !== 0 || response.children_count !== 0,
           }))}
-          closeAction={() => this.setState({ modal: null })}
+          closeAction={() => {
+            window.removeModalOpenFromBody();
+            this.setState({ modal: null });
+          }}
         />
       );
 

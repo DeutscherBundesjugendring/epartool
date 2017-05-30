@@ -4,31 +4,22 @@ exports[`rendering renders correctly 1`] = `
 <div
   className="well well-bordered followup-well followup-well-link"
 >
-  <p>
-    Snippet
-  </p>
+  <div
+    dangerouslySetInnerHTML={
+      Object {
+        "__html": "Snippet",
+      }
+    }
+  />
   <div
     className="offset-bottom-small"
   >
-    <span
-      className="badge"
-    >
-      0
-    </span>
-    <ThumbButton
-      disabled={false}
-      onTouchTap={[Function]}
-      type="like"
-    />
-    <span
-      className="badge"
-    >
-      0
-    </span>
-    <ThumbButton
-      disabled={false}
-      onTouchTap={[Function]}
-      type="dislike"
+    <Reputation
+      dislikeAction={[Function]}
+      dislikeCount={0}
+      likeAction={[Function]}
+      likeCount={0}
+      voted={false}
     />
   </div>
   <RaisedButton

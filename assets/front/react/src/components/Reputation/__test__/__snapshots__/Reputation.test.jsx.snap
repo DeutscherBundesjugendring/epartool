@@ -1,0 +1,51 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`rendering renders correctly 1`] = `
+<div>
+  <span
+    className="badge"
+  >
+    0
+  </span>
+  <ThumbButton
+    disabled={false}
+    onTouchTap={[Function]}
+    type="like"
+  />
+  <span
+    className="badge"
+  >
+    0
+  </span>
+  <ThumbButton
+    disabled={false}
+    onTouchTap={[Function]}
+    type="dislike"
+  />
+</div>
+`;
+
+exports[`rendering renders correctly disabled voting 1`] = `
+<div>
+  <span
+    className="badge"
+  >
+    0
+  </span>
+  <ThumbButton
+    disabled={false}
+    onTouchTap={[Function]}
+    type="like"
+  />
+  <span
+    className="badge"
+  >
+    0
+  </span>
+  <ThumbButton
+    disabled={false}
+    onTouchTap={[Function]}
+    type="dislike"
+  />
+</div>
+`;

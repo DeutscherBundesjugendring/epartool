@@ -1,7 +1,7 @@
 import React from 'react';
 import moment from 'moment';
 import EmbeddedVideo from '../EmbeddedVideo/EmbeddedVideo';
-import ThumbButton from '../ThumbButton/ThumbButton';
+import Reputation from '../Reputation/Reputation';
 import RaisedButton from '../RaisedButton/RaisedButton';
 
 
@@ -77,16 +77,16 @@ const FollowDocumentModal = props => (
                   />
                 }
 
-                <p>
-                  {snippet.snippetExplanation}
-                </p>
+                <div dangerouslySetInnerHTML={{ __html: snippet.snippetExplanation }} />
 
                 <div className="text-right offset-top-small offset-bottom-small">
                   <span className="offset-right">
-                    <span className="badge">{snippet.likeCount}</span>
-                    <ThumbButton type="like" onTouchTap={snippet.likeAction} />
-                    <span className="badge">{snippet.dislikeCount}</span>
-                    <ThumbButton type="dislike" onTouchTap={snippet.dislikeAction} />
+                    <Reputation
+                      likeCount={snippet.likeCount}
+                      dislikeCount={snippet.dislikeCount}
+                      likeAction={snippet.likeAction}
+                      dislikeAction={snippet.dislikeAction}
+                    />
                   </span>
                   {snippet.showFollowPathButton &&
                     <RaisedButton

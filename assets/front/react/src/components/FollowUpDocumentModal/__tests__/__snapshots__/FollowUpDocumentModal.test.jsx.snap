@@ -186,34 +186,25 @@ exports[`rendering renders correctly with one snippet 1`] = `
           <div
             className="well well-simple well-simple-light text-left well-heading"
           >
-            <p>
-              Snippet
-            </p>
+            <div
+              dangerouslySetInnerHTML={
+                Object {
+                  "__html": "Snippet",
+                }
+              }
+            />
             <div
               className="text-right offset-top-small offset-bottom-small"
             >
               <span
                 className="offset-right"
               >
-                <span
-                  className="badge"
-                >
-                  0
-                </span>
-                <ThumbButton
-                  disabled={false}
-                  onTouchTap={[Function]}
-                  type="like"
-                />
-                <span
-                  className="badge"
-                >
-                  0
-                </span>
-                <ThumbButton
-                  disabled={false}
-                  onTouchTap={[Function]}
-                  type="dislike"
+                <Reputation
+                  dislikeAction={[Function]}
+                  dislikeCount={0}
+                  likeAction={[Function]}
+                  likeCount={0}
+                  voted={false}
                 />
               </span>
               <RaisedButton

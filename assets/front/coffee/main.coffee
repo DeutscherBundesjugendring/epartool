@@ -328,3 +328,9 @@ bindToggleVotingContributionExplanation = () ->
     $('.js-toggle-voting-contribution-explanation').on 'click', (e) ->
         $('#voting-contribution-explanation').toggle()
         $('.glyphicon', this).toggleClass('hide')
+
+window.addModalOpenToBody = () ->
+    $('body').addClass('modal-open')
+
+window.removeModalOpenFromBody = () ->
+    $('body').removeClass('modal-open')

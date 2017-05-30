@@ -36,6 +36,7 @@ if (path) {
           ReactDOM.unmountComponentAtNode(reactionAndImpactReact);
         }
 
+        window.addModalOpenToBody();
         ReactDOM.render(
           <ReactionsAndImpactContainer followUpId={followUpId} />,
           reactionAndImpact

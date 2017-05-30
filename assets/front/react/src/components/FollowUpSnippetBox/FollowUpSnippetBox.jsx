@@ -1,18 +1,18 @@
 import React from 'react';
-import ThumbButton from '../ThumbButton/ThumbButton';
+import Reputation from '../Reputation/Reputation';
 import RaisedButton from '../RaisedButton/RaisedButton';
 
 
 const FollowUpSnippetBox = props => (
   <div className="well well-bordered followup-well followup-well-link">
-    <p>
-      {props.snippetExplanation}
-    </p>
+    <div dangerouslySetInnerHTML={{ __html: props.snippetExplanation }} />
     <div className="offset-bottom-small">
-      <span className="badge">{props.likeCount}</span>
-      <ThumbButton type="like" onTouchTap={props.likeAction} />
-      <span className="badge">{props.dislikeCount}</span>
-      <ThumbButton type="dislike" onTouchTap={props.dislikeAction} />
+      <Reputation
+        likeCount={props.likeCount}
+        dislikeCount={props.dislikeCount}
+        likeAction={props.likeAction}
+        dislikeAction={props.dislikeAction}
+      />
     </div>
     <RaisedButton label={props.followPathLabel} onTouchTap={props.followPathAction} />
   </div>

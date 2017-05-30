@@ -83,32 +83,6 @@ describe('functionality', () => {
     expect(spy.calledOnce).toEqual(true);
   });
 
-  it('calls snippet like action', () => {
-    const spy = sinon.spy();
-    const snippetElementCopy = Object.assign({}, snippetElement);
-    snippetElementCopy.likeAction = spy;
-
-    const component = shallow(
-      React.cloneElement(element, { snippets: [snippetElementCopy] })
-    );
-
-    component.find('ThumbButton').first().simulate('touchTap');
-    expect(spy.calledOnce).toEqual(true);
-  });
-
-  it('calls snippet dislike action', () => {
-    const spy = sinon.spy();
-    const snippetElementCopy = Object.assign({}, snippetElement);
-    snippetElementCopy.dislikeAction = spy;
-
-    const component = shallow(
-      React.cloneElement(element, { snippets: [snippetElementCopy] })
-    );
-
-    component.find('ThumbButton').last().simulate('touchTap');
-    expect(spy.calledOnce).toEqual(true);
-  });
-
   it('calls snippet follow path action', () => {
     const spy = sinon.spy();
     const snippetElementCopy = Object.assign({}, snippetElement);

@@ -174,6 +174,7 @@ class FollowUpContainer extends React.Component {
               ),
               followPathAction: () => {
                 if (elementResponse.id === response.fid) {
+                  window.removeModalOpenFromBody();
                   this.setState({ modal: null });
                 } else {
                   window.location = `${baseUrl}/followup/show-by-snippet/kid/${documentResponse.kid}/fid/${response.fid}`;
@@ -184,10 +185,14 @@ class FollowUpContainer extends React.Component {
                   : followupTranslations.followPath,
               showFollowPathButton: response.parents_count !== 0 || response.children_count !== 0,
             }))}
-            closeAction={() => this.setState({ modal: null })}
+            closeAction={() => {
+              window.removeModalOpenFromBody();
+              this.setState({ modal: null });
+            }}
           />
         );
 
+        window.addModalOpenToBody();
         this.setState({ modal: resolvedElement });
       })
       .catch(this.handleError);

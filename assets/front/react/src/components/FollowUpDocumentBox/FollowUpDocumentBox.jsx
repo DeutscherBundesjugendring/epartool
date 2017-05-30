@@ -24,7 +24,7 @@ const FollowDocumentBox = props => (
       width="80"
       className="followup-timeline-box-image"
     />
-    {props.description}
+    <div dangerouslySetInnerHTML={{ __html: props.description }} />
     <RaisedButton label={props.downloadLabel} onTouchTap={props.downloadAction} />
   </div>
 );

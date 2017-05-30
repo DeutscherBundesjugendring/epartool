@@ -14,9 +14,7 @@ const FollowUpContributionBox = props => (
       {props.contributionThesis}
     </p>
     {!!props.contributionExplanation &&
-      <p>
-        {props.contributionExplanation}
-      </p>
+      <div dangerouslySetInnerHTML={{ __html: props.contributionExplanation }} />
     }
     {props.votable &&
       <div className="text-accent">

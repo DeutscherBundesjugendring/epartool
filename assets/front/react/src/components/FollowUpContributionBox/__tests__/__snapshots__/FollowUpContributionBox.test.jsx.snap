@@ -13,9 +13,13 @@ exports[`rendering renders correctly with all texts, embedded video and voting 1
   <p>
     Contribution thesis
   </p>
-  <p>
-    Contribution explanation
-  </p>
+  <div
+    dangerouslySetInnerHTML={
+      Object {
+        "__html": "Contribution explanation",
+      }
+    }
+  />
   <div
     className="text-accent"
   >
