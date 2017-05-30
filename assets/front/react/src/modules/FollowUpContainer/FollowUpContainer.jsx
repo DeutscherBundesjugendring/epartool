@@ -14,6 +14,7 @@ import {
 
 
 /* global baseUrl */
+/* global followupTranslations */
 
 class FollowUpContainer extends React.Component {
   constructor(props) {
@@ -153,7 +154,7 @@ class FollowUpContainer extends React.Component {
             downloadAction={() => {
               window.location = documentResponse.ref_doc;
             }}
-            downloadLabel="Herunterladen"
+            downloadLabel={followupTranslations.downloadLabel}
             snippets={snippetResponse.map(response => ({
               snippetExplanation: response.expl,
               likeAction: () => this.modalSnippetLike(response.fid, elementResponse),
@@ -177,7 +178,9 @@ class FollowUpContainer extends React.Component {
                   window.location = `${baseUrl}/followup/show-by-snippet/kid/${documentResponse.kid}/fid/${response.fid}`;
                 }
               },
-              followPathLabel: elementResponse.id === response.fid ? 'Zurück zur Zeitleiste' : 'Folge Verlauf',
+              followPathLabel: elementResponse.id === response.fid
+                  ? followupTranslations.backToTimeline
+                  : followupTranslations.followPath,
             }))}
             closeAction={() => this.setState({ modal: null })}
           />
@@ -302,7 +305,7 @@ class FollowUpContainer extends React.Component {
     if (this.state.hasError) {
       return (
         <p className="alert-error text-center">
-          Error occurred. Followup timeline cannot be loaded.
+            {followupTranslations.generalError}
         </p>
       );
     }
@@ -310,11 +313,8 @@ class FollowUpContainer extends React.Component {
     return (
       <FollowUpTimeline
         infoLink={`${baseUrl}/followup/index/kid/${this.props.consultationId}`}
-        infoLinkTitle="Zurück zur Übersicht Reaktionen & Wirkungen"
-        infoText={
-          'Verfolge hier, welche Reaktionen es auf den Beitrag gab. ' +
-          'Klicke auf die Pfeile für nächste Schritte.'
-        }
+        infoLinkTitle={followupTranslations.backToReactionsAndSnippets}
+        infoText={followupTranslations.help}
         columns={this.state.columns}
         modal={this.state.modal}
       />
