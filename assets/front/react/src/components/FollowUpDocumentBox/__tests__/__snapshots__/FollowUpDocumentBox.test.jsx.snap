@@ -13,6 +13,9 @@ exports[`rendering renders correctly with long date 1`] = `
   <p>
     1 January 2017
   </p>
+  <span>
+    general
+  </span>
   <img
     alt="Document title"
     className="followup-timeline-box-image"
@@ -41,6 +44,9 @@ exports[`rendering renders correctly with short date 1`] = `
   <p>
     January 2017
   </p>
+  <span>
+    general
+  </span>
   <img
     alt="Document title"
     className="followup-timeline-box-image"
