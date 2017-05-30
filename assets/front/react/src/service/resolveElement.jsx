@@ -6,7 +6,9 @@ import FollowUpSnippetBox from '../components/FollowUpSnippetBox/FollowUpSnippet
 
 /* global followupTranslations */
 
-const resolveElement = (response, parentAction, childAction, modalAction = null) => {
+/* global baseUrl */
+
+const resolveElement = (response, parentAction, childAction, modalAction, otherActions) => {
   const { data } = response;
   let element = null;
 
@@ -20,7 +22,7 @@ const resolveElement = (response, parentAction, childAction, modalAction = null)
         votable={!!data.is_votable}
         votingText={followupTranslations.votingResult}
         votingResults={`${data.votes}. ${followupTranslations.position}`}
-        votingLink={`/input/show/kid/${response.kid}/qid/${data.qi}`}
+        votingLink={`${baseUrl}/input/show/kid/${response.kid}/qid/${data.qi}`}
       />
     );
   }
@@ -29,12 +31,12 @@ const resolveElement = (response, parentAction, childAction, modalAction = null)
     element = (
       <FollowUpSnippetBox
         snippetExplanation={data.expl}
-        likeAction={() => {}}
+        likeAction={otherActions.snippetLikeAction}
         likeCount={parseInt(data.lkyea, 10)}
-        dislikeAction={() => {}}
+        dislikeAction={otherActions.snippetDislikeAction}
         dislikeCount={parseInt(data.lknay, 10)}
         followPathAction={() => {
-          window.location = `/followup/show-by-snippet/kid/${response.kid}/fid/${data.fid}`;
+          window.location = `${baseUrl}/followup/show-by-snippet/kid/${response.kid}/fid/${data.fid}`;
         }}
         followPathLabel={followupTranslations.followPath}
       />
