@@ -5,8 +5,25 @@ import Reputation from '../Reputation/Reputation';
 import RaisedButton from '../RaisedButton/RaisedButton';
 
 
-const FollowDocumentModal = props => (
-  <div>
+const FollowDocumentModal = (props) => {
+  let glypClasses = 'followup-type-icon glyphicon';
+  let isType = false;
+
+  if (props.type === 'supporting') {
+    glypClasses += ' glyphicon-heart';
+    isType = true;
+  } else if (props.type === 'action') {
+    glypClasses += ' glyphicon-play';
+    isType = true;
+  } else if (props.type === 'rejected') {
+    glypClasses += ' glyphicon-minus-sign';
+    isType = true;
+  } else if (props.type === 'end') {
+    glypClasses += ' glyphicon-lock';
+    isType = true;
+  }
+
+  return (<div>
     <div className="modal-backdrop fade in" />
     <div
       className="modal fade in"
@@ -32,17 +49,21 @@ const FollowDocumentModal = props => (
           </div>
           <div className="modal-body">
 
-            <div className="well well-accent ">
+            <div className="well well-accent followup-type-wrap">
+              {isType && (
+                <div className="followup-type followup-type-right">
+                  <span className={glypClasses} aria-hidden="true" />
+                </div>
+              )}
               <div className="row">
                 <div className="col-sm-3">
-                  <span>{props.type}</span>
                   <img
                     className="img-responsive pull-left"
                     src={props.previewImageLink}
                     alt={props.title}
                   />
                 </div>
-                <div className="col-sm-9">
+                <div className="col-sm-8">
                   <p>
                     {props.author}
                   </p>
@@ -102,7 +123,8 @@ const FollowDocumentModal = props => (
       </div>
     </div>
   </div>
-);
+  );
+};
 
 FollowDocumentModal.propTypes = {
   type: React.PropTypes.string.isRequired,

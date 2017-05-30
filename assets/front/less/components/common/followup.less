@@ -68,7 +68,6 @@
     &-timeline {
         &-box {
             position: relative;
-            min-width: 300px;
 
             &-border,
             &-border:hover,
@@ -82,28 +81,24 @@
             }
         }
 
-        &-count-left {
-            transform: rotateY(180deg);
-
+        &-count-arrow {
             position: absolute;
-            left: 0;
-            top: 50%;
+            top: 50px;
             z-index: 1;
             display: block;
             margin-left: -15px;
             margin-top: -20px;
             padding: 10px 17px 10px 15px;
+            border: 0;
+            outline: 0;
+        }
+
+        &-count-left {
+            left: -2px;
         }
 
         &-count-right {
-            position: absolute;
-            left: 100%;
-            top: 50%;
-            z-index: 1;
-            display: block;
-            margin-left: -15px;
-            margin-top: -20px;
-            padding: 10px 17px 10px 15px;
+            right: -20px;
         }
     }
 
@@ -122,5 +117,50 @@
             height: 40px;
             background-position: -45px 0;
         }
+
+        &-timeline-count-left {
+            background-position: -95px 0;
+        }
+    }
+
+    &-type-wrap {
+        position: relative;
+        min-height: 100px;
+    }
+
+    &-type {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 0;
+        height: 0;
+        border-style: solid;
+        border-width: 80px 80px 0 0;
+        border-color: @brand-accent-alt transparent transparent transparent;
+
+        &-icon {
+            position: absolute;
+            color: #fff;
+            top: -70px;
+            left: 10px;
+            font-size: 25px;
+        }
+    }
+
+    &-type-right {
+        left: auto;
+        right: 0;
+        border-width: 0 80px 80px 0;
+        border-color: transparent @brand-accent-alt transparent transparent;
+
+        .followup-type-icon {
+            left: auto;
+            right: -70px;
+            top: 10px;
+        }
+    }
+
+    &-flow {
+        min-width: 300px;
     }
 }

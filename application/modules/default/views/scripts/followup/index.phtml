@@ -45,7 +45,7 @@
                 </div><!-- .row -->
 
                 <?php if (!empty($this->followups)): ?>
-                    <div id="followup" class="row-horizontal-sm">
+                    <div id="followup">
 
                         <div class="row">
 
@@ -56,12 +56,42 @@
                                         <h4 class="card-title">
                                             <?=$this->escape($followup['titl']);?>
                                         </h4>
-                                        <div class="offset-bottom-small">
+                                        <div
+                                            class="
+                                                offset-bottom-small
+                                                followup-type-wrap
+                                                js-reactions-and-impact-view
+                                            "
+                                            data-ffid="<?=(int) $followup['ffid'];?>"
+                                        >
                                             <img
-                                                class="followup-well-link img-responsive followup-timeline-box followup-timeline-box-border type-<?=$followup['type'];?> js-reactions-and-impact-view"
-                                                data-ffid="<?=(int) $followup['ffid'];?>"
+                                                class="img-responsive"
                                                 src="<?=$this->mediaCnsltDir . $followup['gfx_who'];?>" alt="<?=$this->translate('Preview');?>"
                                             />
+                                            <?php if ($followup['type'] && $followup['type'] !== 'general') { ?>
+                                                <div class="followup-type">
+                                                    <?php
+                                                    $icon = '';
+                                                        switch ($followup['type']) {
+                                                            case 'supporting':
+                                                                $icon = 'heart';
+                                                                break;
+                                                            case 'action':
+                                                                $icon = 'play';
+                                                                break;
+                                                            case 'rejected':
+                                                                $icon = 'minus-sign';
+                                                                break;
+                                                            case 'end':
+                                                                $icon = 'lock';
+                                                                break;
+                                                        }
+                                                    ?>
+                                                    <?php if ($icon) { ?>
+                                                        <span class="followup-type-icon glyphicon glyphicon-<?=$icon;?>" aria-hidden="true"></span>
+                                                    <?php } ?>
+                                                </div>
+                                            <?php } ?>
                                         </div>
                                         <time class="text-muted">
                                             <?php
