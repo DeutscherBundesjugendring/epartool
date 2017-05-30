@@ -10,20 +10,37 @@ class Reputation extends React.Component {
 
     this.state = {
       voted: props.voted,
+      expectLikesUpdate: false,
+      votingLimitErrorShowed: false,
+      initLikeCount: props.likeCount,
+      initDislikeCount: props.dislikeCount,
     };
 
     this.like = this.like.bind(this);
     this.dislike = this.dislike.bind(this);
   }
 
+  componentWillReceiveProps(nextProps) {
+    // jiri@visionapps.cz 30.05.2017 DBJR-1167
+    // Preventing of repeated voting is implemented on backend.
+    // This construction is only for informing user and it is not fully reliable in case of
+    // parallel voting from more users at the same time
+    if (this.state.expectLikesUpdate && !this.state.votingLimitErrorShowed
+      && nextProps.likeCount === this.state.initLikeCount
+      && nextProps.dislikeCount === this.state.initDislikeCount) {
+      this.setState({ votingLimitErrorShowed: true });
+      alert(followupTranslations.votingLimitError);
+    }
+  }
+
   like() {
     this.props.likeAction();
-    this.setState({ voted: true });
+    this.setState({ voted: true, expectLikesUpdate: true });
   }
 
   dislike() {
     this.props.dislikeAction();
-    this.setState({ voted: true });
+    this.setState({ voted: true, expectLikesUpdate: true });
   }
 
   render() {

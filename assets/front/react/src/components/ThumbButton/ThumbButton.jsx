@@ -17,7 +17,9 @@ const ThumbButton = (props) => {
     <button
       onTouchTap={(e) => {
         e.stopPropagation();
-        props.onTouchTap();
+        if (!props.disabled) {
+          props.onTouchTap();
+        }
       }}
       className={linkClasses}
       disabled={props.disabled}

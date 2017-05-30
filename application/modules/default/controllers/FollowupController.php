@@ -579,6 +579,7 @@ class FollowupController extends Zend_Controller_Action
             'generalError' => $this->view->translate('Error occurred. Followup timeline cannot be loaded.'),
             'backToReactionsAndSnippets' => $this->view->translate('Back to reactions and snippets'),
             'votingResult' => $this->view->translate('Result of voting:'),
+            'votingLimitError' => $this->view->translate('You can vote only once for each snippet.'),
             'position' => $this->view->translate('position'),
             'help' => $this->view->translate(
                 'Follow the Reactions to your contribution here. Click on the arrows for the next steps.'
