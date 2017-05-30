@@ -12,6 +12,7 @@ import {
 
 
 /* global baseUrl */
+/* global followupTranslations */
 
 class ReactionsAndImpactContainer extends React.Component {
   constructor(props) {
@@ -50,7 +51,7 @@ class ReactionsAndImpactContainer extends React.Component {
           downloadAction={() => {
             window.location = documentResponse.ref_doc;
           }}
-          downloadLabel="Herunterladen"
+          downloadLabel={followupTranslations.downloadLabel}
           snippets={snippetResponse.map(response => ({
             snippetExplanation: response.expl,
             likeAction: () => this.modalSnippetLike(response.fid),
@@ -70,7 +71,7 @@ class ReactionsAndImpactContainer extends React.Component {
             followPathAction: () => {
               window.location = `${baseUrl}/followup/show-by-snippet/kid/${documentResponse.kid}/fid/${response.fid}`;
             },
-            followPathLabel: 'Folge Verlauf',
+            followPathLabel: followupTranslations.followPath,
             showFollowPathButton: response.parents_count !== 0 || response.children_count !== 0,
           }))}
           closeAction={() => this.setState({ modal: null })}
@@ -106,7 +107,7 @@ class ReactionsAndImpactContainer extends React.Component {
     if (this.state.hasError) {
       return (
         <p className="alert-error text-center">
-          Error occurred. Document modal cannot be loaded.
+          {followupTranslations.generalError}
         </p>
       );
     }
