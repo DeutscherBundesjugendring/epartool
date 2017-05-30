@@ -107,6 +107,11 @@
 
                     <script type="text/javascript">
                       var followupApiUrl = '<?=$this->followupApiUrl?>';
+                      var followupTranslations = {
+                          <?php foreach ($this->followupTranslations as $key => $translatedString): ?>
+                            <?=$key?>: '<?=$translatedString?>',
+                          <? endforeach; ?>
+                      };
                     </script>
                 <?php else: ?>
                     <p class="alert alert-info text-left">

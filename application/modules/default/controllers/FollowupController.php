@@ -75,6 +75,7 @@ class FollowupController extends Zend_Controller_Action
             null,
             true
         );
+        $this->view->followupTranslations = $this->getFollowupTimelineTranslations();
     }
 
     public function inputsByQuestionAction()
