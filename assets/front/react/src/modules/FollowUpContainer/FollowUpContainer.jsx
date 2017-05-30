@@ -173,7 +173,7 @@ class FollowUpContainer extends React.Component {
                 10
               ),
               followPathAction: () => {
-                if (elementResponse.id === response.ffid) {
+                if (elementResponse.id === response.fid) {
                   this.setState({ modal: null });
                 } else {
                   window.location = `${baseUrl}/followup/show-by-snippet/kid/${documentResponse.kid}/fid/${response.fid}`;
