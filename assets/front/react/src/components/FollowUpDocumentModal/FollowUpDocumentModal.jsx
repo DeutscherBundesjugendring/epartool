@@ -100,21 +100,27 @@ const FollowDocumentModal = (props) => {
 
                 <div dangerouslySetInnerHTML={{ __html: snippet.snippetExplanation }} />
 
-                <div className="text-right offset-top-small offset-bottom-small">
-                  <span className="offset-right">
-                    <Reputation
-                      likeCount={snippet.likeCount}
-                      dislikeCount={snippet.dislikeCount}
-                      likeAction={snippet.likeAction}
-                      dislikeAction={snippet.dislikeAction}
-                    />
-                  </span>
-                  {snippet.showFollowPathButton &&
-                    <RaisedButton
-                      label={snippet.followPathLabel}
-                      onTouchTap={snippet.followPathAction}
-                    />
-                  }
+                <div className="offset-top-small offset-bottom-small">
+                  <div className="row">
+                    <div className="col-sm-6 text-left">
+                      <div className="offset-top-small">
+                        <Reputation
+                          likeCount={snippet.likeCount}
+                          dislikeCount={snippet.dislikeCount}
+                          likeAction={snippet.likeAction}
+                          dislikeAction={snippet.dislikeAction}
+                        />
+                      </div>
+                    </div>
+                    <div className="col-sm-6 text-right">
+                      {snippet.showFollowPathButton &&
+                      <RaisedButton
+                        label={snippet.followPathLabel}
+                        onTouchTap={snippet.followPathAction}
+                      />
+                      }
+                    </div>
+                  </div>
                 </div>
               </div>
             ))}

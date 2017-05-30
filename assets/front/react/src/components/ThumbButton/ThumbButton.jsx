@@ -2,7 +2,7 @@ import React from 'react';
 
 
 const ThumbButton = (props) => {
-  const linkClasses = 'link-alt link-unstyled';
+  const linkClasses = 'btn btn-default btn-xs';
   let iconClasses = 'glyphicon';
 
   if (props.type === 'like') {
