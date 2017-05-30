@@ -181,6 +181,7 @@ class FollowUpContainer extends React.Component {
               followPathLabel: elementResponse.id === response.fid
                   ? followupTranslations.backToTimeline
                   : followupTranslations.followPath,
+              showFollowPathButton: response.parents_count !== 0 || response.children_count !== 0,
             }))}
             closeAction={() => this.setState({ modal: null })}
           />
