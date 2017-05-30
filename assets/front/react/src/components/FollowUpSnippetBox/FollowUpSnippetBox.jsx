@@ -4,7 +4,7 @@ import RaisedButton from '../RaisedButton/RaisedButton';
 
 
 const FollowUpSnippetBox = props => (
-  <div className="well well-bordered followup-well followup-well-link">
+  <div className="well well-bordered followup-flow followup-well followup-well-link">
     <div dangerouslySetInnerHTML={{ __html: props.snippetExplanation }} />
     <div className="offset-bottom-small">
       <Reputation

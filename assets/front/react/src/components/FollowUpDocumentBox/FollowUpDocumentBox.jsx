@@ -4,7 +4,7 @@ import RaisedButton from '../RaisedButton/RaisedButton';
 
 
 const FollowDocumentBox = props => (
-  <div className="well well-bordered followup-well followup-well-link">
+  <div className="well well-bordered followup-flow followup-well followup-well-link">
     <p>
       {props.title}
     </p>

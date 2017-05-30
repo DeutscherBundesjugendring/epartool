@@ -3,7 +3,7 @@ import EmbeddedVideo from '../EmbeddedVideo/EmbeddedVideo';
 
 
 const FollowUpContributionBox = props => (
-  <div className="well well-bordered">
+  <div className="well well-bordered followup-flow">
     {!!props.videoService && !!props.videoId &&
       <EmbeddedVideo
         videoService={props.videoService}
