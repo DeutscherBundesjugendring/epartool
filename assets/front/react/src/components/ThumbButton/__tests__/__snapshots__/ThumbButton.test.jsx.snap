@@ -2,7 +2,7 @@
 
 exports[`rendering renders correctly disabled dislike 1`] = `
 <button
-  className="link-alt link-unstyled"
+  className="btn btn-default btn-xs"
   disabled={true}
   onTouchTap={[Function]}
 >
@@ -15,7 +15,7 @@ exports[`rendering renders correctly disabled dislike 1`] = `
 
 exports[`rendering renders correctly disabled like 1`] = `
 <button
-  className="link-alt link-unstyled"
+  className="btn btn-default btn-xs"
   disabled={true}
   onTouchTap={[Function]}
 >
@@ -28,7 +28,7 @@ exports[`rendering renders correctly disabled like 1`] = `
 
 exports[`rendering renders correctly dislike 1`] = `
 <button
-  className="link-alt link-unstyled"
+  className="btn btn-default btn-xs"
   disabled={false}
   onTouchTap={[Function]}
 >
@@ -41,7 +41,7 @@ exports[`rendering renders correctly dislike 1`] = `
 
 exports[`rendering renders correctly like 1`] = `
 <button
-  className="link-alt link-unstyled"
+  className="btn btn-default btn-xs"
   disabled={false}
   onTouchTap={[Function]}
 >

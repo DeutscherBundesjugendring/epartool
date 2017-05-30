@@ -2,7 +2,7 @@
 
 exports[`rendering renders correctly 1`] = `
 <div
-  className="well well-bordered followup-well followup-well-link"
+  className="well well-bordered followup-flow followup-well followup-well-link"
 >
   <div
     dangerouslySetInnerHTML={
