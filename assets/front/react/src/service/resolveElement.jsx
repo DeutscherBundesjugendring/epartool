@@ -3,9 +3,10 @@ import FollowUpBox from '../components/FollowUpBox/FollowUpBox';
 import FollowUpContributionBox from '../components/FollowUpContributionBox/FollowUpContributionBox';
 import FollowUpDocumentBox from '../components/FollowUpDocumentBox/FollowUpDocumentBox';
 import FollowUpSnippetBox from '../components/FollowUpSnippetBox/FollowUpSnippetBox';
+import downloadFile from './downloadFile';
+
 
 /* global followupTranslations */
-
 /* global baseUrl */
 
 const resolveElement = (response, parentAction, childAction, modalAction, otherActions) => {
@@ -53,9 +54,7 @@ const resolveElement = (response, parentAction, childAction, modalAction, otherA
         date={new Date(data.when)}
         dateMonthYearOnly={!!data.is_only_month_year_showed}
         previewImageLink={data.gfx_who}
-        downloadAction={() => {
-          window.location = data.ref_doc;
-        }}
+        downloadAction={() => downloadFile(data.ref_doc)}
         downloadLabel={followupTranslations.downloadLabel}
       />
     );

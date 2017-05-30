@@ -3,6 +3,7 @@
  */
 import React from 'react';
 import FollowUpDocumentModal from '../../components/FollowUpDocumentModal/FollowUpDocumentModal';
+import downloadFile from '../../service/downloadFile';
 import {
   fetchFollowUpDocument,
   fetchFollowUpDocumentSnippets,
@@ -49,7 +50,7 @@ class ReactionsAndImpactContainer extends React.Component {
           dateMonthYearOnly={!!documentResponse.is_only_month_year_showed}
           previewImageLink={documentResponse.gfx_who}
           downloadAction={() => {
-            window.location = documentResponse.ref_doc;
+            downloadFile(documentResponse.ref_doc);
           }}
           downloadLabel={followupTranslations.downloadLabel}
           snippets={snippetResponse.map(response => ({
