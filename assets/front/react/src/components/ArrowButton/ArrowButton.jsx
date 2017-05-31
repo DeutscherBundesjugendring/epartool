@@ -5,9 +5,9 @@ const ArrowButton = (props) => {
   let classes = 'followup-link followup-timeline-count followup-sprite followup-sprite-timeline-count';
 
   if (props.direction === 'left') {
-    classes += ' followup-timeline-count-left';
+    classes += ' followup-timeline-count-arrow followup-timeline-count-left followup-sprite-timeline-count-left';
   } else {
-    classes += ' followup-timeline-count-right';
+    classes += ' followup-timeline-count-arrow followup-timeline-count-right';
   }
 
   return (

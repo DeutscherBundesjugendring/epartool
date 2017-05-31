@@ -188,24 +188,36 @@ exports[`rendering renders correctly with one snippet 1`] = `
               }
             />
             <div
-              className="text-right offset-top-small offset-bottom-small"
+              className="offset-top-small offset-bottom-small"
             >
-              <span
-                className="offset-right"
+              <div
+                className="row"
               >
-                <Reputation
-                  dislikeAction={[Function]}
-                  dislikeCount={0}
-                  likeAction={[Function]}
-                  likeCount={0}
-                  voted={false}
-                />
-              </span>
-              <RaisedButton
-                disabled={false}
-                label="Follow path"
-                onTouchTap={[Function]}
-              />
+                <div
+                  className="col-sm-6 text-left"
+                >
+                  <div
+                    className="offset-top-small"
+                  >
+                    <Reputation
+                      dislikeAction={[Function]}
+                      dislikeCount={0}
+                      likeAction={[Function]}
+                      likeCount={0}
+                      voted={false}
+                    />
+                  </div>
+                </div>
+                <div
+                  className="col-sm-6 text-right"
+                >
+                  <RaisedButton
+                    disabled={false}
+                    label="Follow path"
+                    onTouchTap={[Function]}
+                  />
+                </div>
+              </div>
             </div>
           </div>
         </div>
