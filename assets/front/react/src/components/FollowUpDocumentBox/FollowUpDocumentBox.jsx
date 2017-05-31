@@ -30,6 +30,7 @@ const FollowDocumentBox = (props) => {
         followup-well
         followup-well-link
         followup-type-wrap
+        followup-type-wrap-inner
       "
     >
       {isType && (

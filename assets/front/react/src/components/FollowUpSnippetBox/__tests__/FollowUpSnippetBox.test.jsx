@@ -10,6 +10,7 @@ injectTapEventPlugin();
 
 const element = (
   <FollowUpSnippetBox
+    type="end"
     snippetExplanation="Snippet"
     likeAction={() => {}}
     likeCount={0}

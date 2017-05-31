@@ -31,6 +31,7 @@ const resolveElement = (response, parentAction, childAction, modalAction, otherA
   if (response.type === 'snippet') {
     element = (
       <FollowUpSnippetBox
+        type={data.type}
         snippetExplanation={data.expl}
         likeAction={otherActions.snippetLikeAction}
         likeCount={parseInt(data.lkyea, 10)}
