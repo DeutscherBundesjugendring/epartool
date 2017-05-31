@@ -2,7 +2,7 @@
 
 exports[`rendering renders correctly with long date 1`] = `
 <div
-  className="well well-bordered followup-flow followup-well followup-well-link"
+  className=" well well-bordered followup-flow followup-well followup-well-link followup-type-wrap "
 >
   <p>
     Document title
@@ -13,16 +13,14 @@ exports[`rendering renders correctly with long date 1`] = `
   <p>
     1 January 2017
   </p>
-  <span>
-    general
-  </span>
   <img
     alt="Document title"
-    className="followup-timeline-box-image"
+    className="offset-bottom img-responsive"
     src="http://www.example.com/image.jpg"
     width="80"
   />
   <div
+    className="offset-bottom"
     dangerouslySetInnerHTML={
       Object {
         "__html": "Description of document",
@@ -39,7 +37,7 @@ exports[`rendering renders correctly with long date 1`] = `
 
 exports[`rendering renders correctly with short date 1`] = `
 <div
-  className="well well-bordered followup-flow followup-well followup-well-link"
+  className=" well well-bordered followup-flow followup-well followup-well-link followup-type-wrap "
 >
   <p>
     Document title
@@ -50,16 +48,14 @@ exports[`rendering renders correctly with short date 1`] = `
   <p>
     January 2017
   </p>
-  <span>
-    general
-  </span>
   <img
     alt="Document title"
-    className="followup-timeline-box-image"
+    className="offset-bottom img-responsive"
     src="http://www.example.com/image.jpg"
     width="80"
   />
   <div
+    className="offset-bottom"
     dangerouslySetInnerHTML={
       Object {
         "__html": "Description of document",

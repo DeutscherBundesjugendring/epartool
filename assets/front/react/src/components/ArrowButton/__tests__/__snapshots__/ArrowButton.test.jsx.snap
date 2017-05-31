@@ -2,7 +2,7 @@
 
 exports[`rendering renders correctly left 1`] = `
 <button
-  className="followup-link followup-timeline-count followup-sprite followup-sprite-timeline-count followup-timeline-count-arrow followup-timeline-count-left followup-sprite-timeline-count-left"
+  className="followup-link followup-timeline-count followup-sprite followup-sprite-timeline-count followup-timeline-count-arrow followup-timeline-count-left"
   disabled={false}
   onTouchTap={[Function]}
 >
@@ -12,7 +12,7 @@ exports[`rendering renders correctly left 1`] = `
 
 exports[`rendering renders correctly left disabled 1`] = `
 <button
-  className="followup-link followup-timeline-count followup-sprite followup-sprite-timeline-count followup-timeline-count-arrow followup-timeline-count-left followup-sprite-timeline-count-left"
+  className="followup-link followup-timeline-count followup-sprite followup-sprite-timeline-count followup-timeline-count-arrow followup-timeline-count-left"
   disabled={true}
   onTouchTap={[Function]}
 >
