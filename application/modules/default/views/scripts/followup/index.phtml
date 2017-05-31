@@ -68,38 +68,33 @@
                                                 class="img-responsive"
                                                 src="<?=$this->mediaCnsltDir . $followup['gfx_who'];?>" alt="<?=$this->translate('Preview');?>"
                                             />
-                                            <?php if ($followup['type'] && $followup['type'] !== 'general') { ?>
+                                            <?php if ($followup['type'] && $followup['type'] !== 'general'): ?>
                                                 <div class="followup-type">
                                                     <?php
-                                                    $icon = '';
-                                                        switch ($followup['type']) {
-                                                            case 'supporting':
-                                                                $icon = 'heart';
-                                                                break;
-                                                            case 'action':
-                                                                $icon = 'play';
-                                                                break;
-                                                            case 'rejected':
-                                                                $icon = 'minus-sign';
-                                                                break;
-                                                            case 'end':
-                                                                $icon = 'lock';
-                                                                break;
-                                                        }
+                                                        $icon = '';
+                                                        if ($followup['type'] === 'supporting'):
+                                                            $icon = 'heart';
+                                                        elseif ($followup['type'] === 'action'):
+                                                            $icon = 'play';
+                                                        elseif ($followup['type'] === 'rejected'):
+                                                            $icon = 'minus-sign';
+                                                        elseif ($followup['type'] === 'end'):
+                                                            $icon = 'lock';
+                                                        else:
+                                                        endif;
                                                     ?>
-                                                    <?php if ($icon) { ?>
+                                                    <?php if ($icon): ?>
                                                         <span class="followup-type-icon glyphicon glyphicon-<?=$icon;?>" aria-hidden="true"></span>
-                                                    <?php } ?>
+                                                    <?php endif; ?>
                                                 </div>
-                                            <?php } ?>
+                                            <?php endif; ?>
                                         </div>
                                         <time class="text-muted">
-                                            <?php
-                                            if ($followup['is_only_month_year_showed']) {
-                                                echo strftime("%m/%Y", strtotime($followup['when']));
-                                            } else
-                                                echo strftime("%d.%m.%Y", strtotime($followup['when']));
-                                            ?>
+                                            <?php if ($followup['is_only_month_year_showed']): ?>
+                                                <?=strftime("%m/%Y", strtotime($followup['when']));?>
+                                            <?php else: ?>
+                                                <?=strftime("%d.%m.%Y", strtotime($followup['when']));?>
+                                            <?php endif; ?>
                                         </time>
                                         <p class="card-description small offset-bottom-small">
                                             <?=$followup['who'];?>
