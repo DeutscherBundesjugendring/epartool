@@ -2,50 +2,102 @@
 
 exports[`rendering renders correctly 1`] = `
 <div>
-  <span
-    className="badge offset-right-small"
+  <div
+    style={
+      Object {
+        "display": "inline-block",
+      }
+    }
   >
-    0
-  </span>
-  <ThumbButton
-    disabled={false}
-    onTouchTap={[Function]}
-    type="like"
-  />
-  <span
-    className="badge offset-left offset-right-small"
+    <span
+      className="badge offset-right-small"
+    >
+      0
+    </span>
+    <ThumbButton
+      disabled={false}
+      onTouchTap={[Function]}
+      type="like"
+    />
+    <div
+      className="text-center offset-top-small small"
+    >
+      Like
+    </div>
+  </div>
+  <div
+    style={
+      Object {
+        "display": "inline-block",
+      }
+    }
   >
-    0
-  </span>
-  <ThumbButton
-    disabled={false}
-    onTouchTap={[Function]}
-    type="dislike"
-  />
+    <span
+      className="badge offset-left offset-right-small"
+    >
+      0
+    </span>
+    <ThumbButton
+      disabled={false}
+      onTouchTap={[Function]}
+      type="dislike"
+    />
+    <div
+      className="text-center offset-top-small small"
+    >
+      Dislike
+    </div>
+  </div>
 </div>
 `;
 
 exports[`rendering renders correctly disabled voting 1`] = `
 <div>
-  <span
-    className="badge offset-right-small"
+  <div
+    style={
+      Object {
+        "display": "inline-block",
+      }
+    }
   >
-    0
-  </span>
-  <ThumbButton
-    disabled={false}
-    onTouchTap={[Function]}
-    type="like"
-  />
-  <span
-    className="badge offset-left offset-right-small"
+    <span
+      className="badge offset-right-small"
+    >
+      0
+    </span>
+    <ThumbButton
+      disabled={false}
+      onTouchTap={[Function]}
+      type="like"
+    />
+    <div
+      className="text-center offset-top-small small"
+    >
+      Like
+    </div>
+  </div>
+  <div
+    style={
+      Object {
+        "display": "inline-block",
+      }
+    }
   >
-    0
-  </span>
-  <ThumbButton
-    disabled={false}
-    onTouchTap={[Function]}
-    type="dislike"
-  />
+    <span
+      className="badge offset-left offset-right-small"
+    >
+      0
+    </span>
+    <ThumbButton
+      disabled={false}
+      onTouchTap={[Function]}
+      type="dislike"
+    />
+    <div
+      className="text-center offset-top-small small"
+    >
+      Dislike
+    </div>
+  </div>
 </div>
 `;

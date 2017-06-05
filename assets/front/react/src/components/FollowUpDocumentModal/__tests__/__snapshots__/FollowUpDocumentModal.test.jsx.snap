@@ -40,7 +40,7 @@ exports[`rendering renders correctly with long date without snippets 1`] = `
             className="modal-title"
             id="modalFollowupLabel"
           >
-            Document title
+            Document
           </h4>
         </div>
         <div
@@ -53,25 +53,13 @@ exports[`rendering renders correctly with long date without snippets 1`] = `
               className="row"
             >
               <div
-                className="col-sm-3"
+                className="col-sm-3 text-center"
               >
                 <img
                   alt="Document title"
-                  className="img-responsive pull-left"
+                  className="img-responsive center-block offset-bottom"
                   src="http://www.example.com/image.jpg"
                 />
-              </div>
-              <div
-                className="col-sm-8"
-              >
-                <p>
-                  Author of document
-                </p>
-                <p
-                  className="small"
-                >
-                  1 January 2017
-                </p>
                 <button
                   className="btn btn-default btn-default-alt"
                   onTouchTap={[Function]}
@@ -81,6 +69,23 @@ exports[`rendering renders correctly with long date without snippets 1`] = `
                   />
                   Download document
                 </button>
+              </div>
+              <div
+                className="col-sm-8"
+              >
+                <h4
+                  className="well-title"
+                >
+                  Document title
+                </h4>
+                <p>
+                  Author of document
+                </p>
+                <p
+                  className="small"
+                >
+                  1 January 2017
+                </p>
               </div>
             </div>
           </div>
@@ -132,7 +137,7 @@ exports[`rendering renders correctly with one snippet 1`] = `
             className="modal-title"
             id="modalFollowupLabel"
           >
-            Document title
+            Document
           </h4>
         </div>
         <div
@@ -145,25 +150,13 @@ exports[`rendering renders correctly with one snippet 1`] = `
               className="row"
             >
               <div
-                className="col-sm-3"
+                className="col-sm-3 text-center"
               >
                 <img
                   alt="Document title"
-                  className="img-responsive pull-left"
+                  className="img-responsive center-block offset-bottom"
                   src="http://www.example.com/image.jpg"
                 />
-              </div>
-              <div
-                className="col-sm-8"
-              >
-                <p>
-                  Author of document
-                </p>
-                <p
-                  className="small"
-                >
-                  1 January 2017
-                </p>
                 <button
                   className="btn btn-default btn-default-alt"
                   onTouchTap={[Function]}
@@ -173,6 +166,23 @@ exports[`rendering renders correctly with one snippet 1`] = `
                   />
                   Download document
                 </button>
+              </div>
+              <div
+                className="col-sm-8"
+              >
+                <h4
+                  className="well-title"
+                >
+                  Document title
+                </h4>
+                <p>
+                  Author of document
+                </p>
+                <p
+                  className="small"
+                >
+                  1 January 2017
+                </p>
               </div>
             </div>
           </div>
@@ -211,11 +221,15 @@ exports[`rendering renders correctly with one snippet 1`] = `
                 <div
                   className="col-sm-6 text-right"
                 >
-                  <RaisedButton
-                    disabled={false}
-                    label="Follow path"
-                    onTouchTap={[Function]}
-                  />
+                  <div
+                    className="offset-top-small"
+                  >
+                    <RaisedButton
+                      disabled={false}
+                      label="Follow path"
+                      onTouchTap={[Function]}
+                    />
+                  </div>
                 </div>
               </div>
             </div>
@@ -267,7 +281,7 @@ exports[`rendering renders correctly with short date without snippets 1`] = `
             className="modal-title"
             id="modalFollowupLabel"
           >
-            Document title
+            Document
           </h4>
         </div>
         <div
@@ -280,25 +294,13 @@ exports[`rendering renders correctly with short date without snippets 1`] = `
               className="row"
             >
               <div
-                className="col-sm-3"
+                className="col-sm-3 text-center"
               >
                 <img
                   alt="Document title"
-                  className="img-responsive pull-left"
+                  className="img-responsive center-block offset-bottom"
                   src="http://www.example.com/image.jpg"
                 />
-              </div>
-              <div
-                className="col-sm-8"
-              >
-                <p>
-                  Author of document
-                </p>
-                <p
-                  className="small"
-                >
-                  January 2017
-                </p>
                 <button
                   className="btn btn-default btn-default-alt"
                   onTouchTap={[Function]}
@@ -308,6 +310,23 @@ exports[`rendering renders correctly with short date without snippets 1`] = `
                   />
                   Download document
                 </button>
+              </div>
+              <div
+                className="col-sm-8"
+              >
+                <h4
+                  className="well-title"
+                >
+                  Document title
+                </h4>
+                <p>
+                  Author of document
+                </p>
+                <p
+                  className="small"
+                >
+                  January 2017
+                </p>
               </div>
             </div>
           </div>

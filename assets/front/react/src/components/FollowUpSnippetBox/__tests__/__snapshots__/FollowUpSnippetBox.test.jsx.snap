@@ -11,6 +11,11 @@ exports[`rendering renders correctly 1`] = `
       aria-hidden="true"
       className="followup-type-icon glyphicon glyphicon-lock"
     />
+    <span
+      className="followup-type-title"
+    >
+      End
+    </span>
   </div>
   <div
     dangerouslySetInnerHTML={
