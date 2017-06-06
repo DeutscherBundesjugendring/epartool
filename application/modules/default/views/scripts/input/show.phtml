@@ -110,6 +110,7 @@
                             </p>
                         <?php endif; ?>
 
+                        <?=$this->followupLink($input['tid'], $this->question['qi']);?>
 
                         <?php if ($this->videoEnabled && $input['video_service'] !== null && $input['video_id'] !== null
                             && $this->videoServicesStatus['video_' . $input['video_service'] . '_enabled']): ?>

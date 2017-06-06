@@ -9,7 +9,6 @@ class Module_Default_View_Helper_FollowupLink extends Zend_View_Helper_Abstract
      * Returns a link to inputs follow-up chart or static text
      * @param  integer $inputId    The input identifier
      * @param  integer $questionId The question identifier
-     * @param  array   $relIds     Array of related input ids
      * @return string              The outp[ut html
      */
     public function followupLink($inputId, $questionId)
@@ -20,6 +19,7 @@ class Module_Default_View_Helper_FollowupLink extends Zend_View_Helper_Abstract
 
         if ($hasFollowup) {
             $url = $this->view->url([
+                'controller' => 'followup',
                 'action' => 'show',
                 'kid' => $this->view->consultation->kid,
                 'qid' => $questionId,
