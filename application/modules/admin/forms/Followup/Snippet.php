@@ -24,7 +24,7 @@ class Admin_Form_Followup_Snippet extends Dbjr_Form_Admin
             ->setWysiwygType(Dbjr_Form_Element_Textarea::WYSIWYG_TYPE_STANDARD);
         $this->addElement($expl);
 
-        $type = $this->createElement('radio', 'typ');
+        $type = $this->createElement('radio', 'type');
         $type
             ->setLabel('Type')
             ->setRequired(true)
