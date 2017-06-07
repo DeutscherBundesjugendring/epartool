@@ -35,8 +35,8 @@ RUN             mv /tmp/robo.phar /usr/bin/robo
 ######################
 RUN             curl -sL https://deb.nodesource.com/setup_6.x | bash -
 RUN             apt-get install -y nodejs
-RUN             npm install npm -g.
 RUN             npm install -g grunt-cli
+RUN             npm install -g webpack
 RUN             npm install -g bower
 
 

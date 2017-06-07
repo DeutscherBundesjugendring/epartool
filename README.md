@@ -25,6 +25,7 @@ the installation wizard starts automatically.
 * [Node.js + npm](http://nodejs.org/)
 * [Bower](http://bower.io/)
 * [Grunt](http://gruntjs.com/)
+* [Webpack](https://webpack.github.io/)
 
 ### Building
 

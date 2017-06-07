@@ -1,6 +1,8 @@
 const path = require('path');
 const webpack = require('webpack');
 
+// To build in production mode:
+// $ env NODE_ENV=production webpack -p
 const environment = process.env.NODE_ENV;
 const isProduction = environment === 'production';
 
@@ -36,17 +38,13 @@ const config = {
       },
       {
         include: /\.json$/,
-        loaders: [
-          'json-loader',
-        ],
+        loaders: ['json-loader'],
       },
     ],
   },
   plugins: [
     new webpack.DefinePlugin({
-      'process.env': {
-        NODE_ENV: JSON.stringify(environment),
-      },
+      'process.env': { NODE_ENV: JSON.stringify(environment) },
     }),
   ],
   output: {
@@ -58,13 +56,9 @@ const config = {
   },
 };
 
-// To build production run: webpack -p
 if (isProduction) {
   config.plugins.push(
-    new webpack.optimize.UglifyJsPlugin({
-      minimalize: true,
-      sourceMap: true,
-    })
+    new webpack.optimize.UglifyJsPlugin({ minimalize: true })
   );
 }
 
