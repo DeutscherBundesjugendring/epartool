@@ -97,6 +97,446 @@ exports[`rendering renders correctly with long date without snippets 1`] = `
 </div>
 `;
 
+exports[`rendering renders correctly with long date without snippets 2`] = `
+<div>
+  <div
+    className="modal-backdrop fade in"
+  />
+  <div
+    aria-hidden="true"
+    aria-labelledby="modalFollowupLabel"
+    className="modal fade in"
+    style={
+      Object {
+        "display": "block",
+      }
+    }
+  >
+    <div
+      className="modal-dialog"
+    >
+      <div
+        className="modal-content"
+      >
+        <div
+          className="modal-header"
+        >
+          <button
+            aria-label="Close"
+            className="close"
+            onTouchTap={[Function]}
+            type="button"
+          >
+            <span
+              aria-hidden="true"
+            >
+              ×
+            </span>
+          </button>
+          <h4
+            className="modal-title"
+            id="modalFollowupLabel"
+          >
+            Document
+          </h4>
+        </div>
+        <div
+          className="modal-body"
+        >
+          <div
+            className="well well-accent followup-type-wrap"
+          >
+            <div
+              className="followup-type followup-type-right"
+            >
+              <span
+                aria-hidden="true"
+                className="followup-type-icon glyphicon glyphicon-heart"
+              />
+              <span
+                className="followup-type-title"
+              >
+                Supporting
+              </span>
+            </div>
+            <div
+              className="row"
+            >
+              <div
+                className="col-sm-3 text-center"
+              >
+                <img
+                  alt="Document title"
+                  className="img-responsive center-block offset-bottom"
+                  src="http://www.example.com/image.jpg"
+                />
+                <button
+                  className="btn btn-default btn-default-alt"
+                  onTouchTap={[Function]}
+                >
+                  <span
+                    className="glyphicon glyphicon-file icon-offset"
+                  />
+                  Download document
+                </button>
+              </div>
+              <div
+                className="col-sm-8"
+              >
+                <h4
+                  className="well-title"
+                >
+                  Document title
+                </h4>
+                <p>
+                  Author of document
+                </p>
+                <p
+                  className="small"
+                >
+                  1 January 2017
+                </p>
+              </div>
+            </div>
+          </div>
+          <hr />
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`rendering renders correctly with long date without snippets 3`] = `
+<div>
+  <div
+    className="modal-backdrop fade in"
+  />
+  <div
+    aria-hidden="true"
+    aria-labelledby="modalFollowupLabel"
+    className="modal fade in"
+    style={
+      Object {
+        "display": "block",
+      }
+    }
+  >
+    <div
+      className="modal-dialog"
+    >
+      <div
+        className="modal-content"
+      >
+        <div
+          className="modal-header"
+        >
+          <button
+            aria-label="Close"
+            className="close"
+            onTouchTap={[Function]}
+            type="button"
+          >
+            <span
+              aria-hidden="true"
+            >
+              ×
+            </span>
+          </button>
+          <h4
+            className="modal-title"
+            id="modalFollowupLabel"
+          >
+            Document
+          </h4>
+        </div>
+        <div
+          className="modal-body"
+        >
+          <div
+            className="well well-accent followup-type-wrap"
+          >
+            <div
+              className="followup-type followup-type-right"
+            >
+              <span
+                aria-hidden="true"
+                className="followup-type-icon glyphicon glyphicon-play"
+              />
+              <span
+                className="followup-type-title"
+              >
+                Action
+              </span>
+            </div>
+            <div
+              className="row"
+            >
+              <div
+                className="col-sm-3 text-center"
+              >
+                <img
+                  alt="Document title"
+                  className="img-responsive center-block offset-bottom"
+                  src="http://www.example.com/image.jpg"
+                />
+                <button
+                  className="btn btn-default btn-default-alt"
+                  onTouchTap={[Function]}
+                >
+                  <span
+                    className="glyphicon glyphicon-file icon-offset"
+                  />
+                  Download document
+                </button>
+              </div>
+              <div
+                className="col-sm-8"
+              >
+                <h4
+                  className="well-title"
+                >
+                  Document title
+                </h4>
+                <p>
+                  Author of document
+                </p>
+                <p
+                  className="small"
+                >
+                  1 January 2017
+                </p>
+              </div>
+            </div>
+          </div>
+          <hr />
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`rendering renders correctly with long date without snippets 4`] = `
+<div>
+  <div
+    className="modal-backdrop fade in"
+  />
+  <div
+    aria-hidden="true"
+    aria-labelledby="modalFollowupLabel"
+    className="modal fade in"
+    style={
+      Object {
+        "display": "block",
+      }
+    }
+  >
+    <div
+      className="modal-dialog"
+    >
+      <div
+        className="modal-content"
+      >
+        <div
+          className="modal-header"
+        >
+          <button
+            aria-label="Close"
+            className="close"
+            onTouchTap={[Function]}
+            type="button"
+          >
+            <span
+              aria-hidden="true"
+            >
+              ×
+            </span>
+          </button>
+          <h4
+            className="modal-title"
+            id="modalFollowupLabel"
+          >
+            Document
+          </h4>
+        </div>
+        <div
+          className="modal-body"
+        >
+          <div
+            className="well well-accent followup-type-wrap"
+          >
+            <div
+              className="followup-type followup-type-right"
+            >
+              <span
+                aria-hidden="true"
+                className="followup-type-icon glyphicon glyphicon-minus-sign"
+              />
+              <span
+                className="followup-type-title"
+              >
+                Rejected
+              </span>
+            </div>
+            <div
+              className="row"
+            >
+              <div
+                className="col-sm-3 text-center"
+              >
+                <img
+                  alt="Document title"
+                  className="img-responsive center-block offset-bottom"
+                  src="http://www.example.com/image.jpg"
+                />
+                <button
+                  className="btn btn-default btn-default-alt"
+                  onTouchTap={[Function]}
+                >
+                  <span
+                    className="glyphicon glyphicon-file icon-offset"
+                  />
+                  Download document
+                </button>
+              </div>
+              <div
+                className="col-sm-8"
+              >
+                <h4
+                  className="well-title"
+                >
+                  Document title
+                </h4>
+                <p>
+                  Author of document
+                </p>
+                <p
+                  className="small"
+                >
+                  1 January 2017
+                </p>
+              </div>
+            </div>
+          </div>
+          <hr />
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`rendering renders correctly with long date without snippets 5`] = `
+<div>
+  <div
+    className="modal-backdrop fade in"
+  />
+  <div
+    aria-hidden="true"
+    aria-labelledby="modalFollowupLabel"
+    className="modal fade in"
+    style={
+      Object {
+        "display": "block",
+      }
+    }
+  >
+    <div
+      className="modal-dialog"
+    >
+      <div
+        className="modal-content"
+      >
+        <div
+          className="modal-header"
+        >
+          <button
+            aria-label="Close"
+            className="close"
+            onTouchTap={[Function]}
+            type="button"
+          >
+            <span
+              aria-hidden="true"
+            >
+              ×
+            </span>
+          </button>
+          <h4
+            className="modal-title"
+            id="modalFollowupLabel"
+          >
+            Document
+          </h4>
+        </div>
+        <div
+          className="modal-body"
+        >
+          <div
+            className="well well-accent followup-type-wrap"
+          >
+            <div
+              className="followup-type followup-type-right"
+            >
+              <span
+                aria-hidden="true"
+                className="followup-type-icon glyphicon glyphicon-lock"
+              />
+              <span
+                className="followup-type-title"
+              >
+                End
+              </span>
+            </div>
+            <div
+              className="row"
+            >
+              <div
+                className="col-sm-3 text-center"
+              >
+                <img
+                  alt="Document title"
+                  className="img-responsive center-block offset-bottom"
+                  src="http://www.example.com/image.jpg"
+                />
+                <button
+                  className="btn btn-default btn-default-alt"
+                  onTouchTap={[Function]}
+                >
+                  <span
+                    className="glyphicon glyphicon-file icon-offset"
+                  />
+                  Download document
+                </button>
+              </div>
+              <div
+                className="col-sm-8"
+              >
+                <h4
+                  className="well-title"
+                >
+                  Document title
+                </h4>
+                <p>
+                  Author of document
+                </p>
+                <p
+                  className="small"
+                >
+                  1 January 2017
+                </p>
+              </div>
+            </div>
+          </div>
+          <hr />
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
 exports[`rendering renders correctly with one snippet 1`] = `
 <div>
   <div

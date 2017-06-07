@@ -8,9 +8,10 @@ import FollowUpSnippetBox from '../FollowUpSnippetBox';
 
 injectTapEventPlugin();
 
-const element = (
+const types = ['general', 'supporting', 'action', 'rejected', 'end'];
+const getElement = type => (
   <FollowUpSnippetBox
-    type="end"
+    type={type}
     snippetExplanation="Snippet"
     likeAction={() => {}}
     likeCount={0}
@@ -22,12 +23,11 @@ const element = (
 );
 
 describe('rendering', () => {
-  it('renders correctly', () => {
-    const tree = shallow(
-      React.cloneElement(element)
-    );
-
-    expect(shallowToJson(tree)).toMatchSnapshot();
+  types.forEach((type) => {
+    it('renders correctly', () => {
+      const tree = shallow(React.cloneElement(getElement(type)));
+      expect(shallowToJson(tree)).toMatchSnapshot();
+    });
   });
 });
 
@@ -35,7 +35,7 @@ describe('functionality', () => {
   it('calls follow path action', () => {
     const spy = sinon.spy();
     const component = shallow(
-      React.cloneElement(element, { followPathAction: spy })
+      React.cloneElement(getElement(types[0]), { followPathAction: spy })
     );
 
     component.find('RaisedButton').first().simulate('touchTap', { preventDefault: () => {} });

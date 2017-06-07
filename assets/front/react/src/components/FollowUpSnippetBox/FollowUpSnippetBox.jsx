@@ -59,7 +59,7 @@ const FollowUpSnippetBox = (props) => {
 };
 
 FollowUpSnippetBox.propTypes = {
-  type: React.PropTypes.string.isRequired,
+  type: React.PropTypes.oneOf(['general', 'supporting', 'action', 'rejected', 'end']).isRequired,
   snippetExplanation: React.PropTypes.string.isRequired,
   likeAction: React.PropTypes.func.isRequired,
   likeCount: React.PropTypes.number.isRequired,

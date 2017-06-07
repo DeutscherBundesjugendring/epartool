@@ -142,7 +142,7 @@ const FollowDocumentModal = (props) => {
 };
 
 FollowDocumentModal.propTypes = {
-  type: React.PropTypes.string.isRequired,
+  type: React.PropTypes.oneOf(['general', 'supporting', 'action', 'rejected', 'end']).isRequired,
   title: React.PropTypes.string.isRequired,
   author: React.PropTypes.string.isRequired,
   date: React.PropTypes.objectOf(Date).isRequired,

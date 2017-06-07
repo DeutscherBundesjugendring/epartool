@@ -8,9 +8,10 @@ import FollowUpDocumentBox from '../FollowUpDocumentBox';
 
 injectTapEventPlugin();
 
-const element = (
+const types = ['general', 'supporting', 'action', 'rejected', 'end'];
+const getElement = type => (
   <FollowUpDocumentBox
-    type="general"
+    type={type}
     title="Document title"
     author="Author of document"
     description="Description of document"
@@ -24,17 +25,19 @@ const element = (
 
 
 describe('rendering', () => {
-  it('renders correctly with long date', () => {
-    const tree = shallow(
-      React.cloneElement(element)
-    );
+  types.forEach((type) => {
+    it('renders correctly with long date', () => {
+      const tree = shallow(
+        React.cloneElement(getElement(type))
+      );
 
-    expect(shallowToJson(tree)).toMatchSnapshot();
+      expect(shallowToJson(tree)).toMatchSnapshot();
+    });
   });
 
   it('renders correctly with short date', () => {
     const tree = shallow(
-      React.cloneElement(element, { dateMonthYearOnly: true })
+      React.cloneElement(getElement(types[0]), { dateMonthYearOnly: true })
     );
 
     expect(shallowToJson(tree)).toMatchSnapshot();
@@ -45,7 +48,7 @@ describe('functionality', () => {
   it('calls download action', () => {
     const spy = sinon.spy();
     const component = shallow(
-      React.cloneElement(element, { downloadAction: spy })
+      React.cloneElement(getElement(types[0]), { downloadAction: spy })
     );
 
     component.find('RaisedButton').first().simulate('touchTap', { preventDefault: () => {} });

@@ -8,9 +8,10 @@ import FollowUpDocumentModal from '../FollowUpDocumentModal';
 
 injectTapEventPlugin();
 
-const element = (
+const types = ['general', 'supporting', 'action', 'rejected', 'end'];
+const getElement = type => (
   <FollowUpDocumentModal
-    type="general"
+    type={type}
     title="Document title"
     author="Author of document"
     date={new Date('2017-01-01')}
@@ -21,7 +22,6 @@ const element = (
     closeAction={() => {}}
   />
 );
-
 const snippetElement = {
   snippetExplanation: 'Snippet',
   likeAction: () => {},
@@ -35,17 +35,19 @@ const snippetElement = {
 
 
 describe('rendering', () => {
-  it('renders correctly with long date without snippets', () => {
-    const tree = shallow(
-      React.cloneElement(element)
-    );
+  types.forEach((type) => {
+    it('renders correctly with long date without snippets', () => {
+      const tree = shallow(
+        React.cloneElement(getElement(type))
+      );
 
-    expect(shallowToJson(tree)).toMatchSnapshot();
+      expect(shallowToJson(tree)).toMatchSnapshot();
+    });
   });
 
   it('renders correctly with short date without snippets', () => {
     const tree = shallow(
-      React.cloneElement(element, { dateMonthYearOnly: true })
+      React.cloneElement(getElement(types[0]), { dateMonthYearOnly: true })
     );
 
     expect(shallowToJson(tree)).toMatchSnapshot();
@@ -53,7 +55,7 @@ describe('rendering', () => {
 
   it('renders correctly with one snippet', () => {
     const tree = shallow(
-      React.cloneElement(element, { snippets: [
+      React.cloneElement(getElement(types[0]), { snippets: [
         Object.assign({}, snippetElement),
       ] })
     );
@@ -66,7 +68,7 @@ describe('functionality', () => {
   it('calls close action', () => {
     const spy = sinon.spy();
     const component = shallow(
-      React.cloneElement(element, { closeAction: spy })
+      React.cloneElement(getElement(types[0]), { closeAction: spy })
     );
 
     component.find('button').first().simulate('touchTap', { stopPropagation: () => {} });
@@ -76,7 +78,7 @@ describe('functionality', () => {
   it('calls download action', () => {
     const spy = sinon.spy();
     const component = shallow(
-      React.cloneElement(element, { downloadAction: spy })
+      React.cloneElement(getElement(types[0]), { downloadAction: spy })
     );
 
     component.find('button').last().simulate('touchTap', { stopPropagation: () => {} });
@@ -89,7 +91,7 @@ describe('functionality', () => {
     snippetElementCopy.followPathAction = spy;
 
     const component = shallow(
-      React.cloneElement(element, { snippets: [snippetElementCopy] })
+      React.cloneElement(getElement(types[0]), { snippets: [snippetElementCopy] })
     );
 
     component.find('RaisedButton').simulate('touchTap');

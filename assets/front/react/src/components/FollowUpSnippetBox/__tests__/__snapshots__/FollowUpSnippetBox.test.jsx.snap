@@ -5,6 +5,165 @@ exports[`rendering renders correctly 1`] = `
   className=" well well-bordered followup-flow followup-well followup-well-link followup-type-wrap followup-type-wrap-inner "
 >
   <div
+    dangerouslySetInnerHTML={
+      Object {
+        "__html": "Snippet",
+      }
+    }
+  />
+  <div
+    className="offset-bottom-small"
+  >
+    <Reputation
+      dislikeAction={[Function]}
+      dislikeCount={0}
+      likeAction={[Function]}
+      likeCount={0}
+      voted={false}
+    />
+  </div>
+  <RaisedButton
+    disabled={false}
+    label="Follow path"
+    onTouchTap={[Function]}
+  />
+</div>
+`;
+
+exports[`rendering renders correctly 2`] = `
+<div
+  className=" well well-bordered followup-flow followup-well followup-well-link followup-type-wrap followup-type-wrap-inner "
+>
+  <div
+    className="followup-type followup-type-right followup-type-right-alt"
+  >
+    <span
+      aria-hidden="true"
+      className="followup-type-icon glyphicon glyphicon-heart"
+    />
+    <span
+      className="followup-type-title"
+    >
+      Supporting
+    </span>
+  </div>
+  <div
+    dangerouslySetInnerHTML={
+      Object {
+        "__html": "Snippet",
+      }
+    }
+  />
+  <div
+    className="offset-bottom-small"
+  >
+    <Reputation
+      dislikeAction={[Function]}
+      dislikeCount={0}
+      likeAction={[Function]}
+      likeCount={0}
+      voted={false}
+    />
+  </div>
+  <RaisedButton
+    disabled={false}
+    label="Follow path"
+    onTouchTap={[Function]}
+  />
+</div>
+`;
+
+exports[`rendering renders correctly 3`] = `
+<div
+  className=" well well-bordered followup-flow followup-well followup-well-link followup-type-wrap followup-type-wrap-inner "
+>
+  <div
+    className="followup-type followup-type-right followup-type-right-alt"
+  >
+    <span
+      aria-hidden="true"
+      className="followup-type-icon glyphicon glyphicon-play"
+    />
+    <span
+      className="followup-type-title"
+    >
+      Action
+    </span>
+  </div>
+  <div
+    dangerouslySetInnerHTML={
+      Object {
+        "__html": "Snippet",
+      }
+    }
+  />
+  <div
+    className="offset-bottom-small"
+  >
+    <Reputation
+      dislikeAction={[Function]}
+      dislikeCount={0}
+      likeAction={[Function]}
+      likeCount={0}
+      voted={false}
+    />
+  </div>
+  <RaisedButton
+    disabled={false}
+    label="Follow path"
+    onTouchTap={[Function]}
+  />
+</div>
+`;
+
+exports[`rendering renders correctly 4`] = `
+<div
+  className=" well well-bordered followup-flow followup-well followup-well-link followup-type-wrap followup-type-wrap-inner "
+>
+  <div
+    className="followup-type followup-type-right followup-type-right-alt"
+  >
+    <span
+      aria-hidden="true"
+      className="followup-type-icon glyphicon glyphicon-minus-sign"
+    />
+    <span
+      className="followup-type-title"
+    >
+      Rejected
+    </span>
+  </div>
+  <div
+    dangerouslySetInnerHTML={
+      Object {
+        "__html": "Snippet",
+      }
+    }
+  />
+  <div
+    className="offset-bottom-small"
+  >
+    <Reputation
+      dislikeAction={[Function]}
+      dislikeCount={0}
+      likeAction={[Function]}
+      likeCount={0}
+      voted={false}
+    />
+  </div>
+  <RaisedButton
+    disabled={false}
+    label="Follow path"
+    onTouchTap={[Function]}
+  />
+</div>
+`;
+
+exports[`rendering renders correctly 5`] = `
+<div
+  className=" well well-bordered followup-flow followup-well followup-well-link followup-type-wrap followup-type-wrap-inner "
+>
+  <div
     className="followup-type followup-type-right followup-type-right-alt"
   >
     <span

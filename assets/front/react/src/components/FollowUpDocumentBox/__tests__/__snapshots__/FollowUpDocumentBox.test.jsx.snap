@@ -35,6 +35,198 @@ exports[`rendering renders correctly with long date 1`] = `
 </div>
 `;
 
+exports[`rendering renders correctly with long date 2`] = `
+<div
+  className=" well well-bordered followup-flow followup-well followup-well-link followup-type-wrap followup-type-wrap-inner "
+>
+  <div
+    className="followup-type followup-type-right followup-type-right-alt"
+  >
+    <span
+      aria-hidden="true"
+      className="followup-type-icon glyphicon glyphicon-heart"
+    />
+    <span
+      className="followup-type-title"
+    >
+      Supporting
+    </span>
+  </div>
+  <p>
+    Document title
+  </p>
+  <p>
+    Author of document
+  </p>
+  <p>
+    1 January 2017
+  </p>
+  <img
+    alt="Document title"
+    className="offset-bottom img-responsive"
+    src="http://www.example.com/image.jpg"
+    width="80"
+  />
+  <div
+    className="offset-bottom"
+    dangerouslySetInnerHTML={
+      Object {
+        "__html": "Description of document",
+      }
+    }
+  />
+  <RaisedButton
+    disabled={false}
+    label="Download document"
+    onTouchTap={[Function]}
+  />
+</div>
+`;
+
+exports[`rendering renders correctly with long date 3`] = `
+<div
+  className=" well well-bordered followup-flow followup-well followup-well-link followup-type-wrap followup-type-wrap-inner "
+>
+  <div
+    className="followup-type followup-type-right followup-type-right-alt"
+  >
+    <span
+      aria-hidden="true"
+      className="followup-type-icon glyphicon glyphicon-play"
+    />
+    <span
+      className="followup-type-title"
+    >
+      Action
+    </span>
+  </div>
+  <p>
+    Document title
+  </p>
+  <p>
+    Author of document
+  </p>
+  <p>
+    1 January 2017
+  </p>
+  <img
+    alt="Document title"
+    className="offset-bottom img-responsive"
+    src="http://www.example.com/image.jpg"
+    width="80"
+  />
+  <div
+    className="offset-bottom"
+    dangerouslySetInnerHTML={
+      Object {
+        "__html": "Description of document",
+      }
+    }
+  />
+  <RaisedButton
+    disabled={false}
+    label="Download document"
+    onTouchTap={[Function]}
+  />
+</div>
+`;
+
+exports[`rendering renders correctly with long date 4`] = `
+<div
+  className=" well well-bordered followup-flow followup-well followup-well-link followup-type-wrap followup-type-wrap-inner "
+>
+  <div
+    className="followup-type followup-type-right followup-type-right-alt"
+  >
+    <span
+      aria-hidden="true"
+      className="followup-type-icon glyphicon glyphicon-minus-sign"
+    />
+    <span
+      className="followup-type-title"
+    >
+      Rejected
+    </span>
+  </div>
+  <p>
+    Document title
+  </p>
+  <p>
+    Author of document
+  </p>
+  <p>
+    1 January 2017
+  </p>
+  <img
+    alt="Document title"
+    className="offset-bottom img-responsive"
+    src="http://www.example.com/image.jpg"
+    width="80"
+  />
+  <div
+    className="offset-bottom"
+    dangerouslySetInnerHTML={
+      Object {
+        "__html": "Description of document",
+      }
+    }
+  />
+  <RaisedButton
+    disabled={false}
+    label="Download document"
+    onTouchTap={[Function]}
+  />
+</div>
+`;
+
+exports[`rendering renders correctly with long date 5`] = `
+<div
+  className=" well well-bordered followup-flow followup-well followup-well-link followup-type-wrap followup-type-wrap-inner "
+>
+  <div
+    className="followup-type followup-type-right followup-type-right-alt"
+  >
+    <span
+      aria-hidden="true"
+      className="followup-type-icon glyphicon glyphicon-lock"
+    />
+    <span
+      className="followup-type-title"
+    >
+      End
+    </span>
+  </div>
+  <p>
+    Document title
+  </p>
+  <p>
+    Author of document
+  </p>
+  <p>
+    1 January 2017
+  </p>
+  <img
+    alt="Document title"
+    className="offset-bottom img-responsive"
+    src="http://www.example.com/image.jpg"
+    width="80"
+  />
+  <div
+    className="offset-bottom"
+    dangerouslySetInnerHTML={
+      Object {
+        "__html": "Description of document",
+      }
+    }
+  />
+  <RaisedButton
+    disabled={false}
+    label="Download document"
+    onTouchTap={[Function]}
+  />
+</div>
+`;
+
 exports[`rendering renders correctly with short date 1`] = `
 <div
   className=" well well-bordered followup-flow followup-well followup-well-link followup-type-wrap followup-type-wrap-inner "
