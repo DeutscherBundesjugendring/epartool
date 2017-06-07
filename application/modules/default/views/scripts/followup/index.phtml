@@ -72,19 +72,25 @@
                                                 <div class="followup-type">
                                                     <?php
                                                         $icon = '';
+                                                        $iconText = '';
                                                         if ($followup['type'] === 'supporting'):
                                                             $icon = 'heart';
+                                                            $iconText = $this->translate('Supporting');
                                                         elseif ($followup['type'] === 'action'):
                                                             $icon = 'play';
+                                                            $iconText = $this->translate('Action');
                                                         elseif ($followup['type'] === 'rejected'):
                                                             $icon = 'minus-sign';
+                                                            $iconText = $this->translate('Rejected');
                                                         elseif ($followup['type'] === 'end'):
                                                             $icon = 'lock';
+                                                            $iconText = $this->translate('End');
                                                         else:
                                                         endif;
                                                     ?>
                                                     <?php if ($icon): ?>
                                                         <span class="followup-type-icon glyphicon glyphicon-<?=$icon;?>" aria-hidden="true"></span>
+                                                        <span class="followup-type-title"><?=$iconText;?></span>
                                                     <?php endif; ?>
                                                 </div>
                                             <?php endif; ?>

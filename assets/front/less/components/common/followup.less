@@ -126,6 +126,7 @@
     &-type-wrap {
         position: relative;
         min-height: 100px;
+        overflow: hidden;
 
         &.followup-type-wrap-inner {
             padding-right: 40px;
@@ -144,10 +145,21 @@
 
         &-icon {
             position: absolute;
+            top: -72.5px;
+            left: 7.5px;
+            font-size: 15px;
             color: #fff;
-            top: -70px;
-            left: 10px;
-            font-size: 25px;
+        }
+
+        &-title {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100px;
+            text-align: center;
+            color: #fff;
+            transform: translate(-11px,-60px) rotate(-45deg);
+            transform-origin: bottom;
         }
     }
 
@@ -161,6 +173,12 @@
             left: auto;
             right: -70px;
             top: 10px;
+        }
+
+        .followup-type-title {
+            left: auto;
+            right: 0;
+            transform: translate(90px,20px) rotate(45deg);
         }
     }
 

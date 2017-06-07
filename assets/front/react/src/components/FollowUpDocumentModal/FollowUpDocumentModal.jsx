@@ -8,18 +8,23 @@ import RaisedButton from '../RaisedButton/RaisedButton';
 const FollowDocumentModal = (props) => {
   let glypClasses = 'followup-type-icon glyphicon';
   let isType = false;
+  let glypTitle = '';
 
   if (props.type === 'supporting') {
     glypClasses += ' glyphicon-heart';
+    glypTitle = 'Supporting';
     isType = true;
   } else if (props.type === 'action') {
     glypClasses += ' glyphicon-play';
+    glypTitle = 'Action';
     isType = true;
   } else if (props.type === 'rejected') {
     glypClasses += ' glyphicon-minus-sign';
+    glypTitle = 'Rejected';
     isType = true;
   } else if (props.type === 'end') {
     glypClasses += ' glyphicon-lock';
+    glypTitle = 'End';
     isType = true;
   }
 
@@ -44,7 +49,7 @@ const FollowDocumentModal = (props) => {
               <span aria-hidden="true">×</span>
             </button>
             <h4 className="modal-title" id="modalFollowupLabel">
-              {props.title}
+              Document
             </h4>
           </div>
           <div className="modal-body">
@@ -53,17 +58,26 @@ const FollowDocumentModal = (props) => {
               {isType && (
                 <div className="followup-type followup-type-right">
                   <span className={glypClasses} aria-hidden="true" />
+                  <span className="followup-type-title">{glypTitle}</span>
                 </div>
               )}
               <div className="row">
-                <div className="col-sm-3">
+                <div className="col-sm-3 text-center">
                   <img
-                    className="img-responsive pull-left"
+                    className="img-responsive center-block offset-bottom"
                     src={props.previewImageLink}
                     alt={props.title}
                   />
+                  <button
+                    className="btn btn-default btn-default-alt"
+                    onTouchTap={props.downloadAction}
+                  >
+                    <span className="glyphicon glyphicon-file icon-offset" />
+                    {props.downloadLabel}
+                  </button>
                 </div>
                 <div className="col-sm-8">
+                  <h4 className="well-title">{props.title}</h4>
                   <p>
                     {props.author}
                   </p>
@@ -73,13 +87,6 @@ const FollowDocumentModal = (props) => {
                       : moment(props.date).format('D MMMM YYYY')
                     }
                   </p>
-                  <button
-                    className="btn btn-default btn-default-alt"
-                    onTouchTap={props.downloadAction}
-                  >
-                    <span className="glyphicon glyphicon-file icon-offset" />
-                    {props.downloadLabel}
-                  </button>
                 </div>
               </div>
             </div>
@@ -114,10 +121,12 @@ const FollowDocumentModal = (props) => {
                     </div>
                     <div className="col-sm-6 text-right">
                       {snippet.showFollowPathButton &&
-                      <RaisedButton
-                        label={snippet.followPathLabel}
-                        onTouchTap={snippet.followPathAction}
-                      />
+                        <div className="offset-top-small">
+                          <RaisedButton
+                            label={snippet.followPathLabel}
+                            onTouchTap={snippet.followPathAction}
+                          />
+                        </div>
                       }
                     </div>
                   </div>

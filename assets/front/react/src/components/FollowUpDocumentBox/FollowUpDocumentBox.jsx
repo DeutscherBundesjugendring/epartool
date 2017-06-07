@@ -6,18 +6,23 @@ import RaisedButton from '../RaisedButton/RaisedButton';
 const FollowDocumentBox = (props) => {
   let glypClasses = 'followup-type-icon glyphicon';
   let isType = false;
+  let glypTitle = '';
 
   if (props.type === 'supporting') {
     glypClasses += ' glyphicon-heart';
+    glypTitle = 'Supporting';
     isType = true;
   } else if (props.type === 'action') {
     glypClasses += ' glyphicon-play';
+    glypTitle = 'Action';
     isType = true;
   } else if (props.type === 'rejected') {
     glypClasses += ' glyphicon-minus-sign';
+    glypTitle = 'Rejected';
     isType = true;
   } else if (props.type === 'end') {
     glypClasses += ' glyphicon-lock';
+    glypTitle = 'End';
     isType = true;
   }
 
@@ -36,6 +41,7 @@ const FollowDocumentBox = (props) => {
       {isType && (
         <div className="followup-type followup-type-right followup-type-right-alt">
           <span className={glypClasses} aria-hidden="true" />
+          <span className="followup-type-title">{glypTitle}</span>
         </div>
       )}
       <p>
