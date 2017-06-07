@@ -576,10 +576,10 @@ class FollowupController extends Zend_Controller_Action
             'downloadLabel' => $this->view->translate('Download'),
             'backToTimeline' => $this->view->translate('Back to timeline'),
             'followPath' => $this->view->translate('Follow path'),
-            'generalError' => $this->view->translate('Error occurred. Followup timeline cannot be loaded.'),
+            'generalError' => $this->view->translate('An error occurred. Unable to load follow-up timeline.'),
             'backToReactionsAndSnippets' => $this->view->translate('Back to reactions and snippets'),
             'votingResult' => $this->view->translate('Result of voting:'),
-            'votingLimitError' => $this->view->translate('You can vote only once for each snippet.'),
+            'votingLimitError' => $this->view->translate('You can vote only once for each reaction.'),
             'position' => $this->view->translate('position'),
             'help' => $this->view->translate(
                 'Follow the Reactions to your contribution here. Click on the arrows for the next steps.'

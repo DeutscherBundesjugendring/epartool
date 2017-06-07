@@ -18,12 +18,13 @@ class Model_FollowupFiles extends Zend_Db_Table_Abstract
      * @return array
      */
     public static function getTypes() {
+        $translator = Zend_Registry::get('Zend_Translate');
         return [
-            self::TYPE_GENERAL => self::TYPE_GENERAL,
-            self::TYPE_SUPPORTING => self::TYPE_SUPPORTING,
-            self::TYPE_ACTION => self::TYPE_ACTION,
-            self::TYPE_REJECTION => self::TYPE_REJECTION,
-            self::TYPE_END => self::TYPE_END,
+            self::TYPE_GENERAL => $translator->translate('General'),
+            self::TYPE_SUPPORTING => $translator->translate('Supporting'),
+            self::TYPE_ACTION => $translator->translate('Action'),
+            self::TYPE_REJECTION => $translator->translate('Rejected'),
+            self::TYPE_END => $translator->translate('End'),
         ];
     }
 
