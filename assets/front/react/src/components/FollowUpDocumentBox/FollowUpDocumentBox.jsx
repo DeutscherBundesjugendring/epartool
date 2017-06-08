@@ -69,7 +69,7 @@ const FollowDocumentBox = (props) => {
 };
 
 FollowDocumentBox.propTypes = {
-  type: React.PropTypes.string.isRequired,
+  type: React.PropTypes.oneOf(['general', 'supporting', 'action', 'rejected', 'end']).isRequired,
   title: React.PropTypes.string.isRequired,
   author: React.PropTypes.string.isRequired,
   description: React.PropTypes.string.isRequired,
