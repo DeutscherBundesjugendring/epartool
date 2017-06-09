@@ -5,26 +5,26 @@ import Reputation from '../Reputation/Reputation';
 import RaisedButton from '../RaisedButton/RaisedButton';
 
 
-const FollowDocumentModal = (props) => {
+const FollowUpDocumentModal = (props) => {
   let glypClasses = 'followup-type-icon glyphicon';
   let isType = false;
   let glypTitle = '';
 
   if (props.type === 'supporting') {
     glypClasses += ' glyphicon-heart';
-    glypTitle = 'Supporting';
+    glypTitle = props.typeSupportingLabel;
     isType = true;
   } else if (props.type === 'action') {
     glypClasses += ' glyphicon-play';
-    glypTitle = 'Action';
+    glypTitle = props.typeActionLabel;
     isType = true;
   } else if (props.type === 'rejected') {
     glypClasses += ' glyphicon-minus-sign';
-    glypTitle = 'Rejected';
+    glypTitle = props.typeRejectedLabel;
     isType = true;
   } else if (props.type === 'end') {
     glypClasses += ' glyphicon-lock';
-    glypTitle = 'End';
+    glypTitle = props.typeEndLabel;
     isType = true;
   }
 
@@ -141,16 +141,20 @@ const FollowDocumentModal = (props) => {
   );
 };
 
-FollowDocumentModal.propTypes = {
+FollowUpDocumentModal.propTypes = {
   type: React.PropTypes.oneOf(['general', 'supporting', 'action', 'rejected', 'end']).isRequired,
   title: React.PropTypes.string.isRequired,
   author: React.PropTypes.string.isRequired,
   date: React.PropTypes.objectOf(Date).isRequired,
   dateMonthYearOnly: React.PropTypes.bool.isRequired,
   previewImageLink: React.PropTypes.string.isRequired,
+  closeAction: React.PropTypes.func.isRequired,
   downloadAction: React.PropTypes.func.isRequired,
   downloadLabel: React.PropTypes.string.isRequired,
-  closeAction: React.PropTypes.func.isRequired,
+  typeActionLabel: React.PropTypes.string.isRequired,
+  typeEndLabel: React.PropTypes.string.isRequired,
+  typeRejectedLabel: React.PropTypes.string.isRequired,
+  typeSupportingLabel: React.PropTypes.string.isRequired,
   snippets: React.PropTypes.arrayOf(React.PropTypes.shape({
     snippetExplanation: React.PropTypes.string.isRequired,
     likeAction: React.PropTypes.func.isRequired,
@@ -163,4 +167,4 @@ FollowDocumentModal.propTypes = {
   })),
 };
 
-export default FollowDocumentModal;
+export default FollowUpDocumentModal;

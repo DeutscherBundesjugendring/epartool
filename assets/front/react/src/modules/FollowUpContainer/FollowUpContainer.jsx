@@ -156,6 +156,10 @@ class FollowUpContainer extends React.Component {
               downloadFile(documentResponse.ref_doc);
             }}
             downloadLabel={followupTranslations.downloadLabel}
+            typeActionLabel={followupTranslations.typeActionLabel}
+            typeEndLabel={followupTranslations.typeEndLabel}
+            typeRejectedLabel={followupTranslations.typeRejectedLabel}
+            typeSupportingLabel={followupTranslations.typeSupportingLabel}
             snippets={snippetResponse.map(response => ({
               snippetExplanation: response.expl,
               likeAction: () => this.modalSnippetLike(response.fid, elementResponse),

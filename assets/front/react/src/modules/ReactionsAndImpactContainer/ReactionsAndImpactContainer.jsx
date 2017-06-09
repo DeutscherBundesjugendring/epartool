@@ -49,10 +49,12 @@ class ReactionsAndImpactContainer extends React.Component {
           date={new Date(documentResponse.when)}
           dateMonthYearOnly={!!documentResponse.is_only_month_year_showed}
           previewImageLink={documentResponse.gfx_who}
-          downloadAction={() => {
-            downloadFile(documentResponse.ref_doc);
-          }}
+          downloadAction={() => downloadFile(documentResponse.ref_doc)}
           downloadLabel={followupTranslations.downloadLabel}
+          typeActionLabel={followupTranslations.typeActionLabel}
+          typeEndLabel={followupTranslations.typeEndLabel}
+          typeRejectedLabel={followupTranslations.typeRejectedLabel}
+          typeSupportingLabel={followupTranslations.typeSupportingLabel}
           snippets={snippetResponse.map(response => ({
             snippetExplanation: response.expl,
             likeAction: () => this.modalSnippetLike(response.fid),

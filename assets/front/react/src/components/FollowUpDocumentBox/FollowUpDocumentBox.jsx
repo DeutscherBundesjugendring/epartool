@@ -10,19 +10,19 @@ const FollowDocumentBox = (props) => {
 
   if (props.type === 'supporting') {
     glypClasses += ' glyphicon-heart';
-    glypTitle = 'Supporting';
+    glypTitle = props.typeSupportingLabel;
     isType = true;
   } else if (props.type === 'action') {
     glypClasses += ' glyphicon-play';
-    glypTitle = 'Action';
+    glypTitle = props.typeActionLabel;
     isType = true;
   } else if (props.type === 'rejected') {
     glypClasses += ' glyphicon-minus-sign';
-    glypTitle = 'Rejected';
+    glypTitle = props.typeRejectedLabel;
     isType = true;
   } else if (props.type === 'end') {
     glypClasses += ' glyphicon-lock';
-    glypTitle = 'End';
+    glypTitle = props.typeEndLabel;
     isType = true;
   }
 
@@ -78,6 +78,10 @@ FollowDocumentBox.propTypes = {
   previewImageLink: React.PropTypes.string.isRequired,
   downloadAction: React.PropTypes.func.isRequired,
   downloadLabel: React.PropTypes.string.isRequired,
+  typeActionLabel: React.PropTypes.string.isRequired,
+  typeEndLabel: React.PropTypes.string.isRequired,
+  typeRejectedLabel: React.PropTypes.string.isRequired,
+  typeSupportingLabel: React.PropTypes.string.isRequired,
 };
 
 export default FollowDocumentBox;
