@@ -41,6 +41,10 @@ const resolveElement = (response, parentAction, childAction, modalAction, otherA
           window.location = `${baseUrl}/followup/show-by-snippet/kid/${response.kid}/fid/${data.fid}`;
         }}
         followPathLabel={followupTranslations.followPath}
+        typeActionLabel={followupTranslations.typeActionLabel}
+        typeEndLabel={followupTranslations.typeEndLabel}
+        typeRejectedLabel={followupTranslations.typeRejectedLabel}
+        typeSupportingLabel={followupTranslations.typeSupportingLabel}
       />
     );
   }
@@ -57,6 +61,10 @@ const resolveElement = (response, parentAction, childAction, modalAction, otherA
         previewImageLink={data.gfx_who}
         downloadAction={() => downloadFile(data.ref_doc)}
         downloadLabel={followupTranslations.downloadLabel}
+        typeActionLabel={followupTranslations.typeActionLabel}
+        typeEndLabel={followupTranslations.typeEndLabel}
+        typeRejectedLabel={followupTranslations.typeRejectedLabel}
+        typeSupportingLabel={followupTranslations.typeSupportingLabel}
       />
     );
   }
