@@ -18,11 +18,24 @@ class Plugin_Headers extends Zend_Controller_Plugin_Abstract
      */
     private function getCORSConfig()
     {
-        $config = Zend_Registry::get('systemconfig')->cors;
+        $config = Zend_Registry::get('systemconfig')->cors_default;
+        if (!$config) {
+            $config = new Zend_Config([]);
+        }
+
+        $configLocal = Zend_Registry::get('systemconfig')->cors;
+        if (!$configLocal) {
+            $configLocal = new Zend_Config([]);
+        }
+
+        $keys = array_merge(array_keys($config->toArray()), array_keys($configLocal->toArray()));
 
         $header = '';
-        foreach ($config as $source => $allowedDomains) {
-            $header .= $source . ' ' . implode(' ', $allowedDomains->toArray()) . '; ';
+        foreach ($keys as $source) {
+            $header .= $source . ' ' . implode(' ', array_merge(
+                    $config->get($source, new Zend_Config([]))->toArray(),
+                    $configLocal->get($source, new Zend_Config([]))->toArray()
+                )) . '; ';
         }
 
         return $header;
