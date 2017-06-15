@@ -40,15 +40,12 @@ module.exports = {
 
   // JS
   'build-js-front': [
-    'coffee:front',
     'concat:front',
     'uglify:front'
   ],
 
   'build-js-admin': [
-    'coffee:admin',
     'concat:admin',
-    'po2json:admin',
     'uglify:admin',
     'copy:admin'
   ],

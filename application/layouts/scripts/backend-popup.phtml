@@ -21,7 +21,6 @@
     <?php else: ?>
         <script src="<?=$this->baseUrl('js/admin.min.js');?>?v=<?=$this->toolVersion();?>"></script>
     <?php endif;?>
-    <script src="<?=$this->baseUrl('js/admin.i18n.' . Zend_Registry::get('Zend_Locale')->getLanguage() . '.js');?>?v=<?=$this->toolVersion();?>"></script>
     <script>
         var baseUrl = '<?=$this->baseUrl()?>';
     </script>

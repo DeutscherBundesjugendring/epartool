@@ -279,6 +279,7 @@ class Admin_SettingsController extends Zend_Controller_Action
         }
 
         $this->view->form = $form;
+        $this->view->jsTranslations = $this->getJsTranslations();
     }
 
     public function contributionSubmissionFormAction()
@@ -314,5 +315,20 @@ class Admin_SettingsController extends Zend_Controller_Action
         }
 
         $this->view->form = $form;
+    }
+
+    /**
+     * @return array
+     */
+    private function getJsTranslations()
+    {
+        return [
+            'theme_alert_override' => $this->view->translate(
+                'Do you want to override predefined theme with custom colors set?'
+            ),
+            'theme_confirm_override_custom' => $this->view->translate(
+                'Custom colors are set. Do you want to replace them with predefined theme?'
+            ),
+        ];
     }
 }

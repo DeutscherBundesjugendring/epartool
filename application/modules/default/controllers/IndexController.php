@@ -63,43 +63,6 @@ class IndexController extends Zend_Controller_Action
         }
     }
 
-    /**
-     * Echoes a javascript object with translated messages.
-     * Headers are set to application/javascript
-     */
-    public function i18nAction()
-    {
-        $i18n = [
-            'All age groups' => $this->view->translate('All age groups'),
-            'Back to timeline' => $this->view->translate('Back to timeline'),
-            'Click here to explain contribution' => $this->view->translate('Click here to explain contribution'),
-            'Download' => $this->view->translate('Download'),
-            'Follow path' => $this->view->translate('Follow path'),
-            'Loading…' => $this->view->translate('Loading…'),
-            'Medium' => $this->view->translate('Medium'),
-            'Normal' => $this->view->translate('Normal'),
-            'Shut back' => $this->view->translate('Shut back'),
-            'Something went wrong' => $this->view->translate('Something went wrong'),
-            'Strong' => $this->view->translate('Strong'),
-            'Using the superbutton is not allowed.' => $this->view->translate('Using of superbutton is not allowed.'),
-            'Very Strong' => $this->view->translate('Very Strong'),
-            'Weak' => $this->view->translate('Weak'),
-            'You are being logged in. Please wait…' => $this->view->translate(
-                'You are being logged in. Please wait…'
-            ),
-            'Your contributions have not been saved' => $this->view->translate(
-                'Your contributions have not been saved.'
-            ),
-            'supporters' => $this->view->translate('supporters'),
-        ];
-
-        header('Content-Type: application/javascript; charset=utf-8');
-        // @codingStandardsIgnoreLine
-        echo 'var i18n = ' . json_encode($i18n, JSON_UNESCAPED_UNICODE);
-        // @codingStandardsIgnoreLine
-        die();
-    }
-
     public function customCssAction()
     {
         $project = (new Model_Projects())->find((new Zend_Registry())->get('systemconfig')->project)->current();

@@ -531,5 +531,18 @@ class Admin_ConsultationController extends Zend_Controller_Action
         }
 
         $this->view->formGroups = $formGroups;
+        $this->view->jsTranslations = $this->getJsTranslations();
+    }
+
+    /**
+     * @return array
+     */
+    private function getJsTranslations()
+    {
+        return [
+            'contribution_interval_confirm_delete' => $this->view->translate(
+                'Dou you want to delete this interval?'
+            ),
+        ];
     }
 }

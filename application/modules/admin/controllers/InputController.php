@@ -114,6 +114,7 @@ class Admin_InputController extends Zend_Controller_Action
         $this->view->tags = (new Model_Tags())->getAll()->toArray();
         $this->view->inputsWithDiscussion = $inputModel->getInputsWithDiscussionIds(['qi=?' => $qid]);
         $this->view->csrfToken = $adminActionCsrfSess->token;
+        $this->view->jsTranslations = $this->getJsTranslations();
     }
 
     public function changeStatusAction()
@@ -253,7 +254,7 @@ class Admin_InputController extends Zend_Controller_Action
                 || $projectSettings['video_vimeo_enabled']
             )
         );
-        
+
         if ($this->_request->isPost()) {
             $data = $this->_request->getPost();
             if ($form->isValid($data)) {
@@ -320,7 +321,7 @@ class Admin_InputController extends Zend_Controller_Action
                 }
             }
         }
-        
+
         $this->view->form = $form;
         $this->view->tid = $tid;
         $this->view->authorId = $inputRow['uid'];
@@ -492,5 +493,16 @@ class Admin_InputController extends Zend_Controller_Action
         // @codingStandardsIgnoreLine
         echo $csv;
         exit;
+    }
+
+    /**
+     * @return array
+     */
+    private function getJsTranslations()
+    {
+        return [
+            'contribution_label_unknown' => $this->view->translate('Unknown'),
+            'contribution_label_loading' => $this->view->translate('Loading…'),
+        ];
     }
 }

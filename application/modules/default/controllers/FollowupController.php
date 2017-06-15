@@ -574,6 +574,8 @@ class FollowupController extends Zend_Controller_Action
     {
         return [
             'downloadLabel' => $this->view->translate('Download'),
+            'likeLabel' => $this->view->translate('Like'),
+            'dislikeLabel' => $this->view->translate('Dislike'),
             'backToTimeline' => $this->view->translate('Back to timeline'),
             'followPath' => $this->view->translate('Follow path'),
             'generalError' => $this->view->translate('An error occurred. Unable to load follow-up timeline.'),

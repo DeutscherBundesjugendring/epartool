@@ -3,6 +3,13 @@
         <h1 class="section-header-title"><?=$this->translate('General Settings');?></h1>
     </div>
 </section>
+<script type="text/javascript">
+    var jsTranslations = {
+    <?php foreach ($this->jsTranslations as $key => $translatedString): ?>
+        <?=$key?>: '<?=$translatedString?>',
+    <? endforeach; ?>
+    };
+</script>
 <section class="section-content">
     <div class="container">
         <div class="row">
@@ -14,7 +21,7 @@
             <div class="content">
 
                 <h2><?=$this->translate('Look and Feel');?></h2>
-                
+
                 <?=$this->form;?>
 
             </div>

@@ -43,6 +43,13 @@ $license = (new Model_License())->find($projectSettings['license'], $lang . '_' 
 
     <!-- JS must be loaded in page head as it might be used in user generated content. -->
     <!-- It is not best practice and product owner is aware of that. -->
+    <script type="text/javascript">
+        var jsTranslations = {
+        <?php foreach ($this->jsTranslations() as $key => $translatedString): ?>
+            <?=$key?>: '<?=$translatedString?>',
+        <? endforeach; ?>
+        };
+    </script>
     <?php if (APPLICATION_ENV === 'development'): ?>
         <script src="<?=$this->baseUrl('js/dbjr.js');?>?v=<?=$this->toolVersion();?>"></script>
     <?php else: ?>
@@ -303,7 +310,6 @@ $license = (new Model_License())->find($projectSettings['license'], $lang . '_' 
 <?php if (Zend_Registry::get('systemconfig')->webservice->google->clientId): ?>
     <script src="https://apis.google.com/js/client:platform.js?onload=initGoogle" async defer></script>
 <?php endif; ?>
-<script src="<?=$this->baseUrl('/index/i18n');?>?v=<?=$this->toolVersion();?>"></script>
 
 <?php if (isset($this->followupApiUrl)): ?>
     <?php if (APPLICATION_ENV === 'development') : ?>

@@ -18,7 +18,7 @@ module.exports = {
       '<%= paths.src.front %>/js/FollowUp.js',
       '<%= paths.src.front %>/js/PageLeaveConfirmation.js',
       '<%= paths.src.front %>/js/SocialShare.js',
-      '<%= paths.temp %>/front.js'
+      '<%= paths.src.front %>/js/front.js'
     ],
     dest: '<%= paths.dist %>/js/<%= pkg.name %>.js'
   },
@@ -48,7 +48,7 @@ module.exports = {
       '<%= paths.bower %>/bootstrap.ui/src/js/sortable-table.js',
       '<%= paths.src.admin %>/js/facebook.embed_video.js',
       '<%= paths.src.admin %>/js/colorpicker.js',
-      '<%= paths.temp %>/admin.js'
+      '<%= paths.src.admin %>/js/admin.js'
     ],
     dest: '<%= paths.dist %>/js/admin.js'
   }

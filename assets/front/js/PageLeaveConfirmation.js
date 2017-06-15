@@ -9,7 +9,7 @@
         $(window).bind('beforeunload', function () {
           confirmationEnabled = true;
           if (formSaved === false) {
-            return i18n['Your contributions have not been saved'];
+            return jsTranslations['message_contributions_save_error'];
           }
         });
       }
