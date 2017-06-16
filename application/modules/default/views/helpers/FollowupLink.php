@@ -14,10 +14,12 @@ class Module_Default_View_Helper_FollowupLink extends Zend_View_Helper_Abstract
     public function followupLink($inputId, $questionId)
     {
         $inputModel = new Model_Inputs();
-        $hasFollowup = (bool) $inputModel->getFollowups($inputId);
-        $hasFollowup = $hasFollowup ? true : (bool) $inputModel->getRelatedWithVotesById($inputId);
 
-        if ($hasFollowup) {
+        $followupsCount = $inputModel->getFollowupsCount($inputId);
+        $relatedWithVotesCount = $inputModel->getRelatedCountById($inputId);
+        $relationsCount = $followupsCount + $relatedWithVotesCount;
+
+        if ($relationsCount > 0) {
             $url = $this->view->url([
                 'controller' => 'followup',
                 'action' => 'show',
@@ -29,6 +31,7 @@ class Module_Default_View_Helper_FollowupLink extends Zend_View_Helper_Abstract
 
             $html = '<a href="' . $url . '" class="btn btn-default btn-xs hidden-print">';
             $html .= $this->view->translate('View reactions');
+            $html .= ' (' . $relationsCount . ')';
             $html .= ' <span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span>';
             $html .= '</a>';
 

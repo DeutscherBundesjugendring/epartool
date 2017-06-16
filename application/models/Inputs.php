@@ -1066,6 +1066,26 @@ class Model_Inputs extends Dbjr_Db_Table_Abstract
 
     /**
      * @param int $id
+     * @return int
+     * @throws \Zend_Db_Table_Exception
+     */
+    public function getRelatedCountById($id)
+    {
+        $select = $this
+            ->select()
+            ->setIntegrityCheck(false)
+            ->from(
+                ['r' => (new Model_InputRelations())->info(Model_InputRelations::NAME)],
+                [new Zend_Db_Expr('COUNT(*) as count')]
+            )
+            ->join(['i' => $this->info(self::NAME)], 'i.tid = r.child_id')
+            ->where('r.parent_id = ?', $id);
+
+        return (int) $this->fetchAll($select)->current()->count;
+    }
+
+    /**
+     * @param int $id
      * @return array
      */
     public function getChildrenByParentId($id)
