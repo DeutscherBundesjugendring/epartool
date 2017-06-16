@@ -1,15 +1,15 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Dbjr Tool\n"
-"POT-Creation-Date: 2017-06-07 12:03+0200\n"
-"PO-Revision-Date: 2017-06-07 12:20+0200\n"
+"POT-Creation-Date: 2017-06-16 10:22+0200\n"
+"PO-Revision-Date: 2017-06-16 10:23+0200\n"
 "Last-Translator: Martin Bohal <mb@mbohal.cz>\n"
 "Language-Team: epartool@dbjr.de\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.8.12\n"
+"X-Generator: Poedit 1.8.7.1\n"
 "X-Poedit-KeywordsList: _;translate;setLabel;setLegend;addMessage;"
 "setConfirmMessage;setDescription\n"
 "X-Poedit-Basepath: ../..\n"
@@ -78,42 +78,71 @@ msgid "Download"
 msgstr "Herunterladen"
 
 #: application/modules/default/controllers/FollowupController.php:577
+msgid "Like"
+msgstr "Gefällt mir"
+
+#: application/modules/default/controllers/FollowupController.php:578
+msgid "Dislike"
+msgstr "Gefällt mir nicht"
+
+#: application/modules/default/controllers/FollowupController.php:579
 #: application/modules/default/controllers/IndexController.php:74
 msgid "Back to timeline"
 msgstr "Zurück zur Zeitleiste"
 
-#: application/modules/default/controllers/FollowupController.php:578
+#: application/modules/default/controllers/FollowupController.php:580
 #: application/modules/default/controllers/IndexController.php:77
 msgid "Follow path"
 msgstr "Folge Verlauf"
 
-#: application/modules/default/controllers/FollowupController.php:579
+#: application/modules/default/controllers/FollowupController.php:581
 msgid "An error occurred. Unable to load follow-up timeline."
 msgstr "Ein Fehler trat auf. Zeitleiste kann nicht geladen werden."
 
-#: application/modules/default/controllers/FollowupController.php:580
-msgid "Back to reactions and snippets"
-msgstr ""
-
-#: application/modules/default/controllers/FollowupController.php:581
-msgid "Result of voting:"
-msgstr ""
-
 #: application/modules/default/controllers/FollowupController.php:582
+msgid "Back to reactions and snippets"
+msgstr "Zurück zu Reaktionen und Schnippseln"
+
+#: application/modules/default/controllers/FollowupController.php:583
+msgid "Result of voting:"
+msgstr "Abstimmungsergebnis:"
+
+#: application/modules/default/controllers/FollowupController.php:584
 msgid "You can vote only once for each reaction."
 msgstr "Du kannst jede Reaktion nur einmal bewerten."
 
-#: application/modules/default/controllers/FollowupController.php:583
-msgid "position"
-msgstr ""
-
 #: application/modules/default/controllers/FollowupController.php:585
+msgid "position"
+msgstr "Rang"
+
+#: application/modules/default/controllers/FollowupController.php:587
 msgid ""
 "Follow the Reactions to your contribution here. Click on the arrows for the "
 "next steps."
 msgstr ""
 "Verfolge hier, welche Reaktionen es auf den Beitrag gab. Klicke auf die "
 "Pfeile für nächste Schritte."
+
+#: application/modules/default/controllers/FollowupController.php:589
+#: application/modules/default/views/scripts/followup/index.phtml:78
+msgid "Supporting"
+msgstr "Unterstützung"
+
+#: application/modules/default/controllers/FollowupController.php:590
+#: application/modules/default/views/scripts/followup/index.phtml:81
+#: application/modules/default/views/scripts/user/userlist.phtml:80
+msgid "Action"
+msgstr "Aktion"
+
+#: application/modules/default/controllers/FollowupController.php:591
+#: application/modules/default/views/scripts/followup/index.phtml:84
+msgid "Rejected"
+msgstr "Abgelehnt"
+
+#: application/modules/default/controllers/FollowupController.php:592
+#: application/modules/default/views/scripts/followup/index.phtml:87
+msgid "End"
+msgstr "Ende"
 
 #: application/modules/default/controllers/IndexController.php:73
 msgid "All age groups"
@@ -171,7 +200,7 @@ msgid "Your contributions have not been saved."
 msgstr "Deine Beiträge wurden nicht gespeichert."
 
 #: application/modules/default/controllers/IndexController.php:93
-#: application/modules/default/views/scripts/input/show.phtml:133
+#: application/modules/default/views/scripts/input/show.phtml:131
 msgid "supporters"
 msgstr "Unterstützende"
 
@@ -998,7 +1027,7 @@ msgid "DBJR TOOL Admin"
 msgstr "ePartool Administration"
 
 #: application/layouts/scripts/backend.phtml:43
-#: application/layouts/scripts/frontend.phtml:95
+#: application/layouts/scripts/frontend.phtml:102
 msgid "Menu"
 msgstr "Menü"
 
@@ -1028,49 +1057,49 @@ msgid "Close"
 msgstr "Schließen"
 
 #: application/layouts/scripts/frontend-help-modal.phtml:10
-#: application/layouts/scripts/frontend.phtml:222
+#: application/layouts/scripts/frontend.phtml:229
 #: application/modules/default/views/scripts/_helpers/login.phtml:12
 #: application/modules/default/views/scripts/_partials/pageLinks.phtml:8
 msgid "Help"
 msgstr "Hilfe"
 
-#: application/layouts/scripts/frontend.phtml:75
-#: application/layouts/scripts/frontend.phtml:188
+#: application/layouts/scripts/frontend.phtml:82
+#: application/layouts/scripts/frontend.phtml:195
 msgid "Home"
 msgstr "Startseite"
 
-#: application/layouts/scripts/frontend.phtml:97
+#: application/layouts/scripts/frontend.phtml:104
 msgid "What"
 msgstr "Was"
 
-#: application/layouts/scripts/frontend.phtml:98
+#: application/layouts/scripts/frontend.phtml:105
 msgid "We"
 msgstr "Wir"
 
-#: application/layouts/scripts/frontend.phtml:100
-#: application/layouts/scripts/frontend.phtml:104
+#: application/layouts/scripts/frontend.phtml:107
+#: application/layouts/scripts/frontend.phtml:111
 msgid "With You"
 msgstr "Mit euch"
 
-#: application/layouts/scripts/frontend.phtml:101
-#: application/layouts/scripts/frontend.phtml:103
+#: application/layouts/scripts/frontend.phtml:108
+#: application/layouts/scripts/frontend.phtml:110
 msgid "Do"
 msgstr "Machen"
 
-#: application/layouts/scripts/frontend.phtml:115
+#: application/layouts/scripts/frontend.phtml:122
 msgid "Search…"
 msgstr "Suchbegriff..."
 
-#: application/layouts/scripts/frontend.phtml:117
+#: application/layouts/scripts/frontend.phtml:124
 msgid "Search"
 msgstr "Suchbegriff"
 
-#: application/layouts/scripts/frontend.phtml:137
-#: application/layouts/scripts/frontend.phtml:213
+#: application/layouts/scripts/frontend.phtml:144
+#: application/layouts/scripts/frontend.phtml:220
 msgid "Participation"
 msgstr "Mitmachen"
 
-#: application/layouts/scripts/frontend.phtml:197
+#: application/layouts/scripts/frontend.phtml:204
 msgid "Share"
 msgstr "Share"
 
@@ -1167,23 +1196,6 @@ msgstr "Bisherige Reaktionen im Überblick"
 msgid "Preview"
 msgstr "Vorschau"
 
-#: application/modules/default/views/scripts/followup/index.phtml:78
-msgid "Supporting"
-msgstr "Unterstützung"
-
-#: application/modules/default/views/scripts/followup/index.phtml:81
-#: application/modules/default/views/scripts/user/userlist.phtml:80
-msgid "Action"
-msgstr "Aktion"
-
-#: application/modules/default/views/scripts/followup/index.phtml:84
-msgid "Rejected"
-msgstr "Abgelehnt"
-
-#: application/modules/default/views/scripts/followup/index.phtml:87
-msgid "End"
-msgstr "Ende"
-
 #: application/modules/default/views/scripts/followup/index.phtml:113
 msgid "View"
 msgstr "Ansehen"
@@ -1232,7 +1244,7 @@ msgid "written on"
 msgstr "verfasst am"
 
 #: application/modules/default/views/scripts/followup/inputs-by-question.phtml:94
-#: application/modules/default/views/scripts/input/show.phtml:142
+#: application/modules/default/views/scripts/input/show.phtml:140
 msgid "I agree!"
 msgstr "Dieser Meinung bin ich auch!"
 
@@ -1247,17 +1259,17 @@ msgid "View discussion"
 msgstr "Diskussion anzeigen"
 
 #: application/modules/default/views/scripts/followup/inputs-by-question.phtml:143
-#: application/modules/default/views/scripts/input/show.phtml:186
+#: application/modules/default/views/scripts/input/show.phtml:192
 msgid "There are no contributions on this question."
 msgstr "Zu dieser Frage gibt es keine Beiträge."
 
 #: application/modules/default/views/scripts/followup/inputs-by-question.phtml:152
-#: application/modules/default/views/scripts/input/show.phtml:195
+#: application/modules/default/views/scripts/input/show.phtml:201
 msgid "Newer contributions"
 msgstr "Neuere Beiträge"
 
 #: application/modules/default/views/scripts/followup/inputs-by-question.phtml:152
-#: application/modules/default/views/scripts/input/show.phtml:195
+#: application/modules/default/views/scripts/input/show.phtml:201
 msgid "Older contributions"
 msgstr "Ältere Beiträge"
 
