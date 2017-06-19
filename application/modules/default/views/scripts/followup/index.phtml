@@ -60,13 +60,12 @@
                                             class="
                                                 offset-bottom-small
                                                 followup-type-wrap
-                                                js-reactions-and-impact-view
                                             "
-                                            data-ffid="<?=(int) $followup['ffid'];?>"
                                         >
                                             <img
-                                                class="img-responsive"
+                                                class="img-responsive js-reactions-and-impact-view"
                                                 src="<?=$this->mediaCnsltDir . $followup['gfx_who'];?>" alt="<?=$this->translate('Preview');?>"
+                                                data-ffid="<?=(int) $followup['ffid'];?>"
                                             />
                                             <?php if ($followup['type'] && $followup['type'] !== 'general'): ?>
                                                 <div class="followup-type">
