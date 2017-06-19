@@ -16,7 +16,7 @@ class Api_FollowupController extends Dbjr_Api_BaseController
             list($type, $id) = $this->getParameters(['type', 'id']);
             if ($type === self::TYPE_DOCUMENT) {
                 $this->buildResponse(self::HTTP_STATUS_OK, [
-                    'id' => $id,
+                    'id' => (int) $id,
                     'type' => $type,
                     'children_count' => $this->getChildrenCount($type, $id),
                     'parents_count' => 0,
@@ -25,7 +25,7 @@ class Api_FollowupController extends Dbjr_Api_BaseController
                 ]);
             } elseif ($type === self::TYPE_SNIPPET) {
                 $this->buildResponse(self::HTTP_STATUS_OK, [
-                    'id' => $id,
+                    'id' => (int) $id,
                     'type' => $type,
                     'children_count' => $this->getChildrenCount($type, $id),
                     'parents_count' => $this->getParentsCount($type, $id),
@@ -34,7 +34,7 @@ class Api_FollowupController extends Dbjr_Api_BaseController
                 ]);
             } elseif ($type === self::TYPE_CONTRIBUTION) {
                 $this->buildResponse(self::HTTP_STATUS_OK, [
-                    'id' => $id,
+                    'id' => (int) $id,
                     'type' => $type,
                     'children_count' => $this->getChildrenCount($type, $id),
                     'parents_count' => $this->getParentsCount($type, $id),
@@ -157,8 +157,9 @@ class Api_FollowupController extends Dbjr_Api_BaseController
                 throw new Dbjr_Api_Exception(self::HTTP_STATUS_BAD_REQUEST, 'Unsupported method. Only PUT is allowed.');
             }
             list($snippetId) = $this->getParameters(['id']);
-            $result = (new Model_Followups())->supportById($snippetId, $property);
-            $this->buildResponse(self::HTTP_STATUS_OK, [$property => (string) $result]);
+            $this->buildResponse(self::HTTP_STATUS_OK, [
+                $property => (new Model_Followups())->supportById($snippetId, $property)
+            ]);
         } catch (Dbjr_Api_Exception $e) {
             $this->sendError($e->getHttpStatusCode(), $e->getMessage());
         } catch (Dbjr_Exception $e) {
@@ -177,7 +178,7 @@ class Api_FollowupController extends Dbjr_Api_BaseController
 
         foreach ($snippets as $snippet) {
             $result[] = [
-                'id' => $snippet['fid'],
+                'id' => (int) $snippet['fid'],
                 'type' => self::TYPE_SNIPPET,
                 'children_count' => $this->getChildrenCount(self::TYPE_SNIPPET, $snippet['fid']),
                 'parents_count' => $this->getParentsCount(self::TYPE_SNIPPET, $snippet['fid']),
@@ -200,7 +201,7 @@ class Api_FollowupController extends Dbjr_Api_BaseController
 
         foreach ($contributions as $contribution) {
             $result[] = [
-                'id' => $contribution['tid'],
+                'id' => (int) $contribution['tid'],
                 'type' => self::TYPE_CONTRIBUTION,
                 'children_count' => $this->getChildrenCount(self::TYPE_CONTRIBUTION, $contribution['tid']),
                 'parents_count' => $this->getParentsCount(self::TYPE_CONTRIBUTION, $contribution['tid']),
@@ -223,12 +224,12 @@ class Api_FollowupController extends Dbjr_Api_BaseController
 
         foreach ($snippets as $snippet) {
             $result[] = [
-                'id' => $snippet['fid'],
+                'id' => (int) $snippet['fid'],
                 'type' => self::TYPE_SNIPPET,
                 'children_count' => $this->getChildrenCount(self::TYPE_SNIPPET, $snippet['fid']),
                 'parents_count' => $this->getParentsCount(self::TYPE_SNIPPET, $snippet['fid']),
                 'kid' => $this->getConsultationId(self::TYPE_SNIPPET, $snippet['fid']),
-                'data' => $this->getsnippetData($snippet['fid']),
+                'data' => $this->getSnippetData($snippet['fid']),
             ];
         }
 
@@ -246,7 +247,7 @@ class Api_FollowupController extends Dbjr_Api_BaseController
 
         foreach ($contributions as $contribution) {
             $result[] = [
-                'id' => $contribution['tid'],
+                'id' => (int) $contribution['tid'],
                 'type' => self::TYPE_CONTRIBUTION,
                 'children_count' => $this->getChildrenCount(self::TYPE_CONTRIBUTION, $contribution['tid']),
                 'parents_count' => $this->getParentsCount(self::TYPE_CONTRIBUTION, $contribution['tid']),
@@ -269,7 +270,7 @@ class Api_FollowupController extends Dbjr_Api_BaseController
 
         foreach ($snippets as $snippet) {
             $result[] = [
-                'id' => $snippet['fid_ref'],
+                'id' => (int) $snippet['fid_ref'],
                 'type' => self::TYPE_SNIPPET,
                 'children_count' => $this->getChildrenCount(self::TYPE_SNIPPET, $snippet['fid_ref']),
                 'parents_count' => $this->getParentsCount(self::TYPE_SNIPPET, $snippet['fid_ref']),
@@ -292,7 +293,7 @@ class Api_FollowupController extends Dbjr_Api_BaseController
 
         foreach ($elements['inputs'] as $contribution) {
             $result[] = [
-                'id' => $contribution['tid'],
+                'id' => (int) $contribution['tid'],
                 'type' => self::TYPE_CONTRIBUTION,
                 'children_count' => $this->getChildrenCount(self::TYPE_CONTRIBUTION, $contribution['tid']),
                 'parents_count' => $this->getParentsCount(self::TYPE_CONTRIBUTION, $contribution['tid']),
@@ -303,7 +304,7 @@ class Api_FollowupController extends Dbjr_Api_BaseController
 
         foreach ($elements['snippets'] as $snippet) {
             $result[] = [
-                'id' => $snippet['fid'],
+                'id' => (int) $snippet['fid'],
                 'type' => self::TYPE_SNIPPET,
                 'children_count' => $this->getChildrenCount(self::TYPE_SNIPPET, $snippet['fid']),
                 'parents_count' => $this->getParentsCount(self::TYPE_SNIPPET, $snippet['fid']),
@@ -314,7 +315,7 @@ class Api_FollowupController extends Dbjr_Api_BaseController
 
         foreach ($elements['followups'] as $document) {
             $result[] = [
-                'id' => $document['ffid'],
+                'id' => (int) $document['ffid'],
                 'type' => self::TYPE_DOCUMENT,
                 'children_count' => $this->getChildrenCount(self::TYPE_DOCUMENT, $document['ffid']),
                 'parents_count' => 0,
@@ -342,11 +343,11 @@ class Api_FollowupController extends Dbjr_Api_BaseController
         }
 
         return [
-            'ffid' => $document['ffid'],
-            'kid' => $document['kid'],
+            'ffid' => (int) $document['ffid'],
+            'kid' => (int) $document['kid'],
             'titl' => $document['titl'],
             'when' => $this->convertDateTime($document['when']),
-            'is_only_month_year_showed' => $document['is_only_month_year_showed'],
+            'is_only_month_year_showed' => (bool) $document['is_only_month_year_showed'],
             'ref_doc' => $this->view->baseUrl() . MEDIA_URL . '/consultations/' . $document['kid'] . '/'
                 . $document['ref_doc'],
             'ref_view' => $document['ref_view'],
@@ -373,12 +374,12 @@ class Api_FollowupController extends Dbjr_Api_BaseController
         }
 
         return [
-            'fid' => $snippet['fid'],
+            'fid' => (int) $snippet['fid'],
             'embed' => $snippet['embed'],
             'expl' => $snippet['expl'],
-            'ffid' => $snippet['ffid'],
-            'lkyea' => $snippet['lkyea'],
-            'lknay' => $snippet['lknay'],
+            'ffid' => (int) $snippet['ffid'],
+            'lkyea' => (int) $snippet['lkyea'],
+            'lknay' => (int) $snippet['lknay'],
             'type' => $snippet['type'],
         ];
     }
@@ -399,14 +400,14 @@ class Api_FollowupController extends Dbjr_Api_BaseController
         }
 
         return [
-            'tid' => $contribution['tid'],
-            'qi' => $contribution['qi'],
+            'tid' => (int) $contribution['tid'],
+            'qi' => (int) $contribution['qi'],
             'thes' => $contribution['thes'],
-            'uid' => $contribution['uid'],
+            'uid' => (int) $contribution['uid'],
             'when' => $this->convertDateTime($contribution['when']),
-            'is_votable' => $contribution['is_votable'],
-            'spprts' => $contribution['spprts'],
-            'votes' => $contribution['votes'],
+            'is_votable' => (bool) $contribution['is_votable'],
+            'spprts' => (int) $contribution['spprts'],
+            'votes' => (int) $contribution['votes'],
             'place' => $contribution['place'],
             'expl' => $contribution['expl'],
             'video_service' => $contribution['video_service'],
@@ -428,6 +429,11 @@ class Api_FollowupController extends Dbjr_Api_BaseController
         }
 
         foreach ($resultArray as $key => $snippet) {
+            $resultArray[$key]['fid'] = (int) $resultArray[$key]['fid'];
+            $resultArray[$key]['docorg'] = (int) $resultArray[$key]['docorg'];
+            $resultArray[$key]['ffid'] = (int) $resultArray[$key]['ffid'];
+            $resultArray[$key]['lknay'] = (int) $resultArray[$key]['lknay'];
+            $resultArray[$key]['lkyea'] = (int) $resultArray[$key]['lkyea'];
             $resultArray[$key]['parents_count'] = $this->getParentsCount(self::TYPE_SNIPPET, $snippet['fid']);
             $resultArray[$key]['children_count'] = $this->getChildrenCount(self::TYPE_SNIPPET, $snippet['fid']);
         }
