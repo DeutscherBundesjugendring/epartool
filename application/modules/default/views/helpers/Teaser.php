@@ -11,9 +11,9 @@ class Module_Default_View_Helper_Teaser extends Zend_View_Helper_Abstract
         $consultationModel = new Model_Consultations();
         $items = $consultationModel->getTeaserEntries();
 
-        if (count($items) > 3) {
+        if (count($items) > 2) {
             $html = '<ul class="nav nav-list hidden-print">';
-            foreach (array_slice($items, 0, 3) as $item) {
+            foreach (array_slice($items, 0, 2) as $item) {
                 $html .= '<li>';
                 switch ($item['relevantField']) {
                     case 'inp_fr':
@@ -72,14 +72,6 @@ class Module_Default_View_Helper_Teaser extends Zend_View_Helper_Abstract
                     . '</a>'
                     . '</li>';
             }
-
-            // Link to consultation overview
-            $html .= '<li><a href="' . $this->view->url(array(
-                    'controller' => 'consultation'
-                ), 'default', true) . '">'
-                . '<strong>' . $this->view->translate('Looking for other consultations? View all') . '…</strong>'
-                . '<span class="nav-list-icon glyphicon glyphicon-menu-right" aria-hidden="true"></span>'
-                . '</a></li>';
 
             $html .= '</ul>';
         }
