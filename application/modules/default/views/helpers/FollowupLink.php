@@ -29,18 +29,31 @@ class Module_Default_View_Helper_FollowupLink extends Zend_View_Helper_Abstract
                 'page' => null
             ]);
 
-            $html = '<a href="' . $url . '" class="btn btn-default btn-xs hidden-print">';
+            $html = '<div class="pull-left text-nowrap offset-right offset-bottom-small">' . "\n";
+            $html .= '<a href="' . $url . '" class="link-unstyled link-print-nourl">';
+            $html .= '<span class="glyphicon glyphicon-random icon-offset icon-shift-down text-accent" aria-hidden="true"></span>';
+            $html .= '</a>' . "\n";
+            $html .= '<a href="' . $url . '" class="link-unstyled link-print-nourl">';
+            $html .= '<small class="badge' . ($relationsCount > 0 ? ' badge-accent' : '') . '">';
+            $html .= $relationsCount;
+            $html .= '</small>';
+            $html .= '</a>' . "\n";
+            $html .= '<a href="' . $url . '" class="btn btn-default btn-xs hidden-print">';
             $html .= $this->view->translate('View reactions');
-            $html .= ' (' . $relationsCount . ')';
-            $html .= ' <span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span>';
-            $html .= '</a>';
+            $html .= '</a>' . "\n";
+            $html .= '</div>' . "\n";
 
             return $html;
         }
 
-        $html = '<br class="hidden-md hidden-lg hidden-print" />';
-        $html .= '<br class="hidden-md hidden-lg hidden-print" />';
-        $html .= '<span class="text-muted hidden-print">' . $this->view->translate('There are currently no reactions to this contribution.') . '</span>';
+        $html = '<div class="media pull-left offset-bottom-small hidden-print">' . "\n";
+        $html .= '<div class="media-left">';
+        $html .= '<span class="glyphicon glyphicon-random icon-offset icon-shift-down text-accent" aria-hidden="true"></span>' . "\n";
+        $html .= '</div>' . "\n";
+        $html .= '<div class="media-body text-muted">';
+        $html .= $this->view->translate('There are currently no reactions to this contribution.');
+        $html .= '</div>' . "\n";
+        $html .= '</div>' . "\n";
 
         return $html;
     }

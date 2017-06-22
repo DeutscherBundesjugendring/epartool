@@ -119,10 +119,11 @@
 
                         <!-- Actions -->
                         <footer>
+
                             <!-- Support -->
                             <?php if ($this->consultation->is_support_phase_showed): ?>
-                                <div class="text-nowrap offset-bottom-small visible-xs-inline-block visible-sm-inline-block visible-md-inline-block visible-lg-inline-block">
-                                    <span id="click-support-wrap-<?=$this->escape($input['tid']);?>" class="offset-right">
+                                <div class="pull-left text-nowrap offset-right offset-bottom-small">
+                                    <span id="click-support-wrap-<?=$this->escape($input['tid']);?>">
                                         <span class="glyphicon glyphicon-ok-sign icon-offset icon-shift-down text-accent" aria-hidden="true"></span>
                                         <small id="badge-<?=$this->escape($input['tid']);?>" class="badge<?=$this->escape($input['spprts']) > 0 ? ' badge-accent' : '';?>">
                                             <?=$this->escape($input['spprts']);?>
@@ -146,7 +147,7 @@
 
                             <!-- Discussion -->
                             <?php if ($this->consultation->is_discussion_active): ?>
-                                <div class="text-nowrap offset-bottom-small visible-xs-inline-block visible-sm-inline-block visible-md-inline-block visible-lg-inline-block">
+                                <div class="pull-left text-nowrap offset-right offset-bottom-small">
                                     <a
                                         href="<?=$this->url(['action' => 'discussion', 'kid' => $this->consultation->kid, 'inputId' => $this->escape($input['tid'])]);?>"
                                         class="link-unstyled link-print-nourl"
@@ -177,9 +178,7 @@
                             <?php endif?>
 
                             <!-- Reactions -->
-                            <div class="text-nowrap offset-bottom-small visible-xs-inline-block visible-sm-inline-block visible-md-inline-block visible-lg-inline-block">
-                                <?=$this->followupLink($input['tid'], $this->question['qi']);?>
-                            </div>
+                            <?=$this->followupLink($input['tid'], $this->question['qi']);?>
 
                         </footer>
                     </article>
