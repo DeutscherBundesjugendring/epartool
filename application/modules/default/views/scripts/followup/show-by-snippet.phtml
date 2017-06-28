@@ -9,12 +9,12 @@
       var embedVideoUrl = {
         <?php foreach ($this->embedVideoUrl as $key => $url): ?>
             <?=$key?>: '<?=$url?>',
-        <? endforeach; ?>
+        <?php endforeach; ?>
       };
       var followupTranslations = {
         <?php foreach ($this->followupTranslations as $key => $translatedString): ?>
             <?=$key?>: '<?=$translatedString?>',
-        <? endforeach; ?>
+        <?php endforeach; ?>
       };
     </script>
 
