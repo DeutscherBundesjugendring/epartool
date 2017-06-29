@@ -47,7 +47,7 @@ $license = (new Model_License())->find($projectSettings['license'], $lang . '_' 
         var jsTranslations = {
         <?php foreach ($this->jsTranslations() as $key => $translatedString): ?>
             <?=$key?>: '<?=$translatedString?>',
-        <? endforeach; ?>
+        <?php endforeach; ?>
         };
     </script>
     <?php if (APPLICATION_ENV === 'development'): ?>
