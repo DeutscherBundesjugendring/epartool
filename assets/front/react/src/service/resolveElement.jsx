@@ -22,7 +22,7 @@ const resolveElement = (response, parentAction, childAction, modalAction, otherA
         videoId={data.video_id}
         votable={!!data.is_votable}
         votingText={followupTranslations.votingResult}
-        votingResults={`${data.votes}. ${followupTranslations.position}`}
+        votingResults={`${data.place}. ${followupTranslations.position}`}
         votingLink={`${baseUrl}/input/show/kid/${response.kid}/qid/${data.qi}`}
       />
     );

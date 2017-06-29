@@ -399,6 +399,17 @@ class Api_FollowupController extends Dbjr_Api_BaseController
             );
         }
 
+        $votingResults = (new Model_Votes())
+            ->getResultsValues($this->getConsultationId(self::TYPE_CONTRIBUTION, $contribution['tid']));
+        $place = 0;
+        if (isset($votingResults['votings'])) {
+            foreach ($votingResults['votings'] as $key => $contributionVotingResult) {
+                if ((int) $contribution['tid'] === (int) $contributionVotingResult['tid']) {
+                    $place = (int) $key + 1;
+                }
+            }
+        }
+
         return [
             'tid' => (int) $contribution['tid'],
             'qi' => (int) $contribution['qi'],
@@ -408,7 +419,7 @@ class Api_FollowupController extends Dbjr_Api_BaseController
             'is_votable' => (bool) $contribution['is_votable'],
             'spprts' => (int) $contribution['spprts'],
             'votes' => (int) $contribution['votes'],
-            'place' => $contribution['place'],
+            'place' => $place,
             'expl' => $contribution['expl'],
             'video_service' => $contribution['video_service'],
             'video_id' => $contribution['video_id'],
