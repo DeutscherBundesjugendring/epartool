@@ -8,27 +8,11 @@
     width: 100%;
 
     &-column {
-        flex-basis: 100%;
-        margin-left: 25px;
-        margin-right: 25px;
-    }
-
-    &-row {
-        white-space: nowrap;
-
-        &-col {
-            .make-xs-column(10);
-            .make-sm-column(5);
-            .make-md-column(4);
-            display: inline-block;
-            float: none;
-            white-space: normal;
-            vertical-align: top;
-
-            @media (min-width: @screen-sm-min), (min-width: @screen-md-min) {
-                float: none;
-            }
-        }
+        flex-grow: 0;
+        flex-shrink: 0;
+        flex-basis: calc(100% / 3);
+        padding-left: 25px;
+        padding-right: 25px;
     }
 
     &-link {
