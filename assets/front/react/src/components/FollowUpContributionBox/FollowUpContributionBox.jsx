@@ -17,11 +17,9 @@ const FollowUpContributionBox = props => (
       <div dangerouslySetInnerHTML={{ __html: props.contributionExplanation }} />
     }
     {props.votable &&
-      <div className="text-accent">
+      <div className="text-accent offset-top">
         <p>
-          {props.votingText}
-        </p>
-        <p>
+          {props.votingText}<br />
           <a href={props.votingLink}>
             {props.votingResults}
           </a>

@@ -45,7 +45,7 @@ const FollowUpSnippetBox = (props) => {
         </div>
       )}
       <div dangerouslySetInnerHTML={{ __html: props.snippetExplanation }} />
-      <div className="offset-bottom-small">
+      <div className="offset-bottom">
         <Reputation
           likeCount={props.likeCount}
           dislikeCount={props.dislikeCount}
