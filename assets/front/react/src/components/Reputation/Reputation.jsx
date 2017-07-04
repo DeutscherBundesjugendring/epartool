@@ -46,12 +46,12 @@ class Reputation extends React.Component {
   render() {
     return (
       <div>
-        <div style={{ display: 'inline-block' }}>
+        <div style={{ display: 'inline-block' }} className="offset-bottom-small offset-right">
           <span className="badge offset-right-small">{this.props.likeCount}</span>
           <ThumbButton type="like" onTouchTap={this.like} disabled={this.state.voted} />
         </div>
-        <div style={{ display: 'inline-block' }}>
-          <span className="badge offset-left offset-right-small">{this.props.dislikeCount}</span>
+        <div style={{ display: 'inline-block' }} className="offset-bottom-small">
+          <span className="badge offset-right-small">{this.props.dislikeCount}</span>
           <ThumbButton type="dislike" onTouchTap={this.dislike} disabled={this.state.voted} />
         </div>
       </div>

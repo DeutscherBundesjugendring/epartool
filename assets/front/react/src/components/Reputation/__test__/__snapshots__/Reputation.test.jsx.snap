@@ -3,6 +3,7 @@
 exports[`rendering renders correctly 1`] = `
 <div>
   <div
+    className="offset-bottom-small offset-right"
     style={
       Object {
         "display": "inline-block",
@@ -19,13 +20,9 @@ exports[`rendering renders correctly 1`] = `
       onTouchTap={[Function]}
       type="like"
     />
-    <div
-      className="text-center offset-top-small small"
-    >
-      Like
-    </div>
   </div>
   <div
+    className="offset-bottom-small"
     style={
       Object {
         "display": "inline-block",
@@ -33,7 +30,7 @@ exports[`rendering renders correctly 1`] = `
     }
   >
     <span
-      className="badge offset-left offset-right-small"
+      className="badge offset-right-small"
     >
       0
     </span>
@@ -42,11 +39,6 @@ exports[`rendering renders correctly 1`] = `
       onTouchTap={[Function]}
       type="dislike"
     />
-    <div
-      className="text-center offset-top-small small"
-    >
-      Dislike
-    </div>
   </div>
 </div>
 `;
@@ -54,6 +46,7 @@ exports[`rendering renders correctly 1`] = `
 exports[`rendering renders correctly disabled voting 1`] = `
 <div>
   <div
+    className="offset-bottom-small offset-right"
     style={
       Object {
         "display": "inline-block",
@@ -70,13 +63,9 @@ exports[`rendering renders correctly disabled voting 1`] = `
       onTouchTap={[Function]}
       type="like"
     />
-    <div
-      className="text-center offset-top-small small"
-    >
-      Like
-    </div>
   </div>
   <div
+    className="offset-bottom-small"
     style={
       Object {
         "display": "inline-block",
@@ -84,7 +73,7 @@ exports[`rendering renders correctly disabled voting 1`] = `
     }
   >
     <span
-      className="badge offset-left offset-right-small"
+      className="badge offset-right-small"
     >
       0
     </span>
@@ -93,11 +82,6 @@ exports[`rendering renders correctly disabled voting 1`] = `
       onTouchTap={[Function]}
       type="dislike"
     />
-    <div
-      className="text-center offset-top-small small"
-    >
-      Dislike
-    </div>
   </div>
 </div>
 `;

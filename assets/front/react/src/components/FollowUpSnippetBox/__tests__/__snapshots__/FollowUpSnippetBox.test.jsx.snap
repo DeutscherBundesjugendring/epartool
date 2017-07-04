@@ -5,6 +5,17 @@ exports[`rendering renders correctly 1`] = `
   className=" well well-bordered followup-flow followup-well followup-well-link followup-type-wrap followup-type-wrap-inner "
 >
   <div
+    className="followup-type followup-type-right followup-type-right-alt"
+  >
+    <span
+      aria-hidden="true"
+      className="followup-type-icon glyphicon glyphicon-lock"
+    />
+    <span
+      className="followup-type-title"
+    />
+  </div>
+  <div
     dangerouslySetInnerHTML={
       Object {
         "__html": "Snippet",
@@ -12,7 +23,7 @@ exports[`rendering renders correctly 1`] = `
     }
   />
   <div
-    className="offset-bottom-small"
+    className="offset-bottom"
   >
     <Reputation
       dislikeAction={[Function]}

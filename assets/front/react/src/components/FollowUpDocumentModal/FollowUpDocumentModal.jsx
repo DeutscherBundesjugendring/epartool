@@ -109,7 +109,7 @@ const FollowUpDocumentModal = (props) => {
 
                 <div className="offset-top-small offset-bottom-small">
                   <div className="row">
-                    <div className="col-sm-6 text-left">
+                    <div className="col-sm-7 text-left">
                       <div className="offset-top-small">
                         <Reputation
                           likeCount={snippet.likeCount}
@@ -119,7 +119,7 @@ const FollowUpDocumentModal = (props) => {
                         />
                       </div>
                     </div>
-                    <div className="col-sm-6 text-right">
+                    <div className="col-sm-5 text-right">
                       {snippet.showFollowPathButton &&
                         <div className="offset-top-small">
                           <RaisedButton

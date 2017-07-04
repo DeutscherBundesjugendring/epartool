@@ -4,6 +4,17 @@ exports[`rendering renders correctly with long date 1`] = `
 <div
   className=" well well-bordered followup-flow followup-well followup-well-link followup-type-wrap followup-type-wrap-inner "
 >
+  <div
+    className="followup-type followup-type-right followup-type-right-alt"
+  >
+    <span
+      aria-hidden="true"
+      className="followup-type-icon glyphicon glyphicon-lock"
+    />
+    <span
+      className="followup-type-title"
+    />
+  </div>
   <p>
     Document title
   </p>
