@@ -2,7 +2,7 @@ import React from 'react';
 
 
 const RaisedButton = (props) => {
-  const linkClasses = 'btn btn-default';
+  const linkClasses = 'btn btn-default btn-sm';
 
   return (
     <button

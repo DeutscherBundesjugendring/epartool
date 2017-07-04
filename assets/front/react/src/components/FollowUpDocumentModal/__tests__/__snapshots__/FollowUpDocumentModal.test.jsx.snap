@@ -64,15 +64,35 @@ exports[`rendering renders correctly with long date without snippets 1`] = `
               className="row"
             >
               <div
-                className="col-sm-3 text-center"
+                className="col-sm-4 text-center"
               >
                 <img
                   alt="Document title"
                   className="img-responsive center-block offset-bottom"
                   src="http://www.example.com/image.jpg"
                 />
+              </div>
+              <div
+                className="col-sm-8"
+              >
+                <h4
+                  className="well-title well-title-small"
+                >
+                  Document title
+                </h4>
+                <p
+                  className="small"
+                >
+                  1 January 2017
+                  <span
+                    className="offset-left offset-right"
+                  >
+                    |
+                  </span>
+                  Author of document
+                </p>
                 <button
-                  className="btn btn-default btn-default-alt"
+                  className="btn btn-default btn-default-alt btn-sm"
                   onTouchTap={[Function]}
                 >
                   <span
@@ -80,23 +100,6 @@ exports[`rendering renders correctly with long date without snippets 1`] = `
                   />
                   Download document
                 </button>
-              </div>
-              <div
-                className="col-sm-8"
-              >
-                <h4
-                  className="well-title"
-                >
-                  Document title
-                </h4>
-                <p>
-                  Author of document
-                </p>
-                <p
-                  className="small"
-                >
-                  1 January 2017
-                </p>
               </div>
             </div>
           </div>
@@ -601,15 +604,35 @@ exports[`rendering renders correctly with one snippet 1`] = `
               className="row"
             >
               <div
-                className="col-sm-3 text-center"
+                className="col-sm-4 text-center"
               >
                 <img
                   alt="Document title"
                   className="img-responsive center-block offset-bottom"
                   src="http://www.example.com/image.jpg"
                 />
+              </div>
+              <div
+                className="col-sm-8"
+              >
+                <h4
+                  className="well-title well-title-small"
+                >
+                  Document title
+                </h4>
+                <p
+                  className="small"
+                >
+                  1 January 2017
+                  <span
+                    className="offset-left offset-right"
+                  >
+                    |
+                  </span>
+                  Author of document
+                </p>
                 <button
-                  className="btn btn-default btn-default-alt"
+                  className="btn btn-default btn-default-alt btn-sm"
                   onTouchTap={[Function]}
                 >
                   <span
@@ -618,28 +641,11 @@ exports[`rendering renders correctly with one snippet 1`] = `
                   Download document
                 </button>
               </div>
-              <div
-                className="col-sm-8"
-              >
-                <h4
-                  className="well-title"
-                >
-                  Document title
-                </h4>
-                <p>
-                  Author of document
-                </p>
-                <p
-                  className="small"
-                >
-                  1 January 2017
-                </p>
-              </div>
             </div>
           </div>
           <hr />
           <div
-            className="well well-simple well-simple-light text-left well-heading"
+            className="well well-simple well-simple-light"
           >
             <div
               dangerouslySetInnerHTML={
@@ -745,15 +751,35 @@ exports[`rendering renders correctly with short date without snippets 1`] = `
               className="row"
             >
               <div
-                className="col-sm-3 text-center"
+                className="col-sm-4 text-center"
               >
                 <img
                   alt="Document title"
                   className="img-responsive center-block offset-bottom"
                   src="http://www.example.com/image.jpg"
                 />
+              </div>
+              <div
+                className="col-sm-8"
+              >
+                <h4
+                  className="well-title well-title-small"
+                >
+                  Document title
+                </h4>
+                <p
+                  className="small"
+                >
+                  January 2017
+                  <span
+                    className="offset-left offset-right"
+                  >
+                    |
+                  </span>
+                  Author of document
+                </p>
                 <button
-                  className="btn btn-default btn-default-alt"
+                  className="btn btn-default btn-default-alt btn-sm"
                   onTouchTap={[Function]}
                 >
                   <span
@@ -761,23 +787,6 @@ exports[`rendering renders correctly with short date without snippets 1`] = `
                   />
                   Download document
                 </button>
-              </div>
-              <div
-                className="col-sm-8"
-              >
-                <h4
-                  className="well-title"
-                >
-                  Document title
-                </h4>
-                <p>
-                  Author of document
-                </p>
-                <p
-                  className="small"
-                >
-                  January 2017
-                </p>
               </div>
             </div>
           </div>

@@ -62,31 +62,30 @@ const FollowUpDocumentModal = (props) => {
                 </div>
               )}
               <div className="row">
-                <div className="col-sm-3 text-center">
+                <div className="col-sm-4 text-center">
                   <img
                     className="img-responsive center-block offset-bottom"
                     src={props.previewImageLink}
                     alt={props.title}
                   />
-                  <button
-                    className="btn btn-default btn-default-alt"
-                    onTouchTap={props.downloadAction}
-                  >
-                    <span className="glyphicon glyphicon-file icon-offset" />
-                    {props.downloadLabel}
-                  </button>
                 </div>
                 <div className="col-sm-8">
-                  <h4 className="well-title">{props.title}</h4>
-                  <p>
-                    {props.author}
-                  </p>
+                  <h4 className="well-title well-title-small">{props.title}</h4>
                   <p className="small">
                     {props.dateMonthYearOnly
                       ? moment(props.date).format('MMMM YYYY')
                       : moment(props.date).format('D MMMM YYYY')
                     }
+                    <span className="offset-left offset-right">|</span>
+                    {props.author}
                   </p>
+                  <button
+                    className="btn btn-default btn-default-alt btn-sm"
+                    onTouchTap={props.downloadAction}
+                  >
+                    <span className="glyphicon glyphicon-file icon-offset" />
+                    {props.downloadLabel}
+                  </button>
                 </div>
               </div>
             </div>
@@ -95,7 +94,7 @@ const FollowUpDocumentModal = (props) => {
 
             {!!props.snippets && props.snippets.map((snippet, index) => (
               <div
-                className="well well-simple well-simple-light text-left well-heading"
+                className="well well-simple well-simple-light"
                 key={index}
               >
                 {!!snippet.videoService && !!snippet.videoId &&
