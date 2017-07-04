@@ -1,5 +1,16 @@
 // Followup
 
+@keyframes appear {
+    from {
+        opacity: 0;
+        transform: translateX(-20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
 
 .followup {
     position: relative;
@@ -49,6 +60,8 @@
     &-timeline {
         &-box {
             position: relative;
+            will-change: opacity, transform;
+            animation: 1s appear backwards;
 
             &-border,
             &-border:hover,
@@ -110,6 +123,7 @@
         overflow: hidden;
 
         &.followup-type-wrap-inner {
+            padding-top: 30px;
             padding-right: 40px;
         }
     }
