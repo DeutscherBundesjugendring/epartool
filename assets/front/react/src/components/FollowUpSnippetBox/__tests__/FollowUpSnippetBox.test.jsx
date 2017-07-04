@@ -17,8 +17,6 @@ const getElement = type => (
     likeCount={0}
     dislikeAction={() => {}}
     dislikeCount={0}
-    followPathAction={() => {}}
-    followPathLabel="Follow path"
   />
 );
 

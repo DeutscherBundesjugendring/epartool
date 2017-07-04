@@ -22,21 +22,12 @@ exports[`rendering renders correctly 1`] = `
       }
     }
   />
-  <div
-    className="offset-bottom"
-  >
-    <Reputation
-      dislikeAction={[Function]}
-      dislikeCount={0}
-      likeAction={[Function]}
-      likeCount={0}
-      voted={false}
-    />
-  </div>
-  <RaisedButton
-    disabled={false}
-    label="Follow path"
-    onTouchTap={[Function]}
+  <Reputation
+    dislikeAction={[Function]}
+    dislikeCount={0}
+    likeAction={[Function]}
+    likeCount={0}
+    voted={false}
   />
 </div>
 `;

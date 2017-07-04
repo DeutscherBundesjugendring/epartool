@@ -1,6 +1,5 @@
 import React from 'react';
 import Reputation from '../Reputation/Reputation';
-import RaisedButton from '../RaisedButton/RaisedButton';
 
 
 const FollowUpSnippetBox = (props) => {
@@ -45,15 +44,12 @@ const FollowUpSnippetBox = (props) => {
         </div>
       )}
       <div dangerouslySetInnerHTML={{ __html: props.snippetExplanation }} />
-      <div className="offset-bottom">
-        <Reputation
-          likeCount={props.likeCount}
-          dislikeCount={props.dislikeCount}
-          likeAction={props.likeAction}
-          dislikeAction={props.dislikeAction}
-        />
-      </div>
-      <RaisedButton label={props.followPathLabel} onTouchTap={props.followPathAction} />
+      <Reputation
+        likeCount={props.likeCount}
+        dislikeCount={props.dislikeCount}
+        likeAction={props.likeAction}
+        dislikeAction={props.dislikeAction}
+      />
     </div>
   );
 };
@@ -65,8 +61,6 @@ FollowUpSnippetBox.propTypes = {
   likeCount: React.PropTypes.number.isRequired,
   dislikeAction: React.PropTypes.func.isRequired,
   dislikeCount: React.PropTypes.number.isRequired,
-  followPathAction: React.PropTypes.func.isRequired,
-  followPathLabel: React.PropTypes.string.isRequired,
   typeActionLabel: React.PropTypes.string.isRequired,
   typeEndLabel: React.PropTypes.string.isRequired,
   typeRejectedLabel: React.PropTypes.string.isRequired,

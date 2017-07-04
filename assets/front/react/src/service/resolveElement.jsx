@@ -37,10 +37,6 @@ const resolveElement = (response, parentAction, childAction, modalAction, otherA
         likeCount={parseInt(data.lkyea, 10)}
         dislikeAction={otherActions.snippetDislikeAction}
         dislikeCount={parseInt(data.lknay, 10)}
-        followPathAction={() => {
-          window.location = `${baseUrl}/followup/show-by-snippet/kid/${response.kid}/fid/${data.fid}`;
-        }}
-        followPathLabel={followupTranslations.followPath}
         typeActionLabel={followupTranslations.typeActionLabel}
         typeEndLabel={followupTranslations.typeEndLabel}
         typeRejectedLabel={followupTranslations.typeRejectedLabel}
