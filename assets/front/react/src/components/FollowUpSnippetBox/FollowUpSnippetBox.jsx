@@ -43,7 +43,10 @@ const FollowUpSnippetBox = (props) => {
           <span className="followup-type-title">{glyphTitle}</span>
         </div>
       )}
-      <div dangerouslySetInnerHTML={{ __html: props.snippetExplanation }} />
+      <div
+        // eslint-disable-next-line react/no-danger
+        dangerouslySetInnerHTML={{ __html: props.snippetExplanation }}
+      />
       <Reputation
         dislikeAction={props.dislikeAction}
         dislikeCount={props.dislikeCount}

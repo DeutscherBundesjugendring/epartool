@@ -13,8 +13,10 @@ const FollowUpContributionBox = props => (
     <p>
       {props.contributionThesis}
     </p>
-    {!!props.contributionExplanation &&
-      <div dangerouslySetInnerHTML={{ __html: props.contributionExplanation }} />
+    {!!props.contributionExplanation && <div
+      // eslint-disable-next-line react/no-danger
+      dangerouslySetInnerHTML={{ __html: props.contributionExplanation }}
+    />
     }
     {props.votable &&
       <div className="text-accent offset-top">

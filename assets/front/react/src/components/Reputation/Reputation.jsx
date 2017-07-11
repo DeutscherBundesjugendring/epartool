@@ -27,7 +27,7 @@ class Reputation extends React.Component {
       && nextProps.dislikeCount === this.state.initDislikeCount
     ) {
       this.setState({ votingLimitErrorShowed: true });
-      alert(this.props.votingLimitError);
+      alert(this.props.votingLimitError); // eslint-disable-line no-alert
     }
   }
 

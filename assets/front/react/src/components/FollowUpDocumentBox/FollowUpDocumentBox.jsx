@@ -62,7 +62,11 @@ const FollowDocumentBox = (props) => {
         width="80"
         className="offset-bottom img-responsive"
       />
-      <div className="offset-bottom" dangerouslySetInnerHTML={{ __html: props.description }} />
+      <div
+        className="offset-bottom"
+        // eslint-disable-next-line react/no-danger
+        dangerouslySetInnerHTML={{ __html: props.description }}
+      />
       <RaisedButton label={props.downloadLabel} onTouchTap={props.downloadAction} />
     </div>
   );

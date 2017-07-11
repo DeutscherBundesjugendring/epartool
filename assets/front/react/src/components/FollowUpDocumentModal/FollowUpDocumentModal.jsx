@@ -104,7 +104,10 @@ const FollowUpDocumentModal = (props) => {
                   />
                 }
 
-                <div dangerouslySetInnerHTML={{ __html: snippet.snippetExplanation }} />
+                <div
+                  // eslint-disable-next-line react/no-danger
+                  dangerouslySetInnerHTML={{ __html: snippet.snippetExplanation }}
+                />
 
                 <div className="offset-top-small offset-bottom-small">
                   <div className="row">
