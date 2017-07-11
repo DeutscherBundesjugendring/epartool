@@ -43,6 +43,12 @@ const FollowUpSnippetBox = (props) => {
           <span className="followup-type-title">{glyphTitle}</span>
         </div>
       )}
+      <img
+        src={props.document.previewImageLink}
+        alt={props.document.title}
+        width="80"
+        className="offset-bottom img-responsive"
+      />
       <div
         // eslint-disable-next-line react/no-danger
         dangerouslySetInnerHTML={{ __html: props.snippetExplanation }}
@@ -69,6 +75,10 @@ FollowUpSnippetBox.propTypes = {
   dislikeAction: React.PropTypes.func.isRequired,
   dislikeCount: React.PropTypes.number.isRequired,
   dislikeLabel: React.PropTypes.string.isRequired,
+  document: React.PropTypes.shape({
+    previewImageLink: React.PropTypes.string.isRequired,
+    title: React.PropTypes.string.isRequired,
+  }).isRequired,
   typeActionLabel: React.PropTypes.string.isRequired,
   typeEndLabel: React.PropTypes.string.isRequired,
   typeRejectedLabel: React.PropTypes.string.isRequired,

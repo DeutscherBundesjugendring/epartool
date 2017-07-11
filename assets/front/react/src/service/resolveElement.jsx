@@ -39,6 +39,10 @@ const resolveElement = (response, parentAction, childAction, modalAction, otherA
         dislikeAction={otherActions.snippetDislikeAction}
         dislikeCount={parseInt(data.lknay, 10)}
         dislikeLabel={followupTranslations.dislikeLabel}
+        document={{
+          previewImageLink: data.document.gfx_who,
+          title: data.document.title,
+        }}
         typeActionLabel={followupTranslations.typeActionLabel}
         typeEndLabel={followupTranslations.typeEndLabel}
         typeRejectedLabel={followupTranslations.typeRejectedLabel}

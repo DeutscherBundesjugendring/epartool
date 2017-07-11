@@ -365,7 +365,15 @@ class Api_FollowupController extends Dbjr_Api_BaseController
      */
     private function getSnippetData($snippetId)
     {
-        $snippet = (new Model_Followups())->getById($snippetId);
+        $snippetModel = new Model_Followups();
+        $snippet = $snippetModel
+            ->select()
+            ->setIntegrityCheck(false)
+            ->from(['fs' => $snippetModel->info($snippetModel::NAME)])
+            ->join(['ff' => 'fowup_fls'], 'ff.ffid = fs.ffid', ['gfx_who', 'kid', 'titl'])
+            ->query()
+            ->fetch();
+
         if (empty($snippet)) {
             throw new Dbjr_Api_Exception(
                 self::HTTP_STATUS_NOT_FOUND,
@@ -381,6 +389,11 @@ class Api_FollowupController extends Dbjr_Api_BaseController
             'lkyea' => (int) $snippet['lkyea'],
             'lknay' => (int) $snippet['lknay'],
             'type' => $snippet['type'],
+            'document' => [
+                'gfx_who' => $this->view->baseUrl() . MEDIA_URL . '/consultations/' . $snippet['kid'] . '/'
+                    . $snippet['gfx_who'],
+                'title' => $snippet['titl'],
+            ]
         ];
     }
 
