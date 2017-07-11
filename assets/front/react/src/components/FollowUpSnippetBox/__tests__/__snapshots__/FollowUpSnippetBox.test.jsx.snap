@@ -4,6 +4,12 @@ exports[`rendering renders correctly 1`] = `
 <div
   className=" well well-bordered followup-flow followup-well followup-well-link followup-type-wrap followup-type-wrap-inner "
 >
+  <img
+    alt="title"
+    className="offset-bottom img-responsive"
+    src="abc"
+    width="120"
+  />
   <div
     dangerouslySetInnerHTML={
       Object {
@@ -41,6 +47,12 @@ exports[`rendering renders correctly 2`] = `
       typeSupporting
     </span>
   </div>
+  <img
+    alt="title"
+    className="offset-bottom img-responsive"
+    src="abc"
+    width="120"
+  />
   <div
     dangerouslySetInnerHTML={
       Object {
@@ -78,6 +90,12 @@ exports[`rendering renders correctly 3`] = `
       typeAction
     </span>
   </div>
+  <img
+    alt="title"
+    className="offset-bottom img-responsive"
+    src="abc"
+    width="120"
+  />
   <div
     dangerouslySetInnerHTML={
       Object {
@@ -115,6 +133,12 @@ exports[`rendering renders correctly 4`] = `
       typeRejected
     </span>
   </div>
+  <img
+    alt="title"
+    className="offset-bottom img-responsive"
+    src="abc"
+    width="120"
+  />
   <div
     dangerouslySetInnerHTML={
       Object {
@@ -152,6 +176,12 @@ exports[`rendering renders correctly 5`] = `
       typeEnd
     </span>
   </div>
+  <img
+    alt="title"
+    className="offset-bottom img-responsive"
+    src="abc"
+    width="120"
+  />
   <div
     dangerouslySetInnerHTML={
       Object {

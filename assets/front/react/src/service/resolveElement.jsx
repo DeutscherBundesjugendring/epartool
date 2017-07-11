@@ -3,7 +3,6 @@ import FollowUpBox from '../components/FollowUpBox/FollowUpBox';
 import FollowUpContributionBox from '../components/FollowUpContributionBox/FollowUpContributionBox';
 import FollowUpDocumentBox from '../components/FollowUpDocumentBox/FollowUpDocumentBox';
 import FollowUpSnippetBox from '../components/FollowUpSnippetBox/FollowUpSnippetBox';
-import downloadFile from './downloadFile';
 
 
 /* global followupTranslations */
@@ -62,8 +61,6 @@ const resolveElement = (response, parentAction, childAction, modalAction, otherA
         date={new Date(data.when)}
         dateMonthYearOnly={!!data.is_only_month_year_showed}
         previewImageLink={data.gfx_who}
-        downloadAction={() => downloadFile(data.ref_doc)}
-        downloadLabel={followupTranslations.downloadLabel}
         typeActionLabel={followupTranslations.typeActionLabel}
         typeEndLabel={followupTranslations.typeEndLabel}
         typeRejectedLabel={followupTranslations.typeRejectedLabel}

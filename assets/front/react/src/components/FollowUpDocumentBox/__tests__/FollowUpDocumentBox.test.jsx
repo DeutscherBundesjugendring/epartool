@@ -1,6 +1,5 @@
 import { shallow } from 'enzyme';
 import { shallowToJson } from 'enzyme-to-json';
-import sinon from 'sinon';
 import React from 'react';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import FollowUpDocumentBox from '../FollowUpDocumentBox';
@@ -18,8 +17,6 @@ const getElement = type => (
     date={new Date('2017-01-01')}
     dateMonthYearOnly={false}
     previewImageLink="http://www.example.com/image.jpg"
-    downloadAction={() => {}}
-    downloadLabel="Download document"
     typeActionLabel="typeAction"
     typeEndLabel="typeEnd"
     typeRejectedLabel="typeRejected"
@@ -45,17 +42,5 @@ describe('rendering', () => {
     );
 
     expect(shallowToJson(tree)).toMatchSnapshot();
-  });
-});
-
-describe('functionality', () => {
-  it('calls download action', () => {
-    const spy = sinon.spy();
-    const component = shallow(
-      React.cloneElement(getElement(types[0]), { downloadAction: spy })
-    );
-
-    component.find('RaisedButton').first().simulate('touchTap', { preventDefault: () => {} });
-    expect(spy.calledOnce).toEqual(true);
   });
 });

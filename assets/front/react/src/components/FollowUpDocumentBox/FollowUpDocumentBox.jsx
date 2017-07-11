@@ -1,6 +1,5 @@
 import React from 'react';
 import moment from 'moment';
-import RaisedButton from '../RaisedButton/RaisedButton';
 
 
 const FollowDocumentBox = (props) => {
@@ -44,30 +43,27 @@ const FollowDocumentBox = (props) => {
           <span className="followup-type-title">{glypTitle}</span>
         </div>
       )}
-      <p>
+      <h2 className="h4">
         {props.title}
-      </p>
-      <p>
-        {props.author}
-      </p>
-      <p>
+      </h2>
+      <p className="text-muted">
         {props.dateMonthYearOnly
           ? moment(props.date).format('MMMM YYYY')
           : moment(props.date).format('D MMMM YYYY')
         }
+        <span className="offset-left offset-right">|</span>
+        {props.author}
       </p>
       <img
         src={props.previewImageLink}
         alt={props.title}
-        width="80"
+        width="120"
         className="offset-bottom img-responsive"
       />
       <div
-        className="offset-bottom"
         // eslint-disable-next-line react/no-danger
         dangerouslySetInnerHTML={{ __html: props.description }}
       />
-      <RaisedButton label={props.downloadLabel} onTouchTap={props.downloadAction} />
     </div>
   );
 };
@@ -80,8 +76,6 @@ FollowDocumentBox.propTypes = {
   date: React.PropTypes.objectOf(Date).isRequired,
   dateMonthYearOnly: React.PropTypes.bool.isRequired,
   previewImageLink: React.PropTypes.string.isRequired,
-  downloadAction: React.PropTypes.func.isRequired,
-  downloadLabel: React.PropTypes.string.isRequired,
   typeActionLabel: React.PropTypes.string.isRequired,
   typeEndLabel: React.PropTypes.string.isRequired,
   typeRejectedLabel: React.PropTypes.string.isRequired,

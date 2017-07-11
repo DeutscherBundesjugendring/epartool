@@ -46,7 +46,7 @@ const FollowUpSnippetBox = (props) => {
       <img
         src={props.document.previewImageLink}
         alt={props.document.title}
-        width="80"
+        width="120"
         className="offset-bottom img-responsive"
       />
       <div

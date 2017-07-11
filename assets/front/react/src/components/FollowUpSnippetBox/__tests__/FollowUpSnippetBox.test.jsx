@@ -1,6 +1,5 @@
 import { shallow } from 'enzyme';
 import { shallowToJson } from 'enzyme-to-json';
-import sinon from 'sinon';
 import React from 'react';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import FollowUpSnippetBox from '../FollowUpSnippetBox';
@@ -24,6 +23,10 @@ const getElement = type => (
     typeRejectedLabel="typeRejected"
     typeSupportingLabel="typeSupporting"
     votingLimitError="voting-error"
+    document={{
+      previewImageLink: 'abc',
+      title: 'title',
+    }}
   />
 );
 
