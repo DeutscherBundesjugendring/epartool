@@ -9,12 +9,15 @@ import Reputation from '../Reputation';
 injectTapEventPlugin();
 
 const element = (
-    <Reputation
-        likeAction={() => {}}
-        likeCount={0}
-        dislikeAction={() => {}}
-        dislikeCount={0}
-    />
+  <Reputation
+    likeAction={() => {}}
+    likeCount={0}
+    likeLabel="like"
+    dislikeAction={() => {}}
+    dislikeCount={0}
+    dislikeLabel="dislike"
+    votingLimitError="voting-error"
+  />
 );
 
 describe('rendering', () => {

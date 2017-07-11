@@ -7,8 +7,13 @@ exports[`rendering renders correctly disabled dislike 1`] = `
   onTouchTap={[Function]}
 >
   <span
+    className="text-center offset-top-small offset-right-small small"
+  >
+    label
+  </span>
+  <span
     aria-hidden="true"
-    className="glyphicon glyphicon-thumbs-down"
+    className="glyphicon  glyphicon-thumbs-down"
   />
 </button>
 `;
@@ -20,8 +25,13 @@ exports[`rendering renders correctly disabled like 1`] = `
   onTouchTap={[Function]}
 >
   <span
+    className="text-center offset-top-small offset-right-small small"
+  >
+    label
+  </span>
+  <span
     aria-hidden="true"
-    className="glyphicon glyphicon-thumbs-up"
+    className="glyphicon  glyphicon-thumbs-up"
   />
 </button>
 `;
@@ -33,8 +43,13 @@ exports[`rendering renders correctly dislike 1`] = `
   onTouchTap={[Function]}
 >
   <span
+    className="text-center offset-top-small offset-right-small small"
+  >
+    label
+  </span>
+  <span
     aria-hidden="true"
-    className="glyphicon glyphicon-thumbs-down"
+    className="glyphicon  glyphicon-thumbs-down"
   />
 </button>
 `;
@@ -46,8 +61,13 @@ exports[`rendering renders correctly like 1`] = `
   onTouchTap={[Function]}
 >
   <span
+    className="text-center offset-top-small offset-right-small small"
+  >
+    label
+  </span>
+  <span
     aria-hidden="true"
-    className="glyphicon glyphicon-thumbs-up"
+    className="glyphicon  glyphicon-thumbs-up"
   />
 </button>
 `;

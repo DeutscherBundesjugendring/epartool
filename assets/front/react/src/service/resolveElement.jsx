@@ -35,12 +35,15 @@ const resolveElement = (response, parentAction, childAction, modalAction, otherA
         snippetExplanation={data.expl}
         likeAction={otherActions.snippetLikeAction}
         likeCount={parseInt(data.lkyea, 10)}
+        likeLabel={followupTranslations.likeLabel}
         dislikeAction={otherActions.snippetDislikeAction}
         dislikeCount={parseInt(data.lknay, 10)}
+        dislikeLabel={followupTranslations.dislikeLabel}
         typeActionLabel={followupTranslations.typeActionLabel}
         typeEndLabel={followupTranslations.typeEndLabel}
         typeRejectedLabel={followupTranslations.typeRejectedLabel}
         typeSupportingLabel={followupTranslations.typeSupportingLabel}
+        votingLimitError={followupTranslations.votingLimitError}
       />
     );
   }

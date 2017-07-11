@@ -20,6 +20,10 @@ const getElement = type => (
     previewImageLink="http://www.example.com/image.jpg"
     downloadAction={() => {}}
     downloadLabel="Download document"
+    typeActionLabel="typeAction"
+    typeEndLabel="typeEnd"
+    typeRejectedLabel="typeRejected"
+    typeSupportingLabel="typeSupporting"
   />
 );
 

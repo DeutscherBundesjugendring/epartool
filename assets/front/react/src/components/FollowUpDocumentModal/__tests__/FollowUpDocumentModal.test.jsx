@@ -20,17 +20,24 @@ const getElement = type => (
     downloadAction={() => {}}
     downloadLabel="Download document"
     closeAction={() => {}}
+    typeActionLabel="typeAction"
+    typeEndLabel="typeEnd"
+    typeRejectedLabel="typeRejected"
+    typeSupportingLabel="typeSupporting"
   />
 );
 const snippetElement = {
   snippetExplanation: 'Snippet',
   likeAction: () => {},
+  likeLabel: 'like',
   likeCount: 0,
   dislikeAction: () => {},
   dislikeCount: 0,
+  dislikeLabel: 'dislike',
   followPathAction: () => {},
   followPathLabel: 'Follow path',
   showFollowPathButton: true,
+  votingLimitError: 'voting-error',
 };
 
 

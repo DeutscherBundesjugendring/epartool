@@ -1,19 +1,13 @@
 import React from 'react';
 
-/* global followupTranslations */
-
 const ThumbButton = (props) => {
   const linkClasses = 'btn btn-default btn-xs';
   let iconClasses = 'glyphicon ';
-  let label = followupTranslations.likeLabel;
 
   if (props.type === 'like') {
     iconClasses += ' glyphicon-thumbs-up';
-  }
-
-  if (props.type === 'dislike') {
+  } else if (props.type === 'dislike') {
     iconClasses += ' glyphicon-thumbs-down';
-    label = followupTranslations.dislikeLabel;
   }
 
   return (
@@ -28,7 +22,7 @@ const ThumbButton = (props) => {
       disabled={props.disabled}
     >
       <span className="text-center offset-top-small offset-right-small small">
-        {label}
+        {props.label}
       </span>
       <span className={iconClasses} aria-hidden="true" />
     </button>
@@ -40,9 +34,10 @@ ThumbButton.defaultProps = {
 };
 
 ThumbButton.propTypes = {
-  type: React.PropTypes.oneOf(['like', 'dislike']).isRequired,
-  onTouchTap: React.PropTypes.func.isRequired,
   disabled: React.PropTypes.bool,
+  label: React.PropTypes.string.isRequired,
+  onTouchTap: React.PropTypes.func.isRequired,
+  type: React.PropTypes.oneOf(['like', 'dislike']).isRequired,
 };
 
 
