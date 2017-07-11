@@ -8,7 +8,7 @@ exports[`rendering renders correctly with long date without snippets 1`] = `
   <div
     aria-hidden="true"
     aria-labelledby="modalFollowupLabel"
-    className="modal fade in"
+    className="modal text-left fade in"
     style={
       Object {
         "display": "block",
@@ -37,10 +37,10 @@ exports[`rendering renders correctly with long date without snippets 1`] = `
             </span>
           </button>
           <h4
-            className="modal-title"
+            className="modal-title text-overflow"
             id="modalFollowupLabel"
           >
-            Document
+            Document title
           </h4>
         </div>
         <div
@@ -57,18 +57,15 @@ exports[`rendering renders correctly with long date without snippets 1`] = `
               >
                 <img
                   alt="Document title"
-                  className="img-responsive center-block offset-bottom"
+                  className=" followup-document-image img-responsive center-block offset-bottom-xs-max "
+                  height={160}
                   src="http://www.example.com/image.jpg"
+                  width={256}
                 />
               </div>
               <div
                 className="col-sm-8"
               >
-                <h4
-                  className="well-title well-title-small"
-                >
-                  Document title
-                </h4>
                 <p
                   className="small"
                 >
@@ -108,7 +105,7 @@ exports[`rendering renders correctly with long date without snippets 2`] = `
   <div
     aria-hidden="true"
     aria-labelledby="modalFollowupLabel"
-    className="modal fade in"
+    className="modal text-left fade in"
     style={
       Object {
         "display": "block",
@@ -137,10 +134,10 @@ exports[`rendering renders correctly with long date without snippets 2`] = `
             </span>
           </button>
           <h4
-            className="modal-title"
+            className="modal-title text-overflow"
             id="modalFollowupLabel"
           >
-            Document
+            Document title
           </h4>
         </div>
         <div
@@ -170,18 +167,15 @@ exports[`rendering renders correctly with long date without snippets 2`] = `
               >
                 <img
                   alt="Document title"
-                  className="img-responsive center-block offset-bottom"
+                  className=" followup-document-image img-responsive center-block offset-bottom-xs-max "
+                  height={160}
                   src="http://www.example.com/image.jpg"
+                  width={256}
                 />
               </div>
               <div
                 className="col-sm-8"
               >
-                <h4
-                  className="well-title well-title-small"
-                >
-                  Document title
-                </h4>
                 <p
                   className="small"
                 >
@@ -221,7 +215,7 @@ exports[`rendering renders correctly with long date without snippets 3`] = `
   <div
     aria-hidden="true"
     aria-labelledby="modalFollowupLabel"
-    className="modal fade in"
+    className="modal text-left fade in"
     style={
       Object {
         "display": "block",
@@ -250,10 +244,10 @@ exports[`rendering renders correctly with long date without snippets 3`] = `
             </span>
           </button>
           <h4
-            className="modal-title"
+            className="modal-title text-overflow"
             id="modalFollowupLabel"
           >
-            Document
+            Document title
           </h4>
         </div>
         <div
@@ -283,18 +277,15 @@ exports[`rendering renders correctly with long date without snippets 3`] = `
               >
                 <img
                   alt="Document title"
-                  className="img-responsive center-block offset-bottom"
+                  className=" followup-document-image img-responsive center-block offset-bottom-xs-max "
+                  height={160}
                   src="http://www.example.com/image.jpg"
+                  width={256}
                 />
               </div>
               <div
                 className="col-sm-8"
               >
-                <h4
-                  className="well-title well-title-small"
-                >
-                  Document title
-                </h4>
                 <p
                   className="small"
                 >
@@ -334,7 +325,7 @@ exports[`rendering renders correctly with long date without snippets 4`] = `
   <div
     aria-hidden="true"
     aria-labelledby="modalFollowupLabel"
-    className="modal fade in"
+    className="modal text-left fade in"
     style={
       Object {
         "display": "block",
@@ -363,10 +354,10 @@ exports[`rendering renders correctly with long date without snippets 4`] = `
             </span>
           </button>
           <h4
-            className="modal-title"
+            className="modal-title text-overflow"
             id="modalFollowupLabel"
           >
-            Document
+            Document title
           </h4>
         </div>
         <div
@@ -396,18 +387,15 @@ exports[`rendering renders correctly with long date without snippets 4`] = `
               >
                 <img
                   alt="Document title"
-                  className="img-responsive center-block offset-bottom"
+                  className=" followup-document-image img-responsive center-block offset-bottom-xs-max "
+                  height={160}
                   src="http://www.example.com/image.jpg"
+                  width={256}
                 />
               </div>
               <div
                 className="col-sm-8"
               >
-                <h4
-                  className="well-title well-title-small"
-                >
-                  Document title
-                </h4>
                 <p
                   className="small"
                 >
@@ -447,7 +435,7 @@ exports[`rendering renders correctly with long date without snippets 5`] = `
   <div
     aria-hidden="true"
     aria-labelledby="modalFollowupLabel"
-    className="modal fade in"
+    className="modal text-left fade in"
     style={
       Object {
         "display": "block",
@@ -476,10 +464,10 @@ exports[`rendering renders correctly with long date without snippets 5`] = `
             </span>
           </button>
           <h4
-            className="modal-title"
+            className="modal-title text-overflow"
             id="modalFollowupLabel"
           >
-            Document
+            Document title
           </h4>
         </div>
         <div
@@ -509,18 +497,15 @@ exports[`rendering renders correctly with long date without snippets 5`] = `
               >
                 <img
                   alt="Document title"
-                  className="img-responsive center-block offset-bottom"
+                  className=" followup-document-image img-responsive center-block offset-bottom-xs-max "
+                  height={160}
                   src="http://www.example.com/image.jpg"
+                  width={256}
                 />
               </div>
               <div
                 className="col-sm-8"
               >
-                <h4
-                  className="well-title well-title-small"
-                >
-                  Document title
-                </h4>
                 <p
                   className="small"
                 >
@@ -560,7 +545,7 @@ exports[`rendering renders correctly with one snippet 1`] = `
   <div
     aria-hidden="true"
     aria-labelledby="modalFollowupLabel"
-    className="modal fade in"
+    className="modal text-left fade in"
     style={
       Object {
         "display": "block",
@@ -589,10 +574,10 @@ exports[`rendering renders correctly with one snippet 1`] = `
             </span>
           </button>
           <h4
-            className="modal-title"
+            className="modal-title text-overflow"
             id="modalFollowupLabel"
           >
-            Document
+            Document title
           </h4>
         </div>
         <div
@@ -609,18 +594,15 @@ exports[`rendering renders correctly with one snippet 1`] = `
               >
                 <img
                   alt="Document title"
-                  className="img-responsive center-block offset-bottom"
+                  className=" followup-document-image img-responsive center-block offset-bottom-xs-max "
+                  height={160}
                   src="http://www.example.com/image.jpg"
+                  width={256}
                 />
               </div>
               <div
                 className="col-sm-8"
               >
-                <h4
-                  className="well-title well-title-small"
-                >
-                  Document title
-                </h4>
                 <p
                   className="small"
                 >
@@ -710,7 +692,7 @@ exports[`rendering renders correctly with short date without snippets 1`] = `
   <div
     aria-hidden="true"
     aria-labelledby="modalFollowupLabel"
-    className="modal fade in"
+    className="modal text-left fade in"
     style={
       Object {
         "display": "block",
@@ -739,10 +721,10 @@ exports[`rendering renders correctly with short date without snippets 1`] = `
             </span>
           </button>
           <h4
-            className="modal-title"
+            className="modal-title text-overflow"
             id="modalFollowupLabel"
           >
-            Document
+            Document title
           </h4>
         </div>
         <div
@@ -759,18 +741,15 @@ exports[`rendering renders correctly with short date without snippets 1`] = `
               >
                 <img
                   alt="Document title"
-                  className="img-responsive center-block offset-bottom"
+                  className=" followup-document-image img-responsive center-block offset-bottom-xs-max "
+                  height={160}
                   src="http://www.example.com/image.jpg"
+                  width={256}
                 />
               </div>
               <div
                 className="col-sm-8"
               >
-                <h4
-                  className="well-title well-title-small"
-                >
-                  Document title
-                </h4>
                 <p
                   className="small"
                 >

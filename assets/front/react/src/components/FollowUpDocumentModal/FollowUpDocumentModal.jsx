@@ -31,7 +31,7 @@ const FollowUpDocumentModal = (props) => {
   return (<div>
     <div className="modal-backdrop fade in" />
     <div
-      className="modal fade in"
+      className="modal text-left fade in"
       aria-hidden="true"
       aria-labelledby="modalFollowupLabel"
       style={{ display: 'block' }}
@@ -48,8 +48,8 @@ const FollowUpDocumentModal = (props) => {
             >
               <span aria-hidden="true">×</span>
             </button>
-            <h4 className="modal-title" id="modalFollowupLabel">
-              Document
+            <h4 className="modal-title text-overflow" id="modalFollowupLabel">
+              {props.title}
             </h4>
           </div>
           <div className="modal-body">
@@ -64,13 +64,19 @@ const FollowUpDocumentModal = (props) => {
               <div className="row">
                 <div className="col-sm-4 text-center">
                   <img
-                    className="img-responsive center-block offset-bottom"
                     src={props.previewImageLink}
+                    width={256}
+                    height={160}
+                    className="
+                      followup-document-image
+                      img-responsive
+                      center-block
+                      offset-bottom-xs-max
+                    "
                     alt={props.title}
                   />
                 </div>
                 <div className="col-sm-8">
-                  <h4 className="well-title well-title-small">{props.title}</h4>
                   <p className="small">
                     {props.dateMonthYearOnly
                       ? moment(props.date).format('MMMM YYYY')
