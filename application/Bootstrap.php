@@ -48,7 +48,6 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 
     protected function _initRegistry()
     {
-        // Initialisierung des Db-Adapters erzwingen
         $this->bootstrap('db');
         $registry = Zend_Registry::getInstance();
         $config = new Zend_Config($this->getOptions());
@@ -122,9 +121,6 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
             ->registerPlugin(new Plugin_Messenger());
     }
 
-    /**
-     * Initialize locale
-     */
     protected function _initLocale()
     {
         Zend_Registry::set(
@@ -135,28 +131,30 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         );
     }
 
-
-    /**
-     * Initialize translations
-     */
     protected function _initTranslation()
     {
-        $translator = new Zend_Translate([
-            'adapter' => 'array',
-            'content' => VENDOR_PATH . '/zendframework/zendframework1/resources/languages',
-            'scan' => Zend_Translate::LOCALE_DIRECTORY,
-            'disableNotices' => true,
-        ]);
+        // martin@visionapps.cz on 2017-07-11
+        // Locales for which Zend does not have validation massages
+        $customMsgLangs = ['ar', 'pl'];
+        $locale = Zend_Registry::get('Zend_Locale');
 
-        // martin@visionapps.cz on 2017-04-23
-        // For languages not supported by Zend natively we have to add some system translations.
-        foreach (['ar', 'pl'] as $locale) {
-            $translatorAdditionalLanguages = new Zend_Translate([
+        if (in_array($locale->getLanguage(), $customMsgLangs)) {
+            $translator = new Zend_Translate([
                 'adapter' => 'array',
                 'content' => APPLICATION_PATH . '/../languages_zend',
+                'scan' => Zend_Translate::LOCALE_DIRECTORY,
+                'disableNotices' => true,
                 'locale' => $locale,
             ]);
-            $translator->addTranslation(array('content' => $translatorAdditionalLanguages));
+        }
+
+        if (empty($translator)) {
+            $translator = new Zend_Translate([
+                'adapter' => 'array',
+                'content' => VENDOR_PATH . '/zendframework/zendframework1/resources/languages',
+                'scan' => Zend_Translate::LOCALE_DIRECTORY,
+                'disableNotices' => true,
+            ]);
         }
 
         Zend_Validate_Abstract::setDefaultTranslator($translator);
