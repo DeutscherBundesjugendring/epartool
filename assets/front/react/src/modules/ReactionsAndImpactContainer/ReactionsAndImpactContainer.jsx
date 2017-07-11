@@ -1,6 +1,3 @@
-/**
- * Created by bedrich-schindler on 29.5.17.
- */
 import React from 'react';
 import FollowUpDocumentModal from '../../components/FollowUpDocumentModal/FollowUpDocumentModal';
 import downloadFile from '../../service/downloadFile';
@@ -64,6 +61,7 @@ class ReactionsAndImpactContainer extends React.Component {
                 : response.lkyea,
               10
             ),
+            likeLabel: followupTranslations.likeLabel,
             dislikeAction: () => this.modalSnippetDislike(response.fid),
             dislikeCount: parseInt(
               rewriteSnippetId === response.fid && rewriteSnippetDislike
@@ -71,11 +69,13 @@ class ReactionsAndImpactContainer extends React.Component {
                 : response.lknay,
               10
             ),
+            dislikeLabel: followupTranslations.dislikeLabel,
             followPathAction: () => {
               window.location = `${baseUrl}/followup/show-by-snippet/kid/${documentResponse.kid}/fid/${response.fid}`;
             },
             followPathLabel: followupTranslations.followPath,
             showFollowPathButton: response.parents_count !== 0 || response.children_count !== 0,
+            votingLimitError: followupTranslations.votingLimitError,
           }))}
           closeAction={() => {
             window.removeModalOpenFromBody();

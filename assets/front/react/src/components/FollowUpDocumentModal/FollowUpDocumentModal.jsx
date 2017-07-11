@@ -104,7 +104,10 @@ const FollowUpDocumentModal = (props) => {
                   />
                 }
 
-                <div dangerouslySetInnerHTML={{ __html: snippet.snippetExplanation }} />
+                <div
+                  // eslint-disable-next-line react/no-danger
+                  dangerouslySetInnerHTML={{ __html: snippet.snippetExplanation }}
+                />
 
                 <div className="offset-top-small offset-bottom-small">
                   <div className="row">
@@ -113,8 +116,11 @@ const FollowUpDocumentModal = (props) => {
                         <Reputation
                           likeCount={snippet.likeCount}
                           dislikeCount={snippet.dislikeCount}
+                          likeLabel={snippet.likeLabel}
                           likeAction={snippet.likeAction}
                           dislikeAction={snippet.dislikeAction}
+                          dislikeLabel={snippet.dislikeLabel}
+                          votingLimitError={snippet.votingLimitError}
                         />
                       </div>
                     </div>
@@ -158,11 +164,14 @@ FollowUpDocumentModal.propTypes = {
     snippetExplanation: React.PropTypes.string.isRequired,
     likeAction: React.PropTypes.func.isRequired,
     likeCount: React.PropTypes.number.isRequired,
+    likeLabel: React.PropTypes.string.isRequired,
     dislikeAction: React.PropTypes.func.isRequired,
     dislikeCount: React.PropTypes.number.isRequired,
+    dislikeLabel: React.PropTypes.string.isRequired,
     followPathAction: React.PropTypes.func.isRequired,
     followPathLabel: React.PropTypes.string.isRequired,
     showFollowPathButton: React.PropTypes.bool.isRequired,
+    votingLimitError: React.PropTypes.string.isRequired,
   })),
 };
 

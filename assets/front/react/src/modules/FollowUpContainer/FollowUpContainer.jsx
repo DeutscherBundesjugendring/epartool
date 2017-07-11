@@ -169,6 +169,7 @@ class FollowUpContainer extends React.Component {
                   : response.lkyea,
                 10
               ),
+              likeLabel: followupTranslations.likeLabel,
               dislikeAction: () => this.modalSnippetDislike(response.fid, elementResponse),
               dislikeCount: parseInt(
                 rewriteSnippetId && rewriteSnippetDislike
@@ -176,6 +177,7 @@ class FollowUpContainer extends React.Component {
                   : response.lknay,
                 10
               ),
+              dislikeLabel: followupTranslations.dislikeLabel,
               followPathAction: () => {
                 if (elementResponse.id === response.fid) {
                   window.removeModalOpenFromBody();
@@ -188,6 +190,7 @@ class FollowUpContainer extends React.Component {
                   ? followupTranslations.backToTimeline
                   : followupTranslations.followPath,
               showFollowPathButton: response.parents_count !== 0 || response.children_count !== 0,
+              votingLimitError: followupTranslations.votingLimitError,
             }))}
             closeAction={() => {
               window.removeModalOpenFromBody();

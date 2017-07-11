@@ -5,17 +5,6 @@ exports[`rendering renders correctly 1`] = `
   className=" well well-bordered followup-flow followup-well followup-well-link followup-type-wrap followup-type-wrap-inner "
 >
   <div
-    className="followup-type followup-type-right followup-type-right-alt"
-  >
-    <span
-      aria-hidden="true"
-      className="followup-type-icon glyphicon glyphicon-lock"
-    />
-    <span
-      className="followup-type-title"
-    />
-  </div>
-  <div
     dangerouslySetInnerHTML={
       Object {
         "__html": "Snippet",
@@ -25,9 +14,12 @@ exports[`rendering renders correctly 1`] = `
   <Reputation
     dislikeAction={[Function]}
     dislikeCount={0}
+    dislikeLabel="dislike"
     likeAction={[Function]}
     likeCount={0}
+    likeLabel="like"
     voted={false}
+    votingLimitError="voting-error"
   />
 </div>
 `;
@@ -46,7 +38,7 @@ exports[`rendering renders correctly 2`] = `
     <span
       className="followup-type-title"
     >
-      Supporting
+      typeSupporting
     </span>
   </div>
   <div
@@ -56,21 +48,15 @@ exports[`rendering renders correctly 2`] = `
       }
     }
   />
-  <div
-    className="offset-bottom-small"
-  >
-    <Reputation
-      dislikeAction={[Function]}
-      dislikeCount={0}
-      likeAction={[Function]}
-      likeCount={0}
-      voted={false}
-    />
-  </div>
-  <RaisedButton
-    disabled={false}
-    label="Follow path"
-    onTouchTap={[Function]}
+  <Reputation
+    dislikeAction={[Function]}
+    dislikeCount={0}
+    dislikeLabel="dislike"
+    likeAction={[Function]}
+    likeCount={0}
+    likeLabel="like"
+    voted={false}
+    votingLimitError="voting-error"
   />
 </div>
 `;
@@ -89,7 +75,7 @@ exports[`rendering renders correctly 3`] = `
     <span
       className="followup-type-title"
     >
-      Action
+      typeAction
     </span>
   </div>
   <div
@@ -99,21 +85,15 @@ exports[`rendering renders correctly 3`] = `
       }
     }
   />
-  <div
-    className="offset-bottom-small"
-  >
-    <Reputation
-      dislikeAction={[Function]}
-      dislikeCount={0}
-      likeAction={[Function]}
-      likeCount={0}
-      voted={false}
-    />
-  </div>
-  <RaisedButton
-    disabled={false}
-    label="Follow path"
-    onTouchTap={[Function]}
+  <Reputation
+    dislikeAction={[Function]}
+    dislikeCount={0}
+    dislikeLabel="dislike"
+    likeAction={[Function]}
+    likeCount={0}
+    likeLabel="like"
+    voted={false}
+    votingLimitError="voting-error"
   />
 </div>
 `;
@@ -132,7 +112,7 @@ exports[`rendering renders correctly 4`] = `
     <span
       className="followup-type-title"
     >
-      Rejected
+      typeRejected
     </span>
   </div>
   <div
@@ -142,21 +122,15 @@ exports[`rendering renders correctly 4`] = `
       }
     }
   />
-  <div
-    className="offset-bottom-small"
-  >
-    <Reputation
-      dislikeAction={[Function]}
-      dislikeCount={0}
-      likeAction={[Function]}
-      likeCount={0}
-      voted={false}
-    />
-  </div>
-  <RaisedButton
-    disabled={false}
-    label="Follow path"
-    onTouchTap={[Function]}
+  <Reputation
+    dislikeAction={[Function]}
+    dislikeCount={0}
+    dislikeLabel="dislike"
+    likeAction={[Function]}
+    likeCount={0}
+    likeLabel="like"
+    voted={false}
+    votingLimitError="voting-error"
   />
 </div>
 `;
@@ -175,7 +149,7 @@ exports[`rendering renders correctly 5`] = `
     <span
       className="followup-type-title"
     >
-      End
+      typeEnd
     </span>
   </div>
   <div
@@ -185,21 +159,15 @@ exports[`rendering renders correctly 5`] = `
       }
     }
   />
-  <div
-    className="offset-bottom-small"
-  >
-    <Reputation
-      dislikeAction={[Function]}
-      dislikeCount={0}
-      likeAction={[Function]}
-      likeCount={0}
-      voted={false}
-    />
-  </div>
-  <RaisedButton
-    disabled={false}
-    label="Follow path"
-    onTouchTap={[Function]}
+  <Reputation
+    dislikeAction={[Function]}
+    dislikeCount={0}
+    dislikeLabel="dislike"
+    likeAction={[Function]}
+    likeCount={0}
+    likeLabel="like"
+    voted={false}
+    votingLimitError="voting-error"
   />
 </div>
 `;

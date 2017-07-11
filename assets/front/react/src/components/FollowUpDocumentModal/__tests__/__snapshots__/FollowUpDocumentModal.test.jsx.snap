@@ -50,17 +50,6 @@ exports[`rendering renders correctly with long date without snippets 1`] = `
             className="well well-accent followup-type-wrap"
           >
             <div
-              className="followup-type followup-type-right"
-            >
-              <span
-                aria-hidden="true"
-                className="followup-type-icon glyphicon glyphicon-lock"
-              />
-              <span
-                className="followup-type-title"
-              />
-            </div>
-            <div
               className="row"
             >
               <div
@@ -170,22 +159,42 @@ exports[`rendering renders correctly with long date without snippets 2`] = `
               <span
                 className="followup-type-title"
               >
-                Supporting
+                typeSupporting
               </span>
             </div>
             <div
               className="row"
             >
               <div
-                className="col-sm-3 text-center"
+                className="col-sm-4 text-center"
               >
                 <img
                   alt="Document title"
                   className="img-responsive center-block offset-bottom"
                   src="http://www.example.com/image.jpg"
                 />
+              </div>
+              <div
+                className="col-sm-8"
+              >
+                <h4
+                  className="well-title well-title-small"
+                >
+                  Document title
+                </h4>
+                <p
+                  className="small"
+                >
+                  1 January 2017
+                  <span
+                    className="offset-left offset-right"
+                  >
+                    |
+                  </span>
+                  Author of document
+                </p>
                 <button
-                  className="btn btn-default btn-default-alt"
+                  className="btn btn-default btn-default-alt btn-sm"
                   onTouchTap={[Function]}
                 >
                   <span
@@ -193,23 +202,6 @@ exports[`rendering renders correctly with long date without snippets 2`] = `
                   />
                   Download document
                 </button>
-              </div>
-              <div
-                className="col-sm-8"
-              >
-                <h4
-                  className="well-title"
-                >
-                  Document title
-                </h4>
-                <p>
-                  Author of document
-                </p>
-                <p
-                  className="small"
-                >
-                  1 January 2017
-                </p>
               </div>
             </div>
           </div>
@@ -280,22 +272,42 @@ exports[`rendering renders correctly with long date without snippets 3`] = `
               <span
                 className="followup-type-title"
               >
-                Action
+                typeAction
               </span>
             </div>
             <div
               className="row"
             >
               <div
-                className="col-sm-3 text-center"
+                className="col-sm-4 text-center"
               >
                 <img
                   alt="Document title"
                   className="img-responsive center-block offset-bottom"
                   src="http://www.example.com/image.jpg"
                 />
+              </div>
+              <div
+                className="col-sm-8"
+              >
+                <h4
+                  className="well-title well-title-small"
+                >
+                  Document title
+                </h4>
+                <p
+                  className="small"
+                >
+                  1 January 2017
+                  <span
+                    className="offset-left offset-right"
+                  >
+                    |
+                  </span>
+                  Author of document
+                </p>
                 <button
-                  className="btn btn-default btn-default-alt"
+                  className="btn btn-default btn-default-alt btn-sm"
                   onTouchTap={[Function]}
                 >
                   <span
@@ -303,23 +315,6 @@ exports[`rendering renders correctly with long date without snippets 3`] = `
                   />
                   Download document
                 </button>
-              </div>
-              <div
-                className="col-sm-8"
-              >
-                <h4
-                  className="well-title"
-                >
-                  Document title
-                </h4>
-                <p>
-                  Author of document
-                </p>
-                <p
-                  className="small"
-                >
-                  1 January 2017
-                </p>
               </div>
             </div>
           </div>
@@ -390,22 +385,42 @@ exports[`rendering renders correctly with long date without snippets 4`] = `
               <span
                 className="followup-type-title"
               >
-                Rejected
+                typeRejected
               </span>
             </div>
             <div
               className="row"
             >
               <div
-                className="col-sm-3 text-center"
+                className="col-sm-4 text-center"
               >
                 <img
                   alt="Document title"
                   className="img-responsive center-block offset-bottom"
                   src="http://www.example.com/image.jpg"
                 />
+              </div>
+              <div
+                className="col-sm-8"
+              >
+                <h4
+                  className="well-title well-title-small"
+                >
+                  Document title
+                </h4>
+                <p
+                  className="small"
+                >
+                  1 January 2017
+                  <span
+                    className="offset-left offset-right"
+                  >
+                    |
+                  </span>
+                  Author of document
+                </p>
                 <button
-                  className="btn btn-default btn-default-alt"
+                  className="btn btn-default btn-default-alt btn-sm"
                   onTouchTap={[Function]}
                 >
                   <span
@@ -413,23 +428,6 @@ exports[`rendering renders correctly with long date without snippets 4`] = `
                   />
                   Download document
                 </button>
-              </div>
-              <div
-                className="col-sm-8"
-              >
-                <h4
-                  className="well-title"
-                >
-                  Document title
-                </h4>
-                <p>
-                  Author of document
-                </p>
-                <p
-                  className="small"
-                >
-                  1 January 2017
-                </p>
               </div>
             </div>
           </div>
@@ -500,22 +498,42 @@ exports[`rendering renders correctly with long date without snippets 5`] = `
               <span
                 className="followup-type-title"
               >
-                End
+                typeEnd
               </span>
             </div>
             <div
               className="row"
             >
               <div
-                className="col-sm-3 text-center"
+                className="col-sm-4 text-center"
               >
                 <img
                   alt="Document title"
                   className="img-responsive center-block offset-bottom"
                   src="http://www.example.com/image.jpg"
                 />
+              </div>
+              <div
+                className="col-sm-8"
+              >
+                <h4
+                  className="well-title well-title-small"
+                >
+                  Document title
+                </h4>
+                <p
+                  className="small"
+                >
+                  1 January 2017
+                  <span
+                    className="offset-left offset-right"
+                  >
+                    |
+                  </span>
+                  Author of document
+                </p>
                 <button
-                  className="btn btn-default btn-default-alt"
+                  className="btn btn-default btn-default-alt btn-sm"
                   onTouchTap={[Function]}
                 >
                   <span
@@ -523,23 +541,6 @@ exports[`rendering renders correctly with long date without snippets 5`] = `
                   />
                   Download document
                 </button>
-              </div>
-              <div
-                className="col-sm-8"
-              >
-                <h4
-                  className="well-title"
-                >
-                  Document title
-                </h4>
-                <p>
-                  Author of document
-                </p>
-                <p
-                  className="small"
-                >
-                  1 January 2017
-                </p>
               </div>
             </div>
           </div>
@@ -669,9 +670,12 @@ exports[`rendering renders correctly with one snippet 1`] = `
                     <Reputation
                       dislikeAction={[Function]}
                       dislikeCount={0}
+                      dislikeLabel="dislike"
                       likeAction={[Function]}
                       likeCount={0}
+                      likeLabel="like"
                       voted={false}
+                      votingLimitError="voting-error"
                     />
                   </div>
                 </div>

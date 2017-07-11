@@ -3,25 +3,25 @@ import Reputation from '../Reputation/Reputation';
 
 
 const FollowUpSnippetBox = (props) => {
-  let glypClasses = 'followup-type-icon glyphicon';
+  let glyphClasses = 'followup-type-icon glyphicon';
   let isType = false;
-  let glypTitle = '';
+  let glyphTitle = '';
 
   if (props.type === 'supporting') {
-    glypClasses += ' glyphicon-heart';
-    glypTitle = props.typeSupportingLabel;
+    glyphClasses += ' glyphicon-heart';
+    glyphTitle = props.typeSupportingLabel;
     isType = true;
   } else if (props.type === 'action') {
-    glypClasses += ' glyphicon-play';
-    glypTitle = props.typeActionLabel;
+    glyphClasses += ' glyphicon-play';
+    glyphTitle = props.typeActionLabel;
     isType = true;
   } else if (props.type === 'rejected') {
-    glypClasses += ' glyphicon-minus-sign';
-    glypTitle = props.typeRejectedLabel;
+    glyphClasses += ' glyphicon-minus-sign';
+    glyphTitle = props.typeRejectedLabel;
     isType = true;
   } else if (props.type === 'end') {
-    glypClasses += ' glyphicon-lock';
-    glypTitle = props.typeEndLabel;
+    glyphClasses += ' glyphicon-lock';
+    glyphTitle = props.typeEndLabel;
     isType = true;
   }
 
@@ -39,16 +39,22 @@ const FollowUpSnippetBox = (props) => {
     >
       {isType && (
         <div className="followup-type followup-type-right followup-type-right-alt">
-          <span className={glypClasses} aria-hidden="true" />
-          <span className="followup-type-title">{glypTitle}</span>
+          <span className={glyphClasses} aria-hidden="true" />
+          <span className="followup-type-title">{glyphTitle}</span>
         </div>
       )}
-      <div dangerouslySetInnerHTML={{ __html: props.snippetExplanation }} />
+      <div
+        // eslint-disable-next-line react/no-danger
+        dangerouslySetInnerHTML={{ __html: props.snippetExplanation }}
+      />
       <Reputation
-        likeCount={props.likeCount}
-        dislikeCount={props.dislikeCount}
-        likeAction={props.likeAction}
         dislikeAction={props.dislikeAction}
+        dislikeCount={props.dislikeCount}
+        dislikeLabel={props.dislikeLabel}
+        likeAction={props.likeAction}
+        likeCount={props.likeCount}
+        likeLabel={props.likeLabel}
+        votingLimitError={props.votingLimitError}
       />
     </div>
   );
@@ -59,12 +65,15 @@ FollowUpSnippetBox.propTypes = {
   snippetExplanation: React.PropTypes.string.isRequired,
   likeAction: React.PropTypes.func.isRequired,
   likeCount: React.PropTypes.number.isRequired,
+  likeLabel: React.PropTypes.string.isRequired,
   dislikeAction: React.PropTypes.func.isRequired,
   dislikeCount: React.PropTypes.number.isRequired,
+  dislikeLabel: React.PropTypes.string.isRequired,
   typeActionLabel: React.PropTypes.string.isRequired,
   typeEndLabel: React.PropTypes.string.isRequired,
   typeRejectedLabel: React.PropTypes.string.isRequired,
   typeSupportingLabel: React.PropTypes.string.isRequired,
+  votingLimitError: React.PropTypes.string.isRequired,
 };
 
 export default FollowUpSnippetBox;

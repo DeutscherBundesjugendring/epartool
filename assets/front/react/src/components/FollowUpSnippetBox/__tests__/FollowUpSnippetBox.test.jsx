@@ -15,8 +15,15 @@ const getElement = type => (
     snippetExplanation="Snippet"
     likeAction={() => {}}
     likeCount={0}
+    likeLabel="like"
     dislikeAction={() => {}}
     dislikeCount={0}
+    dislikeLabel="dislike"
+    typeActionLabel="typeAction"
+    typeEndLabel="typeEnd"
+    typeRejectedLabel="typeRejected"
+    typeSupportingLabel="typeSupporting"
+    votingLimitError="voting-error"
   />
 );
 
@@ -26,17 +33,5 @@ describe('rendering', () => {
       const tree = shallow(React.cloneElement(getElement(type)));
       expect(shallowToJson(tree)).toMatchSnapshot();
     });
-  });
-});
-
-describe('functionality', () => {
-  it('calls follow path action', () => {
-    const spy = sinon.spy();
-    const component = shallow(
-      React.cloneElement(getElement(types[0]), { followPathAction: spy })
-    );
-
-    component.find('RaisedButton').first().simulate('touchTap', { preventDefault: () => {} });
-    expect(spy.calledOnce).toEqual(true);
   });
 });

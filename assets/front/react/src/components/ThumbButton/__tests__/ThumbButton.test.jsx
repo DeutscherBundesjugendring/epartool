@@ -11,7 +11,7 @@ injectTapEventPlugin();
 describe('rendering', () => {
   it('renders correctly like', () => {
     const tree = shallow(
-      <ThumbButton type="like" onTouchTap={() => {}} />
+      <ThumbButton type="like" onTouchTap={() => {}} label="label" />
     );
 
     expect(shallowToJson(tree)).toMatchSnapshot();
@@ -19,7 +19,7 @@ describe('rendering', () => {
 
   it('renders correctly dislike', () => {
     const tree = shallow(
-      <ThumbButton type="dislike" onTouchTap={() => {}} />
+      <ThumbButton type="dislike" onTouchTap={() => {}} label="label" />
     );
 
     expect(shallowToJson(tree)).toMatchSnapshot();
@@ -27,7 +27,7 @@ describe('rendering', () => {
 
   it('renders correctly disabled like', () => {
     const tree = shallow(
-      <ThumbButton type="like" onTouchTap={() => {}} disabled />
+      <ThumbButton type="like" onTouchTap={() => {}} disabled label="label" />
     );
 
     expect(shallowToJson(tree)).toMatchSnapshot();
@@ -35,7 +35,7 @@ describe('rendering', () => {
 
   it('renders correctly disabled dislike', () => {
     const tree = shallow(
-      <ThumbButton type="dislike" onTouchTap={() => {}} disabled />
+      <ThumbButton type="dislike" onTouchTap={() => {}} disabled label="label" />
     );
 
     expect(shallowToJson(tree)).toMatchSnapshot();
@@ -46,7 +46,7 @@ describe('functionality', () => {
   it('calls onTouchTap', () => {
     const spy = sinon.spy();
     const component = shallow(
-      <ThumbButton type="like" onTouchTap={spy} />
+      <ThumbButton type="like" onTouchTap={spy} label="label" />
     );
 
     component.simulate('touchTap', { stopPropagation: () => {} });
