@@ -512,7 +512,7 @@ class Api_FollowupController extends Dbjr_Api_BaseController
         } elseif ($type === self::TYPE_SNIPPET) {
             return (new Model_Followups())->getConsultationIdBySnippet($id);
         } elseif ($type === self::TYPE_CONTRIBUTION) {
-            return (new Model_Inputs())->getConsultationIdByContribution($id);;
+            return (new Model_Inputs())->getConsultationIdByContribution($id);
         } else {
             throw new Exception(sprintf('%s is invalid type of element.', $type));
         }
