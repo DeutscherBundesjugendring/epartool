@@ -39,30 +39,27 @@ const FollowUpDocumentModal = (props) => {
       <div className="modal-dialog">
         <div className="modal-content">
 
-          <div className="modal-header">
+          <div className="modal-header modal-header-expanded">
+
             <button
               type="button"
-              className="close"
+              className="close modal-header-expanded-close"
               aria-label="Close"
               onTouchTap={props.closeAction}
             >
               <span aria-hidden="true">×</span>
             </button>
-            <h4 className="modal-title text-overflow" id="modalFollowupLabel">
-              {props.title}
-            </h4>
-          </div>
-          <div className="modal-body">
 
-            <div className="well well-accent followup-type-wrap">
+            <div className="followup-type-wrap well offset-bottom-none">
               {isType && (
-                <div className="followup-type followup-type-right">
+                <div className="followup-type">
                   <span className={glypClasses} aria-hidden="true" />
                   <span className="followup-type-title">{glypTitle}</span>
                 </div>
               )}
               <div className="row">
-                <div className="col-sm-4 text-center">
+                <div className="col-sm-4">
+
                   <img
                     src={props.previewImageLink}
                     width={256}
@@ -70,13 +67,17 @@ const FollowUpDocumentModal = (props) => {
                     className="
                       followup-document-image
                       img-responsive
-                      center-block
                       offset-bottom-xs-max
                     "
                     alt={props.title}
                   />
+
                 </div>
-                <div className="col-sm-8">
+                <div className="col-sm-7">
+
+                  <h2 id="modalFollowupLabel" className="modal-title-alt">
+                    {props.title}
+                  </h2>
                   <p className="small">
                     {props.dateMonthYearOnly
                       ? moment(props.date).format('MMMM YYYY')
@@ -92,11 +93,13 @@ const FollowUpDocumentModal = (props) => {
                     <span className="glyphicon glyphicon-file icon-offset" />
                     {props.downloadLabel}
                   </button>
+
                 </div>
               </div>
             </div>
 
-            <hr />
+          </div>
+          <div className="modal-body">
 
             {!!props.snippets && props.snippets.map((snippet, index) => (
               <div

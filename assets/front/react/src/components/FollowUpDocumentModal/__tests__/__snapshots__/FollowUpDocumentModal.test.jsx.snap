@@ -22,11 +22,11 @@ exports[`rendering renders correctly with long date without snippets 1`] = `
         className="modal-content"
       >
         <div
-          className="modal-header"
+          className="modal-header modal-header-expanded"
         >
           <button
             aria-label="Close"
-            className="close"
+            className="close modal-header-expanded-close"
             onTouchTap={[Function]}
             type="button"
           >
@@ -36,36 +36,32 @@ exports[`rendering renders correctly with long date without snippets 1`] = `
               ×
             </span>
           </button>
-          <h4
-            className="modal-title text-overflow"
-            id="modalFollowupLabel"
-          >
-            Document title
-          </h4>
-        </div>
-        <div
-          className="modal-body"
-        >
           <div
-            className="well well-accent followup-type-wrap"
+            className="followup-type-wrap well offset-bottom-none"
           >
             <div
               className="row"
             >
               <div
-                className="col-sm-4 text-center"
+                className="col-sm-4"
               >
                 <img
                   alt="Document title"
-                  className=" followup-document-image img-responsive center-block offset-bottom-xs-max "
+                  className=" followup-document-image img-responsive offset-bottom-xs-max "
                   height={160}
                   src="http://www.example.com/image.jpg"
                   width={256}
                 />
               </div>
               <div
-                className="col-sm-8"
+                className="col-sm-7"
               >
+                <h2
+                  className="modal-title-alt"
+                  id="modalFollowupLabel"
+                >
+                  Document title
+                </h2>
                 <p
                   className="small"
                 >
@@ -89,8 +85,10 @@ exports[`rendering renders correctly with long date without snippets 1`] = `
               </div>
             </div>
           </div>
-          <hr />
         </div>
+        <div
+          className="modal-body"
+        />
       </div>
     </div>
   </div>
@@ -119,11 +117,11 @@ exports[`rendering renders correctly with long date without snippets 2`] = `
         className="modal-content"
       >
         <div
-          className="modal-header"
+          className="modal-header modal-header-expanded"
         >
           <button
             aria-label="Close"
-            className="close"
+            className="close modal-header-expanded-close"
             onTouchTap={[Function]}
             type="button"
           >
@@ -133,21 +131,11 @@ exports[`rendering renders correctly with long date without snippets 2`] = `
               ×
             </span>
           </button>
-          <h4
-            className="modal-title text-overflow"
-            id="modalFollowupLabel"
-          >
-            Document title
-          </h4>
-        </div>
-        <div
-          className="modal-body"
-        >
           <div
-            className="well well-accent followup-type-wrap"
+            className="followup-type-wrap well offset-bottom-none"
           >
             <div
-              className="followup-type followup-type-right"
+              className="followup-type"
             >
               <span
                 aria-hidden="true"
@@ -163,19 +151,25 @@ exports[`rendering renders correctly with long date without snippets 2`] = `
               className="row"
             >
               <div
-                className="col-sm-4 text-center"
+                className="col-sm-4"
               >
                 <img
                   alt="Document title"
-                  className=" followup-document-image img-responsive center-block offset-bottom-xs-max "
+                  className=" followup-document-image img-responsive offset-bottom-xs-max "
                   height={160}
                   src="http://www.example.com/image.jpg"
                   width={256}
                 />
               </div>
               <div
-                className="col-sm-8"
+                className="col-sm-7"
               >
+                <h2
+                  className="modal-title-alt"
+                  id="modalFollowupLabel"
+                >
+                  Document title
+                </h2>
                 <p
                   className="small"
                 >
@@ -199,8 +193,10 @@ exports[`rendering renders correctly with long date without snippets 2`] = `
               </div>
             </div>
           </div>
-          <hr />
         </div>
+        <div
+          className="modal-body"
+        />
       </div>
     </div>
   </div>
@@ -229,11 +225,11 @@ exports[`rendering renders correctly with long date without snippets 3`] = `
         className="modal-content"
       >
         <div
-          className="modal-header"
+          className="modal-header modal-header-expanded"
         >
           <button
             aria-label="Close"
-            className="close"
+            className="close modal-header-expanded-close"
             onTouchTap={[Function]}
             type="button"
           >
@@ -243,21 +239,11 @@ exports[`rendering renders correctly with long date without snippets 3`] = `
               ×
             </span>
           </button>
-          <h4
-            className="modal-title text-overflow"
-            id="modalFollowupLabel"
-          >
-            Document title
-          </h4>
-        </div>
-        <div
-          className="modal-body"
-        >
           <div
-            className="well well-accent followup-type-wrap"
+            className="followup-type-wrap well offset-bottom-none"
           >
             <div
-              className="followup-type followup-type-right"
+              className="followup-type"
             >
               <span
                 aria-hidden="true"
@@ -273,19 +259,25 @@ exports[`rendering renders correctly with long date without snippets 3`] = `
               className="row"
             >
               <div
-                className="col-sm-4 text-center"
+                className="col-sm-4"
               >
                 <img
                   alt="Document title"
-                  className=" followup-document-image img-responsive center-block offset-bottom-xs-max "
+                  className=" followup-document-image img-responsive offset-bottom-xs-max "
                   height={160}
                   src="http://www.example.com/image.jpg"
                   width={256}
                 />
               </div>
               <div
-                className="col-sm-8"
+                className="col-sm-7"
               >
+                <h2
+                  className="modal-title-alt"
+                  id="modalFollowupLabel"
+                >
+                  Document title
+                </h2>
                 <p
                   className="small"
                 >
@@ -309,8 +301,10 @@ exports[`rendering renders correctly with long date without snippets 3`] = `
               </div>
             </div>
           </div>
-          <hr />
         </div>
+        <div
+          className="modal-body"
+        />
       </div>
     </div>
   </div>
@@ -339,11 +333,11 @@ exports[`rendering renders correctly with long date without snippets 4`] = `
         className="modal-content"
       >
         <div
-          className="modal-header"
+          className="modal-header modal-header-expanded"
         >
           <button
             aria-label="Close"
-            className="close"
+            className="close modal-header-expanded-close"
             onTouchTap={[Function]}
             type="button"
           >
@@ -353,21 +347,11 @@ exports[`rendering renders correctly with long date without snippets 4`] = `
               ×
             </span>
           </button>
-          <h4
-            className="modal-title text-overflow"
-            id="modalFollowupLabel"
-          >
-            Document title
-          </h4>
-        </div>
-        <div
-          className="modal-body"
-        >
           <div
-            className="well well-accent followup-type-wrap"
+            className="followup-type-wrap well offset-bottom-none"
           >
             <div
-              className="followup-type followup-type-right"
+              className="followup-type"
             >
               <span
                 aria-hidden="true"
@@ -383,19 +367,25 @@ exports[`rendering renders correctly with long date without snippets 4`] = `
               className="row"
             >
               <div
-                className="col-sm-4 text-center"
+                className="col-sm-4"
               >
                 <img
                   alt="Document title"
-                  className=" followup-document-image img-responsive center-block offset-bottom-xs-max "
+                  className=" followup-document-image img-responsive offset-bottom-xs-max "
                   height={160}
                   src="http://www.example.com/image.jpg"
                   width={256}
                 />
               </div>
               <div
-                className="col-sm-8"
+                className="col-sm-7"
               >
+                <h2
+                  className="modal-title-alt"
+                  id="modalFollowupLabel"
+                >
+                  Document title
+                </h2>
                 <p
                   className="small"
                 >
@@ -419,8 +409,10 @@ exports[`rendering renders correctly with long date without snippets 4`] = `
               </div>
             </div>
           </div>
-          <hr />
         </div>
+        <div
+          className="modal-body"
+        />
       </div>
     </div>
   </div>
@@ -449,11 +441,11 @@ exports[`rendering renders correctly with long date without snippets 5`] = `
         className="modal-content"
       >
         <div
-          className="modal-header"
+          className="modal-header modal-header-expanded"
         >
           <button
             aria-label="Close"
-            className="close"
+            className="close modal-header-expanded-close"
             onTouchTap={[Function]}
             type="button"
           >
@@ -463,21 +455,11 @@ exports[`rendering renders correctly with long date without snippets 5`] = `
               ×
             </span>
           </button>
-          <h4
-            className="modal-title text-overflow"
-            id="modalFollowupLabel"
-          >
-            Document title
-          </h4>
-        </div>
-        <div
-          className="modal-body"
-        >
           <div
-            className="well well-accent followup-type-wrap"
+            className="followup-type-wrap well offset-bottom-none"
           >
             <div
-              className="followup-type followup-type-right"
+              className="followup-type"
             >
               <span
                 aria-hidden="true"
@@ -493,19 +475,25 @@ exports[`rendering renders correctly with long date without snippets 5`] = `
               className="row"
             >
               <div
-                className="col-sm-4 text-center"
+                className="col-sm-4"
               >
                 <img
                   alt="Document title"
-                  className=" followup-document-image img-responsive center-block offset-bottom-xs-max "
+                  className=" followup-document-image img-responsive offset-bottom-xs-max "
                   height={160}
                   src="http://www.example.com/image.jpg"
                   width={256}
                 />
               </div>
               <div
-                className="col-sm-8"
+                className="col-sm-7"
               >
+                <h2
+                  className="modal-title-alt"
+                  id="modalFollowupLabel"
+                >
+                  Document title
+                </h2>
                 <p
                   className="small"
                 >
@@ -529,8 +517,10 @@ exports[`rendering renders correctly with long date without snippets 5`] = `
               </div>
             </div>
           </div>
-          <hr />
         </div>
+        <div
+          className="modal-body"
+        />
       </div>
     </div>
   </div>
@@ -559,11 +549,11 @@ exports[`rendering renders correctly with one snippet 1`] = `
         className="modal-content"
       >
         <div
-          className="modal-header"
+          className="modal-header modal-header-expanded"
         >
           <button
             aria-label="Close"
-            className="close"
+            className="close modal-header-expanded-close"
             onTouchTap={[Function]}
             type="button"
           >
@@ -573,36 +563,32 @@ exports[`rendering renders correctly with one snippet 1`] = `
               ×
             </span>
           </button>
-          <h4
-            className="modal-title text-overflow"
-            id="modalFollowupLabel"
-          >
-            Document title
-          </h4>
-        </div>
-        <div
-          className="modal-body"
-        >
           <div
-            className="well well-accent followup-type-wrap"
+            className="followup-type-wrap well offset-bottom-none"
           >
             <div
               className="row"
             >
               <div
-                className="col-sm-4 text-center"
+                className="col-sm-4"
               >
                 <img
                   alt="Document title"
-                  className=" followup-document-image img-responsive center-block offset-bottom-xs-max "
+                  className=" followup-document-image img-responsive offset-bottom-xs-max "
                   height={160}
                   src="http://www.example.com/image.jpg"
                   width={256}
                 />
               </div>
               <div
-                className="col-sm-8"
+                className="col-sm-7"
               >
+                <h2
+                  className="modal-title-alt"
+                  id="modalFollowupLabel"
+                >
+                  Document title
+                </h2>
                 <p
                   className="small"
                 >
@@ -626,7 +612,10 @@ exports[`rendering renders correctly with one snippet 1`] = `
               </div>
             </div>
           </div>
-          <hr />
+        </div>
+        <div
+          className="modal-body"
+        >
           <div
             className="well well-simple well-simple-light"
           >
@@ -706,11 +695,11 @@ exports[`rendering renders correctly with short date without snippets 1`] = `
         className="modal-content"
       >
         <div
-          className="modal-header"
+          className="modal-header modal-header-expanded"
         >
           <button
             aria-label="Close"
-            className="close"
+            className="close modal-header-expanded-close"
             onTouchTap={[Function]}
             type="button"
           >
@@ -720,36 +709,32 @@ exports[`rendering renders correctly with short date without snippets 1`] = `
               ×
             </span>
           </button>
-          <h4
-            className="modal-title text-overflow"
-            id="modalFollowupLabel"
-          >
-            Document title
-          </h4>
-        </div>
-        <div
-          className="modal-body"
-        >
           <div
-            className="well well-accent followup-type-wrap"
+            className="followup-type-wrap well offset-bottom-none"
           >
             <div
               className="row"
             >
               <div
-                className="col-sm-4 text-center"
+                className="col-sm-4"
               >
                 <img
                   alt="Document title"
-                  className=" followup-document-image img-responsive center-block offset-bottom-xs-max "
+                  className=" followup-document-image img-responsive offset-bottom-xs-max "
                   height={160}
                   src="http://www.example.com/image.jpg"
                   width={256}
                 />
               </div>
               <div
-                className="col-sm-8"
+                className="col-sm-7"
               >
+                <h2
+                  className="modal-title-alt"
+                  id="modalFollowupLabel"
+                >
+                  Document title
+                </h2>
                 <p
                   className="small"
                 >
@@ -773,8 +758,10 @@ exports[`rendering renders correctly with short date without snippets 1`] = `
               </div>
             </div>
           </div>
-          <hr />
         </div>
+        <div
+          className="modal-body"
+        />
       </div>
     </div>
   </div>
