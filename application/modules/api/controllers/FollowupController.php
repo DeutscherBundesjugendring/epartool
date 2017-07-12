@@ -371,6 +371,7 @@ class Api_FollowupController extends Dbjr_Api_BaseController
             ->setIntegrityCheck(false)
             ->from(['fs' => $snippetModel->info($snippetModel::NAME)])
             ->join(['ff' => 'fowup_fls'], 'ff.ffid = fs.ffid', ['gfx_who', 'kid', 'titl'])
+            ->where('fid = ?', $snippetId)
             ->query()
             ->fetch();
 
