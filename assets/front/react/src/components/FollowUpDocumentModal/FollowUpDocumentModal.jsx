@@ -39,18 +39,18 @@ const FollowUpDocumentModal = (props) => {
       <div className="modal-dialog">
         <div className="modal-content">
 
-          <div className="modal-header modal-header-expanded">
+          <div className="modal-header modal-header-jumbo">
 
             <button
               type="button"
-              className="close modal-header-expanded-close"
+              className="close close-inverse"
               aria-label="Close"
               onTouchTap={props.closeAction}
             >
               <span aria-hidden="true">×</span>
             </button>
 
-            <div className="followup-type-wrap well offset-bottom-none">
+            <div className="followup-type-wrap">
               {isType && (
                 <div className="followup-type">
                   <span className={glypClasses} aria-hidden="true" />
@@ -64,18 +64,14 @@ const FollowUpDocumentModal = (props) => {
                     src={props.previewImageLink}
                     width={256}
                     height={160}
-                    className="
-                      followup-document-image
-                      img-responsive
-                      offset-bottom-xs-max
-                    "
+                    className="followup-document-image img-responsive offset-bottom-xs-max"
                     alt={props.title}
                   />
 
                 </div>
                 <div className="col-sm-7">
 
-                  <h2 id="modalFollowupLabel" className="modal-title-alt">
+                  <h2 id="modalFollowupLabel" className="modal-title offset-bottom-small">
                     {props.title}
                   </h2>
                   <p className="small">

@@ -1,20 +1,21 @@
-.modal-header-expanded {
+.modal-header-jumbo {
     position: relative;
     overflow: hidden;
-    padding: 0;
-    color: @text-color;
+    color: #fff;
+    border-bottom: 0;
+    background-color: @brand-accent;
     border-top-left-radius: @border-radius-large;
     border-top-right-radius: @border-radius-large;
-}
 
-.modal-header-expanded-close {
-    position: absolute;
-    right: @modal-inner-padding;
-    top: @modal-inner-padding;
-    z-index: 1;
-    margin-top: 0;
-}
+    .modal-title {
+        color: inherit;
+    }
 
-.modal-title-alt {
-    color: inherit;
+    .close {
+        position: absolute;
+        right: @modal-inner-padding;
+        top: @modal-inner-padding;
+        z-index: 1;
+        margin-top: 0;
+    }
 }
