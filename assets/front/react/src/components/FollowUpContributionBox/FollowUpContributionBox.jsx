@@ -4,6 +4,12 @@ import EmbeddedVideo from '../EmbeddedVideo/EmbeddedVideo';
 
 const FollowUpContributionBox = props => (
   <div className="well well-bordered followup-flow">
+    <p>
+      {!!props.questionNumber &&
+        <span>{props.questionNumber}. </span>
+      }
+      {props.question}
+    </p>
     {!!props.videoService && !!props.videoId &&
       <EmbeddedVideo
         videoService={props.videoService}
@@ -34,6 +40,8 @@ const FollowUpContributionBox = props => (
 FollowUpContributionBox.propTypes = {
   contributionThesis: React.PropTypes.string.isRequired,
   contributionExplanation: React.PropTypes.string,
+  question: React.PropTypes.string.isRequired,
+  questionNumber: React.PropTypes.string,
   votable: React.PropTypes.bool.isRequired,
   votingText: React.PropTypes.string,
   votingResults: React.PropTypes.string,

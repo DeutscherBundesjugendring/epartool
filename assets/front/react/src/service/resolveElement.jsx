@@ -17,6 +17,8 @@ const resolveElement = (response, parentAction, childAction, modalAction, otherA
       <FollowUpContributionBox
         contributionThesis={data.thes}
         contributionExplanation={data.expl}
+        question={data.question}
+        questionNumber={data.question_number}
         videoService={data.video_service}
         videoId={data.video_id}
         votable={!!data.is_votable}

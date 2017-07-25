@@ -21,6 +21,8 @@ describe('rendering', () => {
       <FollowUpContributionBox
         contributionThesis="Contribution thesis"
         contributionExplanation="Contribution explanation"
+        question="Question"
+        questionNumber="1"
         videoService="youtube"
         videoId="youtube-video-id"
         votable

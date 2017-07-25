@@ -412,6 +412,7 @@ class Api_FollowupController extends Dbjr_Api_BaseController
                 sprintf('Contribution with id %d was not found', $contributionId)
             );
         }
+        $question = (new Model_Questions())->getById($contribution['qi']);
 
         $votingResults = (new Model_Votes())
             ->getResultsValues($this->getConsultationId(self::TYPE_CONTRIBUTION, $contribution['tid']));
@@ -427,6 +428,8 @@ class Api_FollowupController extends Dbjr_Api_BaseController
         return [
             'tid' => (int) $contribution['tid'],
             'qi' => (int) $contribution['qi'],
+            'question' => $question['q'],
+            'question_number' => $question['nr'],
             'thes' => $contribution['thes'],
             'uid' => (int) $contribution['uid'],
             'when' => $this->convertDateTime($contribution['when']),
