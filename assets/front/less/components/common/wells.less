@@ -57,7 +57,9 @@
         border: @well-bordered-border-width solid @gray-lighter-2;
         border-radius: @border-radius-large;
         background-color: #fff;
-        box-shadow: 2px 4px 8px fade(#000, 40%);
+        box-shadow:
+            1px 1px 10px fade(#000, 20%),
+            1px 1px 3px fade(#000, 35%);
     }
 
     &-accent {
@@ -66,6 +68,21 @@
 
         .well-title {
             color: inherit;
+        }
+    }
+
+    &-deep {
+        margin-bottom: -20px;
+        padding-top: 15px;
+        border-color: transparent;
+        border-bottom-left-radius: 0;
+        border-bottom-right-radius: 0;
+        background-color: @gray-lighter-2;
+        box-shadow: none;
+
+        & + .well {
+            position: relative;
+            z-index: 1;
         }
     }
 

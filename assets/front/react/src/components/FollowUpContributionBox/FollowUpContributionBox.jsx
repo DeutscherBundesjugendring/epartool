@@ -3,37 +3,41 @@ import EmbeddedVideo from '../EmbeddedVideo/EmbeddedVideo';
 
 
 const FollowUpContributionBox = props => (
-  <div className="well well-bordered followup-flow">
-    <p>
-      {!!props.questionNumber &&
-        <span>{props.questionNumber}. </span>
+  <div className="followup-flow">
+    <div className="well well-bordered well-deep">
+      <h4>
+        {!!props.questionNumber &&
+          <span className="badge badge-accent offset-right-small">{props.questionNumber}.</span>
+        }
+        {props.question}
+      </h4>
+    </div>
+    <div className="well well-bordered">
+      {!!props.videoService && !!props.videoId &&
+        <EmbeddedVideo
+          videoService={props.videoService}
+          videoId={props.videoId}
+        />
       }
-      {props.question}
-    </p>
-    {!!props.videoService && !!props.videoId &&
-      <EmbeddedVideo
-        videoService={props.videoService}
-        videoId={props.videoId}
+      <p>
+        {props.contributionThesis}
+      </p>
+      {!!props.contributionExplanation && <div
+        // eslint-disable-next-line react/no-danger
+        dangerouslySetInnerHTML={{ __html: props.contributionExplanation }}
       />
-    }
-    <p>
-      {props.contributionThesis}
-    </p>
-    {!!props.contributionExplanation && <div
-      // eslint-disable-next-line react/no-danger
-      dangerouslySetInnerHTML={{ __html: props.contributionExplanation }}
-    />
-    }
-    {props.votable &&
-      <div className="text-accent offset-top">
-        <p>
-          {props.votingText}<br />
-          <a href={props.votingLink}>
-            {props.votingResults}
-          </a>
-        </p>
-      </div>
-    }
+      }
+      {props.votable &&
+        <div className="text-accent offset-top">
+          <p>
+            {props.votingText}<br />
+            <a href={props.votingLink}>
+              {props.votingResults}
+            </a>
+          </p>
+        </div>
+      }
+    </div>
   </div>
 );
 

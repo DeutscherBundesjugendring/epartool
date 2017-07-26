@@ -9,6 +9,7 @@ describe('rendering', () => {
     const tree = shallow(
       <FollowUpContributionBox
         contributionThesis="Contribution thesis"
+        question="Question"
         votable={false}
       />
     );

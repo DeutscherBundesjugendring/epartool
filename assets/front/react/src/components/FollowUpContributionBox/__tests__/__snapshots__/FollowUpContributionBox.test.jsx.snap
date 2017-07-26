@@ -2,46 +2,74 @@
 
 exports[`rendering renders correctly with all texts, embedded video and voting 1`] = `
 <div
-  className="well well-bordered followup-flow"
+  className="followup-flow"
 >
-  <EmbeddedVideo
-    height={120}
-    videoId="youtube-video-id"
-    videoService="youtube"
-    width={240}
-  />
-  <p>
-    Contribution thesis
-  </p>
   <div
-    dangerouslySetInnerHTML={
-      Object {
-        "__html": "Contribution explanation",
-      }
-    }
-  />
-  <div
-    className="text-accent offset-top"
+    className="well well-bordered well-deep"
   >
-    <p>
-      Voting results
-      <br />
-      <a
-        href="http://www.example.com/"
+    <h4>
+      <span
+        className="badge badge-accent offset-right-small"
       >
-        0 votes
-      </a>
+        1
+        .
+      </span>
+      Question
+    </h4>
+  </div>
+  <div
+    className="well well-bordered"
+  >
+    <EmbeddedVideo
+      height={120}
+      videoId="youtube-video-id"
+      videoService="youtube"
+      width={240}
+    />
+    <p>
+      Contribution thesis
     </p>
+    <div
+      dangerouslySetInnerHTML={
+        Object {
+          "__html": "Contribution explanation",
+        }
+      }
+    />
+    <div
+      className="text-accent offset-top"
+    >
+      <p>
+        Voting results
+        <br />
+        <a
+          href="http://www.example.com/"
+        >
+          0 votes
+        </a>
+      </p>
+    </div>
   </div>
 </div>
 `;
 
 exports[`rendering renders correctly with contribution text only 1`] = `
 <div
-  className="well well-bordered followup-flow"
+  className="followup-flow"
 >
-  <p>
-    Contribution thesis
-  </p>
+  <div
+    className="well well-bordered well-deep"
+  >
+    <h4>
+      Question
+    </h4>
+  </div>
+  <div
+    className="well well-bordered"
+  >
+    <p>
+      Contribution thesis
+    </p>
+  </div>
 </div>
 `;
