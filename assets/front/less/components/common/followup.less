@@ -95,14 +95,26 @@
             padding: 10px 17px 10px 15px;
             border: 0;
             outline: 0;
+            will-change: transform;
+            transition: transform 250ms ease-out;
         }
 
-        &-count-left {
+        &-count-arrow-left {
             left: -2px;
+
+            &:hover,
+            &:focus {
+                transform: translateX(-5px);
+            }
         }
 
-        &-count-right {
+        &-count-arrow-right {
             right: -20px;
+
+            &:hover,
+            &:focus {
+                transform: translateX(5px);
+            }
         }
     }
 
