@@ -1,8 +1,8 @@
 const downloadFile = (url) => {
   const event = new MouseEvent('click', {
-    'view': window,
-    'bubbles': true,
-    'cancelable': true
+    view: window,
+    bubbles: true,
+    cancelable: true,
   });
 
   const link = document.createElement('a');
