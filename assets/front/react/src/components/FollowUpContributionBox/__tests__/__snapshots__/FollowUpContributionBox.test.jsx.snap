@@ -12,7 +12,6 @@ exports[`rendering renders correctly with all texts, embedded video and voting 1
         className="badge badge-accent offset-right-small"
       >
         1
-        .
       </span>
       Question
     </h4>

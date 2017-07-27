@@ -7,7 +7,7 @@ const FollowUpContributionBox = props => (
     <div className="well well-bordered well-deep">
       <h4>
         {!!props.questionNumber &&
-          <span className="badge badge-accent offset-right-small">{props.questionNumber}.</span>
+          <span className="badge badge-accent offset-right-small">{props.questionNumber}</span>
         }
         {props.question}
       </h4>
