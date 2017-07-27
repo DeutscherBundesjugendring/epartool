@@ -415,7 +415,10 @@ class Api_FollowupController extends Dbjr_Api_BaseController
         $question = (new Model_Questions())->getById($contribution['qi']);
 
         $votingResults = (new Model_Votes())
-            ->getResultsValues($this->getConsultationId(self::TYPE_CONTRIBUTION, $contribution['tid']));
+            ->getResultsValues(
+                $this->getConsultationId(self::TYPE_CONTRIBUTION, $contribution['tid']),
+                $contribution['qi']
+            );
         $place = 0;
         if (isset($votingResults['votings'])) {
             foreach ($votingResults['votings'] as $key => $contributionVotingResult) {
