@@ -2,7 +2,7 @@
 
 exports[`rendering renders correctly with element in one column and one row 1`] = `
 <div
-  className="well well-bordered well-accent"
+  className="well well-bordered well-accent followup-stage followup-stage-loading"
 >
   <div
     className="row offset-bottom-large"
@@ -44,6 +44,30 @@ exports[`rendering renders correctly with element in one column and one row 1`] 
       className="followup-column"
     >
       <div
+        className=" well well-bordered well-placeholder well-placeholder-small followup-placeholder "
+      />
+      <div
+        className=" well well-bordered well-placeholder followup-placeholder followup-placeholder-delay-1 "
+      />
+    </div>
+    <div
+      className="followup-column"
+    >
+      <div
+        className=" well well-bordered well-placeholder followup-placeholder followup-placeholder-delay-2 "
+      />
+    </div>
+    <div
+      className="followup-column"
+    >
+      <div
+        className=" well well-bordered well-placeholder well-placeholder-small followup-placeholder followup-placeholder-delay-3 "
+      />
+    </div>
+    <div
+      className="followup-column"
+    >
+      <div
         className="followup-column-element"
       >
         <div>
@@ -57,7 +81,7 @@ exports[`rendering renders correctly with element in one column and one row 1`] 
 
 exports[`rendering renders correctly with element in one column and one row and with modal 1`] = `
 <div
-  className="well well-bordered well-accent"
+  className="well well-bordered well-accent followup-stage followup-stage-loading"
 >
   <div
     className="row offset-bottom-large"
@@ -95,6 +119,30 @@ exports[`rendering renders correctly with element in one column and one row and 
   <div
     className="followup"
   >
+    <div
+      className="followup-column"
+    >
+      <div
+        className=" well well-bordered well-placeholder well-placeholder-small followup-placeholder "
+      />
+      <div
+        className=" well well-bordered well-placeholder followup-placeholder followup-placeholder-delay-1 "
+      />
+    </div>
+    <div
+      className="followup-column"
+    >
+      <div
+        className=" well well-bordered well-placeholder followup-placeholder followup-placeholder-delay-2 "
+      />
+    </div>
+    <div
+      className="followup-column"
+    >
+      <div
+        className=" well well-bordered well-placeholder well-placeholder-small followup-placeholder followup-placeholder-delay-3 "
+      />
+    </div>
     <div
       className="followup-column"
     >
@@ -115,7 +163,7 @@ exports[`rendering renders correctly with element in one column and one row and 
 
 exports[`rendering renders correctly with elements in more columns and more rows 1`] = `
 <div
-  className="well well-bordered well-accent"
+  className="well well-bordered well-accent followup-stage followup-stage-loading"
 >
   <div
     className="row offset-bottom-large"
@@ -153,6 +201,30 @@ exports[`rendering renders correctly with elements in more columns and more rows
   <div
     className="followup"
   >
+    <div
+      className="followup-column"
+    >
+      <div
+        className=" well well-bordered well-placeholder well-placeholder-small followup-placeholder "
+      />
+      <div
+        className=" well well-bordered well-placeholder followup-placeholder followup-placeholder-delay-1 "
+      />
+    </div>
+    <div
+      className="followup-column"
+    >
+      <div
+        className=" well well-bordered well-placeholder followup-placeholder followup-placeholder-delay-2 "
+      />
+    </div>
+    <div
+      className="followup-column"
+    >
+      <div
+        className=" well well-bordered well-placeholder well-placeholder-small followup-placeholder followup-placeholder-delay-3 "
+      />
+    </div>
     <div
       className="followup-column"
     >
@@ -213,7 +285,7 @@ exports[`rendering renders correctly with elements in more columns and more rows
 
 exports[`rendering renders correctly without elements 1`] = `
 <div
-  className="well well-bordered well-accent"
+  className="well well-bordered well-accent followup-stage followup-stage-loading"
 >
   <div
     className="row offset-bottom-large"
@@ -250,6 +322,31 @@ exports[`rendering renders correctly without elements 1`] = `
   </div>
   <div
     className="followup"
-  />
+  >
+    <div
+      className="followup-column"
+    >
+      <div
+        className=" well well-bordered well-placeholder well-placeholder-small followup-placeholder "
+      />
+      <div
+        className=" well well-bordered well-placeholder followup-placeholder followup-placeholder-delay-1 "
+      />
+    </div>
+    <div
+      className="followup-column"
+    >
+      <div
+        className=" well well-bordered well-placeholder followup-placeholder followup-placeholder-delay-2 "
+      />
+    </div>
+    <div
+      className="followup-column"
+    >
+      <div
+        className=" well well-bordered well-placeholder well-placeholder-small followup-placeholder followup-placeholder-delay-3 "
+      />
+    </div>
+  </div>
 </div>
 `;

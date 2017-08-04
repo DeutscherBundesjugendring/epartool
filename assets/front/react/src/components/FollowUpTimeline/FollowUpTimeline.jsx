@@ -2,7 +2,7 @@ import React from 'react';
 
 
 const FollowUpTimeLine = props => (
-  <div className="well well-bordered well-accent">
+  <div className="well well-bordered well-accent followup-stage followup-stage-loading">
 
     <div className="row offset-bottom-large">
       <div className="col-sm-4">
@@ -32,6 +32,49 @@ const FollowUpTimeLine = props => (
     </div>
 
     <div className="followup">
+      <div className="followup-column">
+        <div
+          className="
+            well
+            well-bordered
+            well-placeholder
+            well-placeholder-small
+            followup-placeholder
+          "
+        />
+        <div
+          className="
+            well
+            well-bordered
+            well-placeholder
+            followup-placeholder
+            followup-placeholder-delay-1
+          "
+        />
+      </div>
+      <div className="followup-column">
+        <div
+          className="
+            well
+            well-bordered
+            well-placeholder
+            followup-placeholder
+            followup-placeholder-delay-2
+          "
+        />
+      </div>
+      <div className="followup-column">
+        <div
+          className="
+            well
+            well-bordered
+            well-placeholder
+            well-placeholder-small
+            followup-placeholder
+            followup-placeholder-delay-3
+          "
+        />
+      </div>
       {props.columns && props.columns.map((elements, columnKey) => (
         <div className="followup-column" key={columnKey}>
           {elements && elements.map((element, elementKey) => (

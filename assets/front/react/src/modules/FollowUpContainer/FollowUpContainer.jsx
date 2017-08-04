@@ -318,7 +318,7 @@ class FollowUpContainer extends React.Component {
   render() {
     if (this.state.hasError) {
       return (
-        <p className="alert-error text-center">
+        <p className="alert alert-error text-center">
           {followupTranslations.generalError}
         </p>
       );
