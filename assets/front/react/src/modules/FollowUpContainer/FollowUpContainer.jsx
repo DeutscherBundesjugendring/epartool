@@ -23,8 +23,10 @@ class FollowUpContainer extends React.Component {
 
     this.state = {
       columns: [[]],
-      modal: null,
       hasError: false,
+      isInitialLoad: true,
+      isLoading: false,
+      modal: null,
     };
 
     this.handleError = this.handleError.bind(this);
@@ -41,7 +43,7 @@ class FollowUpContainer extends React.Component {
           response
         );
 
-        this.setState({ columns: [[resolvedElement]] });
+        this.setState({ columns: [[resolvedElement]], isInitialLoad: false });
       })
       .catch(this.handleError);
   }
@@ -63,6 +65,7 @@ class FollowUpContainer extends React.Component {
   getParents(followUpType, followUpId) {
     const columnIndex = this.getElementColumnIndex(followUpType, followUpId);
     let clearParentalColumns = true;
+    this.setState({ isLoading: true });
 
     fetchFollowUpElementParents(followUpType, followUpId)
       .then((multipleResponse) => {
@@ -89,7 +92,7 @@ class FollowUpContainer extends React.Component {
           }
           columns[0].push(resolvedElement);
 
-          this.setState({ columns });
+          this.setState({ columns, isLoading: false });
         });
       })
       .catch(this.handleError);
@@ -98,6 +101,7 @@ class FollowUpContainer extends React.Component {
   getChildren(followUpType, followUpId) {
     const columnIndex = this.getElementColumnIndex(followUpType, followUpId);
     let clearChildColumns = true;
+    this.setState({ isLoading: true });
 
     fetchFollowUpElementChildren(followUpType, followUpId)
       .then((multipleResponse) => {
@@ -124,7 +128,7 @@ class FollowUpContainer extends React.Component {
           }
           columns[columnIndex + 1].push(resolvedElement);
 
-          this.setState({ columns });
+          this.setState({ columns, isLoading: false });
         });
       })
       .catch(this.handleError);
@@ -137,6 +141,7 @@ class FollowUpContainer extends React.Component {
     rewriteSnippetDislike = null
   ) {
     if (elementResponse.type === 'snippet' || elementResponse.type === 'document') {
+      this.setState({ isLoading: true });
       const documentPromise = fetchFollowUpDocument(elementResponse.data.ffid);
       const documentSnippetsPromise = fetchFollowUpDocumentSnippets(elementResponse.data.ffid);
 
@@ -200,7 +205,7 @@ class FollowUpContainer extends React.Component {
         );
 
         window.addModalOpenToBody();
-        this.setState({ modal: resolvedElement });
+        this.setState({ modal: resolvedElement, isLoading: false });
       })
       .catch(this.handleError);
     }
@@ -329,6 +334,8 @@ class FollowUpContainer extends React.Component {
         infoLink={`${baseUrl}/followup/index/kid/${this.props.consultationId}`}
         infoLinkTitle={followupTranslations.backToReactionsAndSnippets}
         infoText={followupTranslations.help}
+        isLoading={this.state.isLoading}
+        isInitialLoad={this.state.isInitialLoad}
         columns={this.state.columns}
         modal={this.state.modal}
       />

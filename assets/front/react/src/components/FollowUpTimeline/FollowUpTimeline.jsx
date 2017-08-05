@@ -2,7 +2,14 @@ import React from 'react';
 
 
 const FollowUpTimeLine = props => (
-  <div className="well well-bordered well-accent followup-stage followup-stage-loading">
+  <div
+    className={`
+      well
+      well-bordered
+      well-accent
+      followup-stage
+      ${props.isLoading && 'followup-stage-loading'}`}
+  >
 
     <div className="row offset-bottom-large">
       <div className="col-sm-4">
@@ -32,49 +39,52 @@ const FollowUpTimeLine = props => (
     </div>
 
     <div className="followup">
-      <div className="followup-column">
-        <div
-          className="
-            well
-            well-bordered
-            well-placeholder
-            well-placeholder-small
-            followup-placeholder
-          "
-        />
-        <div
-          className="
-            well
-            well-bordered
-            well-placeholder
-            followup-placeholder
-            followup-placeholder-delay-1
-          "
-        />
-      </div>
-      <div className="followup-column">
-        <div
-          className="
-            well
-            well-bordered
-            well-placeholder
-            followup-placeholder
-            followup-placeholder-delay-2
-          "
-        />
-      </div>
-      <div className="followup-column">
-        <div
-          className="
-            well
-            well-bordered
-            well-placeholder
-            well-placeholder-small
-            followup-placeholder
-            followup-placeholder-delay-3
-          "
-        />
-      </div>
+      {props.isInitialLoad && (<div>
+        <div className="followup-column">
+          <div
+            className="
+              well
+              well-bordered
+              well-placeholder
+              well-placeholder-small
+              followup-placeholder
+            "
+          />
+          <div
+            className="
+              well
+              well-bordered
+              well-placeholder
+              followup-placeholder
+              followup-placeholder-delay-1
+            "
+          />
+        </div>
+        <div className="followup-column">
+          <div
+            className="
+              well
+              well-bordered
+              well-placeholder
+              followup-placeholder
+              followup-placeholder-delay-2
+            "
+          />
+        </div>
+        <div className="followup-column">
+          <div
+            className="
+              well
+              well-bordered
+              well-placeholder
+              well-placeholder-small
+              followup-placeholder
+              followup-placeholder-delay-3
+            "
+          />
+        </div>
+      </div>)}
+
       {props.columns && props.columns.map((elements, columnKey) => (
         <div className="followup-column" key={columnKey}>
           {elements && elements.map((element, elementKey) => (
@@ -95,6 +105,8 @@ FollowUpTimeLine.propTypes = {
   infoLink: React.PropTypes.string.isRequired,
   infoLinkTitle: React.PropTypes.string.isRequired,
   infoText: React.PropTypes.string.isRequired,
+  isInitialLoad: React.PropTypes.bool,
+  isLoading: React.PropTypes.bool,
   columns: React.PropTypes.arrayOf(React.PropTypes.arrayOf(React.PropTypes.element)),
   modal: React.PropTypes.element,
 };
