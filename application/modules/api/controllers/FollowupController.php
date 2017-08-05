@@ -14,40 +14,38 @@ class Api_FollowupController extends Dbjr_Api_BaseController
     {
         try {
             list($type, $id) = $this->getParameters(['type', 'id']);
+            $data = [
+                'id' => (int) $id,
+                'type' => $type,
+                'children_count' => $this->getChildrenCount($type, [$id])[$id],
+                'parents_count' => $this->getParentsCount($type, [$id])[$id],
+            ];
+
             if ($type === self::TYPE_DOCUMENT) {
-                $this->buildResponse(self::HTTP_STATUS_OK, [
-                    'id' => (int) $id,
-                    'type' => $type,
-                    'children_count' => $this->getChildrenCount($type, $id),
-                    'parents_count' => 0,
-                    'kid' => $this->getConsultationId($type, $id),
-                    'data' => $this->getDocumentData($id),
+                $document = $this->getDocumentData([$id])[$id];
+                $this->buildResponse(self::HTTP_STATUS_OK, $data + [
+                    'kid' => $document['kid'],
+                    'data' => $document,
                 ]);
             } elseif ($type === self::TYPE_SNIPPET) {
-                $this->buildResponse(self::HTTP_STATUS_OK, [
-                    'id' => (int) $id,
-                    'type' => $type,
-                    'children_count' => $this->getChildrenCount($type, $id),
-                    'parents_count' => $this->getParentsCount($type, $id),
-                    'kid' => $this->getConsultationId($type, $id),
-                    'data' => $this->getSnippetData($id),
+                $snippet = $this->getSnippetData([$id])[$id];
+                $this->buildResponse(self::HTTP_STATUS_OK, $data + [
+                    'kid' => $snippet['kid'],
+                    'data' => $snippet,
                 ]);
             } elseif ($type === self::TYPE_CONTRIBUTION) {
-                $this->buildResponse(self::HTTP_STATUS_OK, [
-                    'id' => (int) $id,
-                    'type' => $type,
-                    'children_count' => $this->getChildrenCount($type, $id),
-                    'parents_count' => $this->getParentsCount($type, $id),
-                    'kid' => $this->getConsultationId($type, $id),
-                    'data' => $this->getContributionData($id),
+                $contribution = $this->getContributionData([$id])[$id];
+                $this->buildResponse(self::HTTP_STATUS_OK, $data + [
+                    'kid' => $contribution['kid'],
+                    'data' => $contribution,
                 ]);
-            } else {
-                throw new Dbjr_Api_Exception(self::HTTP_STATUS_BAD_REQUEST, sprintf(
-                    'Invalid type %s of element requested. Valid types are [%s]',
-                    $type,
-                    implode(', ', $this->getValidTypes())
-                ));
             }
+
+            throw new Dbjr_Api_Exception(self::HTTP_STATUS_BAD_REQUEST, sprintf(
+                'Invalid type %s of element requested. Valid types are [%s]',
+                $type,
+                implode(', ', $this->getValidTypes())
+            ));
         } catch (Dbjr_Api_Exception $e) {
             $this->sendError($e->getHttpStatusCode(), $e->getMessage());
         } catch (Dbjr_Exception $e) {
@@ -60,14 +58,20 @@ class Api_FollowupController extends Dbjr_Api_BaseController
         try {
             list($type, $id) = $this->getParameters(['type', 'id']);
             if ($type === self::TYPE_DOCUMENT) {
-                $this->buildResponse(self::HTTP_STATUS_OK, $this->getDocumentChildrenSnippetsData($id));
+                $snippets = (new Model_FollowupFiles())->getFollowupsById($id);
+                $this->buildResponse(self::HTTP_STATUS_OK, $this->buildSnippetDetailsData($snippets));
             } elseif ($type === self::TYPE_SNIPPET) {
-                $this->buildResponse(self::HTTP_STATUS_OK, $this->getSnippetChildrenSnippetsData($id));
+                $snippetsRaw = (new Model_FollowupsRef())->getRelatedFollowupByFid($id);
+                $snippets = [];
+                foreach ($snippetsRaw as $snippet) {
+                    $snippets[] = ['fid' => $snippet['fid_ref']];
+                }
+                $this->buildResponse(self::HTTP_STATUS_OK, $this->buildSnippetDetailsData($snippets));
             } elseif ($type === self::TYPE_CONTRIBUTION) {
-                $this->buildResponse(self::HTTP_STATUS_OK, array_merge(
-                    $this->getContributionsChildrenContributionsData($id),
-                    $this->getContributionsChildrenSnippetsData($id)
-                ));
+                $inputModel = new Model_Inputs();
+                $contribData = $this->buildContributionDetailsData($inputModel->getChildrenByParentId($id));
+                $snippetData = $this->buildSnippetDetailsData($inputModel->getFollowups($id));
+                $this->buildResponse(self::HTTP_STATUS_OK, array_merge($contribData, $snippetData));
             } else {
                 throw new Dbjr_Api_Exception(self::HTTP_STATUS_BAD_REQUEST, sprintf(
                     'Invalid type %s of element requested. Valid types are [%s]',
@@ -95,7 +99,8 @@ class Api_FollowupController extends Dbjr_Api_BaseController
             } elseif ($type === self::TYPE_SNIPPET) {
                 $this->buildResponse(self::HTTP_STATUS_OK, $this->getSnippetParentsAllData($id));
             } elseif ($type === self::TYPE_CONTRIBUTION) {
-                $this->buildResponse(self::HTTP_STATUS_OK, $this->getContributionsParentsContributionsData($id));
+                $contributions = (new Model_Inputs())->getParentsByChildId($id);
+                $this->buildResponse(self::HTTP_STATUS_OK, $this->buildContributionDetailsData($contributions));
             } else {
                 throw new Dbjr_Api_Exception(self::HTTP_STATUS_BAD_REQUEST, sprintf(
                     'Invalid type %s of element requested. Valid types are [%s]',
@@ -114,7 +119,7 @@ class Api_FollowupController extends Dbjr_Api_BaseController
     {
         try {
             list($documentId) = $this->getParameters(['id']);
-            $this->buildResponse(self::HTTP_STATUS_OK, $this->getDocumentData($documentId));
+            $this->buildResponse(self::HTTP_STATUS_OK, $this->getDocumentData([$documentId])[$documentId]);
         } catch (Dbjr_Api_Exception $e) {
             $this->sendError($e->getHttpStatusCode(), $e->getMessage());
         } catch (Dbjr_Exception $e) {
@@ -168,22 +173,25 @@ class Api_FollowupController extends Dbjr_Api_BaseController
     }
 
     /**
-     * @param int $documentId
+     * @param array $origSnippets
      * @return array
      */
-    private function getDocumentChildrenSnippetsData($documentId)
+    private function buildSnippetDetailsData(array $origSnippets)
     {
-        $snippets = (new Model_FollowupFiles())->getFollowupsById($documentId);
-        $result = [];
+        $snippetIds = $this->getIds($origSnippets, 'fid');
+        $childrenCounts = $this->getChildrenCount(self::TYPE_SNIPPET, $snippetIds);
+        $parentCounts = $this->getParentsCount(self::TYPE_SNIPPET, $snippetIds);
+        $snippets = $this->getSnippetData($snippetIds);
 
+        $result = [];
         foreach ($snippets as $snippet) {
             $result[] = [
                 'id' => (int) $snippet['fid'],
                 'type' => self::TYPE_SNIPPET,
-                'children_count' => $this->getChildrenCount(self::TYPE_SNIPPET, $snippet['fid']),
-                'parents_count' => $this->getParentsCount(self::TYPE_SNIPPET, $snippet['fid']),
-                'kid' => $this->getConsultationId(self::TYPE_SNIPPET, $snippet['fid']),
-                'data' => $this->getSnippetData($snippet['fid']),
+                'children_count' => $childrenCounts[$snippet['fid']],
+                'parents_count' => $parentCounts[$snippet['fid']],
+                'kid' => $snippets[$snippet['fid']]['kid'],
+                'data' => $snippets[$snippet['fid']],
             ];
         }
 
@@ -191,22 +199,25 @@ class Api_FollowupController extends Dbjr_Api_BaseController
     }
 
     /**
-     * @param int $contributionId
+     * @param array $origContributions
      * @return array
      */
-    private function getContributionsChildrenContributionsData($contributionId)
+    private function buildContributionDetailsData(array $origContributions)
     {
-        $contributions = (new Model_Inputs())->getChildrenByParentId($contributionId);
-        $result = [];
+        $contributionIds = $this->getIds($origContributions, 'tid');
+        $childrenCounts = $this->getChildrenCount(self::TYPE_CONTRIBUTION, $contributionIds);
+        $parentCounts = $this->getParentsCount(self::TYPE_CONTRIBUTION, $contributionIds);
+        $contributions = $this->getContributionData($contributionIds);
 
+        $result = [];
         foreach ($contributions as $contribution) {
             $result[] = [
                 'id' => (int) $contribution['tid'],
                 'type' => self::TYPE_CONTRIBUTION,
-                'children_count' => $this->getChildrenCount(self::TYPE_CONTRIBUTION, $contribution['tid']),
-                'parents_count' => $this->getParentsCount(self::TYPE_CONTRIBUTION, $contribution['tid']),
-                'kid' => $this->getConsultationId(self::TYPE_CONTRIBUTION, $contribution['tid']),
-                'data' => $this->getContributionData($contribution['tid']),
+                'children_count' => $childrenCounts[$contribution['tid']],
+                'parents_count' => $parentCounts[$contribution['tid']],
+                'kid' => $contributions[$contribution['tid']]['kid'],
+                'data' => $contributions[$contribution['tid']],
             ];
         }
 
@@ -214,71 +225,28 @@ class Api_FollowupController extends Dbjr_Api_BaseController
     }
 
     /**
-     * @param int $contributionId
+     * @param array $origDocuments
      * @return array
      */
-    private function getContributionsChildrenSnippetsData($contributionId)
+    private function buildDocumentDetailsData(array $origDocuments)
     {
-        $snippets = (new Model_Inputs())->getFollowups($contributionId);
-        $result = [];
+        $documentIds = $this->getIds($origDocuments, 'ffid');
+        $childrenCounts = $this->getChildrenCount(self::TYPE_DOCUMENT, $documentIds);
+        $parentCounts = $this->getParentsCount(self::TYPE_DOCUMENT, $documentIds);
+        $documents = $this->getDocumentData($documentIds);
 
-        foreach ($snippets as $snippet) {
+        $result = [];
+        foreach ($documents as $document) {
             $result[] = [
-                'id' => (int) $snippet['fid'],
-                'type' => self::TYPE_SNIPPET,
-                'children_count' => $this->getChildrenCount(self::TYPE_SNIPPET, $snippet['fid']),
-                'parents_count' => $this->getParentsCount(self::TYPE_SNIPPET, $snippet['fid']),
-                'kid' => $this->getConsultationId(self::TYPE_SNIPPET, $snippet['fid']),
-                'data' => $this->getSnippetData($snippet['fid']),
+                'id' => (int) $document['ffid'],
+                'type' => self::TYPE_DOCUMENT,
+                'children_count' => $childrenCounts[$document['ffid']],
+                'parents_count' => $parentCounts[$document['ffid']],
+                'kid' => $documents[$document['ffid']]['kid'],
+                'data' => $documents[$document['ffid']],
             ];
         }
-
-        return $result;
-    }
-
-    /**
-     * @param int $contributionId
-     * @return array
-     */
-    private function getContributionsParentsContributionsData($contributionId)
-    {
-        $contributions = (new Model_Inputs())->getParentsByChildId($contributionId);
-        $result = [];
-
-        foreach ($contributions as $contribution) {
-            $result[] = [
-                'id' => (int) $contribution['tid'],
-                'type' => self::TYPE_CONTRIBUTION,
-                'children_count' => $this->getChildrenCount(self::TYPE_CONTRIBUTION, $contribution['tid']),
-                'parents_count' => $this->getParentsCount(self::TYPE_CONTRIBUTION, $contribution['tid']),
-                'kid' => $this->getConsultationId(self::TYPE_CONTRIBUTION, $contribution['tid']),
-                'data' => $this->getContributionData($contribution['tid']),
-            ];
-        }
-
-        return $result;
-    }
-
-    /**
-     * @param int $snippetId
-     * @return array
-     */
-    private function getSnippetChildrenSnippetsData($snippetId)
-    {
-        $snippets = (new Model_FollowupsRef())->getRelatedFollowupByFid($snippetId);
-        $result = [];
-
-        foreach ($snippets as $snippet) {
-            $result[] = [
-                'id' => (int) $snippet['fid_ref'],
-                'type' => self::TYPE_SNIPPET,
-                'children_count' => $this->getChildrenCount(self::TYPE_SNIPPET, $snippet['fid_ref']),
-                'parents_count' => $this->getParentsCount(self::TYPE_SNIPPET, $snippet['fid_ref']),
-                'kid' => $this->getConsultationId(self::TYPE_SNIPPET, $snippet['fid_ref']),
-                'data' => $this->getSnippetData($snippet['fid_ref']),
-            ];
-        }
-
+        
         return $result;
     }
 
@@ -289,161 +257,166 @@ class Api_FollowupController extends Dbjr_Api_BaseController
     private function getSnippetParentsAllData($snippetId)
     {
         $elements = (new Model_Followups())->getRelated($snippetId);
-        $result = [];
-
-        foreach ($elements['inputs'] as $contribution) {
-            $result[] = [
-                'id' => (int) $contribution['tid'],
-                'type' => self::TYPE_CONTRIBUTION,
-                'children_count' => $this->getChildrenCount(self::TYPE_CONTRIBUTION, $contribution['tid']),
-                'parents_count' => $this->getParentsCount(self::TYPE_CONTRIBUTION, $contribution['tid']),
-                'kid' => $this->getConsultationId(self::TYPE_CONTRIBUTION, $contribution['tid']),
-                'data' => $this->getContributionData($contribution['tid']),
-            ];
-        }
-
-        foreach ($elements['snippets'] as $snippet) {
-            $result[] = [
-                'id' => (int) $snippet['fid'],
-                'type' => self::TYPE_SNIPPET,
-                'children_count' => $this->getChildrenCount(self::TYPE_SNIPPET, $snippet['fid']),
-                'parents_count' => $this->getParentsCount(self::TYPE_SNIPPET, $snippet['fid']),
-                'kid' => $this->getConsultationId(self::TYPE_SNIPPET, $snippet['fid']),
-                'data' => $this->getSnippetData($snippet['fid']),
-            ];
-        }
-
-        foreach ($elements['followups'] as $document) {
-            $result[] = [
-                'id' => (int) $document['ffid'],
-                'type' => self::TYPE_DOCUMENT,
-                'children_count' => $this->getChildrenCount(self::TYPE_DOCUMENT, $document['ffid']),
-                'parents_count' => 0,
-                'kid' => $this->getConsultationId(self::TYPE_DOCUMENT, $document['ffid']),
-                'data' => $this->getDocumentData($document['ffid']),
-            ];
-        }
-
-        return $result;
+        return array_merge(
+            $this->buildContributionDetailsData($elements['inputs']),
+            $this->buildSnippetDetailsData($elements['snippets']),
+            $this->buildDocumentDetailsData($elements['followups'])
+        );
     }
 
     /**
-     * @param int $documentId
+     * @param array $documentIds
      * @return array
      * @throws Dbjr_Api_Exception
      */
-    private function getDocumentData($documentId)
+    private function getDocumentData(array $documentIds)
     {
-        $document = (new Model_FollowupFiles())->getById($documentId, true);
-        if (empty($document)) {
+        if (!$documentIds) {
+            return [];
+        }
+
+        $documentModel = new Model_FollowupFiles();
+        $rows = $documentModel
+            ->select()
+            ->from(['c' => $documentModel->info($documentModel::NAME)])
+            ->where('ffid IN (?)', implode(',', $documentIds))
+            ->query()
+            ->fetchAll();
+
+        if (empty($rows)) {
             throw new Dbjr_Api_Exception(
                 self::HTTP_STATUS_NOT_FOUND,
-                sprintf('Document with id %d was not found', $documentId)
+                sprintf('No documents were found for ids: [%s]', implode($documentIds))
             );
         }
 
-        return [
-            'ffid' => (int) $document['ffid'],
-            'kid' => (int) $document['kid'],
-            'titl' => $document['titl'],
-            'when' => $this->convertDateTime($document['when']),
-            'is_only_month_year_showed' => (bool) $document['is_only_month_year_showed'],
-            'ref_doc' => $this->view->baseUrl() . MEDIA_URL . '/consultations/' . $document['kid'] . '/'
-                . $document['ref_doc'],
-            'ref_view' => $document['ref_view'],
-            'gfx_who' => $this->view->baseUrl() . MEDIA_URL . '/consultations/' . $document['kid'] . '/'
-                . $document['gfx_who'],
-            'type' => $document['type'],
-            'who' => $document['who'],
-        ];
+        $documents = [];
+        foreach ($rows as $row) {
+            $documents[$row['ffid']] = [
+                'ffid' => (int)$row['ffid'],
+                'kid' => (int)$row['kid'],
+                'titl' => $row['titl'],
+                'when' => $this->convertDateTime($row['when']),
+                'is_only_month_year_showed' => (bool)$row['is_only_month_year_showed'],
+                'ref_doc' => $this->getImageBasePath($row['kid']) . $row['ref_doc'],
+                'ref_view' => $row['ref_view'],
+                'gfx_who' => $this->getImageBasePath($row['kid']) . $row['gfx_who'],
+                'type' => $row['type'],
+                'who' => $row['who'],
+            ];
+        }
+
+        return $documents;
     }
 
     /**
-     * @param int $snippetId
-     * @return array
+     * @param array $snippetIds
      * @throws Dbjr_Api_Exception
+     * @return array
      */
-    private function getSnippetData($snippetId)
+    private function getSnippetData(array $snippetIds)
     {
+        if (!$snippetIds) {
+            return [];
+        }
+
         $snippetModel = new Model_Followups();
-        $snippet = $snippetModel
+        $rows = $snippetModel
             ->select()
             ->setIntegrityCheck(false)
             ->from(['fs' => $snippetModel->info($snippetModel::NAME)])
             ->join(['ff' => 'fowup_fls'], 'ff.ffid = fs.ffid', ['gfx_who', 'kid', 'titl'])
-            ->where('fid = ?', $snippetId)
+            ->where('fid IN (?)', $snippetIds)
             ->query()
-            ->fetch();
+            ->fetchAll();
 
-        if (empty($snippet)) {
+        if (empty($rows)) {
             throw new Dbjr_Api_Exception(
                 self::HTTP_STATUS_NOT_FOUND,
-                sprintf('Snippet with id %d was not found', $snippetId)
+                sprintf('No snippets were found fo ids: [%s]', implode($snippetIds))
             );
         }
 
-        return [
-            'fid' => (int) $snippet['fid'],
-            'embed' => $snippet['embed'],
-            'expl' => $snippet['expl'],
-            'ffid' => (int) $snippet['ffid'],
-            'lkyea' => (int) $snippet['lkyea'],
-            'lknay' => (int) $snippet['lknay'],
-            'type' => $snippet['type'],
-            'document' => [
-                'gfx_who' => $this->view->baseUrl() . MEDIA_URL . '/consultations/' . $snippet['kid'] . '/'
-                    . $snippet['gfx_who'],
-                'title' => $snippet['titl'],
-            ]
-        ];
+        $snippets = [];
+        foreach ($rows as $row) {
+            $snippets[$row['fid']] = [
+                'fid' => (int) $row['fid'],
+                'embed' => $row['embed'],
+                'expl' => $row['expl'],
+                'ffid' => (int) $row['ffid'],
+                'lkyea' => (int) $row['lkyea'],
+                'lknay' => (int) $row['lknay'],
+                'type' => $row['type'],
+                'kid' => $row['kid'],
+                'document' => [
+                    'gfx_who' => $this->getImageBasePath($row['kid']) . $row['gfx_who'],
+                    'title' => $row['titl'],
+                ]
+            ];
+        }
+
+        return $snippets;
     }
 
     /**
-     * @param int $contributionId
-     * @return array
+     * @param array $contributionIds
      * @throws Dbjr_Api_Exception
+     * @return array
      */
-    private function getContributionData($contributionId)
+    private function getContributionData(array $contributionIds)
     {
-        $contribution = (new Model_Inputs())->getById($contributionId);
-        if (empty($contribution)) {
+        if (!$contributionIds) {
+            return [];
+        }
+
+        $contribModel = new Model_Inputs();
+        $rows = $contribModel
+            ->select()
+            ->setIntegrityCheck(false)
+            ->from(['c' => $contribModel->info($contribModel::NAME)])
+            ->join(['q' => 'quests'], 'c.qi = q.qi', ['q', 'kid', 'nr'])
+            ->where('tid IN (?)', $contributionIds)
+            ->query()
+            ->fetchAll();
+        if (empty($rows)) {
             throw new Dbjr_Api_Exception(
                 self::HTTP_STATUS_NOT_FOUND,
-                sprintf('Contribution with id %d was not found', $contributionId)
+                sprintf('No contributions were found for ids: [%s]', implode($contributionIds))
             );
         }
-        $question = (new Model_Questions())->getById($contribution['qi']);
 
-        $votingResults = (new Model_Votes())
-            ->getResultsValues(
-                $this->getConsultationId(self::TYPE_CONTRIBUTION, $contribution['tid']),
-                $contribution['qi']
-            );
-        $place = 0;
-        if (isset($votingResults['votings'])) {
-            foreach ($votingResults['votings'] as $key => $contributionVotingResult) {
-                if ((int) $contribution['tid'] === (int) $contributionVotingResult['tid']) {
-                    $place = (int) $key + 1;
+        $contributions = [];
+        foreach ($rows as $row) {
+            $votingResults = (new Model_Votes())->getResultsValues($row['kid'], $row['qi']);
+            $place = 0;
+            if (isset($votingResults['votings'])) {
+                foreach ($votingResults['votings'] as $key => $contributionVotingResult) {
+                    if ((int) $row['tid'] === (int) $contributionVotingResult['tid']) {
+                        $place = (int) $key + 1;
+                    }
                 }
             }
+
+            $contributions[$row['tid']] = [
+                'tid' => (int) $row['tid'],
+                'qi' => (int) $row['qi'],
+                'question' => $row['q'],
+                'question_number' => $row['nr'],
+                'thes' => $row['thes'],
+                'uid' => (int) $row['uid'],
+                'when' => $this->convertDateTime($row['when']),
+                'is_votable' => (bool) $row['is_votable'],
+                'spprts' => (int) $row['spprts'],
+                'votes' => (int) $row['votes'],
+                'place' => $place,
+                'expl' => $row['expl'],
+                'kid' => $row['kid'],
+                'video_service' => $row['video_service'],
+                'video_id' => $row['video_id'],
+            ];
         }
 
-        return [
-            'tid' => (int) $contribution['tid'],
-            'qi' => (int) $contribution['qi'],
-            'question' => $question['q'],
-            'question_number' => $question['nr'],
-            'thes' => $contribution['thes'],
-            'uid' => (int) $contribution['uid'],
-            'when' => $this->convertDateTime($contribution['when']),
-            'is_votable' => (bool) $contribution['is_votable'],
-            'spprts' => (int) $contribution['spprts'],
-            'votes' => (int) $contribution['votes'],
-            'place' => $place,
-            'expl' => $contribution['expl'],
-            'video_service' => $contribution['video_service'],
-            'video_id' => $contribution['video_id'],
-        ];
+        return $contributions;
     }
 
     /**
@@ -459,14 +432,18 @@ class Api_FollowupController extends Dbjr_Api_BaseController
             $resultArray = $result;
         }
 
+        $snippetIds = $this->getIds($resultArray, 'fid');
+        $childrenCounts = $this->getChildrenCount(self::TYPE_SNIPPET, $snippetIds);
+        $parentCounts = $this->getParentsCount(self::TYPE_SNIPPET, $snippetIds);
+
         foreach ($resultArray as $key => $snippet) {
             $resultArray[$key]['fid'] = (int) $resultArray[$key]['fid'];
             $resultArray[$key]['docorg'] = (int) $resultArray[$key]['docorg'];
             $resultArray[$key]['ffid'] = (int) $resultArray[$key]['ffid'];
             $resultArray[$key]['lknay'] = (int) $resultArray[$key]['lknay'];
             $resultArray[$key]['lkyea'] = (int) $resultArray[$key]['lkyea'];
-            $resultArray[$key]['parents_count'] = $this->getParentsCount(self::TYPE_SNIPPET, $snippet['fid']);
-            $resultArray[$key]['children_count'] = $this->getChildrenCount(self::TYPE_SNIPPET, $snippet['fid']);
+            $resultArray[$key]['parents_count'] = $parentCounts[$snippet['fid']];
+            $resultArray[$key]['children_count'] = $childrenCounts[$snippet['fid']];
         }
 
         return $resultArray;
@@ -474,41 +451,149 @@ class Api_FollowupController extends Dbjr_Api_BaseController
 
     /**
      * @param string $type
-     * @param int $id
-     * @return int
+     * @param array $ids
+     * @return array
      * @throws Exception
      */
-    private function getChildrenCount($type, $id)
+    private function getChildrenCount($type, array $ids)
     {
         if ($type === self::TYPE_DOCUMENT) {
-            return (new Model_FollowupFiles())->getFollowupsCountById($id);
-        } elseif ($type === self::TYPE_SNIPPET) {
-            return (new Model_FollowupsRef())->getRelatedFollowupCountByFid($id);
-        } elseif ($type === self::TYPE_CONTRIBUTION) {
-            $contributionModel = new Model_Inputs();
-            return $contributionModel->getFollowupsCount($id) + $contributionModel->getChildrenCountByParentId($id);
-        } else {
-            throw new Exception(sprintf('%s is invalid type of element.', $type));
+            $snippetModel = new Model_Followups();
+            $select = $snippetModel
+                ->select()
+                ->from(
+                    ['s' => $snippetModel->info($snippetModel::NAME)],
+                    ['ffid', new Zend_Db_Expr('COUNT(*) as count')]
+                );
+
+            return $this->getCounts($select, $ids, 'ffid');
         }
+
+        if ($type === self::TYPE_SNIPPET) {
+            $refModel = new Model_FollowupsRef();
+            $select = $refModel
+                ->select()
+                ->from(
+                    ['rr' => $refModel->info($refModel::NAME)],
+                    ['fid', new Zend_Db_Expr('COUNT(*) as count')]
+                );
+
+            return $this->getCounts($select, $ids, 'fid');
+        }
+
+        if ($type === self::TYPE_CONTRIBUTION) {
+            $refModel = new Model_FollowupsRef();
+            $select = $refModel
+                ->select()
+                ->from(
+                    ['rr' => $refModel->info($refModel::NAME)],
+                    ['tid', new Zend_Db_Expr('COUNT(*) as count')]
+                );
+            $reactionCounts = $this->getCounts($select, $ids, 'tid');
+
+
+            $contribRelModel = new Model_InputRelations();
+            $select = $contribRelModel
+                ->select()
+                ->from(
+                    ['cr' => $contribRelModel->info($contribRelModel::NAME)],
+                    ['parent_id', new Zend_Db_Expr('COUNT(*) as count')]
+                );
+            $contributionCounts = $this->getCounts($select, $ids, 'parent_id');
+
+            $result = [];
+            foreach ($reactionCounts as $contribId => $count) {
+                $result[$contribId] = $count + $contributionCounts[$contribId];
+            }
+
+            return $result;
+        }
+
+        throw new Exception(sprintf('%s is invalid type of element.', $type));
     }
 
     /**
      * @param string $type
-     * @param int $id
-     * @return int
+     * @param array $ids
+     * @return array
      * @throws Exception
      */
-    private function getParentsCount($type, $id)
+    private function getParentsCount($type, array $ids)
     {
         if ($type === self::TYPE_DOCUMENT) {
-            throw new Exception(sprintf('Element of type %s cannot have parents.', $type));
-        } elseif ($type === self::TYPE_SNIPPET) {
-            return (new Model_Followups())->getRelatedCount($id);
-        } elseif ($type === self::TYPE_CONTRIBUTION) {
-            return (new Model_Inputs())->getParentsCountByChildId($id);
-        } else {
-            throw new Exception(sprintf('%s is invalid type of element.', $type));
+            return $this->zeroFillCounts([], $ids);
         }
+
+        if ($type === self::TYPE_SNIPPET) {
+            $refModel = new Model_FollowupsRef();
+            $select = $refModel
+                ->select()
+                ->from(
+                    ['rr' => $refModel->info($refModel::NAME)],
+                    ['fid_ref', new Zend_Db_Expr('COUNT(*) as count')]
+                );
+            
+            return $this->getCounts($select, $ids, 'fid_ref');
+        }
+
+        if ($type === self::TYPE_CONTRIBUTION) {
+            $contribRelModel = new Model_InputRelations();
+            $select = $contribRelModel
+                ->select()
+                ->from(
+                    ['cr' => $contribRelModel->info($contribRelModel::NAME)],
+                    ['child_id', new Zend_Db_Expr('COUNT(*) as count')]
+                );
+
+            return $this->getCounts($select, $ids, 'child_id');
+        }
+
+        throw new Exception(sprintf('%s is invalid type of element.', $type));
+    }
+
+    /**
+     * @param Zend_Db_Select $select
+     * @param array $ids
+     * @param string $idCol
+     * @return array
+     */
+    private function getCounts(Zend_Db_Select $select, array $ids, $idCol)
+    {
+        if (!$ids) {
+            return [];
+        }
+
+        $counts = [];
+        $rows = $select
+            ->where($idCol . ' IN (?)', $ids)
+            ->group($idCol)
+            ->query()
+            ->fetchAll();
+
+        foreach ($rows as $row) {
+            $counts[$row[$idCol]] = $row['count'];
+        }
+
+        return $this->zeroFillCounts($counts, $ids);
+    }
+
+    /**
+     * @param array $counts
+     * @param array $ids
+     * @return array
+     */
+    private function zeroFillCounts(array $counts, array $ids)
+    {
+        $newCounts = [];
+        foreach ($ids as $id) {
+            if (!isset($counts[$id])) {
+                $newCounts[$id] = 0;
+                continue;
+            }
+            $newCounts[$id] = $counts[$id];
+        }
+
+        return $newCounts;
     }
 
     /**
@@ -520,22 +605,18 @@ class Api_FollowupController extends Dbjr_Api_BaseController
     }
 
     /**
-     * @param string $type
-     * @param int $id
-     * @return int
-     * @throws Exception
+     * @param array $entities
+     * @param string $idCol
+     * @return array
      */
-    private function getConsultationId($type, $id)
+    private function getIds(array $entities, $idCol)
     {
-        if ($type === self::TYPE_DOCUMENT) {
-            return (int) $this->getDocumentData($id)['kid'];
-        } elseif ($type === self::TYPE_SNIPPET) {
-            return (new Model_Followups())->getConsultationIdBySnippet($id);
-        } elseif ($type === self::TYPE_CONTRIBUTION) {
-            return (new Model_Inputs())->getConsultationIdByContribution($id);
-        } else {
-            throw new Exception(sprintf('%s is invalid type of element.', $type));
-        }
+        $ids = [];
+        foreach ($entities as $entity) {
+            $ids[] = $entity[$idCol];
+        };
+
+        return $ids;
     }
 
     /**
@@ -545,5 +626,14 @@ class Api_FollowupController extends Dbjr_Api_BaseController
     private function convertDateTime($dateTime)
     {
         return DateTime::createFromFormat('Y-m-d H:i:s', $dateTime)->format(DateTime::ISO8601);
+    }
+
+    /**
+     * @param int $kid
+     * @return string
+     */
+    private function getImageBasePath($kid)
+    {
+        return $this->view->baseUrl() . MEDIA_URL . '/consultations/' . $kid . '/';
     }
 }
