@@ -69,7 +69,7 @@ class RoboFile extends Tasks
             ->run();
     }
 
-    public function createZip()
+    public function createInstallZip()
     {
         $this->stopOnFail(true);
         $this->build();
@@ -79,7 +79,7 @@ class RoboFile extends Tasks
         $this->taskExec('zip')
             ->args('--recurse-paths')
             ->args('--quiet')
-            ->args('dbjr-tool.zip')
+            ->args(sprintf('dbjr-tool-install_%s.zip', $this->getVersion()))
             ->args('.')
             ->option('--include', 'VERSION.txt')
             ->option('--include', '.htaccess')
@@ -112,6 +112,34 @@ class RoboFile extends Tasks
             ->run();
         $this->taskExec('rm www/media/consultations/1/consultation_thumb_micro_scholl.jpg')->run();
         $this->taskExec('rm www/media/folders/misc/logo.png')->run();
+    }
+
+    public function createUpdateZip()
+    {
+        $this->stopOnFail(true);
+        $this->build();
+        $this->taskExec('zip')
+            ->args('--recurse-paths')
+            ->args('--quiet')
+            ->args(sprintf('dbjr-tool-update_%s.zip', $this->getVersion()))
+            ->args('.')
+            ->option('--include', 'VERSION.txt')
+            ->option('--include', 'application/*')
+            ->option('--include', 'languages/*')
+            ->option('--include', 'languages_zend/*')
+            ->option('--include', 'library/*')
+            ->option('--include', 'vendor/*')
+            ->option('--include', 'www/css/*')
+            ->option('--include', 'www/fonts/*')
+            ->option('--include', 'www/images/*')
+            ->option('--include', 'www/js/*')
+            ->option('--include', 'www/vendor/*')
+            ->option('--include', 'www/index.php')
+            ->option('--include', 'www/robots.txt')
+            ->option('--exclude', 'application/configs/config.local.ini')
+            ->option('--exclude', '*.git*')
+            ->option('--exclude', '*.keep')
+            ->run();
     }
 
     /**
@@ -180,5 +208,13 @@ class RoboFile extends Tasks
             "CREATE DATABASE IF NOT EXISTS `%s` COLLATE 'utf8_general_ci';",
             $testConfig['resources.db.params.dbname']
         ));
+    }
+
+    /**
+     * @return string
+     */
+    private function getVersion()
+    {
+        return trim(file_get_contents('VERSION.txt'));
     }
 }
