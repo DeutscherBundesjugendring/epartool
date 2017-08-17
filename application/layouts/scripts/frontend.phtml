@@ -199,11 +199,54 @@ $license = (new Model_License())->find($projectSettings['license'], $lang . '_' 
 
                             <!-- Share -->
                             <div class="header-box-share hidden-print">
-                                <button type="button" class="btn btn-default btn-sm has-icon-lg dropdown-toggle js-share">
-                                    <span class="icon-offset icon-lg icon-white glyphicon glyphicon-share-alt" aria-hidden="true"></span>
-                                    <?=$this->translate('Share');?>
-                                </button>
-                                <div id="sharebtn-holder" class="share-dropdown"></div>
+                                <div class="dropdown">
+                                    <button
+                                        id="socialshare"
+                                        class="btn btn-default btn-sm has-icon-lg dropdown-toggle"
+                                        type="button"
+                                        data-toggle="dropdown"
+                                        aria-haspopup="true"
+                                        aria-expanded="false"
+                                    >
+                                        <span class="icon-offset icon-lg icon-white glyphicon glyphicon-share-alt" aria-hidden="true"></span>
+                                        <?=$this->translate('Share');?>
+                                    </button>
+                                    <div id="sharebtn-holder" class="share-dropdown dropdown-menu text-center" aria-labelledby="socialshare">
+                                        <a
+                                            href="https://twitter.com/intent/tweet?text=<?=$this->parameter('site.title');?>&url=<?=$this->serverUrl(true);?>"
+                                            class="btn btn-default offset-bottom-small js-share"
+                                            title="Twitter <?=$this->translate('Share');?>"
+                                            target="_blank"
+                                        >
+                                            <span class="share-dropdown-icon icon-offset">
+                                                <?=$this->partial('_svg/twitter.svg.phtml', $this->layout()->getView());?>
+                                            </span>
+                                            <?=$this->translate('Share');?>
+                                        </a>
+                                        <a
+                                            href="https://plus.google.com/share?url=<?=$this->serverUrl(true);?>"
+                                            class="btn btn-default offset-bottom-small js-share"
+                                            title="G+ <?=$this->translate('Share');?>"
+                                            target="_blank"
+                                        >
+                                            <span class="share-dropdown-icon icon-offset">
+                                                <?=$this->partial('_svg/googleplus.svg.phtml', $this->layout()->getView());?>
+                                            </span>
+                                            <?=$this->translate('Share');?>
+                                        </a>
+                                        <a
+                                            href="http://www.facebook.com/sharer.php?u=<?=$this->serverUrl(true);?>"
+                                            class="btn btn-default js-share"
+                                            title="Facebook <?=$this->translate('Share');?>"
+                                            target="_blank"
+                                        >
+                                            <span class="share-dropdown-icon icon-offset">
+                                                <?=$this->partial('_svg/facebook.svg.phtml', $this->layout()->getView());?>
+                                            </span>
+                                            <?=$this->translate('Share');?>
+                                        </a>
+                                    </div>
+                                </div>
                             </div>
 
                         </div>

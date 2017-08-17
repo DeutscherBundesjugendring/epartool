@@ -26,6 +26,9 @@
         ]
       }
     });
+    $('.js-share').on("click", function(e) {
+      $(this).socialPopup(e);
+    });
     return $('.js-contribution-create-form').pageLeaveConfirmation();
   });
 
