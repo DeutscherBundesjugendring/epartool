@@ -246,7 +246,7 @@ class Api_FollowupController extends Dbjr_Api_BaseController
                 'data' => $documents[$document['ffid']],
             ];
         }
-        
+
         return $result;
     }
 
@@ -532,7 +532,7 @@ class Api_FollowupController extends Dbjr_Api_BaseController
                     ['rr' => $refModel->info($refModel::NAME)],
                     ['fid_ref', new Zend_Db_Expr('COUNT(*) as count')]
                 );
-            
+
             return $this->getCounts($select, $ids, 'fid_ref');
         }
 
@@ -625,7 +625,7 @@ class Api_FollowupController extends Dbjr_Api_BaseController
      */
     private function convertDateTime($dateTime)
     {
-        return DateTime::createFromFormat('Y-m-d H:i:s', $dateTime)->format(DateTime::ISO8601);
+        return DateTime::createFromFormat('Y-m-d H:i:s', $dateTime)->format(DateTime::RFC3339);
     }
 
     /**
