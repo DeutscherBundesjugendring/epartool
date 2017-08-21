@@ -91,8 +91,7 @@ class InputController extends Zend_Controller_Action
                 $this->handleSubscribeQuestion($post, $kid, $qid, $auth, $sbsForm);
             } elseif (isset($post['unsubscribe']) && $auth->hasIdentity()) {
                 $this->handleUnsubscribeQuestion($post, $kid, $qid, $auth, $sbsForm);
-            } elseif (isset($post['add_input_field']) || isset($post['finished'])
-                || isset($post['next_question'])) {
+            } elseif (isset($post['finished']) || isset($post['next_question'])) {
                 $post['inputs'] = $this->extractVideoIds($post['inputs']);
                 $this->handleInputSubmit($post, $kid, $qid);
             }
@@ -378,9 +377,7 @@ class InputController extends Zend_Controller_Action
                 }
             }
 
-            if (isset($post['add_input_field'])) {
-                $redirectURL.= '/#input';
-            } elseif (!$errorShown && isset($post['next_question'])) {
+            if (!$errorShown && isset($post['next_question'])) {
                 $nextQuestion = (new Model_Questions())->getNext($qid);
                 $redirectURL = '/input/show/kid/' . $kid . ($nextQuestion ? '/qid/' . $nextQuestion->qi : '');
             } elseif (!$errorShown && isset($post['finished'])) {

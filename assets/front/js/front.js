@@ -1,5 +1,22 @@
 (function() {
-  var bindAnimatedScrolling, bindCharacterCounters, bindHelpTextModal, bindLoadMoreConsultations, bindRemoveSupervote, bindSaveAndContinueContributing, bindSaveAndFinishContributing, bindSupportContribution, bindToggleExtendedInput, bindToggleGroupRegister, bindToggleVotingContributionExplanation, bindVotingRate, hideOverlay, indicateLoginInProgress, initFB, loginProcessEnd, showOverlay;
+  var bindAddContribution;
+  var bindAnimatedScrolling;
+  var bindCharacterCounters;
+  var bindHelpTextModal;
+  var bindLoadMoreConsultations;
+  var bindRemoveSupervote;
+  var bindSaveAndContinueContributing;
+  var bindSaveAndFinishContributing;
+  var bindSupportContribution;
+  var bindToggleExtendedInput;
+  var bindToggleGroupRegister;
+  var bindToggleVotingContributionExplanation;
+  var bindVotingRate;
+  var hideOverlay;
+  var indicateLoginInProgress;
+  var initFB;
+  var loginProcessEnd;
+  var showOverlay;
 
   $(document).ready(function() {
     bindCharacterCounters();
@@ -14,6 +31,7 @@
     bindRemoveSupervote();
     bindVotingRate();
     bindToggleVotingContributionExplanation();
+    bindAddContribution();
     initFB(document, 'script', 'facebook-jssdk');
     $('.js-has-password-meter').pwstrength({
       'ui': {
@@ -380,6 +398,48 @@
     return $('.js-toggle-voting-contribution-explanation').on('click', function(e) {
       $('#voting-contribution-explanation').toggle();
       return $('.glyphicon', this).toggleClass('hide');
+    });
+  };
+
+  bindAddContribution = function() {
+    return $('.js-add-contribution').on('click', function() {
+      var formFieldsets = $('.js-contribution-create-form').find('fieldset');
+
+      var newFieldset = formFieldsets.first().clone();
+      var newIndex = formFieldsets.length;
+      var prefixId = 'inputs-0-';
+      var newPrefixId = 'inputs-' + newIndex + '-';
+      var newPrefixName = 'inputs[' + newIndex + ']';
+      var buttonsDiv = $(this).closest('.js-contribution-add-buttons');
+      console.log(buttonsDiv);
+
+      newFieldset.find('#' + prefixId + 'thes_counter').attr('id', newPrefixId + 'thes_counter');
+      newFieldset.find('#' + prefixId + 'thes')
+        .attr('id', newPrefixId + 'thes')
+        .attr('name', newPrefixName + '[thes]')
+        .val('');
+      newFieldset.find('label[for="' + prefixId + 'video_service"]').attr('for', newPrefixId + 'video_service');
+      newFieldset.find('#' + prefixId + 'video_service')
+        .attr('id', newPrefixId + 'video_service')
+        .attr('name', newPrefixName + '[video_service]');
+      newFieldset.find('label[for="' + prefixId + 'video_id"]').attr('for', newPrefixId + 'video_id');
+      newFieldset.find('#' + prefixId + 'video_id')
+        .attr('id', newPrefixId + 'video_id')
+        .attr('name', newPrefixName + '[video_id]')
+        .val('');
+      newFieldset.find('#' + prefixId + 'expl')
+        .attr('id', newPrefixId + 'expl')
+        .attr('name', newPrefixName + '[expl]')
+        .val('');;
+      newFieldset.find('#' + prefixId + 'expl_counter').attr('id', newPrefixId + 'expl_counter');
+
+      $('<hr />').insertBefore(buttonsDiv);
+      newFieldset.insertBefore(buttonsDiv);
+
+      $('.js-toggle-extended-input').unbind('click');
+      $('textarea.js-has-counter').unbind('change').unbind('keyup');
+      bindToggleExtendedInput();
+      bindCharacterCounters();
     });
   };
 

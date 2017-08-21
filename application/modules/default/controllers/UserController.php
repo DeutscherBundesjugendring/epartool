@@ -193,7 +193,6 @@ class UserController extends Zend_Controller_Action
                     if ($this->_auth->hasIdentity()) {
                         $registerForm->getElement('email')->setValue($this->_auth->getIdentity()->email);
                     }
-
                     $this->_flashMessenger->addMessage('Please check your data!', 'error');
                 }
             } else {

@@ -9,6 +9,7 @@ class Default_Form_Input_Create extends Dbjr_Form_Web
 
     public function init()
     {
+        $this->setAttrib('class', 'js-contribution-create-form');
         $this->setDecorators(array(array('ViewScript', array('viewScript' => 'input/createForm.phtml'))));
 
         // CSRF Protection
@@ -21,8 +22,8 @@ class Default_Form_Input_Create extends Dbjr_Form_Web
 
         $addInputFieldBtn = $this->createElement('button', 'add_input_field');
         $addInputFieldBtn
-            ->setAttrib('class', 'btn-default btn-default-alt')
-            ->setAttrib('type', 'submit')
+            ->setAttrib('class', 'btn-default btn-default-alt js-add-contribution')
+            ->setAttrib('type', 'button')
             ->setLabel('+');
         $this->addElement($addInputFieldBtn);
 
