@@ -384,7 +384,7 @@ class InputController extends Zend_Controller_Action
                 $nextQuestion = (new Model_Questions())->getNext($qid);
                 $redirectURL = '/input/show/kid/' . $kid . ($nextQuestion ? '/qid/' . $nextQuestion->qi : '');
             } elseif (!$errorShown && isset($post['finished'])) {
-                $redirectURL = '/input/confirm/kid/' . $kid;
+                $redirectURL = '/user/register/kid/' . $kid;
             }
             $this->redirect($redirectURL);
         }
@@ -400,93 +400,6 @@ class InputController extends Zend_Controller_Action
                 number_format(Zend_Registry::get('systemconfig')->form->input->csfr_protect->ttl / 60, 0)
             ),
             'error'
-        );
-    }
-
-    /**
-     * Login or register to save inputs into database
-     */
-    public function confirmAction()
-    {
-        $kid = $this->_getParam('kid', 0);
-        $auth = Zend_Auth::getInstance();
-        $sessInputs = new Zend_Session_Namespace('inputs');
-        $regFormData = new Zend_Session_Namespace('populateForm');
-
-        $this->view->infoText = $this->consultation['contribution_confirmation_info'];
-
-        if (!empty($sessInputs->inputs)) {
-            // This is needed when creating user with webservice registration
-            $sessInputs->kid = $kid;
-
-            $inputModel = new Model_Inputs();
-            $confirmKey = $inputModel->getConfirmationKey();
-
-            $inputModel->getAdapter()->beginTransaction();
-            try {
-                foreach ($sessInputs->inputs as $input) {
-                    $input['uid'] = $auth->hasIdentity() ? $auth->getIdentity()->uid : null;
-                    $input['confirmation_key'] = $confirmKey;
-                    $input['is_confirmed_by_user'] = $auth->hasIdentity() ? true : null;
-                    $inputModel->add($input);
-                }
-                $inputModel->getAdapter()->commit();
-            } catch (Exception $e) {
-                $inputModel->getAdapter()->rollback();
-                throw $e;
-            }
-
-            if ($auth->hasIdentity()) {
-                $qiSent = [];
-                foreach ($sessInputs->inputs as $input) {
-                    if (!in_array($input['qi'], $qiSent)) {
-                        $qiSent[] = $input['qi'];
-                        (new Service_Notification_InputCreatedNotification())->notify(
-                            [Service_Notification_InputCreatedNotification::PARAM_QUESTION_ID => $input['qi']]
-                        );
-                    }
-                }
-            }
-            unset($sessInputs->inputs);
-
-            $sessInputs->confirmKey = $confirmKey;
-            $registerForm = new Default_Form_Register($kid);
-            $registerForm->getElement('kid')->setValue($kid);
-            if ($auth->hasIdentity()) {
-                $user = (new Model_Users())->fetchRow(
-                    (new Model_Users())
-                        ->select()
-                        ->where('email=?', $auth->getIdentity()->email)
-                )->toArray();
-                $guessedGroupAge = (new Service_Groups())->guessGroupAge(
-                    $this->consultation,
-                    $user['age_group_from'],
-                    $user['age_group_to']
-                );
-                $user['age_group'] = $guessedGroupAge !== -1 ? $guessedGroupAge : null;
-                $user['is_contrib_under_cc'] = false;
-                $registerForm->populate($user);
-                $registerForm->lockEmailField();
-            }
-            $this->view->registerForm = $registerForm;
-        } elseif ($regFormData->register) {
-            // If submitted registration form was invalid, the redirect from UserController::register()
-            $registerForm = unserialize($regFormData->register);
-            unset($regFormData->register);
-            $this->view->registerForm = $registerForm;
-        } else {
-            $this->flashMessenger->addMessage(
-                'There is no input to be confirmed.',
-                'info'
-            );
-            $this->redirect('/');
-        }
-
-        // Logging in on this page would cause redirect and thus there would be no way to tie them to the user
-        // as the session is already emptied
-        Zend_Layout::getMvcInstance()->assign(
-            'disableLoginMsg',
-            Zend_Registry::get('Zend_Translate')->translate('Please finish contributing before logging in.')
         );
     }
 

@@ -28,6 +28,7 @@ class Default_Form_Register extends Dbjr_Form_Web
             ->setAction(Zend_Controller_Front::getInstance()->getBaseUrl() . '/user/register');
 
         $kid = $this->createElement('hidden', 'kid');
+        $kid->setValue($this->consultationId);
         $this->addElement($kid);
 
         $email = $this->createElement('email', 'email');

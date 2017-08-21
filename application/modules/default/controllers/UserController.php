@@ -39,121 +39,186 @@ class UserController extends Zend_Controller_Action
      */
     public function registerAction()
     {
-        if (!$this->_request->isPost()) {
-            $this->redirect('/');
-        } else {
-            $form = new Default_Form_Register($this->_consultation['kid']);
-            $rawData = $this->_request->getPost();
-            $userModel = new Model_Users();
-            $populateForm = new Zend_Session_Namespace('populateForm');
+        $kid = $this->_getParam('kid', 0);
+        $auth = Zend_Auth::getInstance();
+        $sessInputs = new Zend_Session_Namespace('inputs');
 
-            // If user authenticated by webservice, the email is not required
-            if ($this->_auth->hasIdentity()) {
-                $form->getElement('email')
-                    ->setRequired(false)
-                    ->setAttrib('disabled', 'disabled');
+        $this->view->infoText = $this->_consultation['contribution_confirmation_info'];
+        $this->view->consultation = $this->_consultation;
+
+        $registerForm = new Default_Form_Register($this->_consultation['kid']);
+        if ($this->_auth->hasIdentity()) {
+            $registerForm->getElement('email')
+                ->setRequired(false)
+                ->setAttrib('disabled', 'disabled');
+        }
+
+        if (!empty($sessInputs->inputs)) {
+            // This is needed when creating user with webservice registration
+            $sessInputs->kid = $kid;
+
+            $inputModel = new Model_Inputs();
+            $confirmKey = $inputModel->getConfirmationKey();
+
+            $inputModel->getAdapter()->beginTransaction();
+            try {
+                foreach ($sessInputs->inputs as $input) {
+                    $input['uid'] = $auth->hasIdentity() ? $auth->getIdentity()->uid : null;
+                    $input['confirmation_key'] = $confirmKey;
+                    $input['is_confirmed_by_user'] = $auth->hasIdentity() ? true : null;
+                    $inputModel->add($input);
+                }
+                $inputModel->getAdapter()->commit();
+            } catch (Exception $e) {
+                $inputModel->getAdapter()->rollback();
+                throw $e;
             }
 
-            if ($form->isValid($rawData)) {
-                unset($populateForm->register);
-
-                $data = $form->getValues();
-                if ($data['group_type'] != 'group') {
-                    unset($data['group_specs']);
-                }
-                unset($data['group_type']);
-
-                $confirmKey = (new Zend_Session_Namespace('inputs'))->confirmKey;
-                $userModel->getAdapter()->beginTransaction();
-                try {
-                    if (!$this->_auth->hasIdentity()) {
-                        list($uid, $isNew) = $userModel->register($data, $confirmKey);
-                        $userModel->sendInputsConfirmationMail($uid, $form->getValue('kid'), $confirmKey, $isNew);
-                        $this->_flashMessenger->addMessage(
-                            'An email for the confirmation of your contributions has been sent to your email address.',
-                            'success'
+            if ($auth->hasIdentity()) {
+                $qiSent = [];
+                foreach ($sessInputs->inputs as $input) {
+                    if (!in_array($input['qi'], $qiSent)) {
+                        $qiSent[] = $input['qi'];
+                        (new Service_Notification_InputCreatedNotification())->notify(
+                            [Service_Notification_InputCreatedNotification::PARAM_QUESTION_ID => $input['qi']]
                         );
-                    } else {
-                        $uid = $this->_auth->getIdentity()->uid;
-                        $data['uid'] = $uid;
-                        $userConsultModel = new Model_User_Info();
-                        $userConsultRow = $userConsultModel->fetchRow(['uid=?' => $uid, 'kid=?' => $data['kid']]);
-                        if ($userConsultRow) {
-                            $properties = [
-                                'age_group',
-                                'regio_pax',
-                                'cmnt_ext',
-                                'is_receiving_consultation_results',
-                                'name',
-                            ];
-                            foreach ($properties as $property) {
-                                if (isset($data[$property])) {
-                                    $userConsultRow->{$property} = $data[$property];
-                                }
-                            }
-                            if (isset($data['group_specs'])) {
-                                $userConsultRow->source = is_array($data['group_specs']['source'])
-                                    ? implode(',', $data['group_specs']['source'])
-                                    : null;
+                    }
+                }
+            }
+            unset($sessInputs->inputs);
 
-                                foreach (['src_misc', 'group_size', 'name_group', 'name_pers'] as $property) {
-                                    if (isset($data['group_specs'][$property])) {
-                                        $userConsultRow->{$property} = $data['group_specs'][$property];
+            $sessInputs->confirmKey = $confirmKey;
+        }
+
+        if ($sessInputs->confirmKey) {
+            if ($this->_request->isPost()) {
+                $rawData = $this->_request->getPost();
+                $userModel = new Model_Users();
+                if ($registerForm->isValid($rawData)) {
+                    $data = $registerForm->getValues();
+                    if ($data['group_type'] !== 'group') {
+                        unset($data['group_specs']);
+                    }
+                    unset($data['group_type']);
+
+                    $confirmKey = (new Zend_Session_Namespace('inputs'))->confirmKey;
+                    $userModel->getAdapter()->beginTransaction();
+                    try {
+                        if (!$this->_auth->hasIdentity()) {
+                            list($uid, $isNew) = $userModel->register($data, $confirmKey);
+                            $userModel->sendInputsConfirmationMail($uid, $registerForm->getValue('kid'), $confirmKey, $isNew);
+                            $this->_flashMessenger->addMessage(
+                                'An email for the confirmation of your contributions has been sent to your email address.',
+                                'success'
+                            );
+                        } else {
+                            $uid = $this->_auth->getIdentity()->uid;
+                            $data['uid'] = $uid;
+                            $userConsultModel = new Model_User_Info();
+                            $userConsultRow = $userConsultModel->fetchRow(['uid=?' => $uid, 'kid=?' => $data['kid']]);
+                            if ($userConsultRow) {
+                                $properties = [
+                                    'age_group',
+                                    'regio_pax',
+                                    'cmnt_ext',
+                                    'is_receiving_consultation_results',
+                                    'name',
+                                ];
+                                foreach ($properties as $property) {
+                                    if (isset($data[$property])) {
+                                        $userConsultRow->{$property} = $data[$property];
+                                    }
+                                }
+                                if (isset($data['group_specs'])) {
+                                    $userConsultRow->source = is_array($data['group_specs']['source'])
+                                        ? implode(',', $data['group_specs']['source'])
+                                        : null;
+
+                                    foreach (['src_misc', 'group_size', 'name_group', 'name_pers'] as $property) {
+                                        if (isset($data['group_specs'][$property])) {
+                                            $userConsultRow->{$property} = $data['group_specs'][$property];
+                                        }
+                                    }
+                                }
+                                $userConsultRow->save();
+                            } else {
+                                $userModel->addConsultationData($data);
+                            }
+                            unset($data['cmnt_ext']);
+                            $consultationId = $data['kid'];
+                            unset($data['kid']);
+                            unset($data['is_contrib_under_cc']);
+                            unset($data['csrf_token_register']);
+                            $ageGroup = (new Model_ContributorAge())->find($data['age_group'])->current();
+                            unset($data['age_group']);
+                            if ($ageGroup) {
+                                $data['age_group_from'] = $ageGroup['from'];
+                                $data['age_group_to'] = $ageGroup['to'];
+                            }
+
+                            if (isset($data['group_specs'])) {
+                                $data = array_merge($data, $data['group_specs']);
+                                unset($data['group_specs']);
+
+                                if (isset($data['source'])) {
+                                    foreach ($data['source'] as $source) {
+                                        $data['source'] = $source;
+                                        break;
                                     }
                                 }
                             }
-                            $userConsultRow->save();
-                        } else {
-                            $userModel->addConsultationData($data);
+                            $data['email'] = $this->_auth->getIdentity()->email;
+                            $userModel->update($data, ['uid=?' => $uid]);
+
+                            $inputModel = new Model_Inputs();
+                            $inputModel->confirmByCkey($confirmKey, $uid);
+
+                            (new Model_Votes_Rights())->setInitialRightsForConfirmedUser($uid, $consultationId);
+
+                            $this->_flashMessenger->addMessage('Your inputs have been saved.', 'success');
                         }
-                        unset($data['cmnt_ext']);
-                        $consultationId = $data['kid'];
-                        unset($data['kid']);
-                        unset($data['is_contrib_under_cc']);
-                        unset($data['csrf_token_register']);
-                        $ageGroup = (new Model_ContributorAge())->find($data['age_group'])->current();
-                        unset($data['age_group']);
-                        if ($ageGroup) {
-                            $data['age_group_from'] = $ageGroup['from'];
-                            $data['age_group_to'] = $ageGroup['to'];
-                        }
-
-                        if (isset($data['group_specs'])) {
-                            $data = array_merge($data, $data['group_specs']);
-                            unset($data['group_specs']);
-
-                            if (isset($data['source'])) {
-                                foreach ($data['source'] as $source) {
-                                    $data['source'] = $source;
-                                    break;
-                                }
-                            }
-                        }
-                        $data['email'] = $this->_auth->getIdentity()->email;
-                        $userModel->update($data, ['uid=?' => $uid]);
-
-                        $inputModel = new Model_Inputs();
-                        $inputModel->confirmByCkey($confirmKey, $uid);
-
-                        (new Model_Votes_Rights())->setInitialRightsForConfirmedUser($uid, $consultationId);
-
-                        $this->_flashMessenger->addMessage('Your inputs have been saved.', 'success');
+                        $userModel->getAdapter()->commit();
+                    } catch (Exception $e) {
+                        $userModel->getAdapter()->rollback();
+                        throw $e;
                     }
-                    $userModel->getAdapter()->commit();
-                } catch (Exception $e) {
-                    $userModel->getAdapter()->rollback();
-                    throw $e;
+                    unset($sessInputs->confirmKey);
+                    $this->redirect('/');
+                } else {
+                    // Reset the email value as isValid() sets it to blank since for loged in users the field is disabled
+                    if ($this->_auth->hasIdentity()) {
+                        $registerForm->getElement('email')->setValue($this->_auth->getIdentity()->email);
+                    }
+
+                    $this->_flashMessenger->addMessage('Please check your data!', 'error');
                 }
-                $this->redirect('/');
             } else {
-                // Reset the email value as isValid() sets it to blank since for loged in users the field is disabled
-                if ($this->_auth->hasIdentity()) {
-                    $form->getElement('email')->setValue($this->_auth->getIdentity()->email);
+                if ($auth->hasIdentity()) {
+                    $user = (new Model_Users())->fetchRow(
+                        (new Model_Users())
+                            ->select()
+                            ->where('email=?', $auth->getIdentity()->email)
+                    )->toArray();
+                    $guessedGroupAge = (new Service_Groups())->guessGroupAge(
+                        $this->_consultation,
+                        $user['age_group_from'],
+                        $user['age_group_to']
+                    );
+                    $user['age_group'] = $guessedGroupAge !== -1 ? $guessedGroupAge : null;
+                    $user['is_contrib_under_cc'] = false;
+                    $registerForm->populate($user);
+                    $registerForm->lockEmailField();
                 }
-                $populateForm->register = serialize($form);
-                $this->_flashMessenger->addMessage('Please check your data!', 'error');
-                $this->redirect('/input/confirm/kid/' . $form->getValue('kid'));
             }
+            $this->view->registerForm = $registerForm;
+        }
+
+        if (empty($sessInputs->inputs) && !$sessInputs->confirmKey) {
+            $this->_flashMessenger->addMessage(
+                'There is no input to be confirmed.',
+                'info'
+            );
+            $this->redirect('/');
         }
     }
 
