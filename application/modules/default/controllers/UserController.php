@@ -224,6 +224,11 @@ class UserController extends Zend_Controller_Action
             );
             $this->redirect('/');
         }
+
+        Zend_Layout::getMvcInstance()->assign(
+            'disableLoginMsg',
+            Zend_Registry::get('Zend_Translate')->translate('Please finish contributing before logging in.')
+        );
     }
 
     public function passwordrecoverAction()
