@@ -39,7 +39,11 @@ class UserController extends Zend_Controller_Action
      */
     public function registerAction()
     {
-        $kid = $this->_getParam('kid', 0);
+        $kid = $this->_getParam('kid', null);
+        if (!$kid) {
+            throw new Zend_Controller_Action_Exception('No consultation found.', 404);
+        }
+
         $auth = Zend_Auth::getInstance();
         $sessInputs = new Zend_Session_Namespace('inputs');
 

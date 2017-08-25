@@ -23,9 +23,7 @@ class Default_Form_Register extends Dbjr_Form_Web
 
         $formConsultationSettings = (new Model_Consultations())->find($this->consultationId)->current()->toArray();
 
-        $this
-            ->setMethod('post')
-            ->setAction(Zend_Controller_Front::getInstance()->getBaseUrl() . '/user/register');
+        $this->setMethod('post');
 
         $kid = $this->createElement('hidden', 'kid');
         $kid->setValue($this->consultationId);

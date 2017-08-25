@@ -279,12 +279,21 @@
   };
 
   window.initGoogle = function() {
-    return gapi.signin.render('googleSignInButton', {
+    var registerButton = gapi.signin.render('googleRegisterButton', {
+      'callback': $('#googleRegisterButton').data('callback'),
+      'clientid': $('#googleRegisterButton').data('clientid'),
+      'cookiepolicy': 'single_host_origin',
+      'scope': 'profile email'
+    });
+
+    var signInButton = gapi.signin.render('googleSignInButton', {
       'callback': $('#googleSignInButton').data('callback'),
       'clientid': $('#googleSignInButton').data('clientid'),
       'cookiepolicy': 'single_host_origin',
       'scope': 'profile email'
     });
+
+    return registerButton && signInButton;
   };
 
   bindHelpTextModal = function() {
