@@ -381,7 +381,11 @@ class InputController extends Zend_Controller_Action
                 $nextQuestion = (new Model_Questions())->getNext($qid);
                 $redirectURL = '/input/show/kid/' . $kid . ($nextQuestion ? '/qid/' . $nextQuestion->qi : '');
             } elseif (!$errorShown && isset($post['finished'])) {
-                $redirectURL = '/user/register/kid/' . $kid;
+                if ($this->consultation['anonymous_contribution']) {
+                    $redirectURL = '/input/finished/kid/' . $kid;
+                } else {
+                    $redirectURL = '/user/register/kid/' . $kid;
+                }
             }
             $this->redirect($redirectURL);
         }
@@ -398,6 +402,11 @@ class InputController extends Zend_Controller_Action
             ),
             'error'
         );
+    }
+
+    public function finishedAction()
+    {
+        $this->view->info = $this->consultation['anonymous_contribution_finish_info'];
     }
 
     /**

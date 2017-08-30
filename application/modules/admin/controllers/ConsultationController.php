@@ -370,53 +370,102 @@ class Admin_ConsultationController extends Zend_Controller_Action
 
         $consultationModel = new Model_Consultations();
 
-        $form = new Admin_Form_ContributionSubmission();
+        $registrationForm = new Admin_Form_ContributionSubmission();
+        $anonymousForm = new Admin_Form_AnonymousContributionSubmission();
+        $anonymousSwitch = (bool) $this->_consultation['anonymous_contribution'];
 
         if ($this->getRequest()->isPost()) {
             $formData = $this->getRequest()->getPost();
-            if ($form->isValid($formData)) {
-                $db = $consultationModel->getAdapter();
-                $db->beginTransaction();
-                try {
-                    $data = [];
-                    foreach (['field_switch_name',
-                                 'field_switch_age',
-                                 'field_switch_state',
-                                 'field_switch_comments',
-                                 'allow_groups',
-                                 'field_switch_contribution_origin',
-                                 'field_switch_individuals_sum',
-                                 'field_switch_group_name',
-                                 'field_switch_contact_person',
-                                 'field_switch_notification',
-                                 'field_switch_newsletter',
-                             ] as $property) {
-                        $data[$property] = !empty($formData[$property]) ? $formData[$property] : 0;
+            $anonymousSwitch = isset($formData['submitAnonymous']);
+            if (isset($formData['submit'])) {
+                if ($registrationForm->isValid($formData)) {
+                    $db = $consultationModel->getAdapter();
+                    $db->beginTransaction();
+                    try {
+                        $data = [];
+                        foreach (['field_switch_name',
+                                     'field_switch_age',
+                                     'field_switch_state',
+                                     'field_switch_comments',
+                                     'allow_groups',
+                                     'field_switch_contribution_origin',
+                                     'field_switch_individuals_sum',
+                                     'field_switch_group_name',
+                                     'field_switch_contact_person',
+                                     'field_switch_notification',
+                                     'field_switch_newsletter',
+                                 ] as $property) {
+                            $data[$property] = !empty($formData[$property]) ? $formData[$property] : 0;
+                        }
+                        $data['state_field_label'] = !empty($formData['state_field_label'])
+                            ? $formData['state_field_label']
+                            : null;
+                        $data['contribution_confirmation_info'] = $formData['contribution_confirmation_info'];
+                        $data['anonymous_contribution'] = (int) false;
+                        $consultationModel->update($data, ['kid=?' => $consultationId]);
+                        $db->commit();
+                    } catch (Exception $e) {
+                        $db->rollback();
+                        throw $e;
                     }
-                    $data['state_field_label'] = !empty($formData['state_field_label'])
-                        ? $formData['state_field_label']
-                        : null;
-                    $data['contribution_confirmation_info'] = $formData['contribution_confirmation_info'];
-                    $consultationModel->update($data, ['kid=?' => $consultationId]);
-                    $db->commit();
-                } catch (Exception $e) {
-                    $db->rollback();
-                    throw $e;
-                }
 
-                $this->_flashMessenger->addMessage('Form settings were updated.', 'success');
-                $this->redirect($this->view->url(['action' => 'contribution-submission-form']), ['prependBase' => false]);
+                    $this->_flashMessenger->addMessage('Form settings were updated.', 'success');
+                    $this->redirect($this->view->url(['action' => 'contribution-submission-form']), ['prependBase' => false]);
+                } else {
+                    $this->_flashMessenger->addMessage(
+                        'Form settings cannot be updated. Please check the errors marked in the form below and try again.',
+                        'error'
+                    );
+
+                    $anonymousForm->populate($consultationModel->find($consultationId)->current()->toArray());
+                }
+            } elseif (isset($formData['submitAnonymous'])) {
+                if ($anonymousForm->isValid($formData)) {
+                    $db = $consultationModel->getAdapter();
+                    $db->beginTransaction();
+                    try {
+                        $consultationModel->update(
+                            [
+                                'anonymous_contribution' => (int) true,
+                                'anonymous_contribution_finish_info' => $formData['anonymous_contribution_finish_info'],
+                            ],
+                            ['kid=?' => $consultationId]
+                        );
+                        $db->commit();
+                    } catch (Exception $e) {
+                        $db->rollback();
+                        throw $e;
+                    }
+
+                    $this->_flashMessenger->addMessage('Form settings were updated.', 'success');
+                    $this->redirect($this->view->url(['action' => 'contribution-submission-form']), ['prependBase' => false]);
+                } else {
+                    $this->_flashMessenger->addMessage(
+                        'Form settings cannot be updated. Please check the errors marked in the form below and try again.',
+                        'error'
+                    );
+
+                    $registrationForm->populate($consultationModel->find($consultationId)->current()->toArray());
+                }
             } else {
                 $this->_flashMessenger->addMessage(
                     'Form settings cannot be updated. Please check the errors marked in the form below and try again.',
                     'error'
                 );
+
+                $consultationData = $consultationModel->find($consultationId)->current()->toArray();
+                $registrationForm->populate($consultationData);
+                $anonymousForm->populate($consultationData);
             }
         } else {
-            $form->populate($consultationModel->find($consultationId)->current()->toArray());
+            $consultationData = $consultationModel->find($consultationId)->current()->toArray();
+            $registrationForm->populate($consultationData);
+            $anonymousForm->populate($consultationData);
         }
 
-        $this->view->form = $form;
+        $this->view->anonymousSwitch = $anonymousSwitch;
+        $this->view->registrationForm = $registrationForm;
+        $this->view->anonymousForm = $anonymousForm;
     }
 
     public function groupsAction()

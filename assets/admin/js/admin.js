@@ -1,5 +1,22 @@
 (function() {
-  var bindConsultationCustomPhaseNames, bindContributionVideoSelect, bindEmailAddAttachment, bindEmailConsultationSelect, bindEmailTemplateSelect, bindTableRowsToggle, bindToggleAll, changeContributionStatus, contributorAgesSettings, groupsSizesSettings, initMediaIndexFileLazyLoad, initSortableFollowupSnippets, initSortableGeneral, initSortablePartners, initSortableVotingDirs, mediaSelectPopup, themeSettings;
+  var bindConsultationCustomPhaseNames;
+  var bindContributionVideoSelect;
+  var bindEmailAddAttachment;
+  var bindEmailConsultationSelect;
+  var bindEmailTemplateSelect;
+  var bindTableRowsToggle;
+  var bindToggleAll;
+  var changeContributionStatus;
+  var contributorAgesSettings;
+  var groupsSizesSettings;
+  var initMediaIndexFileLazyLoad;
+  var initSortableFollowupSnippets;
+  var initSortableGeneral;
+  var initSortablePartners;
+  var initSortableVotingDirs;
+  var mediaSelectPopup;
+  var themeSettings;
+  var bindToggleAnonymousContributionSwitch;
 
   $(document).ready(function() {
     bindEmailTemplateSelect();
@@ -9,6 +26,7 @@
     bindToggleAll();
     bindConsultationCustomPhaseNames();
     bindContributionVideoSelect();
+    bindToggleAnonymousContributionSwitch();
     themeSettings();
     contributorAgesSettings();
     groupsSizesSettings();
@@ -401,6 +419,13 @@
     return mediaSelectPopup;
 
   })();
+
+  bindToggleAnonymousContributionSwitch = function() {
+    return $('.js-toggle-anonymous-contribution-switch').on('click', function(e) {
+      $('#js-anonymous-off-form').toggle();
+      $('#js-anonymous-on-form').toggle();
+    });
+  };
 
   document.mediaSelectPopup = mediaSelectPopup;
 

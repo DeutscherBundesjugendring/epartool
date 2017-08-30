@@ -18,11 +18,60 @@
                 <?=$this->consultationEditNavigation($this->consultation->kid, 'contribution');?>
 
             </div>
-            <div class="content">
+
+            <form>
+                <fieldset>
+                    <legend><?=$this->translate('Anonymous switch');?></legend>
+                    <label for="anonymousSwitchOn"><?=$this->translate('On');?></label>
+                    <input
+                        type="radio"
+                        id="anonymousSwitchOn"
+                        name="anonymousSwitch"
+                        class="js-toggle-anonymous-contribution-switch"
+                        value="on"
+                        <?php if ($this->anonymousSwitch): ?>
+                            checked="checked"
+                        <?php endif; ?>
+                    />
+                    <label for="anonymousSwitchOff"><?=$this->translate('Off');?></label>
+                    <input
+                        type="radio"
+                        id="anonymousSwitchOff"
+                        name="anonymousSwitch"
+                        class="js-toggle-anonymous-contribution-switch"
+                        value="off"
+                        <?php if (!$this->anonymousSwitch): ?>
+                            checked="checked"
+                        <?php endif; ?>
+                    />
+                </fieldset>
+            </form>
+
+            <div
+                class="content"
+                id="js-anonymous-off-form"
+                <?php if ($this->anonymousSwitch): ?>
+                    style="display: none;"
+                <?php endif; ?>
+            >
 
                 <h2><?=$this->translate("Participants' Data");?></h2>
 
-                <?=$this->form;?>
+                <?=$this->registrationForm;?>
+
+            </div>
+
+            <div
+                class="content"
+                id="js-anonymous-on-form"
+                <?php if (!$this->anonymousSwitch): ?>
+                    style="display: none;"
+                <?php endif; ?>
+            >
+
+                <h2><?=$this->translate("Anonymous contributions finish page");?></h2>
+
+                <?=$this->anonymousForm;?>
 
             </div>
         </div><!-- .row -->
