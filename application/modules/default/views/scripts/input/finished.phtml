@@ -2,9 +2,13 @@
 
 <div class="main-content">
     <div class="row offset-bottom">
-        <div class="col-md-10 col-md-offset-1 text-center">
+        <div class="col-md-10 text-center">
 
-            <?=$this->wysiwyg($this->info);?>
+            <div class="content content-offset">
+                <h1><?=$this->translate('Thank you for contributing');?></h1>
+
+                <?=$this->wysiwyg($this->info);?>
+            </div>
 
         </div>
     </div><!-- .row -->
