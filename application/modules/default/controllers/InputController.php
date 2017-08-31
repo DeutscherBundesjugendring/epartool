@@ -94,26 +94,16 @@ class InputController extends Zend_Controller_Action
             } elseif (isset($post['finished']) || isset($post['next_question'])) {
                 $post['inputs'] = $this->extractVideoIds($post['inputs']);
                 $this->handleInputSubmit($post, $kid, $qid);
+            } else {
+                $form = $this->getInputForm();
+                $form->generateInputFields([]);
+                $form->setAction($this->view->baseUrl() . '/input/show/kid/' . $kid . '/qid/' . $qid);
             }
         } elseif (Zend_Date::now()->isLater(new Zend_Date($this->consultation->inp_fr, Zend_Date::ISO_8601))
             && Zend_Date::now()->isEarlier(new Zend_Date($this->consultation->inp_to, Zend_Date::ISO_8601))
         ) {
             $form = $this->getInputForm();
-            $sessInputs = new Zend_Session_Namespace('inputs');
-            $theses = [];
-            if (!empty($sessInputs->inputs)) {
-                foreach ($sessInputs->inputs as $input) {
-                    if ($input['qi'] == $qid) {
-                        $theses[] = [
-                            'thes' => $input['thes'],
-                            'expl' => $input['expl'],
-                            'video_service' => $input['video_service'],
-                            'video_id' => $input['video_id'],
-                        ];
-                    }
-                }
-            }
-            $form->generateInputFields($theses);
+            $form->generateInputFields([]);
             $form->setAction($this->view->baseUrl() . '/input/show/kid/' . $kid . '/qid/' . $qid);
         }
 
@@ -331,63 +321,75 @@ class InputController extends Zend_Controller_Action
      */
     private function handleInputSubmit(array $post, $kid, $qid)
     {
-        $redirectURL = '/input/show/kid/' . $kid . '/qid/' . $qid;
-
         $form = $this
             ->getInputForm()
             ->generateInputFields($post['inputs'], false);
 
         if ($form->isValid($post)) {
             $sessInputs = (new Zend_Session_Namespace('inputs'));
-            if (isset($sessInputs->inputs)) {
-                $tmpCollection = $sessInputs->inputs;
-                // delete former inputs for this question from session:
-                foreach ($tmpCollection as $key => $item) {
-                    if ($item['qi'] == $qid) {
-                        unset($tmpCollection[$key]);
-                    }
-                }
-                $sessInputs->inputs = $tmpCollection;
+
+            $inputModel = new Model_Inputs();
+            if (!isset($sessInputs->confirmKey)) {
+                $confirmKey = $inputModel->getConfirmationKey();
+                $sessInputs->confirmKey = $confirmKey;
             } else {
-                $tmpCollection = [];
+                $confirmKey = $sessInputs->confirmKey;
             }
 
-            $errorShown = false;
-            foreach ($post['inputs'] as $input) {
-                if (!empty($input['video_id']) && empty($input['thes'])) {
-                    if (!$errorShown) {
-                        $this->flashMessenger->addMessage(
-                            'Contribution text cannot be empty.',
-                            'error'
-                        );
-                        $errorShown = true;
+            $notSavedContributions = [];
+            $inputModel->getAdapter()->beginTransaction();
+            try {
+                $errorShown = false;
+                $successShown = false;
+                foreach ($post['inputs'] as $input) {
+                    if (!empty($input['video_id']) && empty($input['thes'])) {
+                        $notSavedContributions[] = $input;
+                        if (!$errorShown) {
+                            $this->flashMessenger->addMessage(
+                                'Contribution text cannot be empty.',
+                                'error'
+                            );
+                            $errorShown = true;
+                        }
+                        continue;
+                    }
+
+                    if (!empty($input['thes'])) {
+                        $input['kid'] = $kid;
+                        $input['qi'] = $qid;
+                        $input['video_service'] = (!empty($input['video_id']) && isset($input['video_service']))
+                            ? $input['video_service']
+                            : null;
+                        $input['video_id'] = !empty($input['video_id']) ? $input['video_id'] : null;
+                        $input['confirmation_key'] = $confirmKey;
+                        $inputModel->add($input);
+                        if (!$successShown) {
+                            $this->flashMessenger->addMessage(
+                                'Contributions were saved.',
+                                'success'
+                            );
+                            $successShown = true;
+                        }
                     }
                 }
-                if (!empty($input['thes']) || !empty($input['video_id'])) {
-                    $tmpCollection[] = [
-                        'kid' => $kid,
-                        'qi' => $qid,
-                        'thes' => $input['thes'],
-                        'expl' => $input['expl'],
-                        'video_service' => !empty($input['video_id']) && isset($input['video_service']) ?
-                            $input['video_service'] : null,
-                        'video_id' => !empty($input['video_id']) ? $input['video_id'] : null,
-                    ];
-                    $sessInputs->inputs = $tmpCollection;
-                }
+                $inputModel->getAdapter()->commit();
+            } catch (Exception $e) {
+                $inputModel->getAdapter()->rollback();
+                throw $e;
             }
 
             if (!$errorShown && isset($post['next_question'])) {
                 $nextQuestion = (new Model_Questions())->getNext($qid);
-                $redirectURL = '/input/show/kid/' . $kid . ($nextQuestion ? '/qid/' . $nextQuestion->qi : '');
+                $this->redirect('/input/show/kid/' . $kid . ($nextQuestion ? '/qid/' . $nextQuestion['qi'] : ''));
             } elseif (!$errorShown && isset($post['finished'])) {
                 if ($this->consultation['anonymous_contribution']) {
-                    $redirectURL = '/input/finished/kid/' . $kid;
+                    $this->redirect('/input/finished/kid/' . $kid);
                 } else {
-                    $redirectURL = '/user/register/kid/' . $kid;
+                    $this->redirect('/user/register/kid/' . $kid);
                 }
             }
-            $this->redirect($redirectURL);
+
+            return;
         }
 
         $form->populate($post);

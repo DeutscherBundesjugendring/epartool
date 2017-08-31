@@ -544,6 +544,18 @@ class Model_Inputs extends Dbjr_Db_Table_Abstract
     }
 
     /**
+     * @param string $confirmKey
+     * @return \Zend_Db_Table_Rowset_Abstract
+     */
+    public function getByConfirmKey($confirmKey)
+    {
+        $select = $this->select();
+        $select->where('confirmation_key=?', $confirmKey);
+
+        return $this->fetchAll($select);
+    }
+
+    /**
      * Rejects inputs and confirms user registration if applicable
      * @param  string    $confirmKey  The confirmation key identyfying the inputs to be confirmed
      * @return integer                Number of inputs rejected
@@ -564,7 +576,7 @@ class Model_Inputs extends Dbjr_Db_Table_Abstract
 
         return $this->update(
             [
-                'is_confirmed_by_user' => false,
+                'is_confirmed_by_user' => (int) false,
                 'uid' => $uid,
                 'confirmation_key' => null
             ],

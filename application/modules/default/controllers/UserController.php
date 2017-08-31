@@ -57,43 +57,6 @@ class UserController extends Zend_Controller_Action
                 ->setAttrib('disabled', 'disabled');
         }
 
-        if (!empty($sessInputs->inputs)) {
-            // This is needed when creating user with webservice registration
-            $sessInputs->kid = $kid;
-
-            $inputModel = new Model_Inputs();
-            $confirmKey = $inputModel->getConfirmationKey();
-
-            $inputModel->getAdapter()->beginTransaction();
-            try {
-                foreach ($sessInputs->inputs as $input) {
-                    $input['uid'] = $auth->hasIdentity() ? $auth->getIdentity()->uid : null;
-                    $input['confirmation_key'] = $confirmKey;
-                    $input['is_confirmed_by_user'] = $auth->hasIdentity() ? true : null;
-                    $inputModel->add($input);
-                }
-                $inputModel->getAdapter()->commit();
-            } catch (Exception $e) {
-                $inputModel->getAdapter()->rollback();
-                throw $e;
-            }
-
-            if ($auth->hasIdentity()) {
-                $qiSent = [];
-                foreach ($sessInputs->inputs as $input) {
-                    if (!in_array($input['qi'], $qiSent)) {
-                        $qiSent[] = $input['qi'];
-                        (new Service_Notification_InputCreatedNotification())->notify(
-                            [Service_Notification_InputCreatedNotification::PARAM_QUESTION_ID => $input['qi']]
-                        );
-                    }
-                }
-            }
-            unset($sessInputs->inputs);
-
-            $sessInputs->confirmKey = $confirmKey;
-        }
-
         if ($sessInputs->confirmKey) {
             if ($this->_request->isPost()) {
                 $rawData = $this->_request->getPost();
@@ -173,10 +136,20 @@ class UserController extends Zend_Controller_Action
                             }
                             $data['email'] = $this->_auth->getIdentity()->email;
                             $userModel->update($data, ['uid=?' => $uid]);
-
                             $inputModel = new Model_Inputs();
-                            $inputModel->confirmByCkey($confirmKey, $uid);
+                            $inputsToConfirm = $inputModel->getByConfirmKey($confirmKey);
 
+                            $qiSent = [];
+                            foreach ($inputsToConfirm as $input) {
+                                if (!in_array($input['qi'], $qiSent)) {
+                                    $qiSent[] = $input['qi'];
+                                    (new Service_Notification_InputCreatedNotification())->notify(
+                                        [Service_Notification_InputCreatedNotification::PARAM_QUESTION_ID => $input['qi']]
+                                    );
+                                }
+                            }
+
+                            $inputModel->confirmByCkey($confirmKey, $uid);
                             (new Model_Votes_Rights())->setInitialRightsForConfirmedUser($uid, $consultationId);
 
                             $this->_flashMessenger->addMessage('Your inputs have been saved.', 'success');
@@ -216,7 +189,7 @@ class UserController extends Zend_Controller_Action
             $this->view->registerForm = $registerForm;
         }
 
-        if (empty($sessInputs->inputs) && !$sessInputs->confirmKey) {
+        if (!$sessInputs->confirmKey) {
             $this->_flashMessenger->addMessage(
                 'There is no input to be confirmed.',
                 'info'
