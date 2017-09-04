@@ -59,7 +59,8 @@ class Default_Form_Input_Create extends Dbjr_Form_Web
                 $input['thes'],
                 $input['expl'],
                 isset($input['video_service']) ? $input['video_service'] : null,
-                isset($input['video_id']) ? $input['video_id'] : null
+                isset($input['video_id']) ? $input['video_id'] : null,
+                isset($input['tid']) ? $input['tid'] : null
             );
         }
 
@@ -78,10 +79,17 @@ class Default_Form_Input_Create extends Dbjr_Form_Web
      * @param  string $videoId
      * @param  string $thes
      * @param  string $expl
+     * @param  int $tid
      * @return Default_Form_Input_Create              Fluent interface
      */
-    protected function addInputField($inputName, $thes = null, $expl = null, $videoService = null, $videoId = null)
-    {
+    protected function addInputField(
+        $inputName,
+        $thes = null,
+        $expl = null,
+        $videoService = null,
+        $videoId = null,
+        $tid = null
+    ) {
         $view = new Zend_View();
         $thesElOpts = array(
             'cols' => 85,
@@ -152,6 +160,9 @@ class Default_Form_Input_Create extends Dbjr_Form_Web
             ->setValue($thes)
             ->setLabel('Your contribution')
             ->setDecorators(array(array("Label",array("class"=>"sr-only")),"ViewHelper"));
+
+        $inputForm->addElement('hidden', 'tid');
+        $inputForm->getElement('tid')->setOptions(['belongsTo' => 'inputs[' . $inputName . ']'])->setValue($tid);
 
         $this->getSubForm('inputs')->addSubForm($inputForm, $inputName);
 

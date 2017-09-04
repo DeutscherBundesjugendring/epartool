@@ -119,6 +119,7 @@ class Model_Inputs extends Dbjr_Db_Table_Abstract
         }
 
         $row = $this->find($id)->current();
+        unset($data['tid']);
         $row->setFromArray($data);
 
         return $row->save();
@@ -551,6 +552,20 @@ class Model_Inputs extends Dbjr_Db_Table_Abstract
     {
         $select = $this->select();
         $select->where('confirmation_key=?', $confirmKey);
+
+        return $this->fetchAll($select);
+    }
+
+    /**
+     * @param string $confirmKey
+     * @param int $questionId
+     * @return \Zend_Db_Table_Rowset_Abstract
+     */
+    public function getByConfirmKeyAndQuestion($confirmKey, $questionId)
+    {
+        $select = $this->select();
+        $select->where('confirmation_key=?', $confirmKey);
+        $select->where('qi=?', $questionId);
 
         return $this->fetchAll($select);
     }

@@ -96,14 +96,26 @@ class InputController extends Zend_Controller_Action
                 $this->handleInputSubmit($post, $kid, $qid);
             } else {
                 $form = $this->getInputForm();
-                $form->generateInputFields([]);
+                $inputModel = new Model_Inputs();
+                $contributions = [];
+                $sessInputs = (new Zend_Session_Namespace('inputs'));
+                if (isset($sessInputs->confirmKey)) {
+                    $contributions = $inputModel->getByConfirmKeyAndQuestion($sessInputs->confirmKey, $question['qi']);
+                }
+                $form->generateInputFields($contributions);
                 $form->setAction($this->view->baseUrl() . '/input/show/kid/' . $kid . '/qid/' . $qid);
             }
         } elseif (Zend_Date::now()->isLater(new Zend_Date($this->consultation->inp_fr, Zend_Date::ISO_8601))
             && Zend_Date::now()->isEarlier(new Zend_Date($this->consultation->inp_to, Zend_Date::ISO_8601))
         ) {
             $form = $this->getInputForm();
-            $form->generateInputFields([]);
+            $inputModel = new Model_Inputs();
+            $contributions = [];
+            $sessInputs = (new Zend_Session_Namespace('inputs'));
+            if (isset($sessInputs->confirmKey)) {
+                $contributions = $inputModel->getByConfirmKeyAndQuestion($sessInputs->confirmKey, $question['qi']);
+            }
+            $form->generateInputFields($contributions);
             $form->setAction($this->view->baseUrl() . '/input/show/kid/' . $kid . '/qid/' . $qid);
         }
 
@@ -360,7 +372,11 @@ class InputController extends Zend_Controller_Action
                             : null;
                         $input['video_id'] = !empty($input['video_id']) ? $input['video_id'] : null;
                         $input['confirmation_key'] = $confirmKey;
-                        $inputModel->add($input);
+                        if (!empty($input['tid'])) {
+                            $inputModel->updateById($input['tid'], $input);
+                        } else {
+                            $inputModel->add($input);
+                        }
                         if (!$successShown) {
                             $this->flashMessenger->addMessage(
                                 'Contributions were saved.',
@@ -406,6 +422,8 @@ class InputController extends Zend_Controller_Action
 
     public function finishedAction()
     {
+        $sessInputs = (new Zend_Session_Namespace('inputs'));
+        unset($sessInputs->confirmKey);
         $this->view->info = $this->consultation['anonymous_contribution_finish_info'];
     }
 

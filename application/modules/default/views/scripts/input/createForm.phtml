@@ -24,6 +24,8 @@
 
         <fieldset class="offset-bottom">
 
+            <?=$input->getElements()['tid'];?>
+
             <!-- Counter -->
             <div class="text-right js-character-counter">
                 <span id="inputs-<?=$input->getName();?>-thes_counter" class="counter">
@@ -99,50 +101,3 @@
         </div>
     </div><!-- .row -->
 </form><!-- .well -->
-
-<form id="contribution-subform-template" style="display: none">
-    <fieldset class="offset-bottom">
-
-        <!-- Counter -->
-        <div class="text-right js-character-counter">
-                <span id="inputs-_id_-thes_counter" class="counter">
-                    <span class="counter-digit">3</span><span class="counter-digit">0</span><span class="counter-digit">0</span>
-                </span>
-        </div>
-
-        <textarea name="inputs[_id_][thes]" id="inputs-_id_-thes" cols="85" rows="3" class="form-control form-control-alt js-has-counter" placeholder="Hier könnt ihr euren Beitrag mit bis zu 300 Buchstaben schreiben" maxlength="300"></textarea>
-        <div class="form-inline form-inline-flex form-group text-left offset-top-small offset-bottom-small js-video-service">
-            <div class="form-group">
-                <label for="inputs-_id_-video_service" class="control-label offset-right optional">Video:</label>
-
-                <select name="inputs[_id_][video_service]" id="inputs-_id_-video_service" data-url="{&quot;youtube&quot;:&quot;www.youtube.com\/watch?v=&quot;,&quot;vimeo&quot;:&quot;vimeo.com\/&quot;,&quot;facebook&quot;:&quot;www.facebook.com\/video.php?v=&quot;}" class="form-control form-control-alt">
-                    <option value="youtube">Youtube</option>
-                    <option value="vimeo">Vimeo</option>
-                    <option value="facebook">Facebook</option>
-                </select>                    </div>
-            <div class="form-group form-group-flex">
-                <div class="input-group input-group-full">
-                    <label for="inputs-1-video_id" class="sr-only optional">Video-ID</label>
-
-                    <input type="text" name="inputs[1][video_id]" id="inputs-1-video_id" value="" class="form-control form-control-alt" placeholder="Bitte Webadresse des Videos eintragen">                        </div>
-            </div>
-        </div>
-
-        <!-- Expand -->
-        <a href="#" class="btn btn-inverse btn-alt btn-separated btn-block btn-xs js-toggle-extended-input">
-            <span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span>
-            <span class="hidden-xs">Klicken, um Eintrag zu erläutern</span>
-            <span class="glyphicon glyphicon-menu-down hidden-xs" aria-hidden="true"></span>
-        </a>
-
-
-        <textarea name="inputs[1][expl]" id="inputs-1-expl" cols="85" rows="5" class="form-control form-control-alt js-has-counter" style="display: none;" placeholder="Hier könnt ihr euren Beitrag mit bis zu 2000 Buchstaben erläutern" maxlength="2000"></textarea>
-        <!-- Counter -->
-        <div class="text-right js-character-counter" style="display: none">
-                <span id="inputs-1-expl_counter" class="counter">
-                    <span class="counter-digit">2</span><span class="counter-digit">0</span><span class="counter-digit">0</span><span class="counter-digit">0</span>
-                </span>
-        </div>
-
-    </fieldset>
-</form>
