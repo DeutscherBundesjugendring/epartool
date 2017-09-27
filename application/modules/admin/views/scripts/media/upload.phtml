@@ -35,6 +35,12 @@
         <h2><?=$this->translate('File Upload');?></h2>
 
         <?=$this->form;?>
+        <p class="well">
+            <strong>
+                <span class="glyphicon glyphicon-upload" aria-hidden="true"></span>
+                <?=$this->translate('Maximum file size');?>: <?=$this->maxUploadSize;?>
+            </strong>
+        </p>
 
         <p class="well">
             <strong>
