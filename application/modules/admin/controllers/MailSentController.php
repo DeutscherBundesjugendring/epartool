@@ -72,7 +72,6 @@ class Admin_MailSentController extends Zend_Controller_Action
                     ['recipient' => 'email', 'recipient_type' => 'type']
                 )
                 ->where('time_sent IS NOT NULL')
-                ->where('time_sent > DATE_SUB(NOW(), INTERVAL 3 MONTH)')
                 ->order('time_sent DESC')
         )
         ->toArray();

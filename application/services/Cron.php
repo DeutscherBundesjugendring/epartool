@@ -7,6 +7,7 @@ abstract class Service_Cron
         (new Service_Cron_ContributionsConfirmationReminder())->execute();
         (new Service_Cron_ReminderConfirmVoting())->execute();
         (new Service_Cron_Mail())->execute();
+        (new Service_Cron_CleanMailArchive())->execute();
         (new Service_Cron_Logrotate())->execute();
     }
 
