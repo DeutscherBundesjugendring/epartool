@@ -342,7 +342,7 @@ $license = (new Model_License())->find($projectSettings['license'], $lang . '_' 
     var baseUrl = '<?=$this->baseUrl()?>';
 </script>
 
-<?php if (Zend_Registry::get('systemconfig')->webservice->google->clientId): ?>
+<?php if (!empty(Zend_Registry::get('systemconfig')->webservice->google->clientId)): ?>
     <script src="https://apis.google.com/js/client:platform.js?onload=initGoogle" async defer></script>
 <?php endif; ?>
 

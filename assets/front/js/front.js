@@ -290,6 +290,9 @@
       return;
     }
     appId = $('.fb-login-button').data('app-id');
+    if (!appId || appId === '') {
+      return;
+    }
     js = d.createElement(s);
     js.id = id;
     js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&appId=" + appId + "&version=v2.0";
