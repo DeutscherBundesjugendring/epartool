@@ -247,9 +247,15 @@ class Admin_SettingsController extends Zend_Controller_Action
                 }
 
                 if (!empty($formData['mitmachen_bubble'])) {
-                    $data['mitmachen_bubble'] = true;
+                    $data['mitmachen_bubble'] = 1;
                 } else {
-                    $data['mitmachen_bubble'] = false;
+                    $data['mitmachen_bubble'] = 0;
+                }
+
+                if (!empty($formData['teaser_enabled'])) {
+                    $data['teaser_enabled'] = 1;
+                } else {
+                    $data['teaser_enabled'] = 0;
                 }
 
                 try {

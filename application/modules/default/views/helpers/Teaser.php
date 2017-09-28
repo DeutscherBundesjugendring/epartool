@@ -8,6 +8,11 @@ class Module_Default_View_Helper_Teaser extends Zend_View_Helper_Abstract
     public function teaser()
     {
         $html = '';
+        $project = (new Model_Projects())->find(Zend_Registry::get('systemconfig')->project)->current();
+        if (!$project['teaser_enabled']) {
+            return $html;
+        }
+
         $consultationModel = new Model_Consultations();
         $items = $consultationModel->getTeaserEntries();
 
