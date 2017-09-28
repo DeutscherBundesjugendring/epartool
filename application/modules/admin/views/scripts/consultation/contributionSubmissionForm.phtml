@@ -4,11 +4,6 @@
     class="offset-bottom"
     enctype="<?=$this->element->getEnctype();?>"
 >
-    <?=$this->element->field_switch_state;?>
-    <?=$this->element->state_field_label;?>
-
-    <?=$this->element->contribution_confirmation_info;?>
-
     <div class="form-group offset-bottom">
         <?=$this->element->field_switch_name;?>
         <?=$this->element->field_switch_age;?>
@@ -27,6 +22,10 @@
         <?=$this->element->field_switch_newsletter;?>
         <?=$this->element->field_switch_comments;?>
     </div>
+
+    <?=$this->element->field_switch_state;?>
+    <?=$this->element->state_field_label;?>
+    <?=$this->element->contribution_confirmation_info;?>
 
     <?=$this->element->submit;?>
 
