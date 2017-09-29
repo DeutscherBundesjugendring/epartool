@@ -90,5 +90,7 @@ class Admin_MailSentController extends Zend_Controller_Action
 
         $this->view->emails = $emails;
         $this->view->form = $form;
+        $this->view->archiveSentMailsIntervalInMonths = (new \DateInterval(Zend_Registry::get('systemconfig')
+            ->archive_sent_emails_interval))->format('%m');
     }
 }

@@ -26,6 +26,14 @@
 
                 <h2><?=$this->translate('Sent Emails');?></h2>
 
+                <p class="alert alert-info">
+                    <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
+                    <?=sprintf(
+                        $this->translate('Sent e-mails are stored for %d months. During that period, they can be manually re-sent from the list below.'),
+                        $this->archiveSentMailsIntervalInMonths
+                    );?>
+                </p>
+
                 <?php if (!count($this->emails)): ?>
                     <p class="alert alert-info">
                         <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
