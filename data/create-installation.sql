@@ -990,6 +990,10 @@ ADD `mitmachen_bubble` tinyint NOT NULL DEFAULT '1';
 ALTER TABLE `inpt`
 ADD `reminders_sent` int NOT NULL DEFAULT '0';
 
+-- Migration 2016-06-24_14-16_DBJR-746.sql
+ALTER TABLE `vt_grps`
+ADD `reminders_sent` int NOT NULL DEFAULT '0';
+
 -- Migration 2016-06-15_13-23_DBJR-770.sql
 ALTER TABLE `vt_indiv`
 ADD `confirmation_hash` char(32) NULL;
