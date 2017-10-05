@@ -55,6 +55,7 @@ class Admin_Form_Input extends Dbjr_Form_Admin
         $thes = $this->createElement('textarea', 'thes');
         $thes
             ->setLabel('Thesis')
+            ->addValidator(new Zend_Validate_StringLength(array('min' => 1, 'max' => 300)))
             ->setRequired(true)
             ->setAttrib('rows', 5);
         $this->addElement($thes);
@@ -62,6 +63,7 @@ class Admin_Form_Input extends Dbjr_Form_Admin
         $expl = $this->createElement('textarea', 'expl');
         $expl
             ->setLabel('Explanation')
+            ->addValidator(new Zend_Validate_StringLength(array('min' => 0, 'max' => 2000)))
             ->setAttrib('rows', 5);
         $this->addElement($expl);
 
