@@ -1876,3 +1876,6 @@ CHANGE vot_to vot_to datetime NULL COMMENT 'Voting possible till' AFTER vot_fr;
 ALTER TABLE `fowups`DROP `hlvl`;
 
 ALTER TABLE `fowup_fls` ADD COLUMN `type` varchar(191) COLLATE 'utf8mb4_unicode_ci' NULL DEFAULT 'general', ADD FOREIGN KEY (`type`) REFERENCES `fowups_type` (`name`) ON DELETE RESTRICT;
+
+-- Migration 20170928210640_dbjr1234.php
+ALTER TABLE `proj` ADD `teaser_enabled` int(1) NOT NULL DEFAULT '1';

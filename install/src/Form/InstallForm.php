@@ -49,7 +49,16 @@ class InstallForm extends Dbjr_Form_Web
         $locale = $this->createElement('select', 'locale');
         $locale
             ->setLabel('Language')
-            ->setMultioptions(['en_US' => $trans->translate('English'), 'de_DE' => $trans->translate('German')]);
+            ->setMultioptions([
+                'cs_CZ' => $trans->translate('Česky'),
+                'de_DE' => $trans->translate('Deutsch'),
+                'en_US' => $trans->translate('English'),
+                'es_ES' => $trans->translate('Español'),
+                'fr_FR' => $trans->translate('Français'),
+                'pl_PL' => $trans->translate('Polski'),
+                'ru_RU' => $trans->translate('русский'),
+                'ar_AR' => $trans->translate('العربية'),
+            ]);
         $this->addElement($locale);
 
         $cronKey = $this->createElement('text', 'cronKey');
@@ -203,7 +212,7 @@ class InstallForm extends Dbjr_Form_Web
             );
         $vimeoAccessToken->getDecorator('BootstrapStandard')->setOption('escapeDescription', false);
         $this->addElement($vimeoAccessToken);
-        
+
         $this->addDisplayGroup(
             ['facebookId', 'facebookSecret', 'googleId', 'googleSecret', 'vimeoAccessToken'],
             'webserviceSettings',

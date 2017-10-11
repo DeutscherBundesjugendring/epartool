@@ -104,7 +104,7 @@ if (!empty($_POST)) {
                 $_POST['facebookSecret'],
                 $_POST['vimeoAccessToken']
             );
-            
+
             $view->render('step-3.phtml');
         } catch (PDOException $e) {
             $form->getElement('dbHost')->addError('The specified db credentials are invalid.');
@@ -117,5 +117,6 @@ if (!empty($_POST)) {
     }
 }
 
+$form->populate(['locale' => $locale]);
 $view->assign(['form' => $form->render($view->getZendView())]);
 $view->render('step-2.phtml');
