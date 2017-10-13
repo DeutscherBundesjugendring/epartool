@@ -173,6 +173,8 @@ class Admin_ArticleController extends Zend_Controller_Action
 
                         $this->updateArticleRow($articleRow, $values);
                         $articleRow->save();
+                        $article = $articleRow->toArray();
+                        $article['proj'] = explode(',', $articleRow->proj);
                         $this->_flashMessenger->addMessage('Changes saved.', 'success');
                     } else {
                         $this->_flashMessenger->addMessage('Form is not valid, please check the values entered.', 'error');
@@ -189,7 +191,7 @@ class Admin_ArticleController extends Zend_Controller_Action
                     $article['proj'] = explode(',', $article['proj']);
                 }
 
-                $form->populate(isset($articleRow) ? $articleRow->toArray() : $article);
+                $form->populate($article);
             }
 
             $this->view->form = $form;
@@ -236,7 +238,7 @@ class Admin_ArticleController extends Zend_Controller_Action
             $data = $this->getRequest()->getPost();
             if (isset($data['preview'])) {
                 $articlePreviewForm = new Admin_Form_ArticlePreview();
-                $data['proj'] = serialize($data['proj']);
+                $data['proj'] = serialize(isset($data['proj']) ? $data['proj'] : []);
                 $articlePreviewForm->populate($data);
 
                 $prevView = new Zend_View();
