@@ -15,7 +15,7 @@
     <h3><?=$this->translate('Header');?></h3>
     <?=$this->element->mitmachen_bubble;?>
 
-    <h3><?=$this->translate('Teaser in header');?></h3>
+    <h3><?=$this->translate('News bars in header');?></h3>
     <?=$this->element->teaser_enabled;?>
 
     <h3><?=$this->translate('Predefined themes');?></h3>
@@ -61,7 +61,7 @@
                 type="text"
                 name="color_primary"
                 value="#<?=$this->element->color_primary->getValue();?>"
-                class="form-control"
+                class="form-control js-color-input"
             />
             <span class="input-group-addon"><i></i></span>
             <?php if (count($this->element->color_primary->getErrors()) > 0) : ?>
@@ -89,7 +89,7 @@
                 type="text"
                 name="color_accent_1"
                 value="#<?=$this->element->color_accent_1->getValue();?>"
-                class="form-control"
+                class="form-control js-color-input"
             />
             <span class="input-group-addon"><i></i></span>
             <?php if (count($this->element->color_accent_1->getErrors()) > 0) : ?>
@@ -117,7 +117,7 @@
                 type="text"
                 name="color_accent_2"
                 value="#<?=$this->element->color_accent_2->getValue();?>"
-                class="form-control"
+                class="form-control js-color-input"
             />
             <span class="input-group-addon"><i></i></span>
             <?php if (count($this->element->color_accent_2->getErrors()) > 0) : ?>

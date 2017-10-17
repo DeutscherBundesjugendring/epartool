@@ -17,7 +17,7 @@ class Admin_Form_Settings_LookAndFeel extends Dbjr_Form_Admin
         $this->addElement($favIcon);
 
         $teaserEnabled = $this->createElement('checkbox', 'teaser_enabled');
-        $teaserEnabled->setLabel('Teaser with consultations enabled on homepage');
+        $teaserEnabled->setLabel('Activity links for consultations enabled on homepage');
         $this->addElement($teaserEnabled);
 
         $theme = $this->createElement('radioTheme', 'theme_id');

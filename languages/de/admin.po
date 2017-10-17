@@ -1,21 +1,22 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Dbjr Tool\n"
-"POT-Creation-Date: 2017-10-12 11:40+0200\n"
-"PO-Revision-Date: 2017-10-12 11:41+0200\n"
+"POT-Creation-Date: 2017-10-18 16:16+0200\n"
+"PO-Revision-Date: 2017-10-18 16:18+0200\n"
 "Last-Translator: Martin Bohal <mb@mbohal.cz>\n"
 "Language-Team: epartool@dbjr.de\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.8.7.1\n"
+"X-Generator: Poedit 1.8.12\n"
 "X-Poedit-KeywordsList: _;translate;setLabel;setLegend;addMessage;"
 "setConfirmMessage;setDescription\n"
 "X-Poedit-Basepath: ../..\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-SearchPath-0: application/modules/admin\n"
 "X-Poedit-SearchPath-1: application/models\n"
+"X-Poedit-SearchPath-2: library\n"
 
 #: application/models/ContributorAge.php:37
 msgid "all age groups"
@@ -150,7 +151,7 @@ msgid "Creating new article failed."
 msgstr "Die Erstellung des neuen Artikels konnte nicht durchgeführt werden."
 
 #: application/modules/admin/controllers/ArticleController.php:101
-#: application/modules/admin/controllers/ArticleController.php:178
+#: application/modules/admin/controllers/ArticleController.php:180
 #: application/modules/admin/controllers/ConsultationController.php:161
 #: application/modules/admin/controllers/ConsultationController.php:200
 #: application/modules/admin/controllers/ConsultationController.php:348
@@ -178,7 +179,7 @@ msgstr "Dieser Artikel existiert nicht."
 msgid "This article could not be hidden."
 msgstr "Dieser Artikel konnte nicht versteckt werden."
 
-#: application/modules/admin/controllers/ArticleController.php:176
+#: application/modules/admin/controllers/ArticleController.php:178
 #: application/modules/admin/controllers/ConsultationController.php:196
 #: application/modules/admin/controllers/FollowupController.php:103
 #: application/modules/admin/controllers/FollowupController.php:176
@@ -191,15 +192,15 @@ msgstr "Dieser Artikel konnte nicht versteckt werden."
 msgid "Changes saved."
 msgstr "Änderungen wurden gespeichert."
 
-#: application/modules/admin/controllers/ArticleController.php:213
+#: application/modules/admin/controllers/ArticleController.php:215
 msgid "This article could not be deleted."
 msgstr "Dieser Artikel konnte nicht gelöscht werden."
 
-#: application/modules/admin/controllers/ArticleController.php:220
+#: application/modules/admin/controllers/ArticleController.php:222
 msgid "Article has been deleted."
 msgstr "Artikel wurde gelöscht."
 
-#: application/modules/admin/controllers/ArticleController.php:222
+#: application/modules/admin/controllers/ArticleController.php:224
 msgid ""
 "Article could not be deleted. If there are any sub-articles, these have to "
 "be removed first."
@@ -207,17 +208,17 @@ msgstr ""
 "Artikel konnte nicht gelöscht werden: Wenn er Unter-Artikel hat, müssen "
 "diese zuerst entfernt werden."
 
-#: application/modules/admin/controllers/ArticleController.php:299
+#: application/modules/admin/controllers/ArticleController.php:301
 msgid "Area:"
 msgstr "Bereich:"
 
-#: application/modules/admin/controllers/ArticleController.php:324
+#: application/modules/admin/controllers/ArticleController.php:326
 #: application/modules/admin/forms/Article.php:37
 #: application/modules/admin/views/scripts/mail-send/index.phtml:21
 msgid "Please select…"
 msgstr "Bitte auswählen..."
 
-#: application/modules/admin/controllers/ArticleController.php:330
+#: application/modules/admin/controllers/ArticleController.php:332
 msgid "On subpages, reference name of parent page is used."
 msgstr ""
 "Unterseiten nutzen denselben Referenznamen wie die jeweilige Elternseite."
@@ -671,8 +672,12 @@ msgstr ""
 "die markierten Probleme überprüfen und dann erneut versuchen."
 
 #: application/modules/admin/controllers/SettingsController.php:333
-msgid "Do you want to override predefined theme with custom colors set?"
+msgid ""
+"Do you want to override the current colour scheme? Any previous custom "
+"settings will be lost."
 msgstr ""
+"Soll das Farbschema wirklich geändert werden? Bisherige Farbeinstellungen "
+"gehen damit verloren."
 
 #: application/modules/admin/controllers/SettingsController.php:336
 msgid ""
@@ -846,7 +851,7 @@ msgstr "Infotext nach Abschluss des anonymen Beitragens"
 #: application/modules/admin/forms/ContributionSubmission.php:76
 #: application/modules/admin/forms/Directory.php:18
 #: application/modules/admin/forms/Followup/File.php:87
-#: application/modules/admin/forms/Footer.php:42
+#: application/modules/admin/forms/Footer.php:43
 #: application/modules/admin/forms/HelpText.php:34
 #: application/modules/admin/forms/Mail/Component.php:54
 #: application/modules/admin/forms/Mail/Template.php:64
@@ -1261,6 +1266,11 @@ msgstr "Speichern und weiter arbeiten"
 msgid "Save and return to index"
 msgstr "Speichern und zurück zur Übersicht"
 
+#: application/modules/admin/forms/Footer.php:25
+#, php-format
+msgid "Footer %d/%d"
+msgstr "Footer %d/%d"
+
 #: application/modules/admin/forms/Input.php:57
 msgid "Thesis"
 msgstr "These"
@@ -1622,8 +1632,8 @@ msgid "License"
 msgstr "Lizenz/Info"
 
 #: application/modules/admin/forms/Settings/LookAndFeel.php:20
-msgid "Teaser with consultations enabled on homepage"
-msgstr ""
+msgid "Activity links for consultations enabled on homepage"
+msgstr "Aktionslinks auf der Homepage anzeigen"
 
 #: application/modules/admin/forms/Settings/LookAndFeel.php:30
 msgid "Primary color"
@@ -1966,6 +1976,69 @@ msgstr "Dienste"
 #: application/modules/admin/views/scripts/settings/look-and-feel.phtml:23
 msgid "Look and Feel"
 msgstr "Erscheinungsbild"
+
+#: library/Dbjr/Form/Decorator/BootstrapMedia.php:59
+msgid "Change media"
+msgstr "Datei wechseln"
+
+#: library/Dbjr/Form/Decorator/BootstrapMedia.php:81
+msgid "Remove media"
+msgstr ""
+
+#: library/Dbjr/Form/Decorator/CancelLink.php:9
+#: application/modules/admin/views/scripts/input/inputForm.phtml:86
+#: application/modules/admin/views/scripts/question/create.phtml:54
+#: application/modules/admin/views/scripts/question/edit.phtml:54
+msgid "Cancel"
+msgstr "Abbrechen"
+
+#: library/Dbjr/Form/Decorator/CancelLink.php:10
+#: application/modules/admin/views/scripts/input/inputForm.phtml:85
+#: application/modules/admin/views/scripts/question/create.phtml:53
+#: application/modules/admin/views/scripts/question/edit.phtml:53
+msgid "or"
+msgstr "oder"
+
+#: library/Dbjr/Form/Element/Button.php:72
+msgid "<span class=\"glyphicon glyphicon-trash\"></span>"
+msgstr ""
+
+#: library/Plugin/Auth/AccessControl.php:34
+msgid "Please insert user name!"
+msgstr ""
+
+#: library/Plugin/Auth/AccessControl.php:36
+msgid "Please insert password!"
+msgstr ""
+
+#: library/Plugin/Auth/AccessControl.php:47
+msgid "Login successful!"
+msgstr ""
+
+#: library/Plugin/Auth/AccessControl.php:51
+msgid "Login failed!"
+msgstr ""
+
+#: library/Plugin/Auth/AccessControl.php:62
+#: library/Plugin/Auth/AccessControl.php:90
+msgid "Please log in first!"
+msgstr ""
+
+#: library/Plugin/Auth/AccessControl.php:87
+msgid "No admission rights for this page!"
+msgstr ""
+
+#: library/Plugin/Auth/AuthAdapter.php:44
+msgid "A record with the supplied identity could not be found."
+msgstr ""
+
+#: library/Plugin/Auth/AuthAdapter.php:48
+msgid "Authentication successful."
+msgstr ""
+
+#: library/Plugin/Auth/AuthAdapter.php:52
+msgid "Supplied credential is invalid."
+msgstr ""
 
 #: application/modules/admin/views/scripts/_helpers/helpText.phtml:3
 #: application/modules/admin/views/scripts/_partials/pageLinks.phtml:8
@@ -2642,18 +2715,6 @@ msgstr "Hier ist noch Platz für Kommentare"
 msgid "Video"
 msgstr "Video"
 
-#: application/modules/admin/views/scripts/input/inputForm.phtml:85
-#: application/modules/admin/views/scripts/question/create.phtml:53
-#: application/modules/admin/views/scripts/question/edit.phtml:53
-msgid "or"
-msgstr "oder"
-
-#: application/modules/admin/views/scripts/input/inputForm.phtml:86
-#: application/modules/admin/views/scripts/question/create.phtml:54
-#: application/modules/admin/views/scripts/question/edit.phtml:54
-msgid "Cancel"
-msgstr "Abbrechen"
-
 #: application/modules/admin/views/scripts/input/list-by-question.phtml:29
 #: application/modules/admin/views/scripts/input/list-by-user.phtml:22
 #: application/modules/admin/views/scripts/votingprepare/add-related.phtml:21
@@ -3051,8 +3112,8 @@ msgid "Header"
 msgstr "Kopfbereich"
 
 #: application/modules/admin/views/scripts/settings/lookAndFeelForm.phtml:18
-msgid "Teaser in header"
-msgstr ""
+msgid "News bars in header"
+msgstr "Newsticker im Header"
 
 #: application/modules/admin/views/scripts/settings/lookAndFeelForm.phtml:21
 msgid "Predefined themes"

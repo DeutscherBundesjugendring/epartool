@@ -260,15 +260,15 @@
     });
     return $('.colorpicker-component').colorpicker({
       format: "hex"
-    }).on('change showPicker', function() {
+    }).on('focusin showPicker', function() {
       if ($('#themes').data('presetTheme')) {
         if (!confirm(jsTranslations['theme_alert_override'])) {
-          $(this).colorpicker('setValue', $(this).find('input').data('oldValue'));
+          $(this).find('.js-color-input').blur();
           $(this).colorpicker('hide');
-          return false;
+          return true;
         }
       }
-      $(this).find('input').data('oldValue', $(this).colorpicker('getValue'));
+      $(this).find('.js-color-input').data('oldValue', $(this).colorpicker('getValue'));
       $('#themes').data('presetTheme', false);
       $("input[name='theme_id']:checked").attr('checked', false);
       return true;
