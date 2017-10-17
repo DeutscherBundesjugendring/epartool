@@ -1,0 +1,56 @@
+version: '2'
+
+volumes:
+    sync.tool:
+        external: true
+
+services:
+    adminer:
+        image: clue/adminer
+        links:
+            - db
+        ports:
+            - 127.0.0.1:81:80
+    db:
+        build: docker/MySql
+        ports:
+            - "127.0.0.1:3306:3306"
+        environment:
+            MYSQL_ROOT_PASSWORD: pass
+    php:
+        build: docker/PHP7
+        volumes:
+            - sync.tool:/www
+        working_dir: /www
+        links:
+            - db
+            - mail
+    tools:
+        build: docker/Tools
+        volumes:
+            - sync.tool:/www
+        working_dir: /www
+        links:
+            - db
+            - web:test.localhost
+            - phantomjs
+    web:
+        build: docker/Apache
+        volumes:
+            - sync.tool:/www
+        links:
+            - php
+        ports:
+            - 80:80
+    mail:
+        image: mailhog/mailhog
+        ports:
+            - 127.0.0.1:82:8025
+    phantomjs:
+        image: wernight/phantomjs
+        ports:
+            - 8910
+        entrypoint: phantomjs
+        command: "--webdriver=8910"
+        links:
+            - web:test.localhost

@@ -1,0 +1,10 @@
+version: 2
+
+options:
+    verbose: false
+
+syncs:
+    sync.tool:
+        sync_strategy: 'unison' 
+        sync_host_ip: '127.0.0.1'
+        src: .

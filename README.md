@@ -50,3 +50,36 @@ Upgrading the tool version consists of the following steps:
 2. Run `robo update`
 3. Apply database patch if needed. All patches are located in `data/db-migrations` and in `data/phinx-migrations`.
 
+
+# How to use ePartool in dev environment
+
+On Linux based operating system you need to use `docker-compose` command. On Windows and MacOS its recommended
+to use `docker-compose-sync` for better performance.
+
+## Installation
+
+Beside standard `docker-compose`,  `docker-sync` and `unison` are required for running this application on Windows and
+MacOS with better performance. Installation guide for specific operating system can be found on following websites:
+
+* For Windows: https://github.com/EugenMayer/docker-sync/wiki/docker-sync-on-Windows
+* For Mas OS: https://github.com/EugenMayer/docker-sync/wiki/docker-sync-on-Windows
+
+`docker-compose` command is part of Docker and it is not required to install it again.
+
+## Use
+
+On Linux based operating system:
+
+* `docker-compose up` or `docker-compose start` to start server
+* `docker-compose stop` to stop server
+
+On Windows and Mac OS using `docker-compose-sync`:
+
+* `./docker-compose-sync.sh start` to start server
+* `./docker-compose-sync.sh stop` to stop server
+
+## Caution
+
+First run of both start commands can take a few minutes. First run of `docker-compose-sync` will last longer
+because of initial synchronization of all files. You can set `verbose: true` in `docker-sync.yml` if you want be sure
+that files are being synchronized correctly.
