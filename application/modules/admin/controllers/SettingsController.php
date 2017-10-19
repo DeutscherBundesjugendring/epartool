@@ -329,11 +329,8 @@ class Admin_SettingsController extends Zend_Controller_Action
     private function getJsTranslations()
     {
         return [
-            'theme_alert_override' => $this->view->translate(
+            'theme_confirm_override' => $this->view->translate(
                 'Do you want to override the current colour scheme? Any previous custom settings will be lost.'
-            ),
-            'theme_confirm_override_custom' => $this->view->translate(
-                'Custom colors are set. Do you want to replace them with predefined theme?'
             ),
         ];
     }

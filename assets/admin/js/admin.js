@@ -241,7 +241,7 @@
     $('.js-theme-preset').click(function() {
       var colors;
       if (!$('#themes').data('presetTheme')) {
-        if (!confirm(jsTranslations['theme_confirm_override_custom'])) {
+        if (!confirm(jsTranslations['theme_confirm_override'])) {
           return false;
         }
       }
@@ -262,7 +262,7 @@
       format: "hex"
     }).on('focusin showPicker', function() {
       if ($('#themes').data('presetTheme')) {
-        if (!confirm(jsTranslations['theme_alert_override'])) {
+        if (!confirm(jsTranslations['theme_confirm_override'])) {
           $(this).find('.js-color-input').blur();
           $(this).colorpicker('hide');
           return true;

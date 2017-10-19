@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Dbjr Tool\n"
-"POT-Creation-Date: 2017-10-18 16:16+0200\n"
-"PO-Revision-Date: 2017-10-18 16:18+0200\n"
+"POT-Creation-Date: 2017-10-19 09:46+0200\n"
+"PO-Revision-Date: 2017-10-19 09:46+0200\n"
 "Last-Translator: Martin Bohal <mb@mbohal.cz>\n"
 "Language-Team: epartool@dbjr.de\n"
 "Language: de\n"
@@ -678,11 +678,6 @@ msgid ""
 msgstr ""
 "Soll das Farbschema wirklich geändert werden? Bisherige Farbeinstellungen "
 "gehen damit verloren."
-
-#: application/modules/admin/controllers/SettingsController.php:336
-msgid ""
-"Custom colors are set. Do you want to replace them with predefined theme?"
-msgstr ""
 
 #: application/modules/admin/controllers/TagController.php:48
 msgid "New keyword has been added."
