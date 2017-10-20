@@ -29,7 +29,6 @@ class Admin_Form_ArticlePreview extends Dbjr_Form_Admin
         $this->addElement($sidebar);
 
         $hide = $this->createElement('hidden', 'is_showed');
-        $hide->setRequired(true);
         $this->addElement($hide);
 
         $project = $this->createElement('hidden', 'proj');
