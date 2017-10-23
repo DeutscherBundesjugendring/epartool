@@ -186,8 +186,14 @@ class Model_Tags extends Dbjr_Db_Table_Abstract
 
         if ($excludeInvisible) {
             $select
-                ->where('is_confirmed <> ?', false)
-                ->where('is_confirmed_by_user = ?', true);
+                ->where(
+                    '(i.uid IS NOT NULL AND i.is_confirmed_by_user = 1
+                        AND (i.is_confirmed IS NULL OR i.is_confirmed = 1)
+                    )
+                    OR (i.uid IS NULL AND (i.is_confirmed_by_user IS NULL OR i.is_confirmed_by_user = 1)
+                        AND i.is_confirmed = 1
+                    )'
+                );
         }
         if ($withoutAdmin) {
             $select->where('(uid IS NOT NULL OR confirmation_key IS NOT NULL)');

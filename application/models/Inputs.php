@@ -295,8 +295,14 @@ class Model_Inputs extends Dbjr_Db_Table_Abstract
 
         if ($excludeInvisible) {
             $select
-                ->where('is_confirmed <> ?', false)
-                ->where('is_confirmed_by_user = ?', true);
+                ->where(
+                    '(i.uid IS NOT NULL AND i.is_confirmed_by_user = 1
+                        AND (i.is_confirmed IS NULL OR i.is_confirmed = 1)
+                    )
+                    OR (i.uid IS NULL AND (i.is_confirmed_by_user IS NULL OR i.is_confirmed_by_user = 1)
+                        AND i.is_confirmed = 1
+                    )'
+                );
         }
 
         if ($withoutAdmin) {
@@ -415,8 +421,14 @@ class Model_Inputs extends Dbjr_Db_Table_Abstract
             ->where('i.qi = ?', $qid);
         if ($excludeInvisible) {
             $select
-                ->where('i.is_confirmed <> ?', false)
-                ->where('i.is_confirmed_by_user = ?', true);
+                ->where(
+                    '(i.uid IS NOT NULL AND i.is_confirmed_by_user = 1
+                        AND (i.is_confirmed IS NULL OR i.is_confirmed = 1)
+                    )
+                    OR (i.uid IS NULL AND (i.is_confirmed_by_user IS NULL OR i.is_confirmed_by_user = 1)
+                        AND i.is_confirmed = 1
+                    )'
+                );
         }
 
         if ($withoutAdmin) {
@@ -503,8 +515,18 @@ class Model_Inputs extends Dbjr_Db_Table_Abstract
 
         $select
             ->where('i.qi = ?', $qid)
-            ->where('i.is_confirmed IS NULL OR i.is_confirmed != ?', false)
-            ->where('i.is_confirmed_by_user = ?', true)
+            ->where(sprintf(
+                '(i.uid IS NOT NULL AND i.is_confirmed_by_user = %d
+                    AND (i.is_confirmed IS NULL OR i.is_confirmed = %d)
+                )
+                OR (i.uid IS NULL AND (i.is_confirmed_by_user IS NULL OR i.is_confirmed_by_user = %d)
+                    AND i.is_confirmed = %d
+                )',
+                (int) true,
+                (int) true,
+                (int) true,
+                (int) true
+            ))
             ->group('i.tid');
 
         if ($order) {
@@ -735,7 +757,7 @@ class Model_Inputs extends Dbjr_Db_Table_Abstract
                 break;
             case 'unc':
                 $select
-                    ->where('i.is_confirmed_by_user IS NULL OR i.is_confirmed_by_user != ?', true)
+                    ->where('i.is_confirmed_by_user IS NULL OR i.is_confirmed_by_user = ?', false)
                     ->where('(i.uid IS NOT NULL OR i.confirmation_key IS NOT NULL)');
                 break;
             case 'all':
@@ -853,7 +875,7 @@ class Model_Inputs extends Dbjr_Db_Table_Abstract
                     'q.qi = i.qi',
                     []
                 )
-                ->where('i.is_confirmed IS NULL OR i.is_confirmed != ?', false)
+                ->where('i.is_confirmed IS NULL OR i.is_confirmed = ?', true)
                 ->where('i.is_confirmed_by_user = ?', true)
                 ->where('q.kid=?', $consultationId)
                 ->limit($limit);
@@ -1628,7 +1650,7 @@ class Model_Inputs extends Dbjr_Db_Table_Abstract
      */
     public function getCountContributionsUnconfirmed(\Zend_Db_Select $contributions)
     {
-        $contributions->where('is_confirmed_by_user IS NULL OR is_confirmed_by_user != ?', true);
+        $contributions->where('is_confirmed_by_user IS NULL OR is_confirmed_by_user = ?', false);
 
         return $this->fetchAll($contributions)->current()->count;
     }
