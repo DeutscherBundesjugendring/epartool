@@ -515,18 +515,14 @@ class Model_Inputs extends Dbjr_Db_Table_Abstract
 
         $select
             ->where('i.qi = ?', $qid)
-            ->where(sprintf(
-                '(i.uid IS NOT NULL AND i.is_confirmed_by_user = %d
-                    AND (i.is_confirmed IS NULL OR i.is_confirmed = %d)
-                )
-                OR (i.uid IS NULL AND (i.is_confirmed_by_user IS NULL OR i.is_confirmed_by_user = %d)
-                    AND i.is_confirmed = %d
-                )',
-                (int) true,
-                (int) true,
-                (int) true,
-                (int) true
-            ))
+            ->where(
+                '(i.uid IS NOT NULL AND i.is_confirmed_by_user = 1
+                        AND (i.is_confirmed IS NULL OR i.is_confirmed = 1)
+                    )
+                    OR (i.uid IS NULL AND (i.is_confirmed_by_user IS NULL OR i.is_confirmed_by_user = 1)
+                        AND i.is_confirmed = 1
+                    )'
+            )
             ->group('i.tid');
 
         if ($order) {

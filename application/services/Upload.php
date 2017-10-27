@@ -23,7 +23,7 @@ class Service_Upload
      */
     private function convertDataSizeToBytes($size)
     {
-        $unit = strtolower(mb_substr($size, mb_strlen($size) - 1, 1));
+        $unit = mb_strtolower(mb_substr($size, mb_strlen($size) - 1, 1));
         $bytes = (int) mb_substr($size, 0, mb_strlen($size) - 1);
         // 29.09.2017 jiri@visionapps.cz - missing break commands are not a mistake
         switch ($unit) {
