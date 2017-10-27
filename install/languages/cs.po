@@ -1,113 +1,193 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: dbjr install\n"
-"POT-Creation-Date: 2015-06-29 18:10+0100\n"
-"PO-Revision-Date: 2015-06-29 18:10+0100\n"
+"POT-Creation-Date: 2017-10-27 15:56+0200\n"
+"PO-Revision-Date: 2017-10-27 15:56+0200\n"
 "Last-Translator: Martin Bohal <mb@mbohal.cz>\n"
 "Language-Team: \n"
-"Language: en\n"
+"Language: cs\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.5.4\n"
+"X-Generator: Poedit 1.8.12\n"
 "X-Poedit-KeywordsList: translate;setLabel\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-SearchPath-0: .\n"
 
-#: Install_Form.php:14
+#: src/Form/InstallForm.php:19
 msgid "Hostname"
-msgstr ""
+msgstr "Jméno hostitele"
 
-#: Install_Form.php:20
+#: src/Form/InstallForm.php:25
 msgid "Database Name"
-msgstr ""
+msgstr "Název databáze"
 
-#: Install_Form.php:26
+#: src/Form/InstallForm.php:31 src/Form/InstallForm.php:144
 msgid "Username"
-msgstr ""
+msgstr "Uživatelské jméno"
 
-#: Install_Form.php:32
+#: src/Form/InstallForm.php:37 src/Form/InstallForm.php:149
+#: src/Form/InstallForm.php:238
 msgid "Password"
+msgstr "Heslo"
+
+#: src/Form/InstallForm.php:44
+msgid "Database"
 msgstr ""
 
-#: Install_Form.php:39
-msgid "Database settings"
-msgstr ""
-
-#: Install_Form.php:46
+#: src/Form/InstallForm.php:51
 msgid "Language"
-msgstr ""
+msgstr "Jazyk"
 
-#: Install_Form.php:47
-msgid "English"
-msgstr ""
-
-#: Install_Form.php:47
-msgid "German"
-msgstr ""
-
-#: Install_Form.php:52
+#: src/Form/InstallForm.php:66
 msgid "Cron key"
+msgstr "Cron modul"
+
+#: src/Form/InstallForm.php:74
+msgid "Application"
 msgstr ""
 
-#: Install_Form.php:59
-msgid "Tool settings"
-msgstr ""
-
-#: Install_Form.php:66
+#: src/Form/InstallForm.php:81
 msgid "Email From Address"
-msgstr ""
+msgstr "Email z Adresy"
 
-#: Install_Form.php:72
+#: src/Form/InstallForm.php:87
 msgid "Email From Name"
-msgstr ""
+msgstr "Email od Jména"
 
-#: Install_Form.php:78
+#: src/Form/InstallForm.php:93
 msgid "Email Reply To Address"
-msgstr ""
+msgstr "Odpovědět na Adresu"
 
-#: Install_Form.php:84
+#: src/Form/InstallForm.php:99
 msgid "Email Reply To Name"
+msgstr "Odpovědět na Jméno"
+
+#: src/Form/InstallForm.php:106
+msgid "System Email"
 msgstr ""
 
-#: Install_Form.php:91
-msgid "Email settings"
+#: src/Form/InstallForm.php:113
+msgid "Auth Type"
 msgstr ""
 
-#: Install_Form.php:98
-msgid "Facebook App Id"
+#: src/Form/InstallForm.php:115
+msgid "Please select..."
 msgstr ""
 
-#: Install_Form.php:103
+#: src/Form/InstallForm.php:124
+msgid "Port"
+msgstr ""
+
+#: src/Form/InstallForm.php:129
+msgid "Encryption"
+msgstr ""
+
+#: src/Form/InstallForm.php:131
+msgid "None"
+msgstr ""
+
+#: src/Form/InstallForm.php:139
+msgid "Host"
+msgstr ""
+
+#: src/Form/InstallForm.php:155
+msgid "Smtp Settings (If unsure, leave blank)"
+msgstr ""
+
+#: src/Form/InstallForm.php:162
+msgid "Facebook App ID"
+msgstr ""
+
+#: src/Form/InstallForm.php:174
 msgid "Facebook App Secret"
+msgstr "Secret Facebookové aplikace "
+
+#: src/Form/InstallForm.php:185
+msgid "Google Client ID"
 msgstr ""
 
-#: Install_Form.php:108
-msgid "Google Client Id"
-msgstr ""
-
-#: Install_Form.php:113
+#: src/Form/InstallForm.php:196
 msgid "Google Client Secret"
+msgstr "Secret Google klienta"
+
+#: src/Form/InstallForm.php:207
+msgid "Vimeo Access Token"
 msgstr ""
 
-#: Install_Form.php:119
-msgid "Webservice settings"
+#: src/Form/InstallForm.php:219
+msgid "Social network login"
 msgstr ""
 
-#: Install_Form.php:131
+#: src/Form/InstallForm.php:226
+msgid "Name"
+msgstr ""
+
+#: src/Form/InstallForm.php:232
+msgid "Email"
+msgstr ""
+
+#: src/Form/InstallForm.php:245
+msgid "Administrator"
+msgstr ""
+
+#: src/Form/InstallForm.php:258
 msgid "Install"
+msgstr "Instalovat"
+
+#: views/layouts/base.phtml:8 views/layouts/base.phtml:23
+msgid "ePartool"
 msgstr ""
 
-#: views/scripts/step-3.phtml:2
+#: views/scripts/already-installed.phtml:3
+msgid "The application seems to be already installed."
+msgstr "Aplikace byla již nainstalována."
+
+#: views/scripts/file-permissions.phtml:1
+msgid ""
+"Please make sure all of the folders below exist and are writable by the php "
+"process."
+msgstr ""
+
+#: views/scripts/file-permissions.phtml:37
+msgid "Continue"
+msgstr ""
+
+#: views/scripts/step-3.phtml:4
 msgid ""
 "The installation is finished. Please make sure to delete the install folder "
 "from your website root folder."
 msgstr ""
+"Instalace byla dokončena. Ujistěte se, že jste vymazali instalační adresář z "
+"kořenového adresáře vašich webových stránek. "
 
-#: views/scripts/already-installed.phtml:1
-msgid "The application seems to be already installed."
+#: views/scripts/step-3.phtml:8
+msgid "Go to my site"
 msgstr ""
 
-#: views/layouts/base.phtml:4 views/layouts/base.phtml:13
-msgid "TOOL Installation wizard"
-msgstr ""
+#~ msgid "Database settings"
+#~ msgstr "Nastavení databáze"
+
+#~ msgid "English"
+#~ msgstr "Angličtina"
+
+#~ msgid "German"
+#~ msgstr "Němčina"
+
+#~ msgid "Tool settings"
+#~ msgstr "Nastavení nástrojů"
+
+#~ msgid "Email settings"
+#~ msgstr "Nastavení elektronické pošty"
+
+#~ msgid "Facebook App Id"
+#~ msgstr "ID Facebookové aplikace"
+
+#~ msgid "Google Client Id"
+#~ msgstr "ID Google klienta"
+
+#~ msgid "Webservice settings"
+#~ msgstr "Nastavení síťových služeb"
+
+#~ msgid "TOOL Installation wizard"
+#~ msgstr "Instalační rozhraní TOOL "

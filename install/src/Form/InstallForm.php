@@ -50,14 +50,14 @@ class InstallForm extends Dbjr_Form_Web
         $locale
             ->setLabel('Language')
             ->setMultioptions([
-                'cs_CZ' => $trans->translate('Česky'),
-                'de_DE' => $trans->translate('Deutsch'),
-                'en_US' => $trans->translate('English'),
-                'es_ES' => $trans->translate('Español'),
-                'fr_FR' => $trans->translate('Français'),
-                'pl_PL' => $trans->translate('Polski'),
-                'ru_RU' => $trans->translate('русский'),
-                'ar_AR' => $trans->translate('العربية'),
+                'cs_CZ' => 'Česky',
+                'de_DE' => 'Deutsch',
+                'en_US' => 'English',
+                'es_ES' => 'Español',
+                'fr_FR' => 'Français',
+                'pl_PL' => 'Polski',
+                'ru_RU' => 'русский',
+                'ar_AR' => 'العربية',
             ]);
         $this->addElement($locale);
 
