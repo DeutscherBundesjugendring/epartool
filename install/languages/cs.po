@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dbjr install\n"
 "POT-Creation-Date: 2017-10-27 15:56+0200\n"
-"PO-Revision-Date: 2017-10-27 15:56+0200\n"
+"PO-Revision-Date: 2017-10-30 16:38+0100\n"
 "Last-Translator: Martin Bohal <mb@mbohal.cz>\n"
 "Language-Team: \n"
 "Language: cs\n"
@@ -33,7 +33,7 @@ msgstr "Heslo"
 
 #: src/Form/InstallForm.php:44
 msgid "Database"
-msgstr ""
+msgstr "Databáze"
 
 #: src/Form/InstallForm.php:51
 msgid "Language"
@@ -45,7 +45,7 @@ msgstr "Cron modul"
 
 #: src/Form/InstallForm.php:74
 msgid "Application"
-msgstr ""
+msgstr "Aplikace"
 
 #: src/Form/InstallForm.php:81
 msgid "Email From Address"
@@ -65,39 +65,39 @@ msgstr "Odpovědět na Jméno"
 
 #: src/Form/InstallForm.php:106
 msgid "System Email"
-msgstr ""
+msgstr "Email systému"
 
 #: src/Form/InstallForm.php:113
 msgid "Auth Type"
-msgstr ""
+msgstr "Auth Type"
 
 #: src/Form/InstallForm.php:115
 msgid "Please select..."
-msgstr ""
+msgstr "Zvolte..."
 
 #: src/Form/InstallForm.php:124
 msgid "Port"
-msgstr ""
+msgstr "Port"
 
 #: src/Form/InstallForm.php:129
 msgid "Encryption"
-msgstr ""
+msgstr "Zašifrování"
 
 #: src/Form/InstallForm.php:131
 msgid "None"
-msgstr ""
+msgstr "Žádný"
 
 #: src/Form/InstallForm.php:139
 msgid "Host"
-msgstr ""
+msgstr "Hostitel"
 
 #: src/Form/InstallForm.php:155
 msgid "Smtp Settings (If unsure, leave blank)"
-msgstr ""
+msgstr "Nastavení smtp (pokud neznáte, nechte prázdné)"
 
 #: src/Form/InstallForm.php:162
 msgid "Facebook App ID"
-msgstr ""
+msgstr "ID Facebook Aplikace"
 
 #: src/Form/InstallForm.php:174
 msgid "Facebook App Secret"
@@ -105,7 +105,7 @@ msgstr "Secret Facebookové aplikace "
 
 #: src/Form/InstallForm.php:185
 msgid "Google Client ID"
-msgstr ""
+msgstr "ID Google klienta"
 
 #: src/Form/InstallForm.php:196
 msgid "Google Client Secret"
@@ -113,23 +113,23 @@ msgstr "Secret Google klienta"
 
 #: src/Form/InstallForm.php:207
 msgid "Vimeo Access Token"
-msgstr ""
+msgstr "Přístupový token Vimeo"
 
 #: src/Form/InstallForm.php:219
 msgid "Social network login"
-msgstr ""
+msgstr "Login do sociální sítě"
 
 #: src/Form/InstallForm.php:226
 msgid "Name"
-msgstr ""
+msgstr "Jméno"
 
 #: src/Form/InstallForm.php:232
 msgid "Email"
-msgstr ""
+msgstr "Email"
 
 #: src/Form/InstallForm.php:245
 msgid "Administrator"
-msgstr ""
+msgstr "Administrátor"
 
 #: src/Form/InstallForm.php:258
 msgid "Install"
@@ -137,7 +137,7 @@ msgstr "Instalovat"
 
 #: views/layouts/base.phtml:8 views/layouts/base.phtml:23
 msgid "ePartool"
-msgstr ""
+msgstr "ePartool"
 
 #: views/scripts/already-installed.phtml:3
 msgid "The application seems to be already installed."
@@ -148,10 +148,12 @@ msgid ""
 "Please make sure all of the folders below exist and are writable by the php "
 "process."
 msgstr ""
+"Zkontrolujte prosím zda všechny tyto složky existují a zda je možno je "
+"zapsat v php."
 
 #: views/scripts/file-permissions.phtml:37
 msgid "Continue"
-msgstr ""
+msgstr "Pokračovat"
 
 #: views/scripts/step-3.phtml:4
 msgid ""
@@ -163,7 +165,7 @@ msgstr ""
 
 #: views/scripts/step-3.phtml:8
 msgid "Go to my site"
-msgstr ""
+msgstr "Jít na mé stránky"
 
 #~ msgid "Database settings"
 #~ msgstr "Nastavení databáze"
