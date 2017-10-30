@@ -134,7 +134,7 @@ class Model_Users extends Dbjr_Db_Table_Abstract
             'date_added' => new Zend_Db_Expr('NOW()'),
             'confirmation_key' => $this->_auth->hasIdentity() ? null : $confirmKey,
             'time_user_confirmed' => new Zend_Db_Expr('NOW()'),
-            'age_group' => !isset($data['age_group']) ? null : $data['age_group'],
+            'age_group' => (!isset($data['age_group']) || !$data['age_group']) ? null : $data['age_group'],
         ];
 
         $properties = [
