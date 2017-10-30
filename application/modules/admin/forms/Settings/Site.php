@@ -50,7 +50,6 @@ class Admin_Form_Settings_Site extends Dbjr_Form_Admin
         $siteMotto = $this->createElement('text', 'site_motto');
         $siteMotto
             ->setLabel('Motto')
-            ->setRequired(true)
             ->setAttrib('maxlength', 1000)
             ->setDescription($desc);
         $this->addElement($siteMotto);
