@@ -20,7 +20,7 @@ class Admin_FollowupController extends Zend_Controller_Action
     }
 
     /*
-     * Displayes a list of follow-ups for the given consultation
+     * Displayes a list of reaction_file for the given consultation
      */
     public function indexAction()
     {
@@ -30,7 +30,7 @@ class Admin_FollowupController extends Zend_Controller_Action
     }
 
     /*
-     * Creates a new snippet
+     * Creates a new reaction_snippet
      */
     public function createSnippetAction()
     {
@@ -75,12 +75,12 @@ class Admin_FollowupController extends Zend_Controller_Action
         }
 
         $this->view->form = $form;
-        $this->view->pageTitle = $this->view->translate('Create Follow-Up Snippet');
+        $this->view->pageTitle = $this->view->translate('Create Reactions & Impact Snippet');
         $this->render('snippet-detail');
     }
 
     /*
-     * Edits a snippet
+     * Edits a reaction_snippet
      */
     public function editSnippetAction()
     {
@@ -121,12 +121,12 @@ class Admin_FollowupController extends Zend_Controller_Action
         }
 
         $this->view->form = $form;
-        $this->view->pageTitle = $this->view->translate('Edit Follow-Up Snippet');
+        $this->view->pageTitle = $this->view->translate('Edit Reactions & Impact Snippet');
         $this->render('snippet-detail');
     }
 
     /*
-     * Creates new follow-up
+     * Creates new reaction_file
      */
     public function createFollowupAction()
     {
@@ -142,20 +142,20 @@ class Admin_FollowupController extends Zend_Controller_Action
                 (new Service_Notification_FollowUpCreatedNotification())->notify([
                     Service_Notification_FollowUpCreatedNotification::PARAM_CONSULTATION_ID => $this->_kid,
                 ]);
-                $this->_flashMessenger->addMessage('New follow-up has been successfully created.', 'success');
+                $this->_flashMessenger->addMessage('New Reactions & Impact has been successfully created.', 'success');
                 $this->_redirect($this->view->url(['action' => 'edit-followup', 'ffid' => $newId]), ['prependBase' => false]);
             } else {
-                $this->_flashMessenger->addMessage('The follow-up could not be created.', 'error');
+                $this->_flashMessenger->addMessage('The Reactions & Impact could not be created.', 'error');
             }
         }
 
         $this->view->form = $form;
-        $this->view->pageTitle = $this->view->translate('Create Follow-up');
+        $this->view->pageTitle = $this->view->translate('Create Reactions & Impact');
         $this->render('followup-detail');
     }
 
     /*
-     * Edits a follow-up
+     * Edits a reaction_file
      */
     public function editFollowupAction()
     {
@@ -176,7 +176,7 @@ class Admin_FollowupController extends Zend_Controller_Action
                 $this->_flashMessenger->addMessage('Changes saved.', 'success');
                 $this->_redirect($this->view->url(), ['prependBase' => false]);
             } else {
-                $this->_flashMessenger->addMessage('The follow-up could not be saved.', 'error');
+                $this->_flashMessenger->addMessage('The Reactions & Impact could not be saved.', 'error');
                 $followupFile = $params;
             }
         } else {
@@ -185,12 +185,12 @@ class Admin_FollowupController extends Zend_Controller_Action
         }
 
         $this->view->form = $form;
-        $this->view->pageTitle = $this->view->translate('Edit Follow-Up');
+        $this->view->pageTitle = $this->view->translate('Edit Reactions & Impact');
         $this->render('followup-detail');
     }
 
     /**
-     * Displays the list fo snippets for the given follow-up
+     * Displays the list fo reaction_snippets for the given reaction_file
      */
     public function snippetsAction()
     {
@@ -236,7 +236,7 @@ class Admin_FollowupController extends Zend_Controller_Action
     }
 
     /*
-     * Deletes a follow-up if there are no snippets attached to it
+     * Deletes a reaction_file if there are no reaction_snippets attached to it
      */
     public function deleteFollowupAction()
     {
@@ -248,9 +248,9 @@ class Admin_FollowupController extends Zend_Controller_Action
                     ->find($this->getRequest()->getPost('delete'))
                     ->current()
                     ->delete();
-                $this->_flashMessenger->addMessage('The follow-up has been deleted.', 'success');
+                $this->_flashMessenger->addMessage('The reaction & impact has been deleted.', 'success');
             } catch (Dbjr_Exception $e) {
-                $this->_flashMessenger->addMessage('The follow-up could not be deleted as there are snippets attached to it.', 'error');
+                $this->_flashMessenger->addMessage('The reaction & impact could not be deleted as there are snippets attached to it.', 'error');
             }
 
             $this->_redirect($this->view->url(['action' => 'index', 'ffid' => null]), ['prependBase' => false]);
@@ -260,7 +260,7 @@ class Admin_FollowupController extends Zend_Controller_Action
     }
 
     /**
-     * Displays and edits snippet links
+     * Displays and edits reaction_snippet links
      */
     public function snippetReferenceAction()
     {
@@ -286,7 +286,7 @@ class Admin_FollowupController extends Zend_Controller_Action
                     $snippetId,
                     'ffid'
                 );
-                $message = sprintf($this->view->translate('%d follow-ups linked.'), $inserted);
+                $message = sprintf($this->view->translate('%d Reactions & Impact linked.'), $inserted);
                 $this->_flashMessenger->addMessage($message, 'success');
             }
             if (!empty($postData['link_snippets'])) {

@@ -30,7 +30,7 @@ class Model_FollowupFiles extends Zend_Db_Table_Abstract
 
     /**
      * getByKid
-     * @desc get follow-up files by consultation id
+     * @desc get reaction_files by consultation id
      * @param  integer $kid
      * @param  string  $order
      * @param  integer $limit
@@ -149,9 +149,9 @@ class Model_FollowupFiles extends Zend_Db_Table_Abstract
     }
 
     /**
-     * Returns follow-ups with the associated snippets
+     * Returns reaction_files with the associated reaction_snippets
      * @param  array $wheres An array of where conditions
-     * @return array         An array of the follow-up arrays
+     * @return array         An array of the reaction_file arrays
      */
     public function getWithSnippets($wheres)
     {
@@ -210,7 +210,7 @@ class Model_FollowupFiles extends Zend_Db_Table_Abstract
             ->count;
 
         if ($relatedSnippetCount) {
-            throw new Dbjr_Exception('Cant delete follow-up if snippets exist.');
+            throw new Dbjr_Exception('Cant delete reaction & impact if snippets exist.');
         }
 
         return parent::delete($where);

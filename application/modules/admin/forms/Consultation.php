@@ -204,7 +204,7 @@ class Admin_Form_Consultation extends Dbjr_Form_Admin
 
         $followupShow = $this->createElement('checkbox', 'is_followup_phase_showed');
         $followupShow
-            ->setLabel('Enable follow-ups')
+            ->setLabel('Enable Reactions & Impact')
             ->setRequired(true)
             ->setCheckedValue('1')
             ->setUncheckedValue('0');
@@ -212,7 +212,7 @@ class Admin_Form_Consultation extends Dbjr_Form_Admin
 
         $followUpExplanation = $this->createElement('textarea', 'follow_up_explanation');
         $followUpExplanation
-            ->setLabel('Follow-Up phase explanation')
+            ->setLabel('Reactions & Impact phase explanation')
             ->setWysiwygType(Dbjr_Form_Element_Textarea::WYSIWYG_TYPE_STANDARD)
             ->setAttrib('rows', 5);
         $this->addElement($followUpExplanation);

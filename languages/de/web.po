@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Dbjr Tool\n"
-"POT-Creation-Date: 2017-09-06 15:26+0200\n"
-"PO-Revision-Date: 2017-09-06 15:27+0200\n"
+"POT-Creation-Date: 2017-11-02 10:11+0100\n"
+"PO-Revision-Date: 2017-11-02 10:11+0100\n"
 "Last-Translator: Martin Bohal <mb@mbohal.cz>\n"
 "Language-Team: epartool@dbjr.de\n"
 "Language: de\n"
@@ -93,7 +93,7 @@ msgid "Follow path"
 msgstr "Folge Verlauf"
 
 #: application/modules/default/controllers/FollowupController.php:581
-msgid "An error occurred. Unable to load follow-up timeline."
+msgid "An error occurred. Unable to load Reactions & Impact timeline."
 msgstr "Ein Fehler trat auf. Zeitleiste kann nicht geladen werden."
 
 #: application/modules/default/controllers/FollowupController.php:582
@@ -483,7 +483,7 @@ msgid "Save and proceed"
 msgstr "Speichern und nächste Frage"
 
 #: application/modules/default/forms/Input/Create.php:41
-#: application/modules/default/views/scripts/voting/overview.phtml:89
+#: application/modules/default/views/scripts/voting/overview.phtml:82
 #: application/modules/default/views/scripts/voting/vote.phtml:33
 #: application/modules/default/views/scripts/voting/vote.phtml:175
 msgid "Finish"
@@ -896,7 +896,7 @@ msgstr "Reaktionen & Wirkung"
 
 #: application/modules/default/views/helpers/SecondNavigation.php:52
 #: application/modules/default/views/helpers/SecondNavigation.php:59
-#: application/modules/default/views/helpers/Teaser.php:38
+#: application/modules/default/views/helpers/Teaser.php:43
 #: application/modules/default/views/scripts/_partials/consultationPreviews.phtml:134
 #: application/modules/default/views/scripts/_partials/consultationPreviews.phtml:143
 #: application/modules/default/views/scripts/_partials/consultationPreviews.phtml:174
@@ -906,8 +906,8 @@ msgstr "vom"
 
 #: application/modules/default/views/helpers/SecondNavigation.php:55
 #: application/modules/default/views/helpers/SecondNavigation.php:62
-#: application/modules/default/views/helpers/Teaser.php:28
-#: application/modules/default/views/helpers/Teaser.php:40
+#: application/modules/default/views/helpers/Teaser.php:33
+#: application/modules/default/views/helpers/Teaser.php:45
 #: application/modules/default/views/scripts/_partials/consultationPreviews.phtml:136
 #: application/modules/default/views/scripts/_partials/consultationPreviews.phtml:145
 #: application/modules/default/views/scripts/_partials/consultationPreviews.phtml:176
@@ -923,32 +923,32 @@ msgstr "Jetzt mitmachen!"
 #: application/modules/default/views/helpers/SecondNavigation.php:112
 #: application/modules/default/views/scripts/_partials/consultationPreviews.phtml:172
 #: application/modules/default/views/scripts/voting/index.phtml:34
-#: application/modules/default/views/scripts/voting/overview.phtml:50
+#: application/modules/default/views/scripts/voting/overview.phtml:43
 #: application/modules/default/views/scripts/voting/vote.phtml:79
 msgid "Vote now!"
 msgstr "Stimme jetzt ab!"
 
-#: application/modules/default/views/helpers/Teaser.php:25
+#: application/modules/default/views/helpers/Teaser.php:30
 msgid "You can publish your contribution now!"
 msgstr "Jetzt kannst du deinen Beitrag einstellen!"
 
-#: application/modules/default/views/helpers/Teaser.php:26
+#: application/modules/default/views/helpers/Teaser.php:31
 msgid "From"
 msgstr "Vom"
 
-#: application/modules/default/views/helpers/Teaser.php:37
+#: application/modules/default/views/helpers/Teaser.php:42
 msgid "The contribution phase has finished. You can vote soon:"
 msgstr "Die Beitragsphase ist vorbei! Demnächst kann abgestimmt werden:"
 
-#: application/modules/default/views/helpers/Teaser.php:49
+#: application/modules/default/views/helpers/Teaser.php:54
 msgid "Vote now on the most important contributions!"
 msgstr "Jetzt ist Abstimmen über die wichtigsten Beiträge angesagt!"
 
-#: application/modules/default/views/helpers/Teaser.php:57
+#: application/modules/default/views/helpers/Teaser.php:62
 msgid "Voting has finished! There will soon be reactions available"
 msgstr "Die Abstimmungsphase ist vorbei! Demnächst wird es Reaktionen geben"
 
-#: application/modules/default/views/helpers/Teaser.php:65
+#: application/modules/default/views/helpers/Teaser.php:70
 msgid "Get informed now"
 msgstr "Jetzt informieren"
 
@@ -1333,8 +1333,8 @@ msgid "User Contributions"
 msgstr "Beiträge"
 
 #: application/modules/default/views/scripts/index/search.phtml:91
-msgid "Search in Follow-Ups"
-msgstr "Suche in Follow-Up"
+msgid "Search in Reactions & Impact"
+msgstr "Suche in Reaktionen & Wirkung"
 
 #: application/modules/default/views/scripts/index/search.phtml:118
 msgid "Reactions"
@@ -1506,8 +1506,8 @@ msgid "When new document is added"
 msgstr "Wenn ein neues Dokument hinzugefügt wird"
 
 #: application/modules/default/views/scripts/user/notifications.phtml:131
-msgid "Unsubscribe from follow-up?"
-msgstr "Reaktionen abbestellen?"
+msgid "Unsubscribe from Reactions & Impact?"
+msgstr "Reaktionen & Wirkung abbestellen?"
 
 #: application/modules/default/views/scripts/user/passwordrecover.phtml:7
 msgid ""
@@ -1670,7 +1670,6 @@ msgstr ""
 "letzten Wochen und Monaten zurückgemeldet haben."
 
 #: application/modules/default/views/scripts/voting/index.phtml:30
-#: application/modules/default/views/scripts/voting/overview.phtml:15
 #: application/modules/default/views/scripts/voting/vote.phtml:44
 msgid "Join now!"
 msgstr "Mitmachen!"
@@ -1683,13 +1682,13 @@ msgstr ""
 "Die Abstimmung ist anonym. Deine E-Mail-Adresse benötigen wir nur, um zu "
 "überprüfen, ob du berechtigt bist, an der Abstimmung teilzunehmen."
 
-#: application/modules/default/views/scripts/voting/overview.phtml:44
+#: application/modules/default/views/scripts/voting/overview.phtml:37
 #: application/modules/default/views/scripts/voting/vote.phtml:73
 #, php-format
 msgid "You have voted on %s <br /> out of the total of %s contributions."
 msgstr "Du hast schon über %s  <br /> von insgesamt %s Beiträgen abgestimmt."
 
-#: application/modules/default/views/scripts/voting/overview.phtml:68
+#: application/modules/default/views/scripts/voting/overview.phtml:61
 msgid ""
 "Choose here the question or the keyword according to which the contributions "
 "to be voted will be shown first. You may change question or keyword any "
@@ -1705,11 +1704,11 @@ msgstr ""
 "Beiträge bearbeiten, wie du möchtest. Unterbrechungen sind problemlos "
 "möglich."
 
-#: application/modules/default/views/scripts/voting/overview.phtml:72
+#: application/modules/default/views/scripts/voting/overview.phtml:65
 msgid "Contributions by topic"
 msgstr "Beiträge nach Thema"
 
-#: application/modules/default/views/scripts/voting/overview.phtml:93
+#: application/modules/default/views/scripts/voting/overview.phtml:86
 #: application/modules/default/views/scripts/voting/vote.phtml:177
 #: application/modules/default/views/scripts/voting/vote.phtml:179
 msgid "Preview voting"
@@ -1833,6 +1832,15 @@ msgstr "Vergebene \"Besonders wichtig\"-Stimmen"
 #: application/modules/default/views/scripts/voting/vote.phtml:240
 msgid "Remove"
 msgstr "Entfernen"
+
+#~ msgid "An error occurred. Unable to load follow-up timeline."
+#~ msgstr "Ein Fehler trat auf. Zeitleiste kann nicht geladen werden."
+
+#~ msgid "Search in Follow-Ups"
+#~ msgstr "Suche in Follow-Up"
+
+#~ msgid "Unsubscribe from follow-up?"
+#~ msgstr "Reaktionen abbestellen?"
 
 #~ msgid "All age groups"
 #~ msgstr "Alle Altersgruppen"

@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2017-09-06 15:12+0200\n"
-"PO-Revision-Date: 2017-09-06 15:12+0200\n"
+"POT-Creation-Date: 2017-11-02 10:11+0100\n"
+"PO-Revision-Date: 2017-11-02 10:11+0100\n"
 "Last-Translator: Martin Bohal <mb@mbohal.cz>\n"
 "Language-Team: \n"
 "Language: en\n"
@@ -35,7 +35,7 @@ msgid "Action"
 msgstr ""
 
 #: application/models/FollowupFiles.php:26 application/models/Followups.php:30
-#: application/modules/admin/forms/Input.php:84
+#: application/modules/admin/forms/Input.php:86
 #: application/modules/admin/views/scripts/input/_inputBox.phtml:95
 msgid "Rejected"
 msgstr ""
@@ -65,7 +65,7 @@ msgid "Consultation voting"
 msgstr ""
 
 #: application/models/HelpText.php:22
-msgid "Consultation reactions & impact"
+msgid "Consultation Reactions & Impact"
 msgstr ""
 
 #: application/models/HelpText.php:23
@@ -93,11 +93,15 @@ msgid "Voting results"
 msgstr ""
 
 #: application/models/HelpText.php:30
+#: application/modules/admin/views/scripts/consultation/_consultationForm.phtml:97
+#: application/modules/admin/views/scripts/followup/index.phtml:27
+#: application/modules/admin/views/scripts/followup/snippet-reference.phtml:186
+#: application/modules/admin/views/scripts/index/index.phtml:78
 msgid "Reactions & Impact"
 msgstr ""
 
 #: application/models/HelpText.php:31
-msgid "Follow up snippets"
+msgid "Reactions & Impact snippets"
 msgstr ""
 
 #: application/models/HelpText.php:34
@@ -150,7 +154,7 @@ msgid "Creating new article failed."
 msgstr ""
 
 #: application/modules/admin/controllers/ArticleController.php:101
-#: application/modules/admin/controllers/ArticleController.php:178
+#: application/modules/admin/controllers/ArticleController.php:180
 #: application/modules/admin/controllers/ConsultationController.php:161
 #: application/modules/admin/controllers/ConsultationController.php:200
 #: application/modules/admin/controllers/ConsultationController.php:348
@@ -177,7 +181,7 @@ msgstr ""
 msgid "This article could not be hidden."
 msgstr ""
 
-#: application/modules/admin/controllers/ArticleController.php:176
+#: application/modules/admin/controllers/ArticleController.php:178
 #: application/modules/admin/controllers/ConsultationController.php:196
 #: application/modules/admin/controllers/FollowupController.php:103
 #: application/modules/admin/controllers/FollowupController.php:176
@@ -190,31 +194,31 @@ msgstr ""
 msgid "Changes saved."
 msgstr ""
 
-#: application/modules/admin/controllers/ArticleController.php:213
+#: application/modules/admin/controllers/ArticleController.php:215
 msgid "This article could not be deleted."
 msgstr ""
 
-#: application/modules/admin/controllers/ArticleController.php:220
+#: application/modules/admin/controllers/ArticleController.php:222
 msgid "Article has been deleted."
 msgstr ""
 
-#: application/modules/admin/controllers/ArticleController.php:222
+#: application/modules/admin/controllers/ArticleController.php:224
 msgid ""
 "Article could not be deleted. If there are any sub-articles, these have to "
 "be removed first."
 msgstr ""
 
-#: application/modules/admin/controllers/ArticleController.php:299
+#: application/modules/admin/controllers/ArticleController.php:301
 msgid "Area:"
 msgstr ""
 
-#: application/modules/admin/controllers/ArticleController.php:324
+#: application/modules/admin/controllers/ArticleController.php:326
 #: application/modules/admin/forms/Article.php:37
 #: application/modules/admin/views/scripts/mail-send/index.phtml:21
 msgid "Please select…"
 msgstr ""
 
-#: application/modules/admin/controllers/ArticleController.php:330
+#: application/modules/admin/controllers/ArticleController.php:332
 msgid "On subpages, reference name of parent page is used."
 msgstr ""
 
@@ -283,14 +287,14 @@ msgstr ""
 
 #: application/modules/admin/controllers/ConsultationController.php:412
 #: application/modules/admin/controllers/ConsultationController.php:440
-#: application/modules/admin/controllers/SettingsController.php:305
+#: application/modules/admin/controllers/SettingsController.php:311
 msgid "Form settings were updated."
 msgstr ""
 
 #: application/modules/admin/controllers/ConsultationController.php:416
 #: application/modules/admin/controllers/ConsultationController.php:444
 #: application/modules/admin/controllers/ConsultationController.php:452
-#: application/modules/admin/controllers/SettingsController.php:309
+#: application/modules/admin/controllers/SettingsController.php:315
 msgid ""
 "Form settings cannot be updated. Please check the errors marked in the form "
 "below and try again."
@@ -327,7 +331,7 @@ msgid "The snippet could not be created."
 msgstr ""
 
 #: application/modules/admin/controllers/FollowupController.php:78
-msgid "Create Follow-Up Snippet"
+msgid "Create Reactions & Impact Snippet"
 msgstr ""
 
 #: application/modules/admin/controllers/FollowupController.php:116
@@ -335,27 +339,28 @@ msgid "The snippet could not be saved."
 msgstr ""
 
 #: application/modules/admin/controllers/FollowupController.php:124
-msgid "Edit Follow-Up Snippet"
+msgid "Edit Reactions & Impact Snippet"
 msgstr ""
 
 #: application/modules/admin/controllers/FollowupController.php:145
-msgid "New follow-up has been successfully created."
+msgid "New Reactions & Impact has been successfully created."
 msgstr ""
 
 #: application/modules/admin/controllers/FollowupController.php:148
-msgid "The follow-up could not be created."
+msgid "The Reactions & Impact could not be created."
 msgstr ""
 
 #: application/modules/admin/controllers/FollowupController.php:153
-msgid "Create Follow-up"
+msgid "Create Reactions & Impact"
 msgstr ""
 
 #: application/modules/admin/controllers/FollowupController.php:179
-msgid "The follow-up could not be saved."
+msgid "The Reactions & Impact could not be saved."
 msgstr ""
 
 #: application/modules/admin/controllers/FollowupController.php:188
-msgid "Edit Follow-Up"
+#: application/modules/admin/views/scripts/followup/index.phtml:61
+msgid "Edit Reactions & Impact"
 msgstr ""
 
 #: application/modules/admin/controllers/FollowupController.php:209
@@ -367,12 +372,13 @@ msgid "Snippet order has been updated."
 msgstr ""
 
 #: application/modules/admin/controllers/FollowupController.php:251
-msgid "The follow-up has been deleted."
+msgid "The reaction & impact has been deleted."
 msgstr ""
 
 #: application/modules/admin/controllers/FollowupController.php:253
 msgid ""
-"The follow-up could not be deleted as there are snippets attached to it."
+"The reaction & impact could not be deleted as there are snippets attached to "
+"it."
 msgstr ""
 
 #: application/modules/admin/controllers/FollowupController.php:280
@@ -382,7 +388,7 @@ msgstr ""
 
 #: application/modules/admin/controllers/FollowupController.php:289
 #, php-format
-msgid "%d follow-ups linked."
+msgid "%d Reactions & Impact linked."
 msgstr ""
 
 #: application/modules/admin/controllers/FollowupController.php:298
@@ -464,9 +470,9 @@ msgid "No question provided."
 msgstr ""
 
 #: application/modules/admin/controllers/InputController.php:504
-#: application/modules/admin/forms/Input.php:82
-#: application/modules/admin/forms/Input.php:95
-#: application/modules/admin/forms/Input.php:108
+#: application/modules/admin/forms/Input.php:84
+#: application/modules/admin/forms/Input.php:97
+#: application/modules/admin/forms/Input.php:110
 #: application/modules/admin/views/scripts/followup/snippet-reference.phtml:82
 #: application/modules/admin/views/scripts/followup/snippets.phtml:75
 #: application/modules/admin/views/scripts/input/_inputBox.phtml:70
@@ -533,60 +539,60 @@ msgstr ""
 msgid "Template has been deleted."
 msgstr ""
 
-#: application/modules/admin/controllers/MediaController.php:97
+#: application/modules/admin/controllers/MediaController.php:99
 #: application/modules/admin/forms/Media/FileDetail.php:42
 #: application/modules/admin/views/scripts/votingprepare/overview.phtml:120
 msgid "Folder"
 msgstr ""
 
-#: application/modules/admin/controllers/MediaController.php:99
+#: application/modules/admin/controllers/MediaController.php:101
 #: application/modules/admin/views/helpers/MediaNavigation.php:15
 msgid "All Media"
 msgstr ""
 
-#: application/modules/admin/controllers/MediaController.php:128
-#: application/modules/admin/controllers/MediaController.php:171
+#: application/modules/admin/controllers/MediaController.php:130
+#: application/modules/admin/controllers/MediaController.php:173
 #: application/modules/admin/views/scripts/_partials/media-thumbnails.phtml:51
 msgid "Rename"
 msgstr ""
 
-#: application/modules/admin/controllers/MediaController.php:151
+#: application/modules/admin/controllers/MediaController.php:153
 msgid "The folder could not be renamed."
 msgstr ""
 
-#: application/modules/admin/controllers/MediaController.php:207
+#: application/modules/admin/controllers/MediaController.php:209
 msgid "The file could not be renamed."
 msgstr ""
 
-#: application/modules/admin/controllers/MediaController.php:271
+#: application/modules/admin/controllers/MediaController.php:273
 msgid "Create"
 msgstr ""
 
-#: application/modules/admin/controllers/MediaController.php:285
+#: application/modules/admin/controllers/MediaController.php:287
 msgid "The folder could not be created."
 msgstr ""
 
-#: application/modules/admin/controllers/MediaController.php:326
+#: application/modules/admin/controllers/MediaController.php:328
 #, php-format
 msgid "The file %s has been successfully uploaded."
 msgstr ""
 
-#: application/modules/admin/controllers/MediaController.php:349
-#: application/modules/admin/controllers/MediaController.php:355
+#: application/modules/admin/controllers/MediaController.php:351
+#: application/modules/admin/controllers/MediaController.php:357
 msgid "File could not be uploaded."
 msgstr ""
 
-#: application/modules/admin/controllers/MediaController.php:352
+#: application/modules/admin/controllers/MediaController.php:354
 msgid "File already exists."
 msgstr ""
 
-#: application/modules/admin/controllers/MediaController.php:378
-#: application/modules/admin/controllers/MediaController.php:381
+#: application/modules/admin/controllers/MediaController.php:380
+#: application/modules/admin/controllers/MediaController.php:383
 msgid "File could not be deleted."
 msgstr ""
 
-#: application/modules/admin/controllers/MediaController.php:421
-#: application/modules/admin/controllers/MediaController.php:450
+#: application/modules/admin/controllers/MediaController.php:423
+#: application/modules/admin/controllers/MediaController.php:452
 msgid "File does not exist."
 msgstr ""
 
@@ -633,23 +639,20 @@ msgid ""
 "the form below and try again."
 msgstr ""
 
-#: application/modules/admin/controllers/SettingsController.php:258
+#: application/modules/admin/controllers/SettingsController.php:264
 msgid "Theme was updated."
 msgstr ""
 
-#: application/modules/admin/controllers/SettingsController.php:266
+#: application/modules/admin/controllers/SettingsController.php:272
 msgid ""
 "Theme settings cannot be updated. Please check the errors marked in the form "
 "below and try again."
 msgstr ""
 
-#: application/modules/admin/controllers/SettingsController.php:327
-msgid "Do you want to override predefined theme with custom colors set?"
-msgstr ""
-
-#: application/modules/admin/controllers/SettingsController.php:330
+#: application/modules/admin/controllers/SettingsController.php:333
 msgid ""
-"Custom colors are set. Do you want to replace them with predefined theme?"
+"Do you want to override the current colour scheme? Any previous custom "
+"settings will be lost."
 msgstr ""
 
 #: application/modules/admin/controllers/TagController.php:48
@@ -817,15 +820,15 @@ msgstr ""
 #: application/modules/admin/forms/ContributionSubmission.php:76
 #: application/modules/admin/forms/Directory.php:18
 #: application/modules/admin/forms/Followup/File.php:87
-#: application/modules/admin/forms/Footer.php:42
+#: application/modules/admin/forms/Footer.php:43
 #: application/modules/admin/forms/HelpText.php:34
 #: application/modules/admin/forms/Mail/Component.php:54
 #: application/modules/admin/forms/Mail/Template.php:64
 #: application/modules/admin/forms/Question.php:67
 #: application/modules/admin/forms/Settings/ContributionSubmission.php:33
-#: application/modules/admin/forms/Settings/LookAndFeel.php:62
+#: application/modules/admin/forms/Settings/LookAndFeel.php:66
 #: application/modules/admin/forms/Settings/Services.php:55
-#: application/modules/admin/forms/Settings/Site.php:109
+#: application/modules/admin/forms/Settings/Site.php:108
 #: application/modules/admin/forms/Settings/Voting.php:16
 #: application/modules/admin/forms/Tag.php:30
 #: application/modules/admin/forms/User/Create.php:89
@@ -882,7 +885,7 @@ msgstr ""
 msgid "Preview"
 msgstr ""
 
-#: application/modules/admin/forms/ArticlePreview.php:50
+#: application/modules/admin/forms/ArticlePreview.php:49
 msgid "< Back to edit mode"
 msgstr ""
 
@@ -993,11 +996,11 @@ msgid "Allow videos in Discussion"
 msgstr ""
 
 #: application/modules/admin/forms/Consultation.php:207
-msgid "Enable follow-ups"
+msgid "Enable Reactions & Impact"
 msgstr ""
 
 #: application/modules/admin/forms/Consultation.php:215
-msgid "Follow-Up phase explanation"
+msgid "Reactions & Impact phase explanation"
 msgstr ""
 
 #: application/modules/admin/forms/Consultation.php:222
@@ -1039,7 +1042,7 @@ msgstr ""
 #: application/modules/admin/forms/Mail/Send.php:15
 #: application/modules/admin/views/scripts/consultation/_groupsForm.phtml:49
 #: application/modules/admin/views/scripts/consultation/_groupsForm.phtml:148
-#: application/modules/admin/views/scripts/mail-sent/index.phtml:56
+#: application/modules/admin/views/scripts/mail-sent/index.phtml:64
 msgid "To"
 msgstr ""
 
@@ -1103,9 +1106,7 @@ msgstr ""
 
 #: application/modules/admin/forms/ConsultationPhases.php:53
 #: application/modules/admin/views/helpers/ConsultationNavigation.php:103
-#: application/modules/admin/views/scripts/consultation/_consultationForm.phtml:97
-#: application/modules/admin/views/scripts/followup/index.phtml:27
-msgid "Follow-up"
+msgid "Reaction & Impact"
 msgstr ""
 
 #: application/modules/admin/forms/ContributionSubmission.php:10
@@ -1169,7 +1170,7 @@ msgstr ""
 #: application/modules/admin/forms/Mail/Template.php:22
 #: application/modules/admin/forms/Media/FileDetail.php:20
 #: application/modules/admin/forms/Media/FolderDetail.php:13
-#: application/modules/admin/forms/Settings/Site.php:68
+#: application/modules/admin/forms/Settings/Site.php:67
 #: application/modules/admin/forms/User/Create.php:15
 #: application/modules/admin/forms/User/Edit.php:20
 #: application/modules/admin/views/scripts/input/index.phtml:88
@@ -1186,7 +1187,7 @@ msgstr ""
 
 #: application/modules/admin/forms/Followup/File.php:34
 #: application/modules/admin/forms/Followup/Snippet.php:21
-#: application/modules/admin/forms/Input.php:64
+#: application/modules/admin/forms/Input.php:65
 #: application/modules/admin/forms/Question.php:37
 #: application/modules/admin/views/scripts/votingprepare/_input-row.phtml:28
 msgid "Explanation"
@@ -1224,26 +1225,31 @@ msgid "Save and continue editing"
 msgstr ""
 
 #: application/modules/admin/forms/Followup/Snippet.php:52
-#: application/modules/admin/forms/Input.php:131
+#: application/modules/admin/forms/Input.php:133
 msgid "Save and return to index"
+msgstr ""
+
+#: application/modules/admin/forms/Footer.php:25
+#, php-format
+msgid "Footer %d/%d"
 msgstr ""
 
 #: application/modules/admin/forms/Input.php:57
 msgid "Thesis"
 msgstr ""
 
-#: application/modules/admin/forms/Input.php:70
+#: application/modules/admin/forms/Input.php:72
 #: application/modules/admin/views/scripts/input/list-by-question.phtml:102
 #: application/modules/admin/views/scripts/votingprepare/overview.phtml:139
 msgid "Tags"
 msgstr ""
 
-#: application/modules/admin/forms/Input.php:78
+#: application/modules/admin/forms/Input.php:80
 msgid "User confirmation"
 msgstr ""
 
-#: application/modules/admin/forms/Input.php:83
-#: application/modules/admin/forms/Input.php:96
+#: application/modules/admin/forms/Input.php:85
+#: application/modules/admin/forms/Input.php:98
 #: application/modules/admin/forms/User/Create.php:53
 #: application/modules/admin/forms/User/Edit.php:64
 #: application/modules/admin/views/scripts/input/_inputBox.phtml:80
@@ -1256,11 +1262,11 @@ msgstr ""
 msgid "Confirmed"
 msgstr ""
 
-#: application/modules/admin/forms/Input.php:91
+#: application/modules/admin/forms/Input.php:93
 msgid "Admin confirmation"
 msgstr ""
 
-#: application/modules/admin/forms/Input.php:97
+#: application/modules/admin/forms/Input.php:99
 #: application/modules/admin/forms/User/Create.php:51
 #: application/modules/admin/forms/User/Edit.php:62
 #: application/modules/admin/views/scripts/input/_inputBox.phtml:75
@@ -1273,12 +1279,12 @@ msgstr ""
 msgid "Blocked"
 msgstr ""
 
-#: application/modules/admin/forms/Input.php:104
+#: application/modules/admin/forms/Input.php:106
 msgid "Enable voting"
 msgstr ""
 
-#: application/modules/admin/forms/Input.php:109
-#: application/modules/admin/forms/Input.php:142
+#: application/modules/admin/forms/Input.php:111
+#: application/modules/admin/forms/Input.php:144
 #: application/modules/admin/views/scripts/article/index.phtml:88
 #: application/modules/admin/views/scripts/article/index.phtml:128
 #: application/modules/admin/views/scripts/consultation/index.phtml:44
@@ -1308,7 +1314,7 @@ msgstr ""
 #: application/modules/admin/views/scripts/input/list-by-user.phtml:238
 #: application/modules/admin/views/scripts/input/list-by-user.phtml:251
 #: application/modules/admin/views/scripts/mail-component/index.phtml:72
-#: application/modules/admin/views/scripts/mail-sent/index.phtml:75
+#: application/modules/admin/views/scripts/mail-sent/index.phtml:83
 #: application/modules/admin/views/scripts/mail-template/index.phtml:62
 #: application/modules/admin/views/scripts/question/index.phtml:60
 #: application/modules/admin/views/scripts/tag/index.phtml:77
@@ -1331,8 +1337,8 @@ msgstr ""
 msgid "No"
 msgstr ""
 
-#: application/modules/admin/forms/Input.php:110
-#: application/modules/admin/forms/Input.php:141
+#: application/modules/admin/forms/Input.php:112
+#: application/modules/admin/forms/Input.php:143
 #: application/modules/admin/views/scripts/article/index.phtml:87
 #: application/modules/admin/views/scripts/article/index.phtml:127
 #: application/modules/admin/views/scripts/consultation/index.phtml:43
@@ -1362,7 +1368,7 @@ msgstr ""
 #: application/modules/admin/views/scripts/input/list-by-user.phtml:237
 #: application/modules/admin/views/scripts/input/list-by-user.phtml:250
 #: application/modules/admin/views/scripts/mail-component/index.phtml:71
-#: application/modules/admin/views/scripts/mail-sent/index.phtml:74
+#: application/modules/admin/views/scripts/mail-sent/index.phtml:82
 #: application/modules/admin/views/scripts/mail-template/index.phtml:61
 #: application/modules/admin/views/scripts/question/index.phtml:59
 #: application/modules/admin/views/scripts/tag/index.phtml:76
@@ -1385,18 +1391,18 @@ msgstr ""
 msgid "Yes"
 msgstr ""
 
-#: application/modules/admin/forms/Input.php:117
+#: application/modules/admin/forms/Input.php:119
 #: application/modules/admin/forms/User/Create.php:61
 #: application/modules/admin/forms/User/Edit.php:97
 #: application/modules/admin/views/scripts/votingprepare/_input-row.phtml:33
 msgid "Internal note"
 msgstr ""
 
-#: application/modules/admin/forms/Input.php:133
+#: application/modules/admin/forms/Input.php:135
 msgid "Save and continue"
 msgstr ""
 
-#: application/modules/admin/forms/Input.php:140
+#: application/modules/admin/forms/Input.php:142
 #: application/modules/admin/views/scripts/input/list-by-question.phtml:187
 #: application/modules/admin/views/scripts/input/list-by-question.phtml:200
 #: application/modules/admin/views/scripts/input/list-by-question.phtml:213
@@ -1412,7 +1418,7 @@ msgstr ""
 msgid "Are you sure?"
 msgstr ""
 
-#: application/modules/admin/forms/Input.php:143
+#: application/modules/admin/forms/Input.php:145
 #: application/modules/admin/forms/Media/Delete.php:19
 #: application/modules/admin/views/scripts/consultation/index.phtml:45
 #: application/modules/admin/views/scripts/consultation/index.phtml:101
@@ -1463,12 +1469,12 @@ msgid "Email address (max %d characters)"
 msgstr ""
 
 #: application/modules/admin/forms/Mail/Send.php:24
-#: application/modules/admin/views/scripts/mail-sent/index.phtml:60
+#: application/modules/admin/views/scripts/mail-sent/index.phtml:68
 msgid "Cc"
 msgstr ""
 
 #: application/modules/admin/forms/Mail/Send.php:33
-#: application/modules/admin/views/scripts/mail-sent/index.phtml:64
+#: application/modules/admin/views/scripts/mail-sent/index.phtml:72
 msgid "Bcc"
 msgstr ""
 
@@ -1487,7 +1493,7 @@ msgid "Participants who voted"
 msgstr ""
 
 #: application/modules/admin/forms/Mail/Send.php:86
-msgid "Participants who signed up to receive follow-ups"
+msgid "Participants who signed up to receive Reactions & Impact"
 msgstr ""
 
 #: application/modules/admin/forms/Mail/Send.php:94
@@ -1497,7 +1503,7 @@ msgstr ""
 #: application/modules/admin/forms/Mail/Send.php:102
 #: application/modules/admin/forms/Mail/Template.php:32
 #: application/modules/admin/views/scripts/mail-queued/index.phtml:46
-#: application/modules/admin/views/scripts/mail-sent/index.phtml:42
+#: application/modules/admin/views/scripts/mail-sent/index.phtml:50
 #: application/modules/admin/views/scripts/mail-template/index.phtml:40
 msgid "Subject"
 msgstr ""
@@ -1584,19 +1590,23 @@ msgstr ""
 msgid "License"
 msgstr ""
 
-#: application/modules/admin/forms/Settings/LookAndFeel.php:26
+#: application/modules/admin/forms/Settings/LookAndFeel.php:20
+msgid "Activity links for consultations enabled on homepage"
+msgstr ""
+
+#: application/modules/admin/forms/Settings/LookAndFeel.php:30
 msgid "Primary color"
 msgstr ""
 
-#: application/modules/admin/forms/Settings/LookAndFeel.php:33
+#: application/modules/admin/forms/Settings/LookAndFeel.php:37
 msgid "Accent color 1"
 msgstr ""
 
-#: application/modules/admin/forms/Settings/LookAndFeel.php:40
+#: application/modules/admin/forms/Settings/LookAndFeel.php:44
 msgid "Accent color 2"
 msgstr ""
 
-#: application/modules/admin/forms/Settings/LookAndFeel.php:47
+#: application/modules/admin/forms/Settings/LookAndFeel.php:51
 msgid "Add «Join In» bubble"
 msgstr ""
 
@@ -1642,17 +1652,17 @@ msgstr ""
 msgid "Motto"
 msgstr ""
 
-#: application/modules/admin/forms/Settings/Site.php:62
+#: application/modules/admin/forms/Settings/Site.php:61
 msgid "Site Information"
 msgstr ""
 
-#: application/modules/admin/forms/Settings/Site.php:65
-#: application/modules/admin/forms/Settings/Site.php:74
-#: application/modules/admin/forms/Settings/Site.php:83
+#: application/modules/admin/forms/Settings/Site.php:64
+#: application/modules/admin/forms/Settings/Site.php:73
+#: application/modules/admin/forms/Settings/Site.php:82
 msgid "Used as a placeholder in email templates."
 msgstr ""
 
-#: application/modules/admin/forms/Settings/Site.php:77
+#: application/modules/admin/forms/Settings/Site.php:76
 #: application/modules/admin/forms/User/Create.php:23
 #: application/modules/admin/forms/User/Edit.php:27
 #: application/modules/admin/views/scripts/input/index.phtml:89
@@ -1668,11 +1678,11 @@ msgstr ""
 msgid "Email"
 msgstr ""
 
-#: application/modules/admin/forms/Settings/Site.php:86
+#: application/modules/admin/forms/Settings/Site.php:85
 msgid "Website URL"
 msgstr ""
 
-#: application/modules/admin/forms/Settings/Site.php:95
+#: application/modules/admin/forms/Settings/Site.php:94
 msgid "Contact Information"
 msgstr ""
 
@@ -1815,7 +1825,7 @@ msgid "Max. rating × factor = total points"
 msgstr ""
 
 #: application/modules/admin/views/helpers/ConsultationEditNavigation.php:21
-#: application/modules/admin/views/scripts/consultation/contribution-submission-form.phtml:58
+#: application/modules/admin/views/scripts/consultation/contribution-submission-form.phtml:59
 msgid "Participants' Data"
 msgstr ""
 
@@ -2098,15 +2108,15 @@ msgstr ""
 msgid "Server time (when opening this page):"
 msgstr ""
 
-#: application/modules/admin/views/scripts/consultation/contribution-submission-form.phtml:24
+#: application/modules/admin/views/scripts/consultation/contribution-submission-form.phtml:23
 msgid "Anonymous contributions"
 msgstr ""
 
-#: application/modules/admin/views/scripts/consultation/contribution-submission-form.phtml:25
+#: application/modules/admin/views/scripts/consultation/contribution-submission-form.phtml:26
 msgid "On"
 msgstr ""
 
-#: application/modules/admin/views/scripts/consultation/contribution-submission-form.phtml:36
+#: application/modules/admin/views/scripts/consultation/contribution-submission-form.phtml:37
 msgid "Off"
 msgstr ""
 
@@ -2251,15 +2261,15 @@ msgstr ""
 
 #: application/modules/admin/views/scripts/followup/followup-detail.phtml:21
 #: application/modules/admin/views/scripts/followup/snippets.phtml:24
-msgid "Back to Follow-ups"
+msgid "Back to Reactions & Impact"
 msgstr ""
 
 #: application/modules/admin/views/scripts/followup/index.phtml:25
-msgid "New Follow-up"
+msgid "New Reactions & Impact"
 msgstr ""
 
 #: application/modules/admin/views/scripts/followup/index.phtml:32
-msgid "There are no follow-ups yet."
+msgid "There are no Reactions & Impact yet."
 msgstr ""
 
 #: application/modules/admin/views/scripts/followup/index.phtml:42
@@ -2270,20 +2280,16 @@ msgstr ""
 msgid "Stakeholder"
 msgstr ""
 
-#: application/modules/admin/views/scripts/followup/index.phtml:61
-msgid "Edit follow-up"
-msgstr ""
-
 #: application/modules/admin/views/scripts/followup/index.phtml:68
 msgid "Edit snippets"
 msgstr ""
 
 #: application/modules/admin/views/scripts/followup/index.phtml:77
-msgid "Delete follow-up?"
+msgid "Delete Reactions & Impact?"
 msgstr ""
 
 #: application/modules/admin/views/scripts/followup/index.phtml:80
-msgid "Delete follow-up"
+msgid "Delete reaction & impact"
 msgstr ""
 
 #: application/modules/admin/views/scripts/followup/snippet-detail.phtml:21
@@ -2316,26 +2322,22 @@ msgstr ""
 
 #: application/modules/admin/views/scripts/followup/snippet-reference.phtml:121
 #: application/modules/admin/views/scripts/followup/snippets.phtml:27
-msgid "Follow-Up Snippets"
+msgid "Reactions & Impact Snippets"
 msgstr ""
 
 #: application/modules/admin/views/scripts/followup/snippet-reference.phtml:163
 #: application/modules/admin/views/scripts/followup/snippets.phtml:134
-msgid "There are no snippets for this follow-up yet."
+msgid "There are no snippets for this reaction & impact yet."
 msgstr ""
 
 #: application/modules/admin/views/scripts/followup/snippet-reference.phtml:181
 #: application/modules/admin/views/scripts/followup/snippet-reference.phtml:222
-msgid "There are no follow-ups for this consultation yet."
-msgstr ""
-
-#: application/modules/admin/views/scripts/followup/snippet-reference.phtml:186
-msgid "Follow-Ups"
+msgid "There are no Reactions & Impact for this consultation yet."
 msgstr ""
 
 #: application/modules/admin/views/scripts/followup/snippet-reference.phtml:192
 #: application/modules/admin/views/scripts/followup/snippet-reference.phtml:216
-msgid "Save follow-up links"
+msgid "Save Reactions & Impact links"
 msgstr ""
 
 #: application/modules/admin/views/scripts/followup/snippets.phtml:35
@@ -2379,10 +2381,6 @@ msgstr ""
 
 #: application/modules/admin/views/scripts/index/index.phtml:42
 msgid "Open media manager for"
-msgstr ""
-
-#: application/modules/admin/views/scripts/index/index.phtml:78
-msgid "Follow Up"
 msgstr ""
 
 #: application/modules/admin/views/scripts/index/index.phtml:93
@@ -2804,22 +2802,29 @@ msgid "Sent Emails"
 msgstr ""
 
 #: application/modules/admin/views/scripts/mail-sent/index.phtml:32
+#, php-format
+msgid ""
+"Sent e-mails are stored for %d months. During that period, they can be "
+"manually re-sent from the list below."
+msgstr ""
+
+#: application/modules/admin/views/scripts/mail-sent/index.phtml:40
 msgid "No emails have been sent yet."
 msgstr ""
 
-#: application/modules/admin/views/scripts/mail-sent/index.phtml:41
+#: application/modules/admin/views/scripts/mail-sent/index.phtml:49
 msgid "Time Sent"
 msgstr ""
 
-#: application/modules/admin/views/scripts/mail-sent/index.phtml:43
+#: application/modules/admin/views/scripts/mail-sent/index.phtml:51
 msgid "Recipient"
 msgstr ""
 
-#: application/modules/admin/views/scripts/mail-sent/index.phtml:73
+#: application/modules/admin/views/scripts/mail-sent/index.phtml:81
 msgid "Resend email?"
 msgstr ""
 
-#: application/modules/admin/views/scripts/mail-sent/index.phtml:77
+#: application/modules/admin/views/scripts/mail-sent/index.phtml:85
 msgid "Resend email"
 msgstr ""
 
@@ -2907,7 +2912,11 @@ msgstr ""
 msgid "File Upload"
 msgstr ""
 
-#: application/modules/admin/views/scripts/media/upload.phtml:42
+#: application/modules/admin/views/scripts/media/upload.phtml:41
+msgid "Maximum file size"
+msgstr ""
+
+#: application/modules/admin/views/scripts/media/upload.phtml:48
 msgid "Following file types are allowed:"
 msgstr ""
 
@@ -2971,10 +2980,14 @@ msgid "Header"
 msgstr ""
 
 #: application/modules/admin/views/scripts/settings/lookAndFeelForm.phtml:18
+msgid "News bars in header"
+msgstr ""
+
+#: application/modules/admin/views/scripts/settings/lookAndFeelForm.phtml:21
 msgid "Predefined themes"
 msgstr ""
 
-#: application/modules/admin/views/scripts/settings/lookAndFeelForm.phtml:45
+#: application/modules/admin/views/scripts/settings/lookAndFeelForm.phtml:48
 msgid "Custom Colours"
 msgstr ""
 

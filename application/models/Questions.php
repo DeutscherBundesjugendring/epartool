@@ -268,7 +268,7 @@ class Model_Questions extends Dbjr_Db_Table_Abstract
     }
 
     /**
-     * Returns snippets grouped by question
+     * Returns reaction_snippets grouped by question
      * @param  integer $kid      The consultation identifier
      * @param  array   $wheres   An array of [condition => value] arrays to be used in Zend_Db_Select::where()
      * @return array             An array of arrays

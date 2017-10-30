@@ -1,12 +1,12 @@
 <?php
 
 /**
- * Renders either a link to the inputs follow-up chart or static text
+ * Renders either a link to the inputs reaction_file chart or static text
  */
 class Module_Default_View_Helper_FollowupLink extends Zend_View_Helper_Abstract
 {
     /**
-     * Returns a link to inputs follow-up chart or static text
+     * Returns a link to inputs reaction_file chart or static text
      * @param  integer $inputId    The input identifier
      * @param  integer $questionId The question identifier
      * @return string              The outp[ut html

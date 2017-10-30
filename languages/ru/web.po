@@ -1,15 +1,15 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Dbjr Tool\n"
-"POT-Creation-Date: 2016-12-14 14:41+0100\n"
-"PO-Revision-Date: 2017-02-03 03:23+0100\n"
+"POT-Creation-Date: 2017-11-02 10:13+0100\n"
+"PO-Revision-Date: 2017-11-02 10:13+0100\n"
 "Last-Translator: Martin Bohal <mb@mbohal.cz>\n"
 "Language-Team: epartool@dbjr.de\n"
 "Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.8.11\n"
+"X-Generator: Poedit 1.8.7.1\n"
 "X-Poedit-KeywordsList: _;translate;setLabel;setLegend;addMessage;"
 "setConfirmMessage;setDescription\n"
 "X-Poedit-Basepath: ../..\n"
@@ -19,7 +19,7 @@ msgstr ""
 "X-Poedit-SearchPath-2: application/services/UrlkeyAction\n"
 "X-Poedit-SearchPath-3: application/layouts\n"
 
-#: application/modules/default/controllers/ArticleController.php:57
+#: application/modules/default/controllers/ArticleController.php:53
 msgid "Page not found"
 msgstr "Cтраница не найдена"
 
@@ -32,134 +32,133 @@ msgstr "На данном этапе обсуждения в настоящий 
 msgid "No consultation provided!"
 msgstr "Ни однo обсуждение не указанo!"
 
-#: application/modules/default/controllers/FollowupController.php:84
+#: application/modules/default/controllers/FollowupController.php:89
 msgid "There are no questions in this consultation."
 msgstr "В данном обсуждении нет вопросов."
 
-#: application/modules/default/controllers/FollowupController.php:397
+#: application/modules/default/controllers/FollowupController.php:425
 msgid "File does not exist."
 msgstr "Файл не существует."
 
-#: application/modules/default/controllers/FollowupController.php:430
-#: application/modules/default/controllers/InputController.php:166
-#: application/modules/default/controllers/InputController.php:232
+#: application/modules/default/controllers/FollowupController.php:458
+#: application/modules/default/controllers/InputController.php:165
+#: application/modules/default/controllers/InputController.php:231
 msgid "Thank you for subscribing."
 msgstr "Благодарим за подписку!"
 
-#: application/modules/default/controllers/FollowupController.php:449
-#: application/modules/default/controllers/InputController.php:185
-#: application/modules/default/controllers/InputController.php:251
+#: application/modules/default/controllers/FollowupController.php:477
+#: application/modules/default/controllers/InputController.php:184
+#: application/modules/default/controllers/InputController.php:250
 msgid "You are now subscribed. A confirmation email has been sent."
 msgstr ""
 "Теперь вы подписаны. Подтверждение по электронной почте было отправлено."
 
-#: application/modules/default/controllers/FollowupController.php:455
-#: application/modules/default/controllers/InputController.php:191
-#: application/modules/default/controllers/InputController.php:257
+#: application/modules/default/controllers/FollowupController.php:483
+#: application/modules/default/controllers/InputController.php:190
+#: application/modules/default/controllers/InputController.php:256
 msgid "You are already subscribed."
 msgstr "Вы уже подписаны."
 
-#: application/modules/default/controllers/FollowupController.php:462
-#: application/modules/default/controllers/InputController.php:198
-#: application/modules/default/controllers/InputController.php:264
+#: application/modules/default/controllers/FollowupController.php:490
+#: application/modules/default/controllers/InputController.php:197
+#: application/modules/default/controllers/InputController.php:263
 msgid "The subscription form is invalid."
 msgstr "Форма подписки является недействительной"
 
-#: application/modules/default/controllers/FollowupController.php:487
-#: application/modules/default/controllers/InputController.php:291
-#: application/modules/default/controllers/InputController.php:318
+#: application/modules/default/controllers/FollowupController.php:515
+#: application/modules/default/controllers/InputController.php:290
+#: application/modules/default/controllers/InputController.php:317
 msgid "You have been unsubscribed."
 msgstr "Вы были отписаны"
 
-#: application/modules/default/controllers/IndexController.php:74
-msgid "All age groups"
-msgstr "Все возрастные группы"
-
-#: application/modules/default/controllers/IndexController.php:75
-msgid "Back to timeline"
-msgstr "Обратно к временной шкале"
-
-#: application/modules/default/controllers/IndexController.php:76
-#: application/modules/default/views/scripts/input/createForm.phtml:59
-msgid "Click here to explain contribution"
-msgstr "Нажмите здесь для пояснений к записи"
-
-#: application/modules/default/controllers/IndexController.php:77
-#: application/modules/default/views/scripts/followup/index.phtml:91
+#: application/modules/default/controllers/FollowupController.php:576
+#: application/modules/default/views/scripts/followup/index.phtml:119
 msgid "Download"
 msgstr "Скачать"
 
-#: application/modules/default/controllers/IndexController.php:78
+#: application/modules/default/controllers/FollowupController.php:577
+msgid "Like"
+msgstr ""
+
+#: application/modules/default/controllers/FollowupController.php:578
+msgid "Dislike"
+msgstr ""
+
+#: application/modules/default/controllers/FollowupController.php:579
+msgid "Back to timeline"
+msgstr "Обратно к временной шкале"
+
+#: application/modules/default/controllers/FollowupController.php:580
 msgid "Follow path"
 msgstr "Следовать хронике"
 
-#: application/modules/default/controllers/IndexController.php:79
-#: application/modules/default/views/scripts/followup/index.phtml:106
-#: application/modules/default/views/scripts/followup/show-by-snippet.phtml:93
-#: application/modules/default/views/scripts/followup/show.phtml:134
-msgid "Loading…"
-msgstr "Загружается..."
+#: application/modules/default/controllers/FollowupController.php:581
+msgid "An error occurred. Unable to load Reactions & Impact timeline."
+msgstr ""
 
-#: application/modules/default/controllers/IndexController.php:80
-msgid "Medium"
-msgstr "Средне"
+#: application/modules/default/controllers/FollowupController.php:582
+msgid "Back to reactions and snippets"
+msgstr ""
 
-#: application/modules/default/controllers/IndexController.php:81
-msgid "Normal"
-msgstr "Нормально"
+#: application/modules/default/controllers/FollowupController.php:583
+msgid "Result of voting:"
+msgstr ""
 
-#: application/modules/default/controllers/IndexController.php:82
-msgid "Shut back"
-msgstr "Снова сложить"
+#: application/modules/default/controllers/FollowupController.php:584
+msgid "You can vote only once for each reaction."
+msgstr ""
 
-#: application/modules/default/controllers/IndexController.php:83
-msgid "Something went wrong"
-msgstr "Что-то пошло не так"
+#: application/modules/default/controllers/FollowupController.php:585
+msgid "position"
+msgstr ""
 
-#: application/modules/default/controllers/IndexController.php:84
-msgid "Strong"
-msgstr "Сильно"
+#: application/modules/default/controllers/FollowupController.php:587
+msgid ""
+"Follow the Reactions to your contribution here. Click on the arrows for the "
+"next steps."
+msgstr ""
+"Посмотреть Реакции к твоим записям здесь. Кликни на стрелки для дальнейших "
+"шагов"
 
-#: application/modules/default/controllers/IndexController.php:85
-#: application/modules/default/controllers/VotingController.php:339
-msgid "Using of superbutton is not allowed."
-msgstr "Выбор супер-кнопки не разрешён"
+#: application/modules/default/controllers/FollowupController.php:589
+#: application/modules/default/views/scripts/followup/index.phtml:77
+msgid "Supporting"
+msgstr ""
 
-#: application/modules/default/controllers/IndexController.php:86
-msgid "Very Strong"
-msgstr "Очень сильно"
+#: application/modules/default/controllers/FollowupController.php:590
+#: application/modules/default/views/scripts/followup/index.phtml:80
+#: application/modules/default/views/scripts/user/userlist.phtml:80
+msgid "Action"
+msgstr "Действие"
 
-#: application/modules/default/controllers/IndexController.php:87
-msgid "Weak"
-msgstr "Слабо"
+#: application/modules/default/controllers/FollowupController.php:591
+#: application/modules/default/views/scripts/followup/index.phtml:83
+msgid "Rejected"
+msgstr ""
 
-#: application/modules/default/controllers/IndexController.php:89
-msgid "You are being logged in. Please wait…"
-msgstr "Идёт процесс входа в систему. Пожалуйста, подождите ..."
+#: application/modules/default/controllers/FollowupController.php:592
+#: application/modules/default/views/scripts/followup/index.phtml:86
+msgid "End"
+msgstr ""
 
-#: application/modules/default/controllers/IndexController.php:92
-msgid "Your contributions have not been saved."
-msgstr "Ваша записъ не была сохранена"
-
-#: application/modules/default/controllers/IndexController.php:94
-#: application/modules/default/views/scripts/input/show.phtml:132
-msgid "supporters"
-msgstr "Поддерживающие"
-
-#: application/modules/default/controllers/IndexController.php:182
+#: application/modules/default/controllers/IndexController.php:144
 #: library/Plugin/Auth/AccessControl.php:47
 msgid "Login successful!"
 msgstr "Успешный вход в систему"
 
-#: application/modules/default/controllers/IndexController.php:191
+#: application/modules/default/controllers/IndexController.php:153
 msgid "Only users who submitted a contribution can log in."
 msgstr "Вход в систему возможен толко для пользователей, сделавших запись"
 
-#: application/modules/default/controllers/InputController.php:361
+#: application/modules/default/controllers/InputController.php:359
 msgid "Contribution text cannot be empty."
 msgstr "Окно записи не может быть пустым "
 
-#: application/modules/default/controllers/InputController.php:395
+#: application/modules/default/controllers/InputController.php:382
+msgid "Contributions were saved."
+msgstr ""
+
+#: application/modules/default/controllers/InputController.php:412
 msgid ""
 "Please make sure the data you entered are correct and that all linked videos "
 "are public. Then please try resubmitting the form."
@@ -167,56 +166,48 @@ msgstr ""
 "Пожалуйста, проверьте правильность указанных вами данных, а также "
 "доступность видеоссылок. После этого повторно отправьте формуляр."
 
-#: application/modules/default/controllers/InputController.php:473
-msgid "There is no input to be confirmed."
-msgstr "Нет записей для подтверждения"
-
-#: application/modules/default/controllers/InputController.php:483
-msgid "Please finish contributing before logging in."
-msgstr "Пожалуйста, завершите запись перед входом в систему"
-
-#: application/modules/default/controllers/InputController.php:507
-#: application/modules/default/controllers/InputController.php:529
-#: application/modules/default/controllers/InputController.php:561
+#: application/modules/default/controllers/InputController.php:450
+#: application/modules/default/controllers/InputController.php:472
+#: application/modules/default/controllers/InputController.php:504
 msgid "This confirmation link is invalid!"
 msgstr "Эта ссылка для подтверждения является недействительной!"
 
-#: application/modules/default/controllers/InputController.php:520
+#: application/modules/default/controllers/InputController.php:463
 msgid "Thank you! Your inputs have been confirmed!"
 msgstr "Спасибо! Ваши записи были подтверждены!"
 
-#: application/modules/default/controllers/InputController.php:536
+#: application/modules/default/controllers/InputController.php:479
 msgid "It is not allowed to confirm inputs once the input phase is over."
 msgstr "Вы больше не можете подтвердить записи, так как этап записей завершён"
 
-#: application/modules/default/controllers/InputController.php:559
+#: application/modules/default/controllers/InputController.php:502
 msgid "The contributions have already been marked as refused!"
 msgstr "Записи уже помечены как отклонённые"
 
-#: application/modules/default/controllers/InputController.php:567
+#: application/modules/default/controllers/InputController.php:510
 msgid "It is not allowed to reject inputs once the input phase is over."
 msgstr "Вы не можете отконять записи после завершения этапа записей. "
 
-#: application/modules/default/controllers/InputController.php:608
+#: application/modules/default/controllers/InputController.php:551
 msgid "Contribution does not exist"
 msgstr "Запись не существует"
 
-#: application/modules/default/controllers/InputController.php:624
+#: application/modules/default/controllers/InputController.php:567
 msgid "Contribution updated."
 msgstr "Запись была актуализирована"
 
-#: application/modules/default/controllers/InputController.php:627
+#: application/modules/default/controllers/InputController.php:570
 msgid "Something went wrong: contribution could not be updated."
 msgstr "Что-то пошло не так: запись не смогла быть актуализирована"
 
-#: application/modules/default/controllers/InputController.php:639
-#: application/modules/default/controllers/InputController.php:792
-#: application/modules/default/controllers/UserController.php:140
-#: application/modules/default/controllers/UserController.php:160
+#: application/modules/default/controllers/InputController.php:582
+#: application/modules/default/controllers/InputController.php:735
+#: application/modules/default/controllers/UserController.php:169
+#: application/modules/default/controllers/UserController.php:220
 msgid "Please check your data!"
 msgstr "Пожалуйста, проверьте ваши данные!"
 
-#: application/modules/default/controllers/InputController.php:652
+#: application/modules/default/controllers/InputController.php:595
 msgid ""
 "Video service used for embedding video in this contribution was disabled. "
 "Video will be deleted after save contribution."
@@ -224,7 +215,7 @@ msgstr ""
 "Видео служба для встроенного в данную запись видео была деактивирована. "
 "Видео будет удалено при следующем сохранении"
 
-#: application/modules/default/controllers/InputController.php:663
+#: application/modules/default/controllers/InputController.php:606
 msgid ""
 "Sorry, the contribution phase for this consultation round is already over."
 "You may only change your contributions within that period."
@@ -232,7 +223,7 @@ msgstr ""
 "Извините, но время записей на данном этапе обсуждения истекло. Вы могли "
 "изменить вашы записи только в том промежутке времени"
 
-#: application/modules/default/controllers/UrlkeyActionController.php:42
+#: application/modules/default/controllers/UrlkeyActionController.php:35
 msgid "There is no available action with such key."
 msgstr "По данному ключу нет никаких действий"
 
@@ -240,7 +231,7 @@ msgstr "По данному ключу нет никаких действий"
 msgid "Logout successful!"
 msgstr "Выход из системы успешно завершён!"
 
-#: application/modules/default/controllers/UserController.php:73
+#: application/modules/default/controllers/UserController.php:78
 msgid ""
 "An email for the confirmation of your contributions has been sent to your "
 "email address."
@@ -248,40 +239,48 @@ msgstr ""
 "Электронное письмо для подтверждения ваших записей было отправлено по "
 "указанному адресу."
 
-#: application/modules/default/controllers/UserController.php:126
+#: application/modules/default/controllers/UserController.php:155
 msgid "Your inputs have been saved."
 msgstr "Ваши записи были сохранены."
 
-#: application/modules/default/controllers/UserController.php:154
+#: application/modules/default/controllers/UserController.php:194
+msgid "There is no input to be confirmed."
+msgstr "Нет записей для подтверждения"
+
+#: application/modules/default/controllers/UserController.php:202
+msgid "Please finish contributing before logging in."
+msgstr "Пожалуйста, завершите запись перед входом в систему"
+
+#: application/modules/default/controllers/UserController.php:214
 msgid ""
 "An e-mail that allows you to reset your password was sent to the provided "
 "address."
 msgstr ""
 "Электронное письмо для смены пароля было отправлено по указанному адресу."
 
-#: application/modules/default/controllers/UserController.php:156
+#: application/modules/default/controllers/UserController.php:216
 msgid "Password reset failed!"
 msgstr "Восстановление пароля не удалось!"
 
-#: application/modules/default/controllers/UserController.php:175
+#: application/modules/default/controllers/UserController.php:235
 msgid "Please log in first"
 msgstr "Пожалуйста, сначала войдите в систему"
 
-#: application/modules/default/controllers/UserController.php:246
+#: application/modules/default/controllers/UserController.php:309
 msgid "The voting participant was confirmed."
 msgstr "Участник голосования подтверждён"
 
-#: application/modules/default/controllers/UserController.php:249
+#: application/modules/default/controllers/UserController.php:312
 msgid "The voting participant was denied."
 msgstr "Участник голосования был отклонён"
 
-#: application/modules/default/controllers/UserController.php:254
+#: application/modules/default/controllers/UserController.php:317
 msgid "The voting participant was deleted."
 msgstr "Участник голосования удалён"
 
-#: application/modules/default/controllers/UserController.php:257
-#: application/modules/default/controllers/VotingController.php:795
-#: application/modules/default/controllers/VotingController.php:836
+#: application/modules/default/controllers/UserController.php:320
+#: application/modules/default/controllers/VotingController.php:797
+#: application/modules/default/controllers/VotingController.php:838
 #: application/modules/default/views/scripts/user/userlist.phtml:68
 #: application/modules/default/views/scripts/voting/confirmvoting.phtml:15
 msgid ""
@@ -291,27 +290,27 @@ msgstr ""
 "Период голосования был завершён, изменения результатов голосования не "
 "возможны. "
 
-#: application/modules/default/controllers/UserController.php:272
-#: application/modules/default/controllers/UserController.php:308
-#: application/modules/default/controllers/UserController.php:347
+#: application/modules/default/controllers/UserController.php:335
+#: application/modules/default/controllers/UserController.php:371
+#: application/modules/default/controllers/UserController.php:410
 msgid "Please log in."
 msgstr "Пожалуйста, войдите в систему."
 
-#: application/modules/default/controllers/UserController.php:316
-#: application/modules/default/controllers/UserController.php:320
-#: application/modules/default/controllers/UserController.php:324
+#: application/modules/default/controllers/UserController.php:379
+#: application/modules/default/controllers/UserController.php:383
+#: application/modules/default/controllers/UserController.php:387
 msgid "You were successfully unsubscribed."
 msgstr "Вы были успешно отписаны."
 
-#: application/modules/default/controllers/UserController.php:362
+#: application/modules/default/controllers/UserController.php:425
 msgid "Your user profile was updated"
 msgstr "Ваш пользователский профиль был обновлен"
 
-#: application/modules/default/controllers/UserController.php:367
+#: application/modules/default/controllers/UserController.php:430
 msgid "Your current password does not match. Please try it again."
 msgstr "Ваш текущий пароль не совпадает. Пожалуйста, попробуйте еще раз."
 
-#: application/modules/default/controllers/UserController.php:374
+#: application/modules/default/controllers/UserController.php:437
 msgid ""
 "Your profile cannot be updated. Please check the errors marked in the form "
 "below and try again."
@@ -341,57 +340,61 @@ msgstr "Доступ к этой учетной записи был отказа
 msgid "Your data are not correct. Please check again."
 msgstr "Ваши данные не верны. Пожалуйста, проверьте еще раз."
 
-#: application/modules/default/controllers/VotingController.php:278
+#: application/modules/default/controllers/VotingController.php:280
 msgid "Your rating is out of accepted range."
 msgstr "Ваше голосование находится вне допустимых пределов"
 
-#: application/modules/default/controllers/VotingController.php:291
-#: application/modules/default/controllers/VotingController.php:354
+#: application/modules/default/controllers/VotingController.php:293
+#: application/modules/default/controllers/VotingController.php:356
 msgid "Contribution not found."
 msgstr "Запись не найдена"
 
-#: application/modules/default/controllers/VotingController.php:309
+#: application/modules/default/controllers/VotingController.php:311
 msgid "An error occured."
 msgstr "Произошла ошибка."
 
-#: application/modules/default/controllers/VotingController.php:420
-#: application/modules/default/controllers/VotingController.php:485
-#: application/modules/default/controllers/VotingController.php:583
-#: application/modules/default/controllers/VotingController.php:652
+#: application/modules/default/controllers/VotingController.php:341
+msgid "Using of superbutton is not allowed."
+msgstr "Выбор супер-кнопки не разрешён"
+
+#: application/modules/default/controllers/VotingController.php:422
+#: application/modules/default/controllers/VotingController.php:487
+#: application/modules/default/controllers/VotingController.php:585
+#: application/modules/default/controllers/VotingController.php:654
 msgid "Such contribution does not exist!"
 msgstr "Такая запись не существует"
 
-#: application/modules/default/controllers/VotingController.php:589
+#: application/modules/default/controllers/VotingController.php:591
 msgid "Something went wrong."
 msgstr "Что-то пошло не так"
 
-#: application/modules/default/controllers/VotingController.php:595
-#: application/modules/default/controllers/VotingController.php:645
+#: application/modules/default/controllers/VotingController.php:597
+#: application/modules/default/controllers/VotingController.php:647
 msgid "The points are not correct."
 msgstr "Выставленные пункты не являются правильными"
 
-#: application/modules/default/controllers/VotingController.php:611
+#: application/modules/default/controllers/VotingController.php:613
 msgid "Your vote has been counted!"
 msgstr "Ваш голос засчитан!"
 
-#: application/modules/default/controllers/VotingController.php:614
-#: application/modules/default/controllers/VotingController.php:677
+#: application/modules/default/controllers/VotingController.php:616
+#: application/modules/default/controllers/VotingController.php:679
 msgid "Your vote could not be registered. (1)"
 msgstr "Ваше голосование не могло быть зарегистрировано (1)"
 
-#: application/modules/default/controllers/VotingController.php:638
+#: application/modules/default/controllers/VotingController.php:640
 msgid "Clicking the superbutton is not allowed."
 msgstr "Выбор супер-кнопки не разрешён"
 
-#: application/modules/default/controllers/VotingController.php:658
+#: application/modules/default/controllers/VotingController.php:660
 msgid "Please choose a question or keyword."
 msgstr "Пожалуйста, выберите ворпос или ключевое слово"
 
-#: application/modules/default/controllers/VotingController.php:681
+#: application/modules/default/controllers/VotingController.php:683
 msgid "Your vote has been counted."
 msgstr "Твоё голосование было засчитано"
 
-#: application/modules/default/controllers/VotingController.php:686
+#: application/modules/default/controllers/VotingController.php:688
 msgid ""
 "The Super Button allows you to value a limited number of contributions "
 "higher. Change previous votings and make room for more important "
@@ -400,115 +403,115 @@ msgstr ""
 "Супер-Кнопка позволяет тебе повысить значимость ограниченного числа записей. "
 "Измени предыдущие голосования и освободи место для более важных записей!"
 
-#: application/modules/default/controllers/VotingController.php:708
+#: application/modules/default/controllers/VotingController.php:710
 msgid "User could not be found."
 msgstr "Пользователь не может быть найден."
 
-#: application/modules/default/controllers/VotingController.php:713
+#: application/modules/default/controllers/VotingController.php:715
 msgid "No votes to process."
 msgstr "Нет голосований для продолжения"
 
-#: application/modules/default/controllers/VotingController.php:722
+#: application/modules/default/controllers/VotingController.php:724
 msgid "Voter not found."
 msgstr "Голосующий не найден"
 
-#: application/modules/default/controllers/VotingController.php:728
+#: application/modules/default/controllers/VotingController.php:730
 msgid "No votes to handle."
 msgstr "Нет голосований для обработки"
 
-#: application/modules/default/controllers/VotingController.php:731
+#: application/modules/default/controllers/VotingController.php:733
 msgid "Cannot find group leader."
 msgstr "Не удается найти лидера группы."
 
-#: application/modules/default/controllers/VotingController.php:734
+#: application/modules/default/controllers/VotingController.php:736
 msgid "Cannot find voting group."
 msgstr "Не удаётся найти группу для голосования"
 
-#: application/modules/default/controllers/VotingController.php:737
+#: application/modules/default/controllers/VotingController.php:739
 msgid "No voting rights found."
 msgstr "Не удаётся найти прав голоса "
 
-#: application/modules/default/controllers/VotingController.php:757
-#: application/modules/default/controllers/VotingController.php:829
-#: application/modules/default/controllers/VotingController.php:843
-#: application/modules/default/controllers/VotingController.php:864
+#: application/modules/default/controllers/VotingController.php:759
+#: application/modules/default/controllers/VotingController.php:831
+#: application/modules/default/controllers/VotingController.php:845
+#: application/modules/default/controllers/VotingController.php:866
 msgid "The link is not correct."
 msgstr "Ссылка не действительна"
 
-#: application/modules/default/controllers/VotingController.php:776
+#: application/modules/default/controllers/VotingController.php:778
 msgid "Votes were confirmed."
 msgstr "Голосование было подтверждено"
 
-#: application/modules/default/controllers/VotingController.php:779
+#: application/modules/default/controllers/VotingController.php:781
 msgid "Votes confirmation error."
 msgstr "Ошибка при подтверждении голосования"
 
-#: application/modules/default/controllers/VotingController.php:786
+#: application/modules/default/controllers/VotingController.php:788
 msgid "Votes were deleted."
 msgstr "Голосования были удалены"
 
-#: application/modules/default/controllers/VotingController.php:789
+#: application/modules/default/controllers/VotingController.php:791
 msgid "Votes deleting error."
 msgstr "Ошибка при удалении голосований"
 
-#: application/modules/default/controllers/VotingController.php:792
+#: application/modules/default/controllers/VotingController.php:794
 msgid "Invalid action invoked."
 msgstr "Вызывается недопустимое действие"
 
-#: application/modules/default/controllers/VotingController.php:810
+#: application/modules/default/controllers/VotingController.php:812
 msgid "No unconfirmed votes to process."
 msgstr "Нет не подтверждённых голосований для обработки"
 
-#: application/modules/default/controllers/VotingController.php:876
+#: application/modules/default/controllers/VotingController.php:878
 msgid "Voting results are not available yet."
 msgstr "Результаты голосования ещё недоступны"
 
-#: application/modules/default/forms/Input/Create.php:26
+#: application/modules/default/forms/Input/Create.php:27
 msgid "+"
 msgstr "+"
 
-#: application/modules/default/forms/Input/Create.php:33
+#: application/modules/default/forms/Input/Create.php:34
 msgid "Save and proceed"
 msgstr "Сохранить и продолжить"
 
-#: application/modules/default/forms/Input/Create.php:40
-#: application/modules/default/views/scripts/voting/overview.phtml:89
+#: application/modules/default/forms/Input/Create.php:41
+#: application/modules/default/views/scripts/voting/overview.phtml:82
 #: application/modules/default/views/scripts/voting/vote.phtml:33
 #: application/modules/default/views/scripts/voting/vote.phtml:175
 msgid "Finish"
 msgstr "Завершить"
 
-#: application/modules/default/forms/Input/Create.php:91
-#: application/modules/default/forms/Input/Edit.php:21
+#: application/modules/default/forms/Input/Create.php:100
+#: application/modules/default/forms/Input/Edit.php:20
 #, php-format
 msgid "Here you can type in your contribution (up to %s characters)."
 msgstr "Здесь ты можешь оставить свою запись до %s символов "
 
-#: application/modules/default/forms/Input/Create.php:106
-#: application/modules/default/forms/Input/Edit.php:35
+#: application/modules/default/forms/Input/Create.php:115
+#: application/modules/default/forms/Input/Edit.php:34
 #, php-format
 msgid ""
 "Here you explain your contribution more in depth, e.g. with examples (up to "
 "%s characters)."
 msgstr "Здесь ты можешь оставить пояснения к своей записи до %s  символов "
 
-#: application/modules/default/forms/Input/Create.php:130
+#: application/modules/default/forms/Input/Create.php:139
 msgid "Video:"
 msgstr "Видео:"
 
-#: application/modules/default/forms/Input/Create.php:137
+#: application/modules/default/forms/Input/Create.php:146
 msgid "Video ID"
 msgstr "Видео-ID"
 
-#: application/modules/default/forms/Input/Create.php:138
+#: application/modules/default/forms/Input/Create.php:147
 msgid "Please paste video URL"
 msgstr "Пожалуйста, вставь электронный адрес видео"
 
-#: application/modules/default/forms/Input/Create.php:145
+#: application/modules/default/forms/Input/Create.php:154
 msgid "Explain your contribution"
 msgstr "Поясни свою запись"
 
-#: application/modules/default/forms/Input/Create.php:152
+#: application/modules/default/forms/Input/Create.php:161
 msgid "Your contribution"
 msgstr "Твоя запись"
 
@@ -527,24 +530,24 @@ msgstr "На пример"
 #: application/modules/default/forms/Input/Discussion.php:70
 #: application/modules/default/forms/PasswordRecover.php:24
 #: application/modules/default/forms/Profile.php:84
-#: application/modules/default/forms/Register.php:215
+#: application/modules/default/forms/Register.php:214
 msgid "Send"
 msgstr "Отправить"
 
 #: application/modules/default/forms/Input/Discussion.php:91
-#: application/modules/default/forms/Input/Edit.php:93
+#: application/modules/default/forms/Input/Edit.php:92
 msgid "Either text or video have to be submitted."
 msgstr "Обязательно должен быть размещён текст или видео"
 
-#: application/modules/default/forms/Input/Edit.php:25
+#: application/modules/default/forms/Input/Edit.php:24
 msgid "Contribution"
 msgstr "Запись"
 
-#: application/modules/default/forms/Input/Edit.php:37
+#: application/modules/default/forms/Input/Edit.php:36
 msgid "Explanation"
 msgstr "Пояснение"
 
-#: application/modules/default/forms/Input/Edit.php:50
+#: application/modules/default/forms/Input/Edit.php:49
 msgid "Save"
 msgstr "Сохранить"
 
@@ -552,7 +555,7 @@ msgstr "Сохранить"
 #: application/modules/default/forms/PasswordRecover.php:13
 #: application/modules/default/forms/PasswordRecover.php:15
 #: application/modules/default/forms/Profile.php:17
-#: application/modules/default/forms/Register.php:35
+#: application/modules/default/forms/Register.php:34
 #: application/modules/default/forms/Voting/Authentification.php:15
 #: application/modules/default/forms/Voting/Authentification.php:17
 msgid "Email Address"
@@ -569,12 +572,12 @@ msgid "Login"
 msgstr "Войти"
 
 #: application/modules/default/forms/Profile.php:22
-#: application/modules/default/forms/Register.php:70
+#: application/modules/default/forms/Register.php:69
 msgid "First name and surname"
 msgstr "Имя Фамилия"
 
 #: application/modules/default/forms/Profile.php:25
-#: application/modules/default/forms/Register.php:72
+#: application/modules/default/forms/Register.php:71
 msgid "Name"
 msgstr "Имя"
 
@@ -609,7 +612,7 @@ msgstr "Пароли не соответствуют друг другу"
 msgid "Confirm new password"
 msgstr "Подтвердить новый пароль"
 
-#: application/modules/default/forms/Register.php:42
+#: application/modules/default/forms/Register.php:41
 msgid ""
 "The following fields are not obligatory, but the data can help us find out "
 "which target groups we are reaching."
@@ -617,72 +620,72 @@ msgstr ""
 "Следующие поля не обязательны для заполнения, однако эти данные могут помочь "
 "нам узнать нашу целевую группу получше"
 
-#: application/modules/default/forms/Register.php:50
+#: application/modules/default/forms/Register.php:49
 msgid "I am responding as an individual person"
 msgstr "Я отвечаю как индивидуальная личность"
 
-#: application/modules/default/forms/Register.php:51
+#: application/modules/default/forms/Register.php:50
 msgid "I am responding in the name of a group"
 msgstr "Я отвечаю за группу"
 
-#: application/modules/default/forms/Register.php:88
+#: application/modules/default/forms/Register.php:87
 msgid "Please describe origin of your contributions:"
 msgstr "Пожалуйста, расскажите откуда ваши записи"
 
-#: application/modules/default/forms/Register.php:91
+#: application/modules/default/forms/Register.php:90
 msgid "Results from a meeting or project related to the topic"
 msgstr "Результаты из встречи или проекта по теме"
 
-#: application/modules/default/forms/Register.php:92
+#: application/modules/default/forms/Register.php:91
 msgid "Compiled by our group (e.g. in a workshop or a group session)"
 msgstr ""
 "Разработано нашей группой (к примеру, в ходе мастерской или заседания группы)"
 
-#: application/modules/default/forms/Register.php:93
+#: application/modules/default/forms/Register.php:92
 msgid "Position paper or agreement in our group/organisation"
 msgstr "Документ с изложением позиции или соглашение нашей группы/организации"
 
-#: application/modules/default/forms/Register.php:94
+#: application/modules/default/forms/Register.php:93
 msgid "Other:"
 msgstr "Другое: "
 
-#: application/modules/default/forms/Register.php:111
+#: application/modules/default/forms/Register.php:110
 msgid "How many individuals were involved?"
 msgstr "Каково число участников? "
 
-#: application/modules/default/forms/Register.php:119
+#: application/modules/default/forms/Register.php:118
 msgid "Group name"
 msgstr "Имя группы"
 
-#: application/modules/default/forms/Register.php:127
+#: application/modules/default/forms/Register.php:126
 msgid "Contact person"
 msgstr "Контактное лицо"
 
-#: application/modules/default/forms/Register.php:137
+#: application/modules/default/forms/Register.php:136
 msgid "no information"
 msgstr "не указано"
 
-#: application/modules/default/forms/Register.php:140
+#: application/modules/default/forms/Register.php:139
 msgid "Age"
 msgstr "Возраст"
 
-#: application/modules/default/forms/Register.php:150
+#: application/modules/default/forms/Register.php:149
 msgid "State"
 msgstr "Регион"
 
-#: application/modules/default/forms/Register.php:158
+#: application/modules/default/forms/Register.php:157
 msgid "I want to get informed about outcomes of the consultation round."
 msgstr "Я хочу получать информацию о результатах этапов обсуждения"
 
-#: application/modules/default/forms/Register.php:167
+#: application/modules/default/forms/Register.php:166
 msgid "I would like to subscribe to the newsletter."
 msgstr "Я хочу получать рассылку"
 
-#: application/modules/default/forms/Register.php:176
+#: application/modules/default/forms/Register.php:175
 msgid "Any comments?"
 msgstr "Тут вы можете оставить ваши комментарии: "
 
-#: application/modules/default/forms/Register.php:204
+#: application/modules/default/forms/Register.php:203
 msgid "You must agree."
 msgstr "Ты должен согласиться"
 
@@ -752,11 +755,11 @@ msgstr "Старт"
 msgid "Page"
 msgstr "Страница"
 
-#: application/modules/default/views/helpers/FollowupLink.php:31
+#: application/modules/default/views/helpers/FollowupLink.php:42
 msgid "View reactions"
 msgstr "Посмотреть реакции"
 
-#: application/modules/default/views/helpers/FollowupLink.php:40
+#: application/modules/default/views/helpers/FollowupLink.php:54
 msgid "There are currently no reactions to this contribution."
 msgstr "В настоящий момент нет реакций к данной записи"
 
@@ -772,58 +775,109 @@ msgstr "Записи, сортированы по вопросам"
 msgid "Contributions sorted by keywords"
 msgstr "Записи, сортированы по ключевым словам"
 
-#: application/modules/default/views/helpers/RibbonImage.php:16
-#: application/modules/default/views/helpers/RibbonImage.php:28
+#: application/modules/default/views/helpers/JsTranslations.php:13
+msgid "Weak"
+msgstr "Слабо"
+
+#: application/modules/default/views/helpers/JsTranslations.php:14
+msgid "Normal"
+msgstr "Нормально"
+
+#: application/modules/default/views/helpers/JsTranslations.php:15
+msgid "Medium"
+msgstr "Средне"
+
+#: application/modules/default/views/helpers/JsTranslations.php:16
+msgid "Strong"
+msgstr "Сильно"
+
+#: application/modules/default/views/helpers/JsTranslations.php:17
+msgid "Very Strong"
+msgstr "Очень сильно"
+
+#: application/modules/default/views/helpers/JsTranslations.php:18
+msgid "Shut back"
+msgstr "Снова сложить"
+
+#: application/modules/default/views/helpers/JsTranslations.php:19
+#: application/modules/default/views/scripts/input/createForm.phtml:61
+msgid "Click here to explain contribution"
+msgstr "Нажмите здесь для пояснений к записи"
+
+#: application/modules/default/views/helpers/JsTranslations.php:20
+#: application/modules/default/views/scripts/input/show.phtml:132
+msgid "supporters"
+msgstr "Поддерживающие"
+
+#: application/modules/default/views/helpers/JsTranslations.php:21
+#: application/modules/default/views/scripts/followup/index.phtml:134
+msgid "Loading…"
+msgstr "Загружается..."
+
+#: application/modules/default/views/helpers/JsTranslations.php:22
+msgid "You are being logged in. Please wait…"
+msgstr "Идёт процесс входа в систему. Пожалуйста, подождите ..."
+
+#: application/modules/default/views/helpers/JsTranslations.php:23
+msgid "Something went wrong"
+msgstr "Что-то пошло не так"
+
+#: application/modules/default/views/helpers/JsTranslations.php:24
+msgid "Your contributions have not been saved"
+msgstr ""
+
+#: application/modules/default/views/helpers/RibbonImage.php:17
+#: application/modules/default/views/helpers/RibbonImage.php:29
 #: application/modules/default/views/scripts/input/createForm.phtml:11
 msgid "Participate"
 msgstr "Принять участие"
 
-#: application/modules/default/views/helpers/RibbonImage.php:20
-#: application/modules/default/views/helpers/RibbonImage.php:32
+#: application/modules/default/views/helpers/RibbonImage.php:21
+#: application/modules/default/views/helpers/RibbonImage.php:33
 msgid "only today"
 msgstr "Только сегодня"
 
-#: application/modules/default/views/helpers/RibbonImage.php:24
+#: application/modules/default/views/helpers/RibbonImage.php:25
 msgid "Voting coming up"
 msgstr "Голосование начнётся скоро"
 
-#: application/modules/default/views/helpers/RibbonImage.php:36
+#: application/modules/default/views/helpers/RibbonImage.php:37
 msgid "Results"
 msgstr "Результаты"
 
-#: application/modules/default/views/helpers/RibbonImage.php:40
+#: application/modules/default/views/helpers/RibbonImage.php:41
 #: application/modules/default/views/scripts/followup/index.phtml:35
-#: application/modules/default/views/scripts/followup/index.phtml:123
+#: application/modules/default/views/scripts/followup/index.phtml:162
 msgid "Reaction"
 msgstr "Реакция"
 
 #: application/modules/default/views/helpers/SecondNavigation.php:25
-#: application/modules/default/views/scripts/_partials/consultationPreviews.phtml:102
+#: application/modules/default/views/scripts/_partials/consultationPreviews.phtml:104
 msgid "Info"
 msgstr "Информация"
 
 #: application/modules/default/views/helpers/SecondNavigation.php:30
-#: application/modules/default/views/scripts/_partials/consultationPreviews.phtml:111
+#: application/modules/default/views/scripts/_partials/consultationPreviews.phtml:113
 #: application/modules/default/views/scripts/index/search.phtml:53
 #: application/modules/default/views/scripts/user/notifications.phtml:59
 msgid "Questions"
 msgstr "Вопросы"
 
 #: application/modules/default/views/helpers/SecondNavigation.php:35
-#: application/modules/default/views/scripts/_partials/consultationPreviews.phtml:125
+#: application/modules/default/views/scripts/_partials/consultationPreviews.phtml:127
 #: application/modules/default/views/scripts/input/show.phtml:48
 msgid "Contributions"
 msgstr "Записи"
 
 #: application/modules/default/views/helpers/SecondNavigation.php:40
-#: application/modules/default/views/scripts/_partials/consultationPreviews.phtml:165
+#: application/modules/default/views/scripts/_partials/consultationPreviews.phtml:167
 #: application/modules/default/views/scripts/voting/overview.phtml:5
 msgid "Voting"
 msgstr "Голосование"
 
 #: application/modules/default/views/helpers/SecondNavigation.php:45
-#: application/modules/default/views/scripts/_partials/consultationPreviews.phtml:201
-#: application/modules/default/views/scripts/_partials/consultationPreviews.phtml:209
+#: application/modules/default/views/scripts/_partials/consultationPreviews.phtml:203
+#: application/modules/default/views/scripts/_partials/consultationPreviews.phtml:211
 #: application/modules/default/views/scripts/followup/index.phtml:20
 #: application/modules/default/views/scripts/followup/show-by-snippet.phtml:5
 #: application/modules/default/views/scripts/followup/show.phtml:5
@@ -833,65 +887,61 @@ msgstr "Реакции & Воздействие"
 
 #: application/modules/default/views/helpers/SecondNavigation.php:52
 #: application/modules/default/views/helpers/SecondNavigation.php:59
-#: application/modules/default/views/helpers/Teaser.php:38
-#: application/modules/default/views/scripts/_partials/consultationPreviews.phtml:132
-#: application/modules/default/views/scripts/_partials/consultationPreviews.phtml:141
-#: application/modules/default/views/scripts/_partials/consultationPreviews.phtml:172
-#: application/modules/default/views/scripts/_partials/consultationPreviews.phtml:181
+#: application/modules/default/views/helpers/Teaser.php:43
+#: application/modules/default/views/scripts/_partials/consultationPreviews.phtml:134
+#: application/modules/default/views/scripts/_partials/consultationPreviews.phtml:143
+#: application/modules/default/views/scripts/_partials/consultationPreviews.phtml:174
+#: application/modules/default/views/scripts/_partials/consultationPreviews.phtml:183
 msgid "from"
 msgstr "c"
 
 #: application/modules/default/views/helpers/SecondNavigation.php:55
 #: application/modules/default/views/helpers/SecondNavigation.php:62
-#: application/modules/default/views/helpers/Teaser.php:28
-#: application/modules/default/views/helpers/Teaser.php:40
-#: application/modules/default/views/scripts/_partials/consultationPreviews.phtml:134
-#: application/modules/default/views/scripts/_partials/consultationPreviews.phtml:143
-#: application/modules/default/views/scripts/_partials/consultationPreviews.phtml:174
-#: application/modules/default/views/scripts/_partials/consultationPreviews.phtml:183
+#: application/modules/default/views/helpers/Teaser.php:33
+#: application/modules/default/views/helpers/Teaser.php:45
+#: application/modules/default/views/scripts/_partials/consultationPreviews.phtml:136
+#: application/modules/default/views/scripts/_partials/consultationPreviews.phtml:145
+#: application/modules/default/views/scripts/_partials/consultationPreviews.phtml:176
+#: application/modules/default/views/scripts/_partials/consultationPreviews.phtml:185
 msgid "until"
 msgstr "до"
 
 #: application/modules/default/views/helpers/SecondNavigation.php:110
-#: application/modules/default/views/scripts/_partials/consultationPreviews.phtml:130
+#: application/modules/default/views/scripts/_partials/consultationPreviews.phtml:132
 msgid "Participate now!"
 msgstr "Участвовать сейчас!"
 
 #: application/modules/default/views/helpers/SecondNavigation.php:112
-#: application/modules/default/views/scripts/_partials/consultationPreviews.phtml:170
+#: application/modules/default/views/scripts/_partials/consultationPreviews.phtml:172
 #: application/modules/default/views/scripts/voting/index.phtml:34
-#: application/modules/default/views/scripts/voting/overview.phtml:50
+#: application/modules/default/views/scripts/voting/overview.phtml:43
 #: application/modules/default/views/scripts/voting/vote.phtml:79
 msgid "Vote now!"
 msgstr "Проголосовать сейчас!"
 
-#: application/modules/default/views/helpers/Teaser.php:25
+#: application/modules/default/views/helpers/Teaser.php:30
 msgid "You can publish your contribution now!"
 msgstr "Теперь ты можешь оставить свою запись!"
 
-#: application/modules/default/views/helpers/Teaser.php:26
+#: application/modules/default/views/helpers/Teaser.php:31
 msgid "From"
 msgstr "От"
 
-#: application/modules/default/views/helpers/Teaser.php:37
+#: application/modules/default/views/helpers/Teaser.php:42
 msgid "The contribution phase has finished. You can vote soon:"
 msgstr "Этап записей завершён. Скоро начнётся голосование"
 
-#: application/modules/default/views/helpers/Teaser.php:49
+#: application/modules/default/views/helpers/Teaser.php:54
 msgid "Vote now on the most important contributions!"
 msgstr "Голосуй сейчас за самые важные записи!"
 
-#: application/modules/default/views/helpers/Teaser.php:57
+#: application/modules/default/views/helpers/Teaser.php:62
 msgid "Voting has finished! There will soon be reactions available"
 msgstr "Голосование завершено! Скоро будут доступны реакции"
 
-#: application/modules/default/views/helpers/Teaser.php:65
+#: application/modules/default/views/helpers/Teaser.php:70
 msgid "Get informed now"
 msgstr "Получить информацию сейчас!"
-
-#: application/modules/default/views/helpers/Teaser.php:80
-msgid "Looking for other consultations? View all"
-msgstr "Ищешь другое обсуждение? Показать все!"
 
 #: application/services/UrlkeyAction/ConfirmInputDiscussionContribution.php:51
 msgid "Your discussion post was confirmed."
@@ -931,13 +981,14 @@ msgstr "Пожалуйста, укажите пароль!"
 msgid "Login failed!"
 msgstr "Вход в систему не удался"
 
-#: library/Plugin/Auth/AccessControl.php:80
-msgid "No admission rights for this page!"
-msgstr "У вас нет прав доступа к запрашиваемой странице"
-
-#: library/Plugin/Auth/AccessControl.php:83
+#: library/Plugin/Auth/AccessControl.php:62
+#: library/Plugin/Auth/AccessControl.php:90
 msgid "Please log in first!"
 msgstr "Пожалуйста, в начале войдите в систему!"
+
+#: library/Plugin/Auth/AccessControl.php:87
+msgid "No admission rights for this page!"
+msgstr "У вас нет прав доступа к запрашиваемой странице"
 
 #: library/Plugin/Auth/AuthAdapter.php:44
 msgid "A record with the supplied identity could not be found."
@@ -956,28 +1007,28 @@ msgstr "Данные для авторизации не верны"
 msgid "DBJR TOOL Admin"
 msgstr "ePartool Администратор"
 
-#: application/layouts/scripts/backend.phtml:43
-#: application/layouts/scripts/frontend.phtml:95
+#: application/layouts/scripts/backend.phtml:42
+#: application/layouts/scripts/frontend.phtml:102
 msgid "Menu"
 msgstr "Меню"
 
-#: application/layouts/scripts/backend.phtml:51
+#: application/layouts/scripts/backend.phtml:50
 msgid "ePartool admin dashboard"
 msgstr "ePartool Панель Администратора"
 
-#: application/layouts/scripts/backend.phtml:65
+#: application/layouts/scripts/backend.phtml:64
 msgid "Open site in a new tab"
 msgstr "Открыть страницу в новой вкладке"
 
-#: application/layouts/scripts/backend.phtml:67
+#: application/layouts/scripts/backend.phtml:66
 msgid "Homepage"
 msgstr "Домашняя страница"
 
-#: application/layouts/scripts/backend.phtml:86
+#: application/layouts/scripts/backend.phtml:85
 msgid "Log off"
 msgstr "Выйти из системы"
 
-#: application/layouts/scripts/backend.phtml:114
+#: application/layouts/scripts/backend.phtml:113
 msgid "Go to ePartool's developer site"
 msgstr "Перейти к странице для разработчиков ePartool"
 
@@ -987,56 +1038,61 @@ msgid "Close"
 msgstr "Закрыть"
 
 #: application/layouts/scripts/frontend-help-modal.phtml:10
-#: application/layouts/scripts/frontend.phtml:222
+#: application/layouts/scripts/frontend.phtml:264
 #: application/modules/default/views/scripts/_helpers/login.phtml:12
 #: application/modules/default/views/scripts/_partials/pageLinks.phtml:8
 msgid "Help"
 msgstr "Помощь"
 
-#: application/layouts/scripts/frontend.phtml:75
-#: application/layouts/scripts/frontend.phtml:188
+#: application/layouts/scripts/frontend.phtml:82
 msgid "Home"
 msgstr "Домашняя страница"
 
-#: application/layouts/scripts/frontend.phtml:97
+#: application/layouts/scripts/frontend.phtml:104
 msgid "What"
 msgstr "Что"
 
-#: application/layouts/scripts/frontend.phtml:98
+#: application/layouts/scripts/frontend.phtml:105
 msgid "We"
 msgstr "Мы"
 
-#: application/layouts/scripts/frontend.phtml:100
-#: application/layouts/scripts/frontend.phtml:104
+#: application/layouts/scripts/frontend.phtml:107
+#: application/layouts/scripts/frontend.phtml:111
 msgid "With You"
 msgstr "С вами"
 
-#: application/layouts/scripts/frontend.phtml:101
-#: application/layouts/scripts/frontend.phtml:103
+#: application/layouts/scripts/frontend.phtml:108
+#: application/layouts/scripts/frontend.phtml:110
 msgid "Do"
 msgstr "Делать"
 
-#: application/layouts/scripts/frontend.phtml:115
+#: application/layouts/scripts/frontend.phtml:122
 msgid "Search…"
 msgstr "Поиск..."
 
-#: application/layouts/scripts/frontend.phtml:117
+#: application/layouts/scripts/frontend.phtml:124
 msgid "Search"
 msgstr "Поиск"
 
-#: application/layouts/scripts/frontend.phtml:137
-#: application/layouts/scripts/frontend.phtml:213
+#: application/layouts/scripts/frontend.phtml:144
+#: application/layouts/scripts/frontend.phtml:255
 msgid "Participation"
 msgstr "Принять участие"
 
-#: application/layouts/scripts/frontend.phtml:197
+#: application/layouts/scripts/frontend.phtml:204
+#: application/layouts/scripts/frontend.phtml:210
+#: application/layouts/scripts/frontend.phtml:216
+#: application/layouts/scripts/frontend.phtml:221
+#: application/layouts/scripts/frontend.phtml:227
+#: application/layouts/scripts/frontend.phtml:232
+#: application/layouts/scripts/frontend.phtml:238
 msgid "Share"
 msgstr "Поделиться"
 
 #: application/modules/default/views/scripts/_helpers/login.phtml:33
 #: application/modules/default/views/scripts/_helpers/login.phtml:35
-#: application/modules/default/views/scripts/input/confirm.phtml:33
-#: application/modules/default/views/scripts/input/confirm.phtml:35
+#: application/modules/default/views/scripts/user/register.phtml:33
+#: application/modules/default/views/scripts/user/register.phtml:35
 msgid "Sign in with Google"
 msgstr "Войти, используя аккаунт Google"
 
@@ -1077,7 +1133,7 @@ msgstr "Администратор"
 msgid "Logout"
 msgstr "Выйти из системы"
 
-#: application/modules/default/views/scripts/_partials/followup-snippet-box.phtml:35
+#: application/modules/default/views/scripts/_partials/followup-snippet-box.phtml:34
 msgid "Follow this path"
 msgstr "Следовать по пути"
 
@@ -1086,7 +1142,6 @@ msgid "Print page"
 msgstr "Распечатать эту страницу"
 
 #: application/modules/default/views/scripts/_partials/pageLinks.phtml:23
-#: application/modules/default/views/scripts/consultation/index.phtml:11
 #: application/modules/default/views/scripts/index/index.phtml:15
 msgid "up"
 msgstr "Наверх"
@@ -1110,10 +1165,6 @@ msgstr "Открыть корзину голосования"
 msgid "No opinion"
 msgstr "Мнение отсутствует"
 
-#: application/modules/default/views/scripts/consultation/index.phtml:2
-msgid "Overview of all consultations"
-msgstr "Oбзор всех обсуждений"
-
 #: application/modules/default/views/scripts/followup/index.phtml:18
 msgid "How it all proceeeded:"
 msgstr "Как всё развивалось: "
@@ -1122,27 +1173,27 @@ msgstr "Как всё развивалось: "
 msgid "Overview of reactions so far:"
 msgstr "Обзор реакций на данный момент"
 
-#: application/modules/default/views/scripts/followup/index.phtml:64
+#: application/modules/default/views/scripts/followup/index.phtml:67
 msgid "Preview"
 msgstr "Предварительный просмотр"
 
-#: application/modules/default/views/scripts/followup/index.phtml:84
+#: application/modules/default/views/scripts/followup/index.phtml:112
 msgid "View"
 msgstr "Показать"
 
-#: application/modules/default/views/scripts/followup/index.phtml:110
+#: application/modules/default/views/scripts/followup/index.phtml:149
 msgid "There are no reactions yet."
 msgstr "В данной момент ещё нет никаких реакций"
 
-#: application/modules/default/views/scripts/followup/index.phtml:130
+#: application/modules/default/views/scripts/followup/index.phtml:169
 msgid "Reactions and Feedback on individual contributions"
 msgstr "Реакции и Отзывы по отдельным записям"
 
-#: application/modules/default/views/scripts/followup/index.phtml:136
+#: application/modules/default/views/scripts/followup/index.phtml:175
 msgid "Simply click on respective question or switch to keywords."
 msgstr "Просто указать на соответствующий вопрос или перейти к ключевым словам"
 
-#: application/modules/default/views/scripts/followup/index.phtml:144
+#: application/modules/default/views/scripts/followup/index.phtml:183
 msgid "Sorted by keywords"
 msgstr "Сортировать по ключевым словам "
 
@@ -1171,59 +1222,35 @@ msgstr "Записи"
 msgid "written on"
 msgstr "verfasst am"
 
-#: application/modules/default/views/scripts/followup/inputs-by-question.phtml:94
+#: application/modules/default/views/scripts/followup/inputs-by-question.phtml:91
 #: application/modules/default/views/scripts/input/show.phtml:141
 msgid "I agree!"
 msgstr "Я того же мнения!"
 
-#: application/modules/default/views/scripts/followup/inputs-by-question.phtml:124
-#: application/modules/default/views/scripts/input/show.phtml:170
+#: application/modules/default/views/scripts/followup/inputs-by-question.phtml:121
+#: application/modules/default/views/scripts/input/show.phtml:172
 msgid "I would like to discuss that!"
 msgstr "Я хочу это обсудить!"
 
-#: application/modules/default/views/scripts/followup/inputs-by-question.phtml:126
-#: application/modules/default/views/scripts/input/show.phtml:172
+#: application/modules/default/views/scripts/followup/inputs-by-question.phtml:123
+#: application/modules/default/views/scripts/input/show.phtml:174
 msgid "View discussion"
 msgstr "Показать обсуждение"
 
-#: application/modules/default/views/scripts/followup/inputs-by-question.phtml:143
-#: application/modules/default/views/scripts/input/show.phtml:185
+#: application/modules/default/views/scripts/followup/inputs-by-question.phtml:140
+#: application/modules/default/views/scripts/input/show.phtml:191
 msgid "There are no contributions on this question."
 msgstr "К данному вопросу нет записей"
 
-#: application/modules/default/views/scripts/followup/inputs-by-question.phtml:152
-#: application/modules/default/views/scripts/input/show.phtml:194
+#: application/modules/default/views/scripts/followup/inputs-by-question.phtml:149
+#: application/modules/default/views/scripts/input/show.phtml:200
 msgid "Newer contributions"
 msgstr "Новые записи"
 
-#: application/modules/default/views/scripts/followup/inputs-by-question.phtml:152
-#: application/modules/default/views/scripts/input/show.phtml:194
+#: application/modules/default/views/scripts/followup/inputs-by-question.phtml:149
+#: application/modules/default/views/scripts/input/show.phtml:200
 msgid "Older contributions"
 msgstr "Старые записи"
-
-#: application/modules/default/views/scripts/followup/show-by-snippet.phtml:16
-msgid "Back to overview of Reactions & Impact"
-msgstr "Обратно к обзору Реакции & Воздействия"
-
-#: application/modules/default/views/scripts/followup/show-by-snippet.phtml:23
-#: application/modules/default/views/scripts/followup/show.phtml:24
-msgid ""
-"Follow the Reactions to your contribution here. Click on the arrows for the "
-"next steps."
-msgstr ""
-"Посмотреть Реакции к твоим записям здесь. Кликни на стрелки для дальнейших "
-"шагов"
-
-#: application/modules/default/views/scripts/followup/show-by-snippet.phtml:47
-#: application/modules/default/views/scripts/followup/show.phtml:67
-#: application/modules/default/views/scripts/followup/show.phtml:99
-#, php-format
-msgid "Result of voting: %d. position"
-msgstr "Результат голосования: %d. позиция"
-
-#: application/modules/default/views/scripts/followup/show.phtml:42
-msgid "Back to overview of contributions sorted by questions"
-msgstr "Обратно к обзору записей, сортированных по вопросам"
 
 #: application/modules/default/views/scripts/followup/tags.phtml:15
 #: application/modules/default/views/scripts/input/index.phtml:10
@@ -1295,8 +1322,8 @@ msgid "User Contributions"
 msgstr "Записи пользователя"
 
 #: application/modules/default/views/scripts/index/search.phtml:91
-msgid "Search in Follow-Ups"
-msgstr "Искать в дополнениях"
+msgid "Search in Reactions & Impact"
+msgstr ""
 
 #: application/modules/default/views/scripts/index/search.phtml:118
 msgid "Reactions"
@@ -1306,23 +1333,11 @@ msgstr "Реакции"
 msgid "Video (optional)"
 msgstr "Видео (по желанию)"
 
-#: application/modules/default/views/scripts/input/confirm.phtml:12
-msgid "Finish Contributing"
-msgstr "Завершить запись"
-
-#: application/modules/default/views/scripts/input/confirm.phtml:16
-msgid ""
-"Please fill in the form in order to confirm your contributions to this "
-"participation round!"
-msgstr ""
-"Пожалуйста, заполни формуляр, чтобы подтвердить запись в данной группе по "
-"обсуждению"
-
 #: application/modules/default/views/scripts/input/createForm.phtml:16
 msgid "Create new contribution"
 msgstr "Внести новую запись"
 
-#: application/modules/default/views/scripts/input/createForm.phtml:85
+#: application/modules/default/views/scripts/input/createForm.phtml:87
 msgid "Click here for another contribution"
 msgstr "Кликни здесь для следующей записи"
 
@@ -1364,6 +1379,10 @@ msgstr "Изменить запись"
 #: application/modules/default/views/scripts/input/edit.phtml:31
 msgid "Back"
 msgstr "Обратно"
+
+#: application/modules/default/views/scripts/input/finished.phtml:8
+msgid "Thank you for contributing"
+msgstr ""
 
 #: application/modules/default/views/scripts/input/index.phtml:40
 msgid "All tags"
@@ -1476,8 +1495,8 @@ msgid "When new document is added"
 msgstr "Когда добавлен новый документ"
 
 #: application/modules/default/views/scripts/user/notifications.phtml:131
-msgid "Unsubscribe from follow-up?"
-msgstr "Отписаться от дополнений?"
+msgid "Unsubscribe from Reactions & Impact?"
+msgstr ""
 
 #: application/modules/default/views/scripts/user/passwordrecover.phtml:7
 msgid ""
@@ -1492,6 +1511,18 @@ msgstr ""
 #: application/modules/default/views/scripts/user/profile.phtml:6
 msgid "Profile"
 msgstr "Профиль"
+
+#: application/modules/default/views/scripts/user/register.phtml:12
+msgid "Finish Contributing"
+msgstr "Завершить запись"
+
+#: application/modules/default/views/scripts/user/register.phtml:16
+msgid ""
+"Please fill in the form in order to confirm your contributions to this "
+"participation round!"
+msgstr ""
+"Пожалуйста, заполни формуляр, чтобы подтвердить запись в данной группе по "
+"обсуждению"
 
 #: application/modules/default/views/scripts/user/userlist.phtml:3
 msgid "confirmed"
@@ -1544,10 +1575,6 @@ msgstr "Член группы"
 #: application/modules/default/views/scripts/user/userlist.phtml:79
 msgid "Still to vote"
 msgstr "В процессе голосования"
-
-#: application/modules/default/views/scripts/user/userlist.phtml:80
-msgid "Action"
-msgstr "Действие"
 
 #: application/modules/default/views/scripts/user/userlist.phtml:96
 msgid "Deny voting participant?"
@@ -1631,7 +1658,6 @@ msgstr ""
 "молодыми людми и молодёжными группами в течение последних недель и месяцев."
 
 #: application/modules/default/views/scripts/voting/index.phtml:30
-#: application/modules/default/views/scripts/voting/overview.phtml:15
 #: application/modules/default/views/scripts/voting/vote.phtml:44
 msgid "Join now!"
 msgstr "Присоединяйся сейчас!"
@@ -1644,13 +1670,13 @@ msgstr ""
 "Данное голосование анонимно. Нам лишь необходимо знать твой электронный "
 "адрес, чтобы проверить, допущен лы ты до участия в данном голосовании"
 
-#: application/modules/default/views/scripts/voting/overview.phtml:44
+#: application/modules/default/views/scripts/voting/overview.phtml:37
 #: application/modules/default/views/scripts/voting/vote.phtml:73
 #, php-format
 msgid "You have voted on %s <br /> out of the total of %s contributions."
 msgstr "Ты проголосовал за %s <br /> из %s записей."
 
-#: application/modules/default/views/scripts/voting/overview.phtml:68
+#: application/modules/default/views/scripts/voting/overview.phtml:61
 msgid ""
 "Choose here the question or the keyword according to which the contributions "
 "to be voted will be shown first. You may change question or keyword any "
@@ -1664,11 +1690,11 @@ msgstr ""
 "ты смог проголосовать по каждой из них. Ты можешь делать перерывы в любой "
 "удобный тебе момент"
 
-#: application/modules/default/views/scripts/voting/overview.phtml:72
+#: application/modules/default/views/scripts/voting/overview.phtml:65
 msgid "Contributions by topic"
 msgstr "Записи по теме"
 
-#: application/modules/default/views/scripts/voting/overview.phtml:93
+#: application/modules/default/views/scripts/voting/overview.phtml:86
 #: application/modules/default/views/scripts/voting/vote.phtml:177
 #: application/modules/default/views/scripts/voting/vote.phtml:179
 msgid "Preview voting"
@@ -1793,6 +1819,33 @@ msgstr "Отмечено как особенно важно:"
 #: application/modules/default/views/scripts/voting/vote.phtml:240
 msgid "Remove"
 msgstr "Удалить"
+
+#~ msgid "All age groups"
+#~ msgstr "Все возрастные группы"
+
+#~ msgid "Your contributions have not been saved."
+#~ msgstr "Ваша записъ не была сохранена"
+
+#~ msgid "Looking for other consultations? View all"
+#~ msgstr "Ищешь другое обсуждение? Показать все!"
+
+#~ msgid "Overview of all consultations"
+#~ msgstr "Oбзор всех обсуждений"
+
+#~ msgid "Back to overview of Reactions & Impact"
+#~ msgstr "Обратно к обзору Реакции & Воздействия"
+
+#~ msgid "Result of voting: %d. position"
+#~ msgstr "Результат голосования: %d. позиция"
+
+#~ msgid "Back to overview of contributions sorted by questions"
+#~ msgstr "Обратно к обзору записей, сортированных по вопросам"
+
+#~ msgid "Search in Follow-Ups"
+#~ msgstr "Искать в дополнениях"
+
+#~ msgid "Unsubscribe from follow-up?"
+#~ msgstr "Отписаться от дополнений?"
 
 #~ msgid "up to %s years"
 #~ msgstr "bis %s Jahre"

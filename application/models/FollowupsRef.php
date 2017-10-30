@@ -29,16 +29,16 @@ class Model_FollowupsRef extends Zend_Db_Table_Abstract
     );
 
     /**
-     * Resets a link between snippet and any of the following
-     * - snippet
-     * - follow-up
+     * Resets a link between reaction_snippet and any of the following
+     * - reaction_snippet
+     * - reaction_file
      * - input
      * @param  array   $ids    An array of linked entity ids
      * @param  integer $fid    The id of the snipped being linked
      * @param  string  $type   Identifies the target entity type. Takes values
      *                         - tid (input)
-     *                         - fid (snippet)
-     *                         - ffid (followup)
+     *                         - fid (reaction_snippet)
+     *                         - ffid (reaction_file)
      * @return integer        The number of rows inserted.
      */
     public function insertBulk($ids, $fid, $type)

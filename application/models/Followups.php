@@ -141,7 +141,7 @@ class Model_Followups extends Zend_Db_Table_Abstract
 
     /**
     * getById
-    * get follow-up by fowups.fid
+    * get reaction_file by fowups.fid
     * @param int $id
     * @return array
     */
@@ -162,7 +162,7 @@ class Model_Followups extends Zend_Db_Table_Abstract
 
     /**
     * getByIdArray
-    * get follow-up by fowups.fid array
+    * get reaction_file by fowups.fid array
     * @param array $idarray
     * @return array
     */
@@ -234,9 +234,9 @@ class Model_Followups extends Zend_Db_Table_Abstract
     }
 
     /**
-     * Search in follow-up snippets
+     * Search in reaction_snippets
      * @param string  $needle   The term being searchd for
-     * @return array            An array of follow-ups with snippets
+     * @return array            An array of reaction_files with reaction_snippets
      */
     public function search($needle)
     {

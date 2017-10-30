@@ -1,15 +1,15 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Dbjr Tool\n"
-"POT-Creation-Date: 2017-10-19 09:46+0200\n"
-"PO-Revision-Date: 2017-10-19 09:46+0200\n"
+"POT-Creation-Date: 2017-11-02 10:09+0100\n"
+"PO-Revision-Date: 2017-11-02 10:11+0100\n"
 "Last-Translator: Martin Bohal <mb@mbohal.cz>\n"
 "Language-Team: epartool@dbjr.de\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.8.12\n"
+"X-Generator: Poedit 1.8.7.1\n"
 "X-Poedit-KeywordsList: _;translate;setLabel;setLegend;addMessage;"
 "setConfirmMessage;setDescription\n"
 "X-Poedit-Basepath: ../..\n"
@@ -66,8 +66,8 @@ msgid "Consultation voting"
 msgstr "Abstimmungsphase"
 
 #: application/models/HelpText.php:22
-msgid "Consultation reactions & impact"
-msgstr "Reaktionen & Wirkung"
+msgid "Consultation Reactions & Impact"
+msgstr ""
 
 #: application/models/HelpText.php:23
 msgid "Login"
@@ -94,12 +94,16 @@ msgid "Voting results"
 msgstr "Abstimmungsergebnisse"
 
 #: application/models/HelpText.php:30
+#: application/modules/admin/views/scripts/consultation/_consultationForm.phtml:97
+#: application/modules/admin/views/scripts/followup/index.phtml:27
+#: application/modules/admin/views/scripts/followup/snippet-reference.phtml:186
+#: application/modules/admin/views/scripts/index/index.phtml:78
 msgid "Reactions & Impact"
 msgstr "Reaktionen & Wirkung"
 
 #: application/models/HelpText.php:31
-msgid "Follow up snippets"
-msgstr "Textschnippsel für Reaktionen"
+msgid "Reactions & Impact snippets"
+msgstr "Reaktionen & Wirkung snippets"
 
 #: application/models/HelpText.php:34
 msgid "Consultation general settings"
@@ -339,36 +343,37 @@ msgid "The snippet could not be created."
 msgstr "Schnippsel konnte nicht erstellt werden."
 
 #: application/modules/admin/controllers/FollowupController.php:78
-msgid "Create Follow-Up Snippet"
-msgstr "Erstelle Follow-up-Schnippsel"
+msgid "Create Reactions & Impact Snippet"
+msgstr "Erstelle Reaktionen & Wirkung Schnippsel"
 
 #: application/modules/admin/controllers/FollowupController.php:116
 msgid "The snippet could not be saved."
 msgstr "Schnippsel konnte nicht gespeichert werden."
 
 #: application/modules/admin/controllers/FollowupController.php:124
-msgid "Edit Follow-Up Snippet"
-msgstr "Follow-Up-Schnippsel bearbeiten"
+msgid "Edit Reactions & Impact Snippet"
+msgstr "Reaktionen & Wirkung Schnippsel bearbeiten"
 
 #: application/modules/admin/controllers/FollowupController.php:145
-msgid "New follow-up has been successfully created."
-msgstr "Das Follow-up wurde erfolgreich erstellt."
+msgid "New Reactions & Impact has been successfully created."
+msgstr "Reaktionen & Wirkung wurde erfolgreich erstellt."
 
 #: application/modules/admin/controllers/FollowupController.php:148
-msgid "The follow-up could not be created."
-msgstr "Follow-Up konnte nicht erstellt werden."
+msgid "The Reactions & Impact could not be created."
+msgstr "Reaktionen & Wirkung konnte nicht erstellt werden."
 
 #: application/modules/admin/controllers/FollowupController.php:153
-msgid "Create Follow-up"
-msgstr "Follow-Up erstellen"
+msgid "Create Reactions & Impact"
+msgstr "Reaktionen & Wirkung erstellen"
 
 #: application/modules/admin/controllers/FollowupController.php:179
-msgid "The follow-up could not be saved."
-msgstr "Follow-Up konnte nicht gespeichert werden."
+msgid "The Reactions & Impact could not be saved."
+msgstr "Reaktionen & Wirkung konnte nicht gespeichert werden."
 
 #: application/modules/admin/controllers/FollowupController.php:188
-msgid "Edit Follow-Up"
-msgstr "Ändere Follow-Up"
+#: application/modules/admin/views/scripts/followup/index.phtml:61
+msgid "Edit Reactions & Impact"
+msgstr "Ändere Reaktionen & Wirkung"
 
 #: application/modules/admin/controllers/FollowupController.php:209
 msgid "The snippet has been deleted."
@@ -379,14 +384,16 @@ msgid "Snippet order has been updated."
 msgstr "Reihenfolge der Schnippsel wurde aktualisiert."
 
 #: application/modules/admin/controllers/FollowupController.php:251
-msgid "The follow-up has been deleted."
-msgstr "Follow-Up wurde gelöscht."
+msgid "The reaction & impact has been deleted."
+msgstr "Reaktionen & Wirkung wurde gelöscht."
 
 #: application/modules/admin/controllers/FollowupController.php:253
 msgid ""
-"The follow-up could not be deleted as there are snippets attached to it."
+"The reaction & impact could not be deleted as there are snippets attached to "
+"it."
 msgstr ""
-"Follow-Up konnte nicht gelöscht werden, weil Schnippsel verknüpft sind."
+"Reaktionen & Wirkung konnte nicht gelöscht werden, weil Schnippsel verknüpft "
+"sind."
 
 #: application/modules/admin/controllers/FollowupController.php:280
 #, php-format
@@ -395,8 +402,8 @@ msgstr "%d Beiträge wurden verknüpft."
 
 #: application/modules/admin/controllers/FollowupController.php:289
 #, php-format
-msgid "%d follow-ups linked."
-msgstr "%d Follow-Ups wurden verknüpft"
+msgid "%d Reactions & Impact linked."
+msgstr "%d Reaktionen & Wirkung wurden verknüpft"
 
 #: application/modules/admin/controllers/FollowupController.php:298
 #, php-format
@@ -854,7 +861,7 @@ msgstr "Infotext nach Abschluss des anonymen Beitragens"
 #: application/modules/admin/forms/Settings/ContributionSubmission.php:33
 #: application/modules/admin/forms/Settings/LookAndFeel.php:66
 #: application/modules/admin/forms/Settings/Services.php:55
-#: application/modules/admin/forms/Settings/Site.php:109
+#: application/modules/admin/forms/Settings/Site.php:108
 #: application/modules/admin/forms/Settings/Voting.php:16
 #: application/modules/admin/forms/Tag.php:30
 #: application/modules/admin/forms/User/Create.php:89
@@ -911,7 +918,7 @@ msgstr "Aktuelles Projekt muss ausgewählt sein."
 msgid "Preview"
 msgstr "Vorschau"
 
-#: application/modules/admin/forms/ArticlePreview.php:50
+#: application/modules/admin/forms/ArticlePreview.php:49
 msgid "< Back to edit mode"
 msgstr "< zurück zum Bearbeitungsmodus"
 
@@ -1026,11 +1033,11 @@ msgid "Allow videos in Discussion"
 msgstr "Videos in Diskussion erlauben"
 
 #: application/modules/admin/forms/Consultation.php:207
-msgid "Enable follow-ups"
-msgstr "Follow-Up aktivieren"
+msgid "Enable Reactions & Impact"
+msgstr "Reaktionen & Wirkung aktivieren"
 
 #: application/modules/admin/forms/Consultation.php:215
-msgid "Follow-Up phase explanation"
+msgid "Reactions & Impact phase explanation"
 msgstr "Einführung zu Reaktionen & Wirkung"
 
 #: application/modules/admin/forms/Consultation.php:222
@@ -1136,9 +1143,7 @@ msgstr "Abstimmung"
 
 #: application/modules/admin/forms/ConsultationPhases.php:53
 #: application/modules/admin/views/helpers/ConsultationNavigation.php:103
-#: application/modules/admin/views/scripts/consultation/_consultationForm.phtml:97
-#: application/modules/admin/views/scripts/followup/index.phtml:27
-msgid "Follow-up"
+msgid "Reaction & Impact"
 msgstr "Reaktionen & Wirkung"
 
 #: application/modules/admin/forms/ContributionSubmission.php:10
@@ -1202,7 +1207,7 @@ msgstr "Beitragsverfasser_in"
 #: application/modules/admin/forms/Mail/Template.php:22
 #: application/modules/admin/forms/Media/FileDetail.php:20
 #: application/modules/admin/forms/Media/FolderDetail.php:13
-#: application/modules/admin/forms/Settings/Site.php:68
+#: application/modules/admin/forms/Settings/Site.php:67
 #: application/modules/admin/forms/User/Create.php:15
 #: application/modules/admin/forms/User/Edit.php:20
 #: application/modules/admin/views/scripts/input/index.phtml:88
@@ -1525,8 +1530,8 @@ msgid "Participants who voted"
 msgstr "Teilnehmende, die an der Abstimmung teilnahmen"
 
 #: application/modules/admin/forms/Mail/Send.php:86
-msgid "Participants who signed up to receive follow-ups"
-msgstr "Teilnehmende, die über Follow-up informiert werden"
+msgid "Participants who signed up to receive Reactions & Impact"
+msgstr "Teilnehmende, die über Reaktionen & Wirkung informiert werden"
 
 #: application/modules/admin/forms/Mail/Send.php:94
 msgid "Participants who signed up to receive newsletter"
@@ -1693,17 +1698,17 @@ msgstr ""
 msgid "Motto"
 msgstr "Motto"
 
-#: application/modules/admin/forms/Settings/Site.php:62
+#: application/modules/admin/forms/Settings/Site.php:61
 msgid "Site Information"
 msgstr "Info zur Site"
 
-#: application/modules/admin/forms/Settings/Site.php:65
-#: application/modules/admin/forms/Settings/Site.php:74
-#: application/modules/admin/forms/Settings/Site.php:83
+#: application/modules/admin/forms/Settings/Site.php:64
+#: application/modules/admin/forms/Settings/Site.php:73
+#: application/modules/admin/forms/Settings/Site.php:82
 msgid "Used as a placeholder in email templates."
 msgstr "Wird als Platzhalter in E-Mail-Vorlagen verwendet."
 
-#: application/modules/admin/forms/Settings/Site.php:77
+#: application/modules/admin/forms/Settings/Site.php:76
 #: application/modules/admin/forms/User/Create.php:23
 #: application/modules/admin/forms/User/Edit.php:27
 #: application/modules/admin/views/scripts/input/index.phtml:89
@@ -1719,11 +1724,11 @@ msgstr "Wird als Platzhalter in E-Mail-Vorlagen verwendet."
 msgid "Email"
 msgstr "E-Mail"
 
-#: application/modules/admin/forms/Settings/Site.php:86
+#: application/modules/admin/forms/Settings/Site.php:85
 msgid "Website URL"
 msgstr "Adresse Website"
 
-#: application/modules/admin/forms/Settings/Site.php:95
+#: application/modules/admin/forms/Settings/Site.php:94
 msgid "Contact Information"
 msgstr "Kontaktinformation"
 
@@ -2379,16 +2384,16 @@ msgstr "Gruppengewicht"
 
 #: application/modules/admin/views/scripts/followup/followup-detail.phtml:21
 #: application/modules/admin/views/scripts/followup/snippets.phtml:24
-msgid "Back to Follow-ups"
-msgstr "Zurück zu Follow-Up"
+msgid "Back to Reactions & Impact"
+msgstr "Zurück zu Reaktionen & Wirkung"
 
 #: application/modules/admin/views/scripts/followup/index.phtml:25
-msgid "New Follow-up"
-msgstr "Neues Follow-Up"
+msgid "New Reactions & Impact"
+msgstr "Neues Reaktionen & Wirkung"
 
 #: application/modules/admin/views/scripts/followup/index.phtml:32
-msgid "There are no follow-ups yet."
-msgstr "Es gibt noch keine Follow-Ups."
+msgid "There are no Reactions & Impact yet."
+msgstr "Es gibt noch keine Reaktionen & Wirkung."
 
 #: application/modules/admin/views/scripts/followup/index.phtml:42
 msgid "Time Added"
@@ -2398,21 +2403,17 @@ msgstr "Hinzugefügt:"
 msgid "Stakeholder"
 msgstr "Stakeholder"
 
-#: application/modules/admin/views/scripts/followup/index.phtml:61
-msgid "Edit follow-up"
-msgstr "Follow-Up bearbeiten"
-
 #: application/modules/admin/views/scripts/followup/index.phtml:68
 msgid "Edit snippets"
 msgstr "Schnippsel bearbeiten"
 
 #: application/modules/admin/views/scripts/followup/index.phtml:77
-msgid "Delete follow-up?"
-msgstr "Follow-Up löschen?"
+msgid "Delete Reactions & Impact?"
+msgstr "Reaktionen & Wirkung löschen?"
 
 #: application/modules/admin/views/scripts/followup/index.phtml:80
-msgid "Delete follow-up"
-msgstr "Follow-Up löschen"
+msgid "Delete reaction & impact"
+msgstr "Reaktionen & Wirkung löschen"
 
 #: application/modules/admin/views/scripts/followup/snippet-detail.phtml:21
 #: application/modules/admin/views/scripts/followup/snippet-reference.phtml:21
@@ -2444,27 +2445,23 @@ msgstr "Schnippsel-Verknüpfungen speichern"
 
 #: application/modules/admin/views/scripts/followup/snippet-reference.phtml:121
 #: application/modules/admin/views/scripts/followup/snippets.phtml:27
-msgid "Follow-Up Snippets"
-msgstr "Follow-Up-Schnippsel"
+msgid "Reactions & Impact Snippets"
+msgstr "Textschnippsel für Reaktionen"
 
 #: application/modules/admin/views/scripts/followup/snippet-reference.phtml:163
 #: application/modules/admin/views/scripts/followup/snippets.phtml:134
-msgid "There are no snippets for this follow-up yet."
-msgstr "Es gibt für dieses Follow-Up noch keine Schnippsel."
+msgid "There are no snippets for this reaction & impact yet."
+msgstr "Es gibt für diese Reaktionen & Wirkung noch keine Schnippsel."
 
 #: application/modules/admin/views/scripts/followup/snippet-reference.phtml:181
 #: application/modules/admin/views/scripts/followup/snippet-reference.phtml:222
-msgid "There are no follow-ups for this consultation yet."
-msgstr "Es gibt noch kein Follow-Up für diese Beteiligungsrunde."
-
-#: application/modules/admin/views/scripts/followup/snippet-reference.phtml:186
-msgid "Follow-Ups"
-msgstr "Follow-Up"
+msgid "There are no Reactions & Impact for this consultation yet."
+msgstr "Es gibt noch keine Reaktionen & Wirkung für diese Beteiligungsrunde."
 
 #: application/modules/admin/views/scripts/followup/snippet-reference.phtml:192
 #: application/modules/admin/views/scripts/followup/snippet-reference.phtml:216
-msgid "Save follow-up links"
-msgstr "Links Follow-Up speichern"
+msgid "Save Reactions & Impact links"
+msgstr "Links Reaktionen & Wirkung speichern"
 
 #: application/modules/admin/views/scripts/followup/snippets.phtml:35
 msgid "New Snippet"
@@ -2508,10 +2505,6 @@ msgstr "Einstellungen der Beteiligungsrunde"
 #: application/modules/admin/views/scripts/index/index.phtml:42
 msgid "Open media manager for"
 msgstr "Medienmanager öffnen für"
-
-#: application/modules/admin/views/scripts/index/index.phtml:78
-msgid "Follow Up"
-msgstr "Follow-Up"
 
 #: application/modules/admin/views/scripts/index/index.phtml:93
 msgid "Latest Contributions"
@@ -3579,6 +3572,120 @@ msgstr "Beitrag aufteilen"
 #: application/modules/admin/views/scripts/votingprepare/split.phtml:24
 msgid "Original Contribution"
 msgstr "Ursprünglicher Beitrag"
+
+#~ msgid "Consultation reactions & impact"
+#~ msgstr "Reaktionen & Wirkung"
+
+#~ msgid "New reactions & impact has been successfully created."
+#~ msgstr "Reaktionen & Wirkung wurde erfolgreich erstellt."
+
+#~ msgid "The reactions & impact could not be created."
+#~ msgstr "Reaktionen & Wirkung konnte nicht erstellt werden."
+
+#~ msgid "%d reactions & impact linked."
+#~ msgstr "%d Reaktionen & Wirkung wurden verknüpft"
+
+#~ msgid "Participants who signed up to receive reactions & impact"
+#~ msgstr "Teilnehmende, die über Reaktionen & Wirkung informiert werden"
+
+#~ msgid "There are no reactions & impact yet."
+#~ msgstr "Es gibt noch keine Reaktionen & Wirkung."
+
+#~ msgid "Edit reactions & impact"
+#~ msgstr "Reaktionen & Wirkung bearbeiten"
+
+#~ msgid "Delete reactions & impact?"
+#~ msgstr "Reaktionen & Wirkung löschen?"
+
+#~ msgid "There are no reactions & impact for this consultation yet."
+#~ msgstr ""
+#~ "Es gibt noch keine Reaktionen & Wirkung für diese Beteiligungsrunde."
+
+#~ msgid "Save reactions & impact links"
+#~ msgstr "Links Reaktionen & Wirkung speichern"
+
+#~ msgid "Create Follow-Up Snippet"
+#~ msgstr "Erstelle Follow-up-Schnippsel"
+
+#~ msgid "Edit Follow-Up Snippet"
+#~ msgstr "Follow-Up-Schnippsel bearbeiten"
+
+#~ msgid "New follow-up has been successfully created."
+#~ msgstr "Das Follow-up wurde erfolgreich erstellt."
+
+#~ msgid "The follow-up could not be created."
+#~ msgstr "Follow-Up konnte nicht erstellt werden."
+
+#~ msgid "Create Follow-up"
+#~ msgstr "Follow-Up erstellen"
+
+#~ msgid "The follow-up could not be saved."
+#~ msgstr "Follow-Up konnte nicht gespeichert werden."
+
+#~ msgid "Edit Follow-Up"
+#~ msgstr "Ändere Follow-Up"
+
+#~ msgid "The follow-up has been deleted."
+#~ msgstr "Follow-Up wurde gelöscht."
+
+#~ msgid ""
+#~ "The follow-up could not be deleted as there are snippets attached to it."
+#~ msgstr ""
+#~ "Follow-Up konnte nicht gelöscht werden, weil Schnippsel verknüpft sind."
+
+#~ msgid "%d follow-ups linked."
+#~ msgstr "%d Follow-Ups wurden verknüpft"
+
+#~ msgid "Enable follow-ups"
+#~ msgstr "Follow-Up aktivieren"
+
+#~ msgid "Follow-Up phase explanation"
+#~ msgstr "Einführung zu Reaktionen & Wirkung"
+
+#~ msgid "Follow-up"
+#~ msgstr "Reaktionen & Wirkung"
+
+#~ msgid "Participants who signed up to receive follow-ups"
+#~ msgstr "Teilnehmende, die über Follow-up informiert werden"
+
+#~ msgid "Back to Follow-ups"
+#~ msgstr "Zurück zu Follow-Up"
+
+#~ msgid "New Follow-up"
+#~ msgstr "Neues Follow-Up"
+
+#~ msgid "There are no follow-ups yet."
+#~ msgstr "Es gibt noch keine Follow-Ups."
+
+#~ msgid "Edit follow-up"
+#~ msgstr "Follow-Up bearbeiten"
+
+#~ msgid "Delete follow-up?"
+#~ msgstr "Follow-Up löschen?"
+
+#~ msgid "Delete follow-up"
+#~ msgstr "Follow-Up löschen"
+
+#~ msgid "Follow-Up Snippets"
+#~ msgstr "Follow-Up-Schnippsel"
+
+#~ msgid "There are no snippets for this follow-up yet."
+#~ msgstr "Es gibt für dieses Follow-Up noch keine Schnippsel."
+
+#~ msgid "There are no follow-ups for this consultation yet."
+#~ msgstr "Es gibt noch kein Follow-Up für diese Beteiligungsrunde."
+
+#~ msgid "Follow-Ups"
+#~ msgstr "Follow-Up"
+
+#~ msgid "Save follow-up links"
+#~ msgstr "Links Follow-Up speichern"
+
+#~ msgid "Follow up snippets"
+#~ msgstr "Textschnippsel für Reaktionen"
+
+#~ msgid "Follow Up"
+#~ msgstr "Follow-Up"
 
 #~ msgid "Hierarchy"
 #~ msgstr "Hierarchie"

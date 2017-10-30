@@ -128,7 +128,7 @@ class Api_FollowupController extends Dbjr_Api_BaseController
     }
 
     /**
-     * Returns snippets of the document by $documentId
+     * Returns reaction_snippets of the document by $documentId
      */
     public function snippetsAction()
     {

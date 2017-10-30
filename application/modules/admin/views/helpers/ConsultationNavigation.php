@@ -100,7 +100,7 @@ class Admin_View_Helper_ConsultationNavigation extends Zend_View_Helper_Abstract
         if ($consultation['is_followup_phase_showed']) {
             $items[] = [
                 'name' => 'followup',
-                'label' => $this->view->translate('Follow-up'),
+                'label' => $this->view->translate('Reaction & Impact'),
                 'href' => $this->view->url(
                     ['controller' => 'followup', 'action' => 'index', 'kid' => $consultation['kid']]
                 ),

@@ -118,7 +118,7 @@
                             <input name="link_snippets" type="submit" class="btn btn-default" value="<?=$this->translate('Save snippet links');?>" />
                         </div>
                         <h3 class="offset-bottom">
-                            <?=$this->translate('Follow-Up Snippets');?>
+                            <?=$this->translate('Reactions & Impact Snippets');?>
                             <span class="badge"><?=isset($this->related['snippets']) ? count($this->related['snippets']) : '0';?></span>
                         </h3>
                         <div class="panel-group" id="accordionSnippets" role="tablist" aria-multiselectable="true">
@@ -160,7 +160,7 @@
                                             <?php else: ?>
                                                 <p class="alert alert-info">
                                                     <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
-                                                    <?=$this->translate('There are no snippets for this follow-up yet.');?>
+                                                    <?=$this->translate('There are no snippets for this reaction & impact yet.');?>
                                                 </p>
                                             <?php endif; ?>
 
@@ -178,18 +178,18 @@
                 <?php else: ?>
                     <p class="alert alert-info">
                         <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
-                        <?=$this->translate('There are no follow-ups for this consultation yet.');?>
+                        <?=$this->translate('There are no Reactions & Impact for this consultation yet.');?>
                     </p>
                 <?php endif; ?>
 
                 <h3>
-                    <?=$this->translate('Follow-Ups');?>
+                    <?=$this->translate('Reactions & Impact');?>
                     <span class="badge"><?=isset($this->related['followups']) ? count($this->related['followups']) : '0';?></span>
                 </h3>
                 <?php if (count($this->followups)): ?>
                     <form method="post">
                         <div class="form-actions-right">
-                            <input name="link_followups" type="submit" class="btn btn-default" value="<?=$this->translate('Save follow-up links');?>" />
+                            <input name="link_followups" type="submit" class="btn btn-default" value="<?=$this->translate('Save Reactions & Impact links');?>" />
                         </div>
                         <table class="table table-bordered js-table-rows-toggle">
                             <tbody>
@@ -213,13 +213,13 @@
                             </tbody>
                         </table>
                         <div class="form-group text-right">
-                            <input name="link_followups" type="submit" class="btn btn-default" value="<?=$this->translate('Save follow-up links');?>" />
+                            <input name="link_followups" type="submit" class="btn btn-default" value="<?=$this->translate('Save Reactions & Impact links');?>" />
                         </div>
                     </form>
                 <?php else: ?>
                     <p class="alert alert-info">
                         <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
-                        <?=$this->translate('There are no follow-ups for this consultation yet.');?>
+                        <?=$this->translate('There are no Reactions & Impact for this consultation yet.');?>
                     </p>
                 <?php endif; ?>
 

@@ -129,7 +129,7 @@ class Model_Articles extends Dbjr_Db_Table_Abstract
      * Get all Articles incl. subpages of a consultation
      *
      * @param  integer $kid     Id of consultation
-     * @param  string  $scope   Scope, e.g. 'info', 'followup' etc.
+     * @param  string  $scope   Scope, e.g. 'info', 'reaction_file' etc.
      * @param  string  $orderBy [optional] Fieldname
      * @return array
      */

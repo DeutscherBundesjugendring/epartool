@@ -184,7 +184,7 @@ class FollowupController extends Zend_Controller_Action
     }
 
     /**
-     * Shows the initial time line for follow-ups by chosen snippet
+     * Shows the initial time line for reaction_file by chosen reaction_snippet
      */
     public function showBySnippetAction()
     {
@@ -269,7 +269,7 @@ class FollowupController extends Zend_Controller_Action
         $ffid = $this->_getParam('ffid', 0);
         $data = [];
 
-        //show follow-ups by fowup_rid.tid
+        //show reaction_files by fowup_rid.tid
 
         $inputsModel = new Model_Inputs();
         $followupsModel = new Model_Followups();
@@ -338,7 +338,7 @@ class FollowupController extends Zend_Controller_Action
             $data['mediafolder'] = $this->view->baseUrl() . MEDIA_URL . '/consultations/' . $kid . '/';
         }
 
-        //show follow-up_fls by followup_fls.ffid
+        //show reaction_files by followup_fls.ffid
 
         if ($ffid > 0) {
             $data['doc'] = $followupFilesModel->getById($ffid);
@@ -365,7 +365,7 @@ class FollowupController extends Zend_Controller_Action
     }
 
     /**
-     * like a follow-up snippet
+     * like a reaction_snippet
      * checks if UserAgent+IP combination has liked/unliked
      * sends json with like/unlike count after database update
      */
@@ -379,7 +379,7 @@ class FollowupController extends Zend_Controller_Action
     }
 
     /**
-     * unlike a follow-up snippet
+     * unlike a reaction_snippet
      * checks if UserAgent+IP combination has liked/unliked
      * sends json with like/unlike count after database update
      */
@@ -578,7 +578,7 @@ class FollowupController extends Zend_Controller_Action
             'dislikeLabel' => $this->view->translate('Dislike'),
             'backToTimeline' => $this->view->translate('Back to timeline'),
             'followPath' => $this->view->translate('Follow path'),
-            'generalError' => $this->view->translate('An error occurred. Unable to load follow-up timeline.'),
+            'generalError' => $this->view->translate('An error occurred. Unable to load Reactions & Impact timeline.'),
             'backToReactionsAndSnippets' => $this->view->translate('Back to reactions and snippets'),
             'votingResult' => $this->view->translate('Result of voting:'),
             'votingLimitError' => $this->view->translate('You can vote only once for each reaction.'),

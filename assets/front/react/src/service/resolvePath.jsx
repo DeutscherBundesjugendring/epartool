@@ -25,7 +25,7 @@ const resolvePath = (currentPath) => {
       });
     }
 
-    // Reactions & impact page
+    // reaction_file page
     if (params.length === 3 && params[0] === 'index' && params[1] === 'kid') {
       return ({
         type: 'reactions-and-impact',
