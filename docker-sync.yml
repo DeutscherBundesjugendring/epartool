@@ -1,10 +1,12 @@
 version: 2
 
 options:
+    max_attempt: 10
     verbose: false
 
 syncs:
     sync.tool:
         sync_strategy: 'unison' 
         sync_host_ip: '127.0.0.1'
+        sync_prefer: 'src'
         src: .
