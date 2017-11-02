@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Dbjr Tool\n"
 "POT-Creation-Date: 2017-11-02 10:09+0100\n"
-"PO-Revision-Date: 2017-11-02 10:11+0100\n"
+"PO-Revision-Date: 2017-11-02 11:10+0100\n"
 "Last-Translator: Martin Bohal <mb@mbohal.cz>\n"
 "Language-Team: epartool@dbjr.de\n"
 "Language: de\n"
@@ -3278,7 +3278,7 @@ msgstr "Name von Nutzer_in"
 
 #: application/modules/admin/views/scripts/voting/invitations.phtml:75
 msgid "Voting weight"
-msgstr "Abstimmungsgewicht"
+msgstr "Stimmgewicht"
 
 #: application/modules/admin/views/scripts/voting/invitations.phtml:82
 msgid "Partner"
