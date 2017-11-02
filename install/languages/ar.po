@@ -1,113 +1,118 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: dbjr install\n"
-"POT-Creation-Date: 2015-06-29 18:10+0100\n"
-"PO-Revision-Date: 2015-06-29 18:10+0100\n"
-"Last-Translator: Martin Bohal <mb@mbohal.cz>\n"
-"Language-Team: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-10-17 11:50+0300\n"
+"PO-Revision-Date: 2017-10-17 12:05+0300\n"
+"Last-Translator: ali ihlail\n"
+"Language-Team: English\n"
 "Language: en\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.5.4\n"
-"X-Poedit-KeywordsList: translate;setLabel\n"
-"X-Poedit-Basepath: ..\n"
-"X-Poedit-SearchPath-0: .\n"
+"X-Generator: Loco https://localise.biz\n"
+"X-Loco-Source-Locale: ar-PS\n"
+"X-Loco-Project-Id: 32274\n"
+"X-Loco-Api-Version: 1.0.18 20171009-1"
 
-#: Install_Form.php:14
+#: Install_Form.php:14 loco:59e5c463c430fe213f8b4567
 msgid "Hostname"
-msgstr ""
+msgstr "اسم المضيف"
 
-#: Install_Form.php:20
+#: Install_Form.php:20 loco:59e5c463c430fe213f8b4568
 msgid "Database Name"
-msgstr ""
+msgstr "اسم قاعدة البيانات"
 
-#: Install_Form.php:26
+#: Install_Form.php:26 loco:59e5c463c430fe213f8b4569
 msgid "Username"
-msgstr ""
+msgstr "اسم المستخدم"
 
-#: Install_Form.php:32
+#: Install_Form.php:32 loco:59e5c463c430fe213f8b456a
 msgid "Password"
-msgstr ""
+msgstr "كلمة المرور"
 
-#: Install_Form.php:39
+#: Install_Form.php:39 loco:59e5c463c430fe213f8b456b
 msgid "Database settings"
-msgstr ""
+msgstr "إعدادات قاعدة البيانات"
 
-#: Install_Form.php:46
+#: Install_Form.php:46 loco:59e5c463c430fe213f8b456c
 msgid "Language"
-msgstr ""
+msgstr "اللغة"
 
-#: Install_Form.php:47
+#: Install_Form.php:47 loco:59e5c463c430fe213f8b456d
 msgid "English"
-msgstr ""
+msgstr "الانجليزية"
 
-#: Install_Form.php:47
+#: Install_Form.php:47 loco:59e5c463c430fe213f8b456e
 msgid "German"
-msgstr ""
+msgstr "الألمانية"
 
-#: Install_Form.php:52
+#: Install_Form.php:52 loco:59e5c463c430fe213f8b456f
 msgid "Cron key"
-msgstr ""
+msgstr "cron مفتاح"
 
-#: Install_Form.php:59
+#: Install_Form.php:59 loco:59e5c463c430fe213f8b4570
 msgid "Tool settings"
-msgstr ""
+msgstr "اعدادات الادوات"
 
-#: Install_Form.php:66
+#: Install_Form.php:66 loco:59e5c463c430fe213f8b4571
 msgid "Email From Address"
-msgstr ""
+msgstr "البريد الإلكتروني من العنوان"
 
-#: Install_Form.php:72
+#: Install_Form.php:72 loco:59e5c463c430fe213f8b4572
 msgid "Email From Name"
-msgstr ""
+msgstr "البريد الالكتروني من الاسم"
 
-#: Install_Form.php:78
+#: Install_Form.php:78 loco:59e5c463c430fe213f8b4573
 msgid "Email Reply To Address"
-msgstr ""
+msgstr "ارسال بريد الكتروني الى العنوان"
 
-#: Install_Form.php:84
+#: Install_Form.php:84 loco:59e5c463c430fe213f8b4574
 msgid "Email Reply To Name"
-msgstr ""
+msgstr "ارسال بردي الكتروني الى الاسم"
 
-#: Install_Form.php:91
+#: Install_Form.php:91 loco:59e5c463c430fe213f8b4575
 msgid "Email settings"
-msgstr ""
+msgstr "اعدادات البريد الالكتروني"
 
-#: Install_Form.php:98
+#: Install_Form.php:98 loco:59e5c463c430fe213f8b4576
 msgid "Facebook App Id"
-msgstr ""
+msgstr "معرف تطبيق فيسبوك"
 
-#: Install_Form.php:103
+#: Install_Form.php:103 loco:59e5c463c430fe213f8b4577
 msgid "Facebook App Secret"
-msgstr ""
+msgstr "الرمز السري لتطبيق الفيسبوك"
 
-#: Install_Form.php:108
+#: Install_Form.php:108 loco:59e5c463c430fe213f8b4578
 msgid "Google Client Id"
-msgstr ""
+msgstr "معرف عميل غوغل"
 
-#: Install_Form.php:113
+#: Install_Form.php:113 loco:59e5c463c430fe213f8b4579
 msgid "Google Client Secret"
-msgstr ""
+msgstr "الرمز السري لعميل غوغل"
 
-#: Install_Form.php:119
+#: Install_Form.php:119 loco:59e5c463c430fe213f8b457a
 msgid "Webservice settings"
-msgstr ""
+msgstr "إعدادات خدمة الويب"
 
-#: Install_Form.php:131
+#: Install_Form.php:131 loco:59e5c463c430fe213f8b457b
 msgid "Install"
-msgstr ""
+msgstr "تنصيب"
 
-#: views/scripts/step-3.phtml:2
+#: views/scripts/step-3.phtml:2 loco:59e5c463c430fe213f8b457c
 msgid ""
 "The installation is finished. Please make sure to delete the install folder "
 "from your website root folder."
 msgstr ""
+"تم الانتهاء من التنصيب. الرجاء التأكد من حذف مجلد التنصيب من مجلد الجذر "
+"لموقع الويب."
 
-#: views/scripts/already-installed.phtml:1
+#: views/scripts/already-installed.phtml:1 loco:59e5c463c430fe213f8b457d
 msgid "The application seems to be already installed."
-msgstr ""
+msgstr "يبدو أن التطبيق مثبت بالفعل."
 
 #: views/layouts/base.phtml:4 views/layouts/base.phtml:13
+#: loco:59e5c463c430fe213f8b457e
 msgid "TOOL Installation wizard"
-msgstr ""
+msgstr "أداة تنصيب المعالج"
