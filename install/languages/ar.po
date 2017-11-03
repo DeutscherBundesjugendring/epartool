@@ -2,105 +2,163 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dbjr install\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-10-17 11:50+0300\n"
-"PO-Revision-Date: 2017-10-17 12:05+0300\n"
+"POT-Creation-Date: 2017-11-03 15:02+0100\n"
+"PO-Revision-Date: 2017-11-03 15:03+0100\n"
 "Last-Translator: ali ihlail\n"
 "Language-Team: English\n"
-"Language: en\n"
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"Language: ar\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Loco https://localise.biz\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Poedit 1.8.12\n"
 "X-Loco-Source-Locale: ar-PS\n"
 "X-Loco-Project-Id: 32274\n"
-"X-Loco-Api-Version: 1.0.18 20171009-1"
+"X-Loco-Api-Version: 1.0.18 20171009-1\n"
+"X-Poedit-KeywordsList: translate;setLabel\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-SearchPath-0: .\n"
 
-#: Install_Form.php:14 loco:59e5c463c430fe213f8b4567
+#: src/Form/InstallForm.php:19
 msgid "Hostname"
 msgstr "اسم المضيف"
 
-#: Install_Form.php:20 loco:59e5c463c430fe213f8b4568
+#: src/Form/InstallForm.php:25
 msgid "Database Name"
 msgstr "اسم قاعدة البيانات"
 
-#: Install_Form.php:26 loco:59e5c463c430fe213f8b4569
+#: src/Form/InstallForm.php:31 src/Form/InstallForm.php:144
 msgid "Username"
 msgstr "اسم المستخدم"
 
-#: Install_Form.php:32 loco:59e5c463c430fe213f8b456a
+#: src/Form/InstallForm.php:37 src/Form/InstallForm.php:149
+#: src/Form/InstallForm.php:238
 msgid "Password"
 msgstr "كلمة المرور"
 
-#: Install_Form.php:39 loco:59e5c463c430fe213f8b456b
-msgid "Database settings"
-msgstr "إعدادات قاعدة البيانات"
+#: src/Form/InstallForm.php:44
+msgid "Database"
+msgstr ""
 
-#: Install_Form.php:46 loco:59e5c463c430fe213f8b456c
+#: src/Form/InstallForm.php:51
 msgid "Language"
 msgstr "اللغة"
 
-#: Install_Form.php:47 loco:59e5c463c430fe213f8b456d
-msgid "English"
-msgstr "الانجليزية"
-
-#: Install_Form.php:47 loco:59e5c463c430fe213f8b456e
-msgid "German"
-msgstr "الألمانية"
-
-#: Install_Form.php:52 loco:59e5c463c430fe213f8b456f
+#: src/Form/InstallForm.php:66
 msgid "Cron key"
 msgstr "cron مفتاح"
 
-#: Install_Form.php:59 loco:59e5c463c430fe213f8b4570
-msgid "Tool settings"
-msgstr "اعدادات الادوات"
+#: src/Form/InstallForm.php:74
+msgid "Application"
+msgstr ""
 
-#: Install_Form.php:66 loco:59e5c463c430fe213f8b4571
+#: src/Form/InstallForm.php:81
 msgid "Email From Address"
 msgstr "البريد الإلكتروني من العنوان"
 
-#: Install_Form.php:72 loco:59e5c463c430fe213f8b4572
+#: src/Form/InstallForm.php:87
 msgid "Email From Name"
 msgstr "البريد الالكتروني من الاسم"
 
-#: Install_Form.php:78 loco:59e5c463c430fe213f8b4573
+#: src/Form/InstallForm.php:93
 msgid "Email Reply To Address"
 msgstr "ارسال بريد الكتروني الى العنوان"
 
-#: Install_Form.php:84 loco:59e5c463c430fe213f8b4574
+#: src/Form/InstallForm.php:99
 msgid "Email Reply To Name"
 msgstr "ارسال بردي الكتروني الى الاسم"
 
-#: Install_Form.php:91 loco:59e5c463c430fe213f8b4575
-msgid "Email settings"
-msgstr "اعدادات البريد الالكتروني"
+#: src/Form/InstallForm.php:106
+msgid "System Email"
+msgstr ""
 
-#: Install_Form.php:98 loco:59e5c463c430fe213f8b4576
-msgid "Facebook App Id"
-msgstr "معرف تطبيق فيسبوك"
+#: src/Form/InstallForm.php:113
+msgid "Auth Type"
+msgstr ""
 
-#: Install_Form.php:103 loco:59e5c463c430fe213f8b4577
+#: src/Form/InstallForm.php:115
+msgid "Please select..."
+msgstr ""
+
+#: src/Form/InstallForm.php:124
+msgid "Port"
+msgstr ""
+
+#: src/Form/InstallForm.php:129
+msgid "Encryption"
+msgstr ""
+
+#: src/Form/InstallForm.php:131
+msgid "None"
+msgstr ""
+
+#: src/Form/InstallForm.php:139
+msgid "Host"
+msgstr ""
+
+#: src/Form/InstallForm.php:155
+msgid "Smtp Settings (If unsure, leave blank)"
+msgstr ""
+
+#: src/Form/InstallForm.php:162
+msgid "Facebook App ID"
+msgstr ""
+
+#: src/Form/InstallForm.php:174
 msgid "Facebook App Secret"
 msgstr "الرمز السري لتطبيق الفيسبوك"
 
-#: Install_Form.php:108 loco:59e5c463c430fe213f8b4578
-msgid "Google Client Id"
-msgstr "معرف عميل غوغل"
+#: src/Form/InstallForm.php:185
+msgid "Google Client ID"
+msgstr ""
 
-#: Install_Form.php:113 loco:59e5c463c430fe213f8b4579
+#: src/Form/InstallForm.php:196
 msgid "Google Client Secret"
 msgstr "الرمز السري لعميل غوغل"
 
-#: Install_Form.php:119 loco:59e5c463c430fe213f8b457a
-msgid "Webservice settings"
-msgstr "إعدادات خدمة الويب"
+#: src/Form/InstallForm.php:207
+msgid "Vimeo Access Token"
+msgstr ""
 
-#: Install_Form.php:131 loco:59e5c463c430fe213f8b457b
+#: src/Form/InstallForm.php:219
+msgid "Social network login"
+msgstr ""
+
+#: src/Form/InstallForm.php:226
+msgid "Name"
+msgstr ""
+
+#: src/Form/InstallForm.php:232
+msgid "Email"
+msgstr ""
+
+#: src/Form/InstallForm.php:245
+msgid "Administrator"
+msgstr ""
+
+#: src/Form/InstallForm.php:258
 msgid "Install"
 msgstr "تنصيب"
 
-#: views/scripts/step-3.phtml:2 loco:59e5c463c430fe213f8b457c
+#: views/layouts/base.phtml:8 views/layouts/base.phtml:23
+msgid "ePartool"
+msgstr ""
+
+#: views/scripts/already-installed.phtml:3
+msgid "The application seems to be already installed."
+msgstr "يبدو أن التطبيق مثبت بالفعل."
+
+#: views/scripts/file-permissions.phtml:1
+msgid ""
+"Please make sure all of the folders below exist and are writable by the php "
+"process."
+msgstr ""
+
+#: views/scripts/file-permissions.phtml:37
+msgid "Continue"
+msgstr ""
+
+#: views/scripts/step-3.phtml:4
 msgid ""
 "The installation is finished. Please make sure to delete the install folder "
 "from your website root folder."
@@ -108,11 +166,33 @@ msgstr ""
 "تم الانتهاء من التنصيب. الرجاء التأكد من حذف مجلد التنصيب من مجلد الجذر "
 "لموقع الويب."
 
-#: views/scripts/already-installed.phtml:1 loco:59e5c463c430fe213f8b457d
-msgid "The application seems to be already installed."
-msgstr "يبدو أن التطبيق مثبت بالفعل."
+#: views/scripts/step-3.phtml:8
+msgid "Go to my site"
+msgstr ""
 
-#: views/layouts/base.phtml:4 views/layouts/base.phtml:13
-#: loco:59e5c463c430fe213f8b457e
-msgid "TOOL Installation wizard"
-msgstr "أداة تنصيب المعالج"
+#~ msgid "Database settings"
+#~ msgstr "إعدادات قاعدة البيانات"
+
+#~ msgid "English"
+#~ msgstr "الانجليزية"
+
+#~ msgid "German"
+#~ msgstr "الألمانية"
+
+#~ msgid "Tool settings"
+#~ msgstr "اعدادات الادوات"
+
+#~ msgid "Email settings"
+#~ msgstr "اعدادات البريد الالكتروني"
+
+#~ msgid "Facebook App Id"
+#~ msgstr "معرف تطبيق فيسبوك"
+
+#~ msgid "Google Client Id"
+#~ msgstr "معرف عميل غوغل"
+
+#~ msgid "Webservice settings"
+#~ msgstr "إعدادات خدمة الويب"
+
+#~ msgid "TOOL Installation wizard"
+#~ msgstr "أداة تنصيب المعالج"
