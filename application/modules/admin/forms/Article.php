@@ -47,14 +47,14 @@ class Admin_Form_Article extends Dbjr_Form_Admin
             ->setLabel('Body')
             ->setRequired(true)
             ->setAttrib('rows', 12)
-            ->setWysiwygType(Dbjr_Form_Element_Textarea::WYSIWYG_TYPE_STANDARD);
+            ->setWysiwygType(Dbjr_Form_Element_Textarea::WYSIWYG_TYPE_STANDARD, $this->_kid);
         $this->addElement($body);
 
         $sidebar = $this->createElement('textarea', 'sidebar');
         $sidebar
             ->setLabel('Sidebar text')
             ->setAttrib('rows', 12)
-            ->setWysiwygType(Dbjr_Form_Element_Textarea::WYSIWYG_TYPE_STANDARD);
+            ->setWysiwygType(Dbjr_Form_Element_Textarea::WYSIWYG_TYPE_STANDARD, $this->_kid);
         $this->addElement($sidebar);
 
         $hide = $this->createElement('checkbox', 'is_showed');

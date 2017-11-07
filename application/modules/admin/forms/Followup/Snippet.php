@@ -3,10 +3,13 @@
 class Admin_Form_Followup_Snippet extends Dbjr_Form_Admin
 {
     protected $_cancelUrl;
+    
+    private $consultationId;
 
-    public function __construct($cancelUrl = null)
+    public function __construct($cancelUrl = null, $consultationId = null)
     {
         $this->_cancelUrl = $cancelUrl;
+        $this->consultationId = $consultationId;
         parent::__construct();
     }
 
@@ -21,7 +24,7 @@ class Admin_Form_Followup_Snippet extends Dbjr_Form_Admin
             ->setLabel('Explanation')
             ->setAttrib('rows', 5)
             ->setAttrib('rows', 10000)
-            ->setWysiwygType(Dbjr_Form_Element_Textarea::WYSIWYG_TYPE_STANDARD);
+            ->setWysiwygType(Dbjr_Form_Element_Textarea::WYSIWYG_TYPE_STANDARD, $this->consultationId);
         $this->addElement($expl);
 
         $type = $this->createElement('radio', 'type');

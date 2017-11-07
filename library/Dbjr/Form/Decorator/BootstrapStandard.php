@@ -77,6 +77,7 @@ class Dbjr_Form_Decorator_BootstrapStandard extends Zend_Form_Decorator_Abstract
                 $element->setAttrib('data-onload-ckeditor', json_encode([
                     'customConfig' => $baseUrl . '/js/ckeditor.web_config.js',
                     'filebrowserBrowseUrl' => $baseUrl . '/admin/media/index/targetElId/CKEditor'
+                        . ($element->getConsultationId() !== null ? '/kid/' . $element->getConsultationId() : '')
                 ]));
             } elseif ($element->getWysiwygType() === Dbjr_Form_Element_Textarea::WYSIWYG_TYPE_EMAIL) {
                 $element->setAttrib('data-onload-ckeditor', json_encode([

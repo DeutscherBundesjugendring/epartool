@@ -38,7 +38,7 @@ class Admin_FollowupController extends Zend_Controller_Action
         $ffid = $this->getRequest()->getParam('ffid', null);
 
         $cancelUrl = $this->view->url(['action' => 'snippets', 'kid' => $kid, 'ffid' => $ffid]);
-        $form = new Admin_Form_Followup_Snippet($cancelUrl);
+        $form = new Admin_Form_Followup_Snippet($cancelUrl, $kid);
 
         if ($this->getRequest()->isPost()) {
             if ($form->isValid($this->getRequest()->getPost())) {
@@ -89,7 +89,7 @@ class Admin_FollowupController extends Zend_Controller_Action
         $ffid = $this->getRequest()->getParam('ffid', null);
 
         $cancelUrl = $this->view->url(['action' => 'snippets', 'kid' => $kid, 'ffid' => $ffid]);
-        $form = new Admin_Form_Followup_Snippet($cancelUrl);
+        $form = new Admin_Form_Followup_Snippet($cancelUrl, $kid);
         $snippetModel = new Model_Followups();
 
         if ($this->getRequest()->isPost()) {

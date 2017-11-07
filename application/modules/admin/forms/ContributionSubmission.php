@@ -2,6 +2,21 @@
 
 class Admin_Form_ContributionSubmission extends Dbjr_Form_Admin
 {
+    /**
+     * @var int
+     */
+    private $consultationId;
+
+    /**
+     * @param array|null $options
+     * @param int|null $consultationId
+     */
+    public function __construct($options = null, $consultationId = null)
+    {
+        $this->consultationId = $consultationId;
+        parent::__construct($options);
+    }
+
     public function init()
     {
         $this->setDecorators([['ViewScript', ['viewScript' => 'consultation/contributionSubmissionForm.phtml']]]);
@@ -15,7 +30,7 @@ class Admin_Form_ContributionSubmission extends Dbjr_Form_Admin
             ->setLabel('Contribution confirmation info')
             ->setRequired(true)
             ->setAttrib('rows', 5)
-            ->setWysiwygType(Dbjr_Form_Element_Textarea::WYSIWYG_TYPE_STANDARD);
+            ->setWysiwygType(Dbjr_Form_Element_Textarea::WYSIWYG_TYPE_STANDARD, $this->consultationId);
         $this->addElement($element);
 
         $element = $this->createElement('checkbox', 'field_switch_name');

@@ -2,6 +2,21 @@
 
 class Admin_Form_Consultation extends Dbjr_Form_Admin
 {
+    /**
+     * @var int
+     */
+    private $consultationId;
+
+    /**
+     * @param array|null $options
+     * @param int|null $consultationId
+     */
+    public function __construct($options = null, $consultationId = null)
+    {
+        $this->consultationId = $consultationId;
+        parent::__construct($options);
+    }
+
     public function init()
     {
         $this->setEnctype(Zend_Form::ENCTYPE_MULTIPART);
@@ -35,11 +50,23 @@ class Admin_Form_Consultation extends Dbjr_Form_Admin
             ->addValidator('stringLength', ['max' => 200]);
         $this->addElement($subTitle);
 
-        $image = $this->createElement('file', 'img_file');
-        $image
-            ->setLabel('Featured image')
-            ->setDescription(sprintf($translator->translate('Recommended size: %s x %s pixels'), 300, 500));
-        $this->addElement($image);
+        if ($this->consultationId !== null) {
+            $imgFile = $this->createElement('media', 'img_file');
+            $imgFile
+                ->setLabel('Featured image')
+                ->setDescription(
+                    sprintf(Zend_Registry::get('Zend_Translate')->translate('Recommended size: %s x %s pixels'), 300, 500)
+                )
+                ->setOrder(2)
+                ->setKid($this->consultationId);
+            $this->addElement($imgFile);
+        } else {
+            $image = $this->createElement('file', 'img_file');
+            $image
+                ->setLabel('Featured image')
+                ->setDescription(sprintf($translator->translate('Recommended size: %s x %s pixels'), 300, 500));
+            $this->addElement($image);
+        }
 
         $imageDesc = $this->createElement('text', 'img_expl');
         $imageDesc->setLabel('Featured image description');
@@ -163,7 +190,7 @@ class Admin_Form_Consultation extends Dbjr_Form_Admin
         $explVoting = $this->createElement('textarea', 'vot_expl');
         $explVoting
             ->setLabel('Voting phase explanation')
-            ->setWysiwygType(Dbjr_Form_Element_Textarea::WYSIWYG_TYPE_STANDARD)
+            ->setWysiwygType(Dbjr_Form_Element_Textarea::WYSIWYG_TYPE_STANDARD, $this->consultationId)
             ->setAttrib('rows', 5);
         $this->addElement($explVoting);
 
@@ -213,14 +240,14 @@ class Admin_Form_Consultation extends Dbjr_Form_Admin
         $followUpExplanation = $this->createElement('textarea', 'follow_up_explanation');
         $followUpExplanation
             ->setLabel('Reactions & Impact phase explanation')
-            ->setWysiwygType(Dbjr_Form_Element_Textarea::WYSIWYG_TYPE_STANDARD)
+            ->setWysiwygType(Dbjr_Form_Element_Textarea::WYSIWYG_TYPE_STANDARD, $this->consultationId)
             ->setAttrib('rows', 5);
         $this->addElement($followUpExplanation);
 
         $licenseAgreement = $this->createElement('textarea', 'license_agreement');
         $licenseAgreement
             ->setLabel('Terms & Conditions text')
-            ->setWysiwygType(Dbjr_Form_Element_Textarea::WYSIWYG_TYPE_STANDARD)
+            ->setWysiwygType(Dbjr_Form_Element_Textarea::WYSIWYG_TYPE_STANDARD, $this->consultationId)
             ->setAttrib('rows', 5);
         $this->addElement($licenseAgreement);
 
@@ -271,30 +298,6 @@ class Admin_Form_Consultation extends Dbjr_Form_Admin
             ->setAttrib('class', 'btn-primary btn-raised')
             ->setLabel('Save');
         $this->addElement($submit);
-    }
-
-    /**
-     * Sets the consultation to be asociated with this form
-     * Needed to offer the proper media folder.
-     * If the consuiltation is just being created no media folder exists and this method is not to be called.
-     * @param  integer                  $kid The identifier fo the consultation
-     * @return Admin_Form_Consultation       Fluent interface
-     */
-    public function setKid($kid)
-    {
-        $this->removeElement('img_file');
-
-        $imgFile = $this->createElement('media', 'img_file');
-        $imgFile
-            ->setLabel('Featured image')
-            ->setDescription(
-                sprintf(Zend_Registry::get('Zend_Translate')->translate('Recommended size: %s x %s pixels'), 300, 500)
-            )
-            ->setOrder(2)
-            ->setKid($kid);
-        $this->addElement($imgFile);
-
-        return $this;
     }
 
     public function isValid($data)

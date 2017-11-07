@@ -173,8 +173,7 @@ class Admin_ConsultationController extends Zend_Controller_Action
      */
     public function editAction()
     {
-        $form = new Admin_Form_Consultation();
-        $form->setKid($this->_consultation->kid);
+        $form = new Admin_Form_Consultation(null, $this->_consultation->kid);
         $form->getElement('img_file')->setIsLockDir(false);
 
         if ($this->getRequest()->isPost()) {
@@ -370,8 +369,8 @@ class Admin_ConsultationController extends Zend_Controller_Action
 
         $consultationModel = new Model_Consultations();
 
-        $registrationForm = new Admin_Form_ContributionSubmission();
-        $anonymousForm = new Admin_Form_AnonymousContributionSubmission();
+        $registrationForm = new Admin_Form_ContributionSubmission(null, $consultationId);
+        $anonymousForm = new Admin_Form_AnonymousContributionSubmission(null, $consultationId);
         $anonymousSwitch = (bool) $this->_consultation['anonymous_contribution'];
 
         if ($this->getRequest()->isPost()) {

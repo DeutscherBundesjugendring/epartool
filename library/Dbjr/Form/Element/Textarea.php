@@ -7,6 +7,11 @@ class Dbjr_Form_Element_Textarea extends Zend_Form_Element_Textarea
     const WYSIWYG_TYPE_EMAIL = 'email';
 
     /**
+     * @var int
+     */
+    private $consultationId;
+
+    /**
      * Indicates what type, if any, should by associated with this element
      * @see  self::WYSIWYG_TYPE_*
      * @var string
@@ -35,7 +40,7 @@ class Dbjr_Form_Element_Textarea extends Zend_Form_Element_Textarea
      * @return $this
      * @throws Dbjr_Exception
      */
-    public function setWysiwygType($wysiwygType)
+    public function setWysiwygType($wysiwygType, $consultationId = null)
     {
         if ($wysiwygType !== self::WYSIWYG_TYPE_STANDARD
             && $wysiwygType !== self::WYSIWYG_TYPE_EMAIL
@@ -44,6 +49,7 @@ class Dbjr_Form_Element_Textarea extends Zend_Form_Element_Textarea
         }
 
         $this->wysiwygType = $wysiwygType;
+        $this->consultationId = $consultationId;
         return $this;
     }
 
@@ -61,6 +67,14 @@ class Dbjr_Form_Element_Textarea extends Zend_Form_Element_Textarea
     public function isWysiwygType()
     {
         return ($this->wysiwygType !== null);
+    }
+
+    /**
+     * @return int
+     */
+    public function getConsultationId()
+    {
+        return $this->consultationId;
     }
 
     /**
