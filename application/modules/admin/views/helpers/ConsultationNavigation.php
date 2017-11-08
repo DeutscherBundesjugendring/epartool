@@ -48,7 +48,7 @@ class Admin_View_Helper_ConsultationNavigation extends Zend_View_Helper_Abstract
                     ['controller' => 'input', 'action' => 'index', 'kid' => $consultation['kid']]
                 ),
             ];
-            
+
             if ((new Model_Questions())->getCountByConsultation($consultation['kid']) > 0) {
                 $item['new_item'] = $this->view->url(
                     ['controller' => 'input', 'action' => 'create', 'kid' => $consultation['kid']]
@@ -66,17 +66,17 @@ class Admin_View_Helper_ConsultationNavigation extends Zend_View_Helper_Abstract
                 ),
                 'children' => [
                     array(
+                        'name' => 'voting-prepare',
+                        'label' => $this->view->translate('Preparation'),
+                        'href' => $this->view->url(
+                            ['controller' => 'votingprepare', 'action' => 'index', 'kid' => $consultation['kid']]
+                        ),
+                    ),
+                    array(
                         'name' => 'voting-permissions',
                         'label' => $this->view->translate('Permissions'),
                         'href' => $this->view->url(
                             ['controller' => 'voting', 'action' => 'index', 'kid' => $consultation['kid']]
-                        ),
-                    ),
-                    array(
-                        'name' => 'voting-invitations',
-                        'label' => $this->view->translate('Invitations'),
-                        'href' => $this->view->url(
-                            ['controller' => 'voting', 'action' => 'invitations', 'kid' => $consultation['kid']]
                         ),
                     ),
                     array(

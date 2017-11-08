@@ -21,11 +21,11 @@ class Model_Votes_Rights extends Dbjr_Db_Table_Abstract
         ),
     );
 
-    
+
     public function setInitialRightsForConfirmedUser($userId, $consultationId)
     {
         $row = $this->find($consultationId, $userId)->current();
-        
+
         if (empty($row)) {
             return $this->createRow([
                 'kid' => $consultationId,
@@ -34,7 +34,7 @@ class Model_Votes_Rights extends Dbjr_Db_Table_Abstract
                 'vt_code' => $this->generateVotingCode(),
             ])->save();
         }
-        
+
         return 0;
     }
 
@@ -70,10 +70,13 @@ class Model_Votes_Rights extends Dbjr_Db_Table_Abstract
                 'gs.id = vr.grp_siz',
                 ['grp_siz' => 'IFNULL(CONCAT(gs.`from`, " - ", gs.`to`), "")']
             )
-            ->joinUsing(array('u' => 'users'), 'uid', array(
-                'email' => 'u.email'
-            ))
-            ->joinLeft(array('ui' => 'user_info'), 'vr.uid = ui.uid', ['group_size'])
+            ->joinUsing(array('u' => 'users'), 'uid', [
+                'email' => 'u.email',
+                'name' => 'u.name',
+                'name_group' => 'u.name_group',
+                'name_pers' => 'u.name_pers',
+            ])
+            ->joinLeft(array('ui' => 'user_info'), 'vr.uid = ui.uid', ['group_size', 'invitation_sent_date'])
             ->joinLeft(
                 ['gs2' => (new Model_GroupSize())->info(Model_GroupSize::NAME)],
                 'gs2.id = ui.group_size',
@@ -204,7 +207,7 @@ class Model_Votes_Rights extends Dbjr_Db_Table_Abstract
         if (!is_array($result)) {
             return [];
         }
-        
+
         return $result;
     }
 
