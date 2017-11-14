@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dbjr install\n"
 "POT-Creation-Date: 2017-10-27 15:56+0200\n"
-"PO-Revision-Date: 2017-10-30 16:38+0100\n"
+"PO-Revision-Date: 2017-11-14 15:59+0100\n"
 "Last-Translator: Martin Bohal <mb@mbohal.cz>\n"
 "Language-Team: \n"
 "Language: cs\n"
@@ -61,11 +61,11 @@ msgstr "Odpovědět na Adresu"
 
 #: src/Form/InstallForm.php:99
 msgid "Email Reply To Name"
-msgstr "Odpovědět na Jméno"
+msgstr "Odpovědět Jménu"
 
 #: src/Form/InstallForm.php:106
 msgid "System Email"
-msgstr "Email systému"
+msgstr "Systémový email"
 
 #: src/Form/InstallForm.php:113
 msgid "Auth Type"
@@ -85,7 +85,7 @@ msgstr "Zašifrování"
 
 #: src/Form/InstallForm.php:131
 msgid "None"
-msgstr "Žádný"
+msgstr "Žádné"
 
 #: src/Form/InstallForm.php:139
 msgid "Host"
@@ -148,8 +148,8 @@ msgid ""
 "Please make sure all of the folders below exist and are writable by the php "
 "process."
 msgstr ""
-"Zkontrolujte prosím zda všechny tyto složky existují a zda je možno je "
-"zapsat v php."
+"Zkontrolujte prosím zda všechny tyto složky existují a zda je lze zapsat v "
+"php."
 
 #: views/scripts/file-permissions.phtml:37
 msgid "Continue"
