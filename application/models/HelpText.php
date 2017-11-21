@@ -24,7 +24,6 @@ class Model_HelpText extends Dbjr_Db_Table_Abstract
 
             'help-text-admin-consultation-voting-preparation' => $trans->translate('Voting preparation'),
             'help-text-admin-consultation-voting-permissions' => $trans->translate('Voting permissions'),
-            'help-text-admin-consultation-voting-invitations' => $trans->translate('Voting invitations'),
             'help-text-admin-consultation-voting-participants' => $trans->translate('Voting participants'),
             'help-text-admin-consultation-voting-results' => $trans->translate('Voting results'),
             'help-text-admin-consultation-follow-up' => $trans->translate('Reactions & Impact'),
