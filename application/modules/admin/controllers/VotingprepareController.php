@@ -92,7 +92,7 @@ class Admin_VotingprepareController extends Zend_Controller_Action
                     $this->redirect($this->view->url([
                         'action' => 'merge',
                         'inputIds' => $this->getRequest()->getPost('inputIds', null)
-                    ]));
+                    ]), ['prependBase' => false]);
                 }
                 if(isset($msg)) {
                     $this->_flashMessenger->addMessage($msg, 'success');
