@@ -15,13 +15,16 @@ The tool is written with multi-project support. It means that one database can b
 
 ## Installation
 
-### Wizzard
-The preferred way of installation is to use the bundled installation wizard. If the application is not installed, the installation wizard starts automatically. 
+### Wizard
+The preferred installation method is using the bundled installation wizard.
 
-After installation is completed, remove the install directory.
+1. Obtain the installation package by download or by running the `$ robo build` command in the root folder where the `RoboFile.php` is located. 
+2. Visit site in browser. If the application is not installed, the installation wizard starts automatically.
+3. After installation is completed, remove the `install` directory.
 
 ### No wizard
-The tool uses the Robo task runner to perform the build. It is invoked by running the `$ robo build` command in the root folder where the `RoboFile.php` is located. The following tool are needed:
+#### Filesystem
+The tool uses the Robo task runner to perform the build. It is invoked by running the `$ robo build` command in the root folder where the `RoboFile.php` is located. The following tools are needed:
 
 * [Robo](http://robo.li/)
 * [Composer](https://getcomposer.org/)
@@ -30,7 +33,7 @@ The tool uses the Robo task runner to perform the build. It is invoked by runnin
 * [Grunt](http://gruntjs.com/)
 * [Webpack](https://webpack.github.io/)
 
-Once the application has been built, several environment-specific settings have to be made.
+Once the application has been built, several environment-specific settings have to be configured.
 
 * Create the environment specific configuration file `application/configs/config.local.ini`.
 You can use the file `application/configs/config.local-example.ini` as a template and edit the values.
@@ -45,8 +48,22 @@ You can use the file `application/configs/config.local-example.ini` as a templat
     + read-write: `/www/image_cache/`
 * Remove the install directory.
 
-### Cronjob
-Regardless of the installation method, it is needed to configure a cronjob to send a GET request to the page `/cron/execute/key/<secret_cron_key>`. `<secret_cron_key>` is defined in `application/config/config.local.ini`.
+#### DB
+* Create database (see [Requirements](#Requirements))
+* Run the following SQL files in the specified order:
+    1. `data/create-installation.sql`
+    2. `data/create-project.sql` (ensure the var `@project_code` is set to whatever is specified in the setting `project` in `application/configs/config.local.ini`)
+* Optionally run the following SQL files:
+    * `data/create-sample-data.sql`
+    * `data/create-admin.sql`
+
+Due to security reasons the `create-admin.sql` script creates an admin with no password. Password can be reset using the forgotten password feature of the application itself or the file can be manually tweaked to insert the correct password hash directly.
+
+### After install tasks
+Regardless of the installation method, the following tasks must be done:
+
+* Configure a cronjob to send a GET request to the page `/cron/execute/key/<secret_cron_key>`. `<secret_cron_key>` is defined in `application/config/config.local.ini`. This is not needed for dev environments as the cronjobs can be triggered by visiting the path manually. Setting the cronjob to trigger hourly should be enough.
+* Copy the file `VERSION-example.txt` to `VERSION.txt` and optionally update the new file. The content is used to inform the users of which version of the tool they are using.
 
 
 ## Upgrading
