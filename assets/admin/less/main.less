@@ -17,6 +17,9 @@
 @icon-font-path: '../fonts/glyphicons/';
 @imgPath: '../vendor/bootstrap-colorpicker/dist/img/bootstrap-colorpicker/';
 
+@screen-xl-min: 1300px;
+@screen-xxl-min: 1400px;
+
 @blue: #428bca;
 @turqoise: #5fa4a0;
 
@@ -169,6 +172,19 @@ label.required:after {
 
 .badge-success {
     background-color: @brand-success;
+}
+
+// Enhance layout
+@media screen and (min-width: @screen-xl-min) {
+    .container {
+        width: @screen-xl-min - @grid-gutter-width;
+    }
+}
+
+@media screen and (min-width: @screen-xxl-min) {
+    .container {
+        width: @screen-xxl-min - @grid-gutter-width;
+    }
 }
 
 // Tables
