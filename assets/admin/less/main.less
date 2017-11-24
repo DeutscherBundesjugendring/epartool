@@ -170,3 +170,13 @@ label.required:after {
 .badge-success {
     background-color: @brand-success;
 }
+
+// Tables
+.table-extra-condensed {
+    &:extend(.table-condensed all);
+    &:extend(.small);
+}
+
+.table-extra-condensed [data-toggle="sort"] {
+    white-space: initial;
+}
