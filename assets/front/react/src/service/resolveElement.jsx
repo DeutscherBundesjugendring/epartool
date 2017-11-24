@@ -8,7 +8,15 @@ import FollowUpSnippetBox from '../components/FollowUpSnippetBox/FollowUpSnippet
 /* global followupTranslations */
 /* global baseUrl */
 
-const resolveElement = (response, parentAction, childAction, modalAction, otherActions) => {
+const resolveElement = (
+  response,
+  parentAction,
+  childAction,
+  modalAction,
+  collapseAction,
+  isOpened,
+  otherActions
+) => {
   const { data } = response;
   let element = null;
 
@@ -74,9 +82,11 @@ const resolveElement = (response, parentAction, childAction, modalAction, otherA
   if (element) {
     return (
       <FollowUpBox
+        collapseHandler={collapseAction}
         id={parseInt(response.id, 10)}
         type={response.type}
         element={element}
+        isOpened={isOpened}
         parentCount={parseInt(response.parents_count, 10)}
         parentAction={parentAction}
         childCount={parseInt(response.children_count, 10)}

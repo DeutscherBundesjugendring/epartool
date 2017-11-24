@@ -4,6 +4,7 @@ exports[`rendering renders correctly 1`] = `
 <button
   className="btn btn-default btn-sm"
   disabled={false}
+  id={null}
   onTouchTap={[Function]}
 >
   text
@@ -14,6 +15,7 @@ exports[`rendering renders correctly disabled button 1`] = `
 <button
   className="btn btn-default btn-sm"
   disabled={true}
+  id={null}
   onTouchTap={[Function]}
 >
   text

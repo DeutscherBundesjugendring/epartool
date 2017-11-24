@@ -13,7 +13,6 @@ import {
   dislikeFollowUpDocumentSnippet,
 } from '../../actions';
 
-
 /* global baseUrl */
 /* global followupTranslations */
 
@@ -22,13 +21,16 @@ class FollowUpContainer extends React.Component {
     super(props);
 
     this.state = {
-      columns: [[]],
+      rows: [[]],
+      opened: {},
       hasError: false,
       isInitialLoad: true,
       isLoading: false,
       modal: null,
     };
 
+    this.collapseHandler = this.collapseHandler.bind(this);
+    this.isOpened = this.isOpened.bind(this);
     this.handleError = this.handleError.bind(this);
   }
 
@@ -43,16 +45,17 @@ class FollowUpContainer extends React.Component {
           response
         );
 
-        this.setState({ columns: [[resolvedElement]], isInitialLoad: false });
+        this.setState({ rows: [[resolvedElement]], isInitialLoad: false });
       })
       .catch(this.handleError);
   }
 
-  getElementColumnIndex(followUpType, followUpId) {
+
+  getElementRowIndex(followUpType, followUpId) {
     let colIndex = null;
 
-    this.state.columns.forEach((column, index) => {
-      column.forEach((element) => {
+    this.state.rows.forEach((row, index) => {
+      row.forEach((element) => {
         if (!colIndex && followUpType === element.props.type && followUpId === element.props.id) {
           colIndex = index;
         }
@@ -63,8 +66,8 @@ class FollowUpContainer extends React.Component {
   }
 
   getParents(followUpType, followUpId) {
-    const columnIndex = this.getElementColumnIndex(followUpType, followUpId);
-    let clearParentalColumns = true;
+    const rowIndex = this.getElementRowIndex(followUpType, followUpId);
+    let clearParentalRows = true;
     this.setState({ isLoading: true });
 
     fetchFollowUpElementParents(followUpType, followUpId)
@@ -76,31 +79,32 @@ class FollowUpContainer extends React.Component {
             response
           );
 
-          let columns = Object.assign([], this.state.columns);
-          if (clearParentalColumns) {
-            clearParentalColumns = false;
+          let rows = Object.assign([], this.state.rows);
+          if (clearParentalRows) {
+            clearParentalRows = false;
 
-            columns = columns.slice(columnIndex);
-            columns.unshift([]);
+            rows = rows.slice(rowIndex);
+            rows.unshift([]);
 
-            columns[1] = columns[1].filter((element) => {
+            rows[1] = rows[1].filter((element) => {
               if (followUpType === element.props.type && followUpId === element.props.id) {
                 return element;
               }
               return null;
             });
           }
-          columns[0].push(resolvedElement);
+          rows[0].push(resolvedElement);
 
-          this.setState({ columns, isLoading: false });
+          this.setState({ rows, isLoading: false });
+          this.newRowHandler(0);
         });
       })
       .catch(this.handleError);
   }
 
   getChildren(followUpType, followUpId) {
-    const columnIndex = this.getElementColumnIndex(followUpType, followUpId);
-    let clearChildColumns = true;
+    const rowIndex = this.getElementRowIndex(followUpType, followUpId);
+    let clearChildRows = true;
     this.setState({ isLoading: true });
 
     fetchFollowUpElementChildren(followUpType, followUpId)
@@ -112,23 +116,23 @@ class FollowUpContainer extends React.Component {
             response
           );
 
-          let columns = Object.assign([], this.state.columns);
-          if (clearChildColumns) {
-            clearChildColumns = false;
+          let rows = Object.assign([], this.state.rows);
+          if (clearChildRows) {
+            clearChildRows = false;
 
-            columns = columns.slice(0, columnIndex + 1);
-            columns.push([]);
+            rows = rows.slice(0, rowIndex + 1);
+            rows.push([]);
 
-            columns[columnIndex] = columns[columnIndex].filter((element) => {
+            rows[rowIndex] = rows[rowIndex].filter((element) => {
               if (followUpType === element.props.type && followUpId === element.props.id) {
                 return element;
               }
               return null;
             });
           }
-          columns[columnIndex + 1].push(resolvedElement);
-
-          this.setState({ columns, isLoading: false });
+          rows[rowIndex + 1].push(resolvedElement);
+          this.setState({ rows, isLoading: false });
+          this.newRowHandler(rowIndex + 1);
         });
       })
       .catch(this.handleError);
@@ -211,14 +215,32 @@ class FollowUpContainer extends React.Component {
     }
   }
 
+  collapseHandler(followUpType, followUpId, isToggle = true) {
+    const newOpenedMap = Object.assign({}, this.state.opened);
+    newOpenedMap[followUpType + followUpId] = isToggle
+      ? !this.isOpened(followUpType, followUpId)
+      : false;
+    this.setState({ opened: newOpenedMap });
+  }
+
+  rowCollapse(rowIndex) {
+    this.state.rows[rowIndex].forEach((element) => {
+      this.collapseHandler(element.props.type, element.props.id, false);
+    });
+  }
+
+  isOpened(followUpType, followUpId) {
+    return !!this.state.opened[followUpType + followUpId];
+  }
+
   modalSnippetLike(followUpId, response) {
     likeFollowUpDocumentSnippet(followUpId)
       .then((likeReponse) => {
         this.getDocumentModal(response, followUpId, likeReponse.lkyea);
 
-        let changedColumns = Object.assign([], this.state.columns);
-        changedColumns = changedColumns.map(column => (
-          column.map((element) => {
+        let changedRows = Object.assign([], this.state.rows);
+        changedRows = changedRows.map(row => (
+          row.map((element) => {
             if (element.props.type === 'snippet' && element.props.id === parseInt(followUpId, 10)) {
               const responseCopy = Object.assign([], response);
               responseCopy.data.lkyea = likeReponse.lkyea;
@@ -230,7 +252,7 @@ class FollowUpContainer extends React.Component {
           })
         ));
 
-        this.setState({ columns: changedColumns });
+        this.setState({ rows: changedRows });
       })
       .catch(this.handleError);
   }
@@ -240,9 +262,9 @@ class FollowUpContainer extends React.Component {
       .then((dislikeResponse) => {
         this.getDocumentModal(response, followUpId, null, dislikeResponse.lknay);
 
-        let changedColumns = Object.assign([], this.state.columns);
-        changedColumns = changedColumns.map(column => (
-          column.map((element) => {
+        let changedRows = Object.assign([], this.state.rows);
+        changedRows = changedRows.map(row => (
+          row.map((element) => {
             if (element.props.type === 'snippet' && element.props.id === parseInt(followUpId, 10)) {
               const responseCopy = Object.assign([], response);
               responseCopy.data.lknay = dislikeResponse.lknay;
@@ -254,17 +276,24 @@ class FollowUpContainer extends React.Component {
           })
         ));
 
-        this.setState({ columns: changedColumns });
+        this.setState({ rows: changedRows });
       })
       .catch(this.handleError);
+  }
+
+  newRowHandler(rowIndex) {
+    document.getElementById(`row${rowIndex}`).scrollIntoView();
+    this.state.rows.forEach(
+      (rowElement, ind) => this.rowCollapse(ind)
+    );
   }
 
   snippetLike(followUpType, followUpId, response) {
     likeFollowUpDocumentSnippet(followUpId)
       .then((likeResponse) => {
-        let changedColumns = Object.assign([], this.state.columns);
-        changedColumns = changedColumns.map(column => (
-          column.map((element) => {
+        let changedRows = Object.assign([], this.state.rows);
+        changedRows = changedRows.map(row => (
+          row.map((element) => {
             if (element.props.type === 'snippet' && element.props.id === followUpId) {
               const responseCopy = Object.assign([], response);
               responseCopy.data.lkyea = likeResponse.lkyea;
@@ -276,7 +305,7 @@ class FollowUpContainer extends React.Component {
           })
         ));
 
-        this.setState({ columns: changedColumns });
+        this.setState({ rows: changedRows });
       })
       .catch(this.handleError);
   }
@@ -284,9 +313,9 @@ class FollowUpContainer extends React.Component {
   snippetDislike(followUpType, followUpId, response) {
     dislikeFollowUpDocumentSnippet(followUpId)
       .then((dislikeResponse) => {
-        let changedColumns = Object.assign([], this.state.columns);
-        changedColumns = changedColumns.map(column => (
-          column.map((element) => {
+        let changedRows = Object.assign([], this.state.rows);
+        changedRows = changedRows.map(row => (
+          row.map((element) => {
             if (element.props.type === 'snippet' && element.props.id === followUpId) {
               const responseCopy = Object.assign([], response);
               responseCopy.data.lknay = dislikeResponse.lknay;
@@ -298,7 +327,7 @@ class FollowUpContainer extends React.Component {
           })
         ));
 
-        this.setState({ columns: changedColumns });
+        this.setState({ rows: changedRows });
       })
       .catch(this.handleError);
   }
@@ -309,6 +338,8 @@ class FollowUpContainer extends React.Component {
       () => this.getParents(followUpType, parseInt(followUpId, 10)),
       () => this.getChildren(followUpType, parseInt(followUpId, 10)),
       () => this.getDocumentModal(response),
+      () => this.collapseHandler(followUpType, followUpId),
+      () => this.isOpened(followUpType, followUpId),
       followUpType === 'snippet' ? {
         snippetLikeAction: () => this.snippetLike(followUpType, followUpId, response),
         snippetDislikeAction: () => this.snippetDislike(followUpType, followUpId, response),
@@ -331,12 +362,14 @@ class FollowUpContainer extends React.Component {
 
     return (
       <FollowUpTimeline
+        collapseHandler={this.collapseHandler}
         infoLink={`${baseUrl}/followup/index/kid/${this.props.consultationId}`}
         infoLinkTitle={followupTranslations.backToReactionsAndSnippets}
         infoText={followupTranslations.help}
         isLoading={this.state.isLoading}
         isInitialLoad={this.state.isInitialLoad}
-        columns={this.state.columns}
+        rows={this.state.rows}
+        shouldCollapse={this.shouldCollapse}
         modal={this.state.modal}
       />
     );

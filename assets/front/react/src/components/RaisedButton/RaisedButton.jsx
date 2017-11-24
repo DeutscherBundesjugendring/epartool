@@ -6,6 +6,7 @@ const RaisedButton = (props) => {
 
   return (
     <button
+      id={props.id}
       onTouchTap={(e) => {
         e.stopPropagation();
         props.onTouchTap();
@@ -20,12 +21,14 @@ const RaisedButton = (props) => {
 
 RaisedButton.defaultProps = {
   disabled: false,
+  id: null,
 };
 
 RaisedButton.propTypes = {
+  disabled: React.PropTypes.bool,
+  id: React.PropTypes.string,
   label: React.PropTypes.string.isRequired,
   onTouchTap: React.PropTypes.func.isRequired,
-  disabled: React.PropTypes.bool,
 };
 
 export default RaisedButton;

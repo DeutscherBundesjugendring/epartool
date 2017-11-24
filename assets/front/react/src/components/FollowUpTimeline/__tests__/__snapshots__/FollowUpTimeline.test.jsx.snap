@@ -2,7 +2,13 @@
 
 exports[`rendering renders correctly with element in one column and one row 1`] = `
 <div
-  className="well well-bordered well-accent followup-stage followup-stage-loading"
+  className="
+      well
+      well-bordered
+      well-accent
+      followup-stage
+      undefined
+    "
 >
   <div
     className="row offset-bottom-large"
@@ -41,37 +47,18 @@ exports[`rendering renders correctly with element in one column and one row 1`] 
     className="followup"
   >
     <div
-      className="followup-column"
+      className="followup-rows-container"
     >
       <div
-        className=" well well-bordered well-placeholder well-placeholder-small followup-placeholder "
-      />
-      <div
-        className=" well well-bordered well-placeholder followup-placeholder followup-placeholder-delay-1 "
-      />
-    </div>
-    <div
-      className="followup-column"
-    >
-      <div
-        className=" well well-bordered well-placeholder followup-placeholder followup-placeholder-delay-2 "
-      />
-    </div>
-    <div
-      className="followup-column"
-    >
-      <div
-        className=" well well-bordered well-placeholder well-placeholder-small followup-placeholder followup-placeholder-delay-3 "
-      />
-    </div>
-    <div
-      className="followup-column"
-    >
-      <div
-        className="followup-column-element"
+        className="followup-row"
+        id="row0"
       >
-        <div>
-          Left column element
+        <div
+          className="followup-row-element"
+        >
+          <div>
+            Left column element
+          </div>
         </div>
       </div>
     </div>
@@ -81,7 +68,13 @@ exports[`rendering renders correctly with element in one column and one row 1`] 
 
 exports[`rendering renders correctly with element in one column and one row and with modal 1`] = `
 <div
-  className="well well-bordered well-accent followup-stage followup-stage-loading"
+  className="
+      well
+      well-bordered
+      well-accent
+      followup-stage
+      undefined
+    "
 >
   <div
     className="row offset-bottom-large"
@@ -120,37 +113,18 @@ exports[`rendering renders correctly with element in one column and one row and 
     className="followup"
   >
     <div
-      className="followup-column"
+      className="followup-rows-container"
     >
       <div
-        className=" well well-bordered well-placeholder well-placeholder-small followup-placeholder "
-      />
-      <div
-        className=" well well-bordered well-placeholder followup-placeholder followup-placeholder-delay-1 "
-      />
-    </div>
-    <div
-      className="followup-column"
-    >
-      <div
-        className=" well well-bordered well-placeholder followup-placeholder followup-placeholder-delay-2 "
-      />
-    </div>
-    <div
-      className="followup-column"
-    >
-      <div
-        className=" well well-bordered well-placeholder well-placeholder-small followup-placeholder followup-placeholder-delay-3 "
-      />
-    </div>
-    <div
-      className="followup-column"
-    >
-      <div
-        className="followup-column-element"
+        className="followup-row"
+        id="row0"
       >
-        <div>
-          Left column element
+        <div
+          className="followup-row-element"
+        >
+          <div>
+            Left column element
+          </div>
         </div>
       </div>
     </div>
@@ -163,7 +137,13 @@ exports[`rendering renders correctly with element in one column and one row and 
 
 exports[`rendering renders correctly with elements in more columns and more rows 1`] = `
 <div
-  className="well well-bordered well-accent followup-stage followup-stage-loading"
+  className="
+      well
+      well-bordered
+      well-accent
+      followup-stage
+      undefined
+    "
 >
   <div
     className="row offset-bottom-large"
@@ -202,80 +182,63 @@ exports[`rendering renders correctly with elements in more columns and more rows
     className="followup"
   >
     <div
-      className="followup-column"
+      className="followup-rows-container"
     >
       <div
-        className=" well well-bordered well-placeholder well-placeholder-small followup-placeholder "
-      />
-      <div
-        className=" well well-bordered well-placeholder followup-placeholder followup-placeholder-delay-1 "
-      />
-    </div>
-    <div
-      className="followup-column"
-    >
-      <div
-        className=" well well-bordered well-placeholder followup-placeholder followup-placeholder-delay-2 "
-      />
-    </div>
-    <div
-      className="followup-column"
-    >
-      <div
-        className=" well well-bordered well-placeholder well-placeholder-small followup-placeholder followup-placeholder-delay-3 "
-      />
-    </div>
-    <div
-      className="followup-column"
-    >
-      <div
-        className="followup-column-element"
+        className="followup-row"
+        id="row0"
       >
-        <div>
-          Left column element
+        <div
+          className="followup-row-element"
+        >
+          <div>
+            Left column element
+          </div>
+        </div>
+        <div
+          className="followup-row-element"
+        >
+          <div>
+            Center column element
+          </div>
+        </div>
+        <div
+          className="followup-row-element"
+        >
+          <div>
+            Right column element
+          </div>
         </div>
       </div>
       <div
-        className="followup-column-element"
+        className="followup-row"
+        id="row1"
       >
-        <div>
-          Center column element
+        <div
+          className="followup-row-element"
+        >
+          <div>
+            Left column element
+          </div>
+        </div>
+        <div
+          className="followup-row-element"
+        >
+          <div>
+            Center column element
+          </div>
         </div>
       </div>
       <div
-        className="followup-column-element"
+        className="followup-row"
+        id="row2"
       >
-        <div>
-          Right column element
-        </div>
-      </div>
-    </div>
-    <div
-      className="followup-column"
-    >
-      <div
-        className="followup-column-element"
-      >
-        <div>
-          Left column element
-        </div>
-      </div>
-      <div
-        className="followup-column-element"
-      >
-        <div>
-          Center column element
-        </div>
-      </div>
-    </div>
-    <div
-      className="followup-column"
-    >
-      <div
-        className="followup-column-element"
-      >
-        <div>
-          Left column element
+        <div
+          className="followup-row-element"
+        >
+          <div>
+            Left column element
+          </div>
         </div>
       </div>
     </div>
@@ -285,7 +248,13 @@ exports[`rendering renders correctly with elements in more columns and more rows
 
 exports[`rendering renders correctly without elements 1`] = `
 <div
-  className="well well-bordered well-accent followup-stage followup-stage-loading"
+  className="
+      well
+      well-bordered
+      well-accent
+      followup-stage
+      undefined
+    "
 >
   <div
     className="row offset-bottom-large"
@@ -324,29 +293,8 @@ exports[`rendering renders correctly without elements 1`] = `
     className="followup"
   >
     <div
-      className="followup-column"
-    >
-      <div
-        className=" well well-bordered well-placeholder well-placeholder-small followup-placeholder "
-      />
-      <div
-        className=" well well-bordered well-placeholder followup-placeholder followup-placeholder-delay-1 "
-      />
-    </div>
-    <div
-      className="followup-column"
-    >
-      <div
-        className=" well well-bordered well-placeholder followup-placeholder followup-placeholder-delay-2 "
-      />
-    </div>
-    <div
-      className="followup-column"
-    >
-      <div
-        className=" well well-bordered well-placeholder well-placeholder-small followup-placeholder followup-placeholder-delay-3 "
-      />
-    </div>
+      className="followup-rows-container"
+    />
   </div>
 </div>
 `;

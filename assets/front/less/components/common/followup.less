@@ -55,11 +55,15 @@
 
 .followup {
     position: relative;
+    padding-top: 24px;
     overflow-x: auto;
-    display: flex;
-    width: calc(~'100% + 2 * @{well-bordered-padding}');
     margin-left: -@well-bordered-padding;
     margin-right: -@well-bordered-padding;
+
+    &-rows-container {
+        display: inline-block;
+        min-width: 100%;
+    }
 
     &-stage {
         position: relative;
@@ -115,12 +119,15 @@
         }
     }
 
-    &-column {
-        flex-grow: 0;
-        flex-shrink: 0;
-        flex-basis: calc(100% / 3);
-        padding-left: @grid-gutter-width;
-        padding-right: @grid-gutter-width;
+    &-row {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+
+        &-row-element {
+            margin: 15px;
+            width: calc(100%/3);
+        }
     }
 
     &-link {
@@ -174,32 +181,32 @@
         }
 
         &-count-arrow {
-            position: absolute;
-            top: 50%;
             z-index: 1;
-            display: block;
-            margin-left: -15px;
-            margin-top: -20px;
-            padding: 10px 17px 10px 15px;
+            position: absolute;
+            right: 0;
+            left: 0;
+            margin: 0 auto;
+            width: 40px;
+            padding: 10px 15px 10px 16px;
             border: 0;
             outline: 0;
             transition: transform 250ms ease-out;
         }
 
         &-count-arrow-left {
-            left: -1px;
+            top: -24px;
 
             &:hover {
-                transform: translateX(-13px);
+                transform: translateY(-13px);
             }
         }
 
         &-count-arrow-right {
-            right: -19px;
+            bottom: -16px;
             z-index: 3;
 
             &:hover {
-                transform: translateX(6px);
+                transform: translateY(6px);
             }
         }
     }
@@ -215,13 +222,8 @@
         }
 
         &-timeline-count {
-            width: 43px;
-            height: 40px;
-            background-position: -45px 0;
-        }
-
-        &-timeline-count-left {
-            background-position: -95px 0;
+            background: transparent url(../images/arrow-down.svg) no-repeat;
+            background-position: center;
         }
     }
 
@@ -294,11 +296,39 @@
     &-flow {
         position: relative;
         z-index: 2;
-        min-width: 300px;
+        min-height: 400px;
     }
 
     &-document-image {
         width: auto;
         max-height: 160px;
     }
+}
+
+.followup-row-element {
+    width: 330px;
+    min-width: 330px;
+    padding: 15px;
+}
+
+.followup-timeline-box.collapsed .well.well-bordered {
+    max-height: 400px;
+}
+
+.followup-timeline-box .well.well-bordered {
+    max-height: 10000px;
+    overflow: hidden;
+    transition: max-height 0.5s ease-in-out;
+
+    &:not(.well-deep) {
+        padding-bottom: 40px;
+    }
+}
+
+
+.followup-timeline-box > button:last-child {
+    position: absolute;
+    z-index: 3;
+    right: 16px;
+    bottom: 16px;
 }

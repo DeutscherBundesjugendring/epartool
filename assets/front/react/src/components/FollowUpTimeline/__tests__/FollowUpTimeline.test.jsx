@@ -11,6 +11,7 @@ describe('rendering', () => {
         infoLink="#"
         infoLinkTitle="Link"
         infoText="Text"
+        isOpened={() => {}}
       />
     );
 
@@ -23,7 +24,8 @@ describe('rendering', () => {
         infoLink="#"
         infoLinkTitle="Link"
         infoText="Text"
-        columns={[[<div>Left column element</div>]]}
+        isOpened={() => {}}
+        rows={[[<div>Left column element</div>]]}
       />
     );
 
@@ -36,7 +38,8 @@ describe('rendering', () => {
         infoLink="#"
         infoLinkTitle="Link"
         infoText="Text"
-        columns={[[<div>Left column element</div>]]}
+        isOpened={() => {}}
+        rows={[[<div>Left column element</div>]]}
         modal={<div>Modal element</div>}
       />
     );
@@ -50,7 +53,8 @@ describe('rendering', () => {
         infoLink="#"
         infoLinkTitle="Link"
         infoText="Text"
-        columns={[
+        isOpened={() => {}}
+        rows={[
           [
             <div>Left column element</div>,
             <div>Center column element</div>,

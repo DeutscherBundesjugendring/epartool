@@ -8,7 +8,8 @@ const FollowUpTimeLine = props => (
       well-bordered
       well-accent
       followup-stage
-      ${props.isLoading && 'followup-stage-loading'}`}
+      ${props.isLoading && 'followup-stage-loading'}
+    `}
   >
 
     <div className="row offset-bottom-large">
@@ -40,7 +41,7 @@ const FollowUpTimeLine = props => (
 
     <div className="followup">
       {props.isInitialLoad && (<div>
-        <div className="followup-column">
+        <div className="followup-row">
           <div
             className="
               well
@@ -60,7 +61,7 @@ const FollowUpTimeLine = props => (
             "
           />
         </div>
-        <div className="followup-column">
+        <div className="followup-row">
           <div
             className="
               well
@@ -71,7 +72,7 @@ const FollowUpTimeLine = props => (
             "
           />
         </div>
-        <div className="followup-column">
+        <div className="followup-row">
           <div
             className="
               well
@@ -84,16 +85,20 @@ const FollowUpTimeLine = props => (
           />
         </div>
       </div>)}
-
-      {props.columns && props.columns.map((elements, columnKey) => (
-        <div className="followup-column" key={columnKey}>
-          {elements && elements.map((element, elementKey) => (
-            <div className="followup-column-element" key={elementKey}>
-              {element}
-            </div>
-          ))}
-        </div>
-      ))}
+      <div className="followup-rows-container">
+        {props.rows && props.rows.map((elements, rowKey) => (
+          <div id={`row${rowKey}`} className="followup-row" key={rowKey}>
+            {elements && elements.map((element, elementKey) => (
+              <div
+                className="followup-row-element"
+                key={elementKey}
+              >
+                {element}
+              </div>
+            ))}
+          </div>
+        ))}
+      </div>
     </div>
 
     {props.modal}
@@ -107,7 +112,7 @@ FollowUpTimeLine.propTypes = {
   infoText: React.PropTypes.string.isRequired,
   isInitialLoad: React.PropTypes.bool,
   isLoading: React.PropTypes.bool,
-  columns: React.PropTypes.arrayOf(React.PropTypes.arrayOf(React.PropTypes.element)),
+  rows: React.PropTypes.arrayOf(React.PropTypes.arrayOf(React.PropTypes.element)),
   modal: React.PropTypes.element,
 };
 
