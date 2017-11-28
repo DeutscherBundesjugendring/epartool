@@ -483,11 +483,18 @@ class Admin_InputController extends Zend_Controller_Action
         $this->_helper->layout->disableLayout();
         $this->_helper->viewRenderer->setNoRender();
 
+        $filename = sprintf(
+            'inputs_%sqid%s_%s_%s_%s.csv',
+            (isset($question['nr']) ? str_replace(' ', '-', trim($question['nr'])) . '_' : ''),
+            $qid,
+            $mod,
+            gmdate('Y-m-d_H\hi\m'),
+            $cod
+        );
+
         header("Content-type: text/csv");
         header('Expires: ' . gmdate('D, d M Y H:i:s') . ' GMT');
-        header('Content-Disposition: attachment; filename=inputs_'
-            . (isset($question['nr']) ? $question['nr'] . '_' : '') . 'qid' . $qid . '_' . $mod . '_'
-            . gmdate('Y-m-d_H\hi\m') . '_' . $cod . '.csv');
+        header('Content-Disposition: attachment; filename=' . $filename);
         header('Pragma: no-cache');
 
         // @codingStandardsIgnoreLine
