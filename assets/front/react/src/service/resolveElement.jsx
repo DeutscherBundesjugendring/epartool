@@ -92,6 +92,8 @@ const resolveElement = (
         childCount={parseInt(response.children_count, 10)}
         childAction={childAction}
         modalAction={modalAction}
+        showLessLabel={followupTranslations.showLessLabel}
+        showMoreLabel={followupTranslations.showMoreLabel}
       />
     );
   }

@@ -100,6 +100,8 @@ FollowUpBox.propTypes = {
   childCount: React.PropTypes.number.isRequired,
   childAction: React.PropTypes.func.isRequired,
   modalAction: React.PropTypes.func,
+  showLessLabel: React.PropTypes.string.isRequired,
+  showMoreLabel: React.PropTypes.string.isRequired,
 };
 
 export default FollowUpBox;

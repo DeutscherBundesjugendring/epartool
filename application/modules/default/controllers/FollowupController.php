@@ -586,6 +586,8 @@ class FollowupController extends Zend_Controller_Action
             'help' => $this->view->translate(
                 'Follow the Reactions to your contribution here. Click on the arrows for the next steps.'
             ),
+            'showLessLabel' => $this->view->translate('Show less'),
+            'showMoreLabel' => $this->view->translate('Show more'),
             'typeSupportingLabel' => $this->view->translate('Supporting'),
             'typeActionLabel' => $this->view->translate('Action'),
             'typeRejectedLabel' => $this->view->translate('Rejected'),
