@@ -24,6 +24,7 @@ module.exports = {
   // CSS
   'build-css-front': [
     'less:front',
+    'replace:leaflet',
     'postcss:front'
   ],
 

@@ -60,7 +60,9 @@ class Default_Form_Input_Create extends Dbjr_Form_Web
                 $input['expl'],
                 isset($input['video_service']) ? $input['video_service'] : null,
                 isset($input['video_id']) ? $input['video_id'] : null,
-                isset($input['tid']) ? $input['tid'] : null
+                isset($input['tid']) ? $input['tid'] : null,
+                isset($input['latitude']) ? $input['latitude'] : null,
+                isset($input['longitude']) ? $input['longitude'] : null
             );
         }
 
@@ -80,6 +82,8 @@ class Default_Form_Input_Create extends Dbjr_Form_Web
      * @param  string $thes
      * @param  string $expl
      * @param  int $tid
+     * @param  float $latitude
+     * @param  float $longitude
      * @return Default_Form_Input_Create              Fluent interface
      */
     protected function addInputField(
@@ -88,7 +92,9 @@ class Default_Form_Input_Create extends Dbjr_Form_Web
         $expl = null,
         $videoService = null,
         $videoId = null,
-        $tid = null
+        $tid = null,
+        $latitude = null,
+        $longitude = null
     ) {
         $view = new Zend_View();
         $thesElOpts = array(
@@ -163,6 +169,12 @@ class Default_Form_Input_Create extends Dbjr_Form_Web
 
         $inputForm->addElement('hidden', 'tid');
         $inputForm->getElement('tid')->setOptions(['belongsTo' => 'inputs[' . $inputName . ']'])->setValue($tid);
+
+        $inputForm->addElement('hidden', 'latitude');
+        $inputForm->getElement('latitude')->setOptions(['belongsTo' => 'inputs[' . $inputName . ']'])->setValue($latitude);
+
+        $inputForm->addElement('hidden', 'longitude');
+        $inputForm->getElement('longitude')->setOptions(['belongsTo' => 'inputs[' . $inputName . ']'])->setValue($longitude);
 
         $this->getSubForm('inputs')->addSubForm($inputForm, $inputName);
 

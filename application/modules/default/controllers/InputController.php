@@ -371,6 +371,8 @@ class InputController extends Zend_Controller_Action
                             ? $input['video_service']
                             : null;
                         $input['video_id'] = !empty($input['video_id']) ? $input['video_id'] : null;
+                        $input['latitude'] = !empty($input['latitude']) ? (float) $input['latitude'] : null;
+                        $input['longitude'] = !empty($input['longitude']) ? (float) $input['longitude'] : null;
                         $input['confirmation_key'] = $confirmKey;
                         if (!empty($input['tid'])) {
                             $inputModel->updateById($input['tid'], $input);
@@ -392,16 +394,23 @@ class InputController extends Zend_Controller_Action
                 throw $e;
             }
 
-            if (!$errorShown && isset($post['next_question'])) {
+            if ($successShown && !$errorShown && isset($post['next_question'])) {
                 $nextQuestion = (new Model_Questions())->getNext($qid);
                 $this->redirect('/input/show/kid/' . $kid . ($nextQuestion ? '/qid/' . $nextQuestion['qi'] : ''));
-            } elseif (!$errorShown && isset($post['finished'])) {
+            } elseif ($successShown && !$errorShown && isset($post['finished'])) {
                 if ($this->consultation['anonymous_contribution']) {
                     $this->redirect('/input/finished/kid/' . $kid);
                 } else {
                     $this->redirect('/user/register/kid/' . $kid);
                 }
             }
+            $form->populate($post);
+            $this->flashMessenger->addMessage(
+                Zend_Registry::get('Zend_Translate')->translate(
+                    'There are no contributions to save. Please add at least one contribution before you click on finish.'
+                ),
+                'error'
+            );
 
             return;
         }

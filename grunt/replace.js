@@ -15,6 +15,16 @@ module.exports = {
         to: '?>'
       }
     ]
+  },
+  leaflet: {
+    src: '<%= paths.temp %>/front.css',
+    dest: '<%= paths.temp %>/front.css',
+    replacements: [
+      {
+        from: 'url(images/',
+        to: 'url(../images/'
+      }
+    ]
   }
 
 };

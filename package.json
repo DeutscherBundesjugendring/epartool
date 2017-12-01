@@ -61,6 +61,8 @@
     "jest": "^19.0.2",
     "json-loader": "^0.5.7",
     "jsx-loader": "^0.13.2",
+    "leaflet": "^1.2.0",
+    "leaflet.markercluster": "^1.2.0",
     "load-grunt-config": "^0.19.2",
     "react-addons-test-utils": "15.4.1",
     "sinon": "^1.17.6",

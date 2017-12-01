@@ -2,6 +2,8 @@
   var bindAddContribution;
   var bindAnimatedScrolling;
   var bindCharacterCounters;
+  var bindContributionForm;
+  var bindContributionMaps;
   var bindHelpTextModal;
   var bindLoadMoreConsultations;
   var bindRemoveSupervote;
@@ -16,10 +18,16 @@
   var indicateLoginInProgress;
   var initFB;
   var loginProcessEnd;
+  var onClickButtonMyLocation;
   var showOverlay;
+  var toggleMap;
+
+  var maps = [];
 
   $(document).ready(function() {
     bindCharacterCounters();
+    bindContributionForm();
+    bindContributionMaps();
     bindToggleGroupRegister();
     bindLoadMoreConsultations();
     bindAnimatedScrolling();
@@ -47,7 +55,7 @@
     $('.js-share').on("click", function(e) {
       $(this).socialPopup(e);
     });
-    return $('.js-contribution-create-form').pageLeaveConfirmation();
+    return $('#js-contribution-create-form').pageLeaveConfirmation();
   });
 
   bindCharacterCounters = function() {
@@ -406,7 +414,7 @@
 
   bindAddContribution = function() {
     return $('.js-add-contribution').on('click', function() {
-      var formFieldsets = $('.js-contribution-create-form').find('fieldset');
+      var formFieldsets = $('#js-contribution-create-form').find('fieldset');
 
       var newFieldset = formFieldsets.first().clone();
       var newIndex = formFieldsets.length;
@@ -414,7 +422,6 @@
       var newPrefixId = 'inputs-' + newIndex + '-';
       var newPrefixName = 'inputs[' + newIndex + ']';
       var buttonsDiv = $(this).closest('.js-contribution-add-buttons');
-      console.log(buttonsDiv);
 
       newFieldset.find('#' + prefixId + 'thes_counter').attr('id', newPrefixId + 'thes_counter');
       newFieldset.find('#' + prefixId + 'thes')
@@ -433,14 +440,57 @@
       newFieldset.find('#' + prefixId + 'expl')
         .attr('id', newPrefixId + 'expl')
         .attr('name', newPrefixName + '[expl]')
-        .val('');;
+        .val('');
       newFieldset.find('#' + prefixId + 'expl_counter').attr('id', newPrefixId + 'expl_counter');
+      newFieldset.find('#' + prefixId + 'latitude')
+        .attr('id', newPrefixId + 'latitude')
+        .attr('name', newPrefixName + '[latitude]')
+        .val('');
+      newFieldset.find('#' + prefixId + 'longitude')
+        .attr('id', newPrefixId + 'longitude')
+        .attr('name', newPrefixName + '[longitude]')
+        .val('');
+      newFieldset.find('#' + prefixId + 'longitude')
+        .attr('id', newPrefixId + 'longitude')
+        .attr('name', newPrefixName + '[longitude]')
+        .val('');
+
+      newFieldset.find('#js-contribution-add-location-0')
+        .attr('id', 'js-contribution-add-location-' + newIndex)
+        .attr('checked', false)
+        .attr('data-index', newIndex);
+      newFieldset.find('label[for="js-contribution-add-location-0"]')
+        .attr('for', 'js-contribution-add-location-' + newIndex)
+        .attr('data-index', newIndex);
+      newFieldset.find('#js-contribution-map-0')
+        .attr('id', 'js-contribution-map-' + newIndex)
+        .attr('class', 'js-contribution-map-collapsed')
+        .attr('data-index', newIndex)
+        .attr('style', 'display: none;');
+      newFieldset.find('#js-contribution-map-canvas-0')
+        .attr('id', 'js-contribution-map-canvas-' + newIndex)
+        .html('')
+      newFieldset.find('#js-contribution-map-button-my-location-0')
+        .attr('id', 'js-contribution-map-button-my-location-' + newIndex)
+        .attr('data-index', newIndex);
 
       $('<hr />').insertBefore(buttonsDiv);
       newFieldset.insertBefore(buttonsDiv);
 
       $('.js-toggle-extended-input').unbind('click');
       $('textarea.js-has-counter').unbind('change').unbind('keyup');
+
+      $('#js-contribution-add-location-' + newIndex).on('click', function() {
+        var index = $(this).data('index');
+        var mapEl = $('#js-contribution-map-' + index);
+        toggleMap(maps, mapEl, index);
+      });
+
+      $('#js-contribution-map-button-my-location-' + newIndex).on('click', function(e) {
+        e.preventDefault();
+        onClickButtonMyLocation(maps, $(this).data('index'));
+      });
+
       bindToggleExtendedInput();
       bindCharacterCounters();
     });
@@ -453,5 +503,108 @@
   window.removeModalOpenFromBody = function() {
     return $('body').removeClass('modal-open');
   };
+
+  initMap = function (index) {
+    var latField = $('#inputs-' + index + '-latitude');
+    var lngField = $('#inputs-' + index + '-longitude');
+    var marker = null;
+
+    var map = L.map('js-contribution-map-canvas-' + index).setView([
+      latField.val() ? latField.val() : osmConfig.defaultLocation.latitude,
+      lngField.val() ? lngField.val() : osmConfig.defaultLocation.longitude
+    ], osmConfig.defaultLocation.zoom);
+
+    L.tileLayer(osmConfig.dataServerUrl, {
+      attribution: osmConfig.attribution,
+    }).addTo(map);
+
+    if (latField.val()) {
+      var marker = L.marker([latField.val(), lngField.val()]);
+      marker.addTo(map);
+    }
+
+    map.on('click', function (e) {
+      if (marker !== null) {
+        marker.remove();
+      }
+
+      marker = L.marker(e.latlng);
+      marker.addTo(map);
+      latField.val(e.latlng.lat);
+      lngField.val(e.latlng.lng);
+    });
+
+    return map;
+  }
+
+  toggleMap = function (maps, mapEl, index) {
+    if (mapEl.hasClass('js-contribution-map-collapsed') && !mapEl.hasClass('js-contribution-map-initialized')) {
+      mapEl.removeClass('js-contribution-map-collapsed').show();
+      maps[index] = initMap(index);
+      mapEl.addClass('js-contribution-map-initialized');
+
+      return;
+    }
+
+    if (mapEl.hasClass('js-contribution-map-collapsed')) {
+      mapEl.removeClass('js-contribution-map-collapsed').show();
+
+      return;
+    }
+
+    mapEl.addClass('js-contribution-map-collapsed').hide();
+  }
+
+  onClickButtonMyLocation = function (maps, index) {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(function (position) {
+        maps[index].remove();
+        $('#inputs-' + index + '-latitude').val(position.coords.latitude);
+        $('#inputs-' + index + '-longitude').val(position.coords.longitude);
+        maps[index] = initMap(index);
+      });
+    } else {
+      alert(jsTranslations['navigator_geolocation_not_available']);
+    }
+  }
+
+  bindContributionMaps = function() {
+    $('.js-contribution-map-collapsed').hide();
+    $('.js-contribution-map').each(function (i, map) {
+      var mapEl = $(map);
+      var index = mapEl.data('index');
+      if (!mapEl.hasClass('js-contribution-map-collapsed') && !mapEl.hasClass('js-contribution-map-initialized')) {
+        maps[index] = initMap(index);
+        mapEl.addClass('js-contribution-map-initialized');
+      }
+    });
+
+    $('.js-contribution-add-location').on('click', function() {
+      var index = $(this).data('index');
+      var mapEl = $('#js-contribution-map-' + index);
+
+      toggleMap(maps, mapEl, index);
+    });
+
+    $('.js-contribution-map-button-my-location').on('click', function(e) {
+      e.preventDefault();
+      onClickButtonMyLocation(maps, $(this).data('index'));
+    });
+  }
+
+  bindContributionForm = function () {
+    $('#js-contribution-create-form').on('submit', function () {
+      $('.js-contribution-add-location').each(function (i, checkbox) {
+        var checkboxObj = $(checkbox);
+        var index = checkboxObj.data('index');
+        if (!checkboxObj.is(':checked')) {
+          $('#inputs-' + index + '-latitude').val(null);
+          $('#inputs-' + index + '-longitude').val(null);
+        }
+      });
+
+      return true;
+    });
+  }
 
 }).call(this);

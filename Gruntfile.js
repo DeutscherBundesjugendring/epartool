@@ -12,6 +12,7 @@ module.exports = function (grunt) {
       },
       dist: 'www',
       bower: 'bower_components',
+      npm: 'node_modules',
       temp: '.tmp'
     },
 

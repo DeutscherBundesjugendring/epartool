@@ -22,6 +22,7 @@ class Module_Default_View_Helper_JsTranslations extends Zend_View_Helper_Abstrac
             'message_logging_in' => $translator->translate('You are being logged in. Please wait…'),
             'message_general_error' => $translator->translate('Something went wrong'),
             'message_contributions_save_error' => $translator->translate('Your contributions have not been saved'),
+            'navigator_geolocation_not_available' => $translator->translate('Geolocation is not available in your browser'),
         ];
     }
 }

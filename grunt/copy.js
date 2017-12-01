@@ -38,6 +38,12 @@ module.exports = {
         cwd: '<%= paths.bower %>/bootstrap-colorpicker',
         src: ['**/*'],
         dest: '<%= paths.dist %>/vendor/bootstrap-colorpicker'
+      },
+      {
+        expand: true,
+        cwd: '<%= paths.npm %>/leaflet/dist/images',
+        src: ['**/*'],
+        dest: '<%= paths.dist %>/images'
       }
     ]
   },
