@@ -36,6 +36,14 @@
                 <?=$this->input['spprts'];?>
             </small>
         </p>
+        <?php if ($this->input['latitude'] !== null): ?>
+            <span
+                class="glyphicon glyphicon-map-marker"
+                aria-hidden="true"
+                alt="GPS: <?=$this->input['latitude'];?>, <?=$this->input['longitude'];?>"
+                title="GPS: <?=$this->input['latitude'];?>, <?=$this->input['longitude'];?>"
+            ></span>
+        <?php endif; ?>
         <p>
             <?php foreach ($this->input['tags'] as $tag): ?>
                 <span class="label label-primary"><?=$this->escape($tag['tg_de']);?></span>

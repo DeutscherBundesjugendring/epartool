@@ -16,7 +16,17 @@ module.exports = {
       }
     ]
   },
-  leaflet: {
+  leafletAdmin: {
+    src: '<%= paths.temp %>/admin.css',
+    dest: '<%= paths.temp %>/admin.css',
+    replacements: [
+      {
+        from: 'url(images/',
+        to: 'url(../images/'
+      }
+    ]
+  },
+  leafletFront: {
     src: '<%= paths.temp %>/front.css',
     dest: '<%= paths.temp %>/front.css',
     replacements: [

@@ -1,5 +1,7 @@
 (function() {
   var bindConsultationCustomPhaseNames;
+  var bindContributionForm;
+  var bindContributionMap;
   var bindContributionVideoSelect;
   var bindEmailAddAttachment;
   var bindEmailConsultationSelect;
@@ -9,6 +11,7 @@
   var changeContributionStatus;
   var contributorAgesSettings;
   var groupsSizesSettings;
+  var initMap;
   var initMediaIndexFileLazyLoad;
   var initSortableFollowupSnippets;
   var initSortableGeneral;
@@ -18,7 +21,11 @@
   var themeSettings;
   var bindToggleAnonymousContributionSwitch;
 
+  var map;
+
   $(document).ready(function() {
+    bindContributionForm();
+    bindContributionMap();
     bindEmailTemplateSelect();
     bindEmailConsultationSelect();
     bindEmailAddAttachment();
@@ -428,5 +435,85 @@
   };
 
   document.mediaSelectPopup = mediaSelectPopup;
+
+  initMap = function () {
+    var latField = $('#latitude');
+    var lngField = $('#longitude');
+    var marker = null;
+
+    map = L.map('js-contribution-map-canvas').setView([
+      latField.val() ? latField.val() : osmConfig.defaultLocation.latitude,
+      lngField.val() ? lngField.val() : osmConfig.defaultLocation.longitude
+    ], osmConfig.defaultLocation.zoom);
+
+    L.tileLayer(osmConfig.dataServerUrl, {
+      attribution: osmConfig.attribution,
+    }).addTo(map);
+
+    if (latField.val()) {
+      marker = L.marker([latField.val(), lngField.val()]);
+      marker.addTo(map);
+    }
+
+    map.on('click', function (e) {
+      if (marker !== null) {
+        marker.remove();
+      }
+
+      marker = L.marker(e.latlng);
+      marker.addTo(map);
+      latField.val(e.latlng.lat);
+      lngField.val(e.latlng.lng);
+    });
+  }
+
+  bindContributionMap = function() {
+    var mapEl = $('#js-contribution-map');
+    if (mapEl.hasClass('in') && !mapEl.hasClass('js-contribution-map-initialized')) {
+      initMap();
+      mapEl.addClass('js-contribution-map-initialized');
+    }
+
+    $('#js-contribution-map-button-add-location').on('click', function (e) {
+      e.preventDefault();
+      $(this).hide();
+      $('#js-contribution-remove-location').attr('checked', false);
+      var mapEl = $('#js-contribution-map');
+      if (!mapEl.hasClass('js-contribution-map-initialized')) {
+        setTimeout(function () {
+          initMap();
+          mapEl.addClass('js-contribution-map-initialized');
+        }, 1000);
+      }
+    });
+
+    $('#js-contribution-remove-location').on('click', function () {
+      $('#js-contribution-map-button-add-location').show();
+    });
+
+    $('#js-contribution-map-button-my-location').on('click', function (e) {
+      e.preventDefault();
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function (position) {
+          map.remove();
+          $('#latitude').val(position.coords.latitude);
+          $('#longitude').val(position.coords.longitude);
+          initMap();
+        });
+      } else {
+        alert(jsTranslations['navigator_geolocation_not_available']);
+      }
+    });
+  }
+
+  bindContributionForm = function () {
+    $('#js-contribution-form').on('submit', function () {
+      var checkboxRemoveLocation = $('#js-contribution-remove-location');
+      if (checkboxRemoveLocation.is(':checked') || !checkboxRemoveLocation.is(':visible')) {
+        $('#latitude').val(null);
+        $('#longitude').val(null);
+      }
+    });
+  }
 
 }).call(this);

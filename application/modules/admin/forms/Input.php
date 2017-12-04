@@ -123,6 +123,9 @@ class Admin_Form_Input extends Dbjr_Form_Admin
         $this->addElement('videoService', 'video_service');
         $this->addElement('videoId', 'video_id');
 
+        $this->addElement('hidden', 'latitude');
+        $this->addElement('hidden', 'longitude');
+
         // CSRF Protection
         $hash = $this->getHash();
         $this->addElement($hash);

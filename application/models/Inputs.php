@@ -77,6 +77,12 @@ class Model_Inputs extends Dbjr_Db_Table_Abstract
             $data['video_id'] = null;
         }
 
+        if ((isset($data['latitude']) && empty($data['latitude']))
+            || (isset($data['longitude']) && empty($data['longitude']))) {
+            $data['latitude'] = null;
+            $data['longitude'] = null;
+        }
+
         $row = $this->createRow($data);
 
         $contributionId = (int) $row->save();
@@ -116,6 +122,12 @@ class Model_Inputs extends Dbjr_Db_Table_Abstract
         if (isset($data['video_id']) && empty($data['video_id'])) {
             $data['video_service'] = null;
             $data['video_id'] = null;
+        }
+
+        if ((isset($data['latitude']) && empty($data['latitude']))
+            || (isset($data['longitude']) && empty($data['longitude']))) {
+            $data['latitude'] = null;
+            $data['longitude'] = null;
         }
 
         $row = $this->find($id)->current();
@@ -1472,7 +1484,7 @@ class Model_Inputs extends Dbjr_Db_Table_Abstract
     {
         $select = $this
             ->select()
-            ->from($this->info(Model_Questions::NAME), [
+            ->from($this->info(self::NAME), [
                 'tid',
                 'thes',
                 'expl',
@@ -1483,6 +1495,8 @@ class Model_Inputs extends Dbjr_Db_Table_Abstract
                 'is_confirmed_by_user',
                 'input_discussion_contrib',
                 'spprts',
+                'latitude',
+                'longitude',
             ])
             ->setIntegrityCheck(false)
             ->join(

@@ -24,12 +24,13 @@ module.exports = {
   // CSS
   'build-css-front': [
     'less:front',
-    'replace:leaflet',
+    'replace:leafletFront',
     'postcss:front'
   ],
 
   'build-css-admin': [
     'less:admin',
+    'replace:leafletAdmin',
     'postcss:admin'
   ],
 
