@@ -474,21 +474,16 @@
       mapEl.addClass('js-contribution-map-initialized');
     }
 
-    $('#js-contribution-map-button-add-location').on('click', function (e) {
-      e.preventDefault();
-      $(this).hide();
-      $('#js-contribution-remove-location').attr('checked', false);
-      var mapEl = $('#js-contribution-map');
-      if (!mapEl.hasClass('js-contribution-map-initialized')) {
-        setTimeout(function () {
-          initMap();
-          mapEl.addClass('js-contribution-map-initialized');
-        }, 1000);
+    $('#js-contribution-map-toggle-location').on('click', function (e) {
+      if ($(this).is(':checked')) {
+        var mapEl = $('#js-contribution-map');
+        if (!mapEl.hasClass('js-contribution-map-initialized')) {
+          setTimeout(function () {
+            initMap();
+            mapEl.addClass('js-contribution-map-initialized');
+          }, 1000);
+        }
       }
-    });
-
-    $('#js-contribution-remove-location').on('click', function () {
-      $('#js-contribution-map-button-add-location').show();
     });
 
     $('#js-contribution-map-button-my-location').on('click', function (e) {

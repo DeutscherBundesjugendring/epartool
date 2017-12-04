@@ -145,6 +145,8 @@ class Admin_VotingprepareController extends Zend_Controller_Action
                 'is_confirmed_by_user' => $origInputData['is_confirmed_by_user'],
                 'is_confirmed' => $origInputData['is_confirmed'],
                 'is_votable' => true,
+                'latitude' => $origInputData['latitude'],
+                'longitude' => $origInputData['longitude'],
             ]);
         }
 

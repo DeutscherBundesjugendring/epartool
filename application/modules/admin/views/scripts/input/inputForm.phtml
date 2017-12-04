@@ -56,29 +56,22 @@
     <?php endif; ?>
 
     <div class="form-froup">
-        <a
-            href="#"
-            class="btn btn-default btn-xs"
-            id="js-contribution-map-button-add-location"
-            data-toggle="collapse"
-            data-target="#js-contribution-map"
-            <?php if ($this->element->latitude->getValue() !== null) :?> style="display: none;"<? endif; ?>
-        >
-            <?=$this->translate('Add location');?>
-        </a>
+        <label for="js-contribution-map-toggle-location">
+            <input type="checkbox"
+                id="js-contribution-map-toggle-location"
+                data-toggle="collapse"
+                data-target="#js-contribution-map"
+                <?php if ($this->element->latitude->getValue() !== null) :?> checked="checked"<? endif; ?>
+            >
+                <?=$this->translate('Add location');?>
+            </input>
+        </label>
     </div>
 
     <div
         class="collapse<?php if ($this->element->latitude->getValue() !== null) :?> in<? endif; ?>"
         id="js-contribution-map"
     >
-        <label for="js-contribution-remove-location"><?=$this->translate('Remove location');?></label>
-        <input
-            type="checkbox"
-            id="js-contribution-remove-location"
-            data-toggle="collapse"
-            data-target="#js-contribution-map"
-        />
 
         <a
             href="#"

@@ -1299,6 +1299,12 @@ class Model_Inputs extends Dbjr_Db_Table_Abstract
             $data['video_id'] = null;
         }
 
+        if ((isset($data['latitude']) && empty($data['latitude']))
+            || (isset($data['longitude']) && empty($data['longitude']))) {
+            $data['latitude'] = null;
+            $data['longitude'] = null;
+        }
+
         foreach (['is_confirmed', 'is_confirmed_by_user', 'is_votable'] as $flag) {
             if (isset($data[$flag]) && empty($data[$flag]) && $data[$flag] !== '0') {
                 $data[$flag] = null;
