@@ -2,7 +2,7 @@
 
 exports[`rendering renders correctly with long date 1`] = `
 <div
-  className=" well well-bordered followup-flow followup-well followup-well-link followup-type-wrap followup-type-wrap-inner "
+  className=" well well-bordered followup-flow followup-well followup-well-collapsible followup-well-link followup-type-wrap followup-type-wrap-inner "
 >
   <h2
     className="h4"
@@ -38,7 +38,7 @@ exports[`rendering renders correctly with long date 1`] = `
 
 exports[`rendering renders correctly with long date 2`] = `
 <div
-  className=" well well-bordered followup-flow followup-well followup-well-link followup-type-wrap followup-type-wrap-inner "
+  className=" well well-bordered followup-flow followup-well followup-well-collapsible followup-well-link followup-type-wrap followup-type-wrap-inner "
 >
   <div
     className="followup-type followup-type-right followup-type-right-alt"
@@ -87,7 +87,7 @@ exports[`rendering renders correctly with long date 2`] = `
 
 exports[`rendering renders correctly with long date 3`] = `
 <div
-  className=" well well-bordered followup-flow followup-well followup-well-link followup-type-wrap followup-type-wrap-inner "
+  className=" well well-bordered followup-flow followup-well followup-well-collapsible followup-well-link followup-type-wrap followup-type-wrap-inner "
 >
   <div
     className="followup-type followup-type-right followup-type-right-alt"
@@ -136,7 +136,7 @@ exports[`rendering renders correctly with long date 3`] = `
 
 exports[`rendering renders correctly with long date 4`] = `
 <div
-  className=" well well-bordered followup-flow followup-well followup-well-link followup-type-wrap followup-type-wrap-inner "
+  className=" well well-bordered followup-flow followup-well followup-well-collapsible followup-well-link followup-type-wrap followup-type-wrap-inner "
 >
   <div
     className="followup-type followup-type-right followup-type-right-alt"
@@ -185,7 +185,7 @@ exports[`rendering renders correctly with long date 4`] = `
 
 exports[`rendering renders correctly with long date 5`] = `
 <div
-  className=" well well-bordered followup-flow followup-well followup-well-link followup-type-wrap followup-type-wrap-inner "
+  className=" well well-bordered followup-flow followup-well followup-well-collapsible followup-well-link followup-type-wrap followup-type-wrap-inner "
 >
   <div
     className="followup-type followup-type-right followup-type-right-alt"
@@ -234,7 +234,7 @@ exports[`rendering renders correctly with long date 5`] = `
 
 exports[`rendering renders correctly with short date 1`] = `
 <div
-  className=" well well-bordered followup-flow followup-well followup-well-link followup-type-wrap followup-type-wrap-inner "
+  className=" well well-bordered followup-flow followup-well followup-well-collapsible followup-well-link followup-type-wrap followup-type-wrap-inner "
 >
   <h2
     className="h4"

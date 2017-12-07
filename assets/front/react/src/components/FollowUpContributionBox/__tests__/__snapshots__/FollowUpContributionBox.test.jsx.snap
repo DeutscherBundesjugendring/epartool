@@ -17,7 +17,7 @@ exports[`rendering renders correctly with all texts, embedded video and voting 1
     </h4>
   </div>
   <div
-    className="well well-bordered"
+    className="well well-bordered followup-well-collapsible"
   >
     <EmbeddedVideo
       height={120}
@@ -64,7 +64,7 @@ exports[`rendering renders correctly with contribution text only 1`] = `
     </h4>
   </div>
   <div
-    className="well well-bordered"
+    className="well well-bordered followup-well-collapsible"
   >
     <p>
       Contribution thesis

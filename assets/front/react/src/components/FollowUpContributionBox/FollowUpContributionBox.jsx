@@ -12,7 +12,7 @@ const FollowUpContributionBox = props => (
         {props.question}
       </h4>
     </div>
-    <div className="well well-bordered">
+    <div className="well well-bordered followup-well-collapsible">
       {!!props.videoService && !!props.videoId &&
         <EmbeddedVideo
           videoService={props.videoService}

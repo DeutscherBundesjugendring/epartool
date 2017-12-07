@@ -2,11 +2,11 @@
 
 exports[`rendering renders correctly with both arrows 1`] = `
 <div
-  className="followup-timeline-box collapsed"
+  className="followup-timeline-box followup-timeline-box-collapsible collapsed"
   id="contribution-1"
 >
   <ArrowButton
-    direction="left"
+    direction="inward"
     disabled={false}
     label="1"
     onTouchTap={[Function]}
@@ -15,27 +15,32 @@ exports[`rendering renders correctly with both arrows 1`] = `
     Element
   </div>
   <ArrowButton
-    direction="right"
+    direction="outward"
     disabled={false}
     label="1"
     onTouchTap={[Function]}
   />
-  <RaisedButton
-    disabled={false}
-    id="contribution-1-button"
-    label="Show more"
-    onTouchTap={[Function]}
-  />
+  <div
+    className="followup-timeline-box-toggle"
+    id="contribution-1-toggle"
+  >
+    <RaisedButton
+      disabled={false}
+      id="contribution-1-button"
+      label="Show more"
+      onTouchTap={[Function]}
+    />
+  </div>
 </div>
 `;
 
 exports[`rendering renders correctly with left arrow 1`] = `
 <div
-  className="followup-timeline-box collapsed"
+  className="followup-timeline-box followup-timeline-box-collapsible collapsed"
   id="contribution-1"
 >
   <ArrowButton
-    direction="left"
+    direction="inward"
     disabled={false}
     label="1"
     onTouchTap={[Function]}
@@ -43,51 +48,66 @@ exports[`rendering renders correctly with left arrow 1`] = `
   <div>
     Element
   </div>
-  <RaisedButton
-    disabled={false}
-    id="contribution-1-button"
-    label="Show more"
-    onTouchTap={[Function]}
-  />
+  <div
+    className="followup-timeline-box-toggle"
+    id="contribution-1-toggle"
+  >
+    <RaisedButton
+      disabled={false}
+      id="contribution-1-button"
+      label="Show more"
+      onTouchTap={[Function]}
+    />
+  </div>
 </div>
 `;
 
 exports[`rendering renders correctly with right arrow 1`] = `
 <div
-  className="followup-timeline-box collapsed"
+  className="followup-timeline-box followup-timeline-box-collapsible collapsed"
   id="contribution-1"
 >
   <div>
     Element
   </div>
   <ArrowButton
-    direction="right"
+    direction="outward"
     disabled={false}
     label="1"
     onTouchTap={[Function]}
   />
-  <RaisedButton
-    disabled={false}
-    id="contribution-1-button"
-    label="Show more"
-    onTouchTap={[Function]}
-  />
+  <div
+    className="followup-timeline-box-toggle"
+    id="contribution-1-toggle"
+  >
+    <RaisedButton
+      disabled={false}
+      id="contribution-1-button"
+      label="Show more"
+      onTouchTap={[Function]}
+    />
+  </div>
 </div>
 `;
 
 exports[`rendering renders correctly without arrows 1`] = `
 <div
-  className="followup-timeline-box collapsed"
+  className="followup-timeline-box followup-timeline-box-collapsible collapsed"
   id="contribution-1"
 >
   <div>
     Element
   </div>
-  <RaisedButton
-    disabled={false}
-    id="contribution-1-button"
-    label="Show more"
-    onTouchTap={[Function]}
-  />
+  <div
+    className="followup-timeline-box-toggle"
+    id="contribution-1-toggle"
+  >
+    <RaisedButton
+      disabled={false}
+      id="contribution-1-button"
+      label="Show more"
+      onTouchTap={[Function]}
+    />
+  </div>
 </div>
 `;

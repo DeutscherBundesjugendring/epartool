@@ -71,7 +71,7 @@
         &-loading {
             .glyphicon-refresh();
 
-            &:before {
+            &::before {
                 position: absolute;
                 left: 50%;
                 top: 50%;
@@ -84,7 +84,7 @@
                 animation: spin 2s linear infinite;
             }
 
-            &:after {
+            &::after {
                 content: '';
                 position: absolute;
                 z-index: 3;
@@ -168,6 +168,31 @@
             &-image {
                 float: left;
                 margin: 0 1em 1em 0;
+            }
+
+            &-toggle {
+                position: absolute;
+                z-index: 3;
+                right: @well-bordered-border-width;
+                bottom: @well-bordered-border-width;
+                left: @well-bordered-border-width;
+                padding: (@well-bordered-padding / 2) @well-bordered-padding;
+                border-top: 1px solid @gray-lighter-2;
+                border-bottom-left-radius: @border-radius-large - 10;
+                border-bottom-right-radius: @border-radius-large - 10;
+                background-color: #fff;
+
+                &::after {
+                    content: '';
+                    position: absolute;
+                    right: 0;
+                    bottom: 100%;
+                    left: 0;
+                    display: block;
+                    height: 10px;
+                    background: radial-gradient(closest-side @gray-lighter, transparent) center -50% no-repeat;
+                    background-size: 100% 20px;
+                }
             }
         }
 
@@ -302,24 +327,13 @@
     padding: 15px;
 }
 
-.followup-timeline-box.collapsed .well.well-bordered {
-    max-height: 400px;
-}
-
-.followup-timeline-box .well.well-bordered {
+.followup-well-collapsible.well {
     max-height: 10000px;
     overflow: hidden;
+    padding-bottom: 52px;
     transition: max-height 0.5s ease-in-out;
-
-    &:not(.well-deep) {
-        padding-bottom: 40px;
-    }
 }
 
-
-.followup-timeline-box > button:last-child {
-    position: absolute;
-    z-index: 3;
-    right: 16px;
-    bottom: 16px;
+.followup-timeline-box-collapsible.collapsed .followup-well-collapsible.well {
+    max-height: 400px;
 }

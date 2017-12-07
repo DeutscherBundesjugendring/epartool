@@ -32,6 +32,7 @@ const FollowUpSnippetBox = (props) => {
         well-bordered
         followup-flow
         followup-well
+        followup-well-collapsible
         followup-well-link
         followup-type-wrap
         followup-type-wrap-inner

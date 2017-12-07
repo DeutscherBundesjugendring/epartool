@@ -48,7 +48,7 @@ class FollowUpBox extends React.Component {
 
     const canOverflow = element.scrollHeight > element.clientHeight;
     if (!canOverflow) {
-      document.getElementById(`${this.props.type}-${this.props.id}-button`).style.display = 'none';
+      document.getElementById(`${this.props.type}-${this.props.id}-toggle`).style.display = 'none';
     }
   }
 
@@ -56,7 +56,7 @@ class FollowUpBox extends React.Component {
     return (
       <div
         id={`${this.props.type}-${this.props.id}`}
-        className={`followup-timeline-box${this.props.isOpened() ? '' : ' collapsed'}`}
+        className={`followup-timeline-box followup-timeline-box-collapsible${this.props.isOpened() ? '' : ' collapsed'}`}
         onTouchTap={this.props.modalAction}
       >
         {!!this.props.parentCount && <ArrowButton
@@ -70,20 +70,25 @@ class FollowUpBox extends React.Component {
           label={this.props.childCount.toString()}
           onTouchTap={this.props.childAction}
         />}
-        <RaisedButton
-          id={`${this.props.type}-${this.props.id}-button`}
-          label={this.props.isOpened() ? this.props.showLessLabel : this.props.showMoreLabel}
-          onTouchTap={
-            () => {
-              this.props.collapseHandler();
-              // forceUpdate b/c can't pass in state from FollowUpContainer due to resolveElement
-              this.forceUpdate();
-              if (this.props.isOpened()) {
-                document.getElementById(`${this.props.type}-${this.props.id}`).scrollIntoView();
+        <div
+          id={`${this.props.type}-${this.props.id}-toggle`}
+          className="followup-timeline-box-toggle"
+        >
+          <RaisedButton
+            id={`${this.props.type}-${this.props.id}-button`}
+            label={this.props.isOpened() ? this.props.showLessLabel : this.props.showMoreLabel}
+            onTouchTap={
+              () => {
+                this.props.collapseHandler();
+                // forceUpdate b/c can't pass in state from FollowUpContainer due to resolveElement
+                this.forceUpdate();
+                if (this.props.isOpened()) {
+                  document.getElementById(`${this.props.type}-${this.props.id}`).scrollIntoView();
+                }
               }
             }
-          }
-        />
+          />
+        </div>
       </div>
     );
   }

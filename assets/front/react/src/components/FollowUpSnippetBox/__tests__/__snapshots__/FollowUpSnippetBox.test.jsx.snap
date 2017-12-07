@@ -2,7 +2,7 @@
 
 exports[`rendering renders correctly 1`] = `
 <div
-  className=" well well-bordered followup-flow followup-well followup-well-link followup-type-wrap followup-type-wrap-inner "
+  className=" well well-bordered followup-flow followup-well followup-well-collapsible followup-well-link followup-type-wrap followup-type-wrap-inner "
 >
   <img
     alt="title"
@@ -32,7 +32,7 @@ exports[`rendering renders correctly 1`] = `
 
 exports[`rendering renders correctly 2`] = `
 <div
-  className=" well well-bordered followup-flow followup-well followup-well-link followup-type-wrap followup-type-wrap-inner "
+  className=" well well-bordered followup-flow followup-well followup-well-collapsible followup-well-link followup-type-wrap followup-type-wrap-inner "
 >
   <div
     className="followup-type followup-type-right followup-type-right-alt"
@@ -75,7 +75,7 @@ exports[`rendering renders correctly 2`] = `
 
 exports[`rendering renders correctly 3`] = `
 <div
-  className=" well well-bordered followup-flow followup-well followup-well-link followup-type-wrap followup-type-wrap-inner "
+  className=" well well-bordered followup-flow followup-well followup-well-collapsible followup-well-link followup-type-wrap followup-type-wrap-inner "
 >
   <div
     className="followup-type followup-type-right followup-type-right-alt"
@@ -118,7 +118,7 @@ exports[`rendering renders correctly 3`] = `
 
 exports[`rendering renders correctly 4`] = `
 <div
-  className=" well well-bordered followup-flow followup-well followup-well-link followup-type-wrap followup-type-wrap-inner "
+  className=" well well-bordered followup-flow followup-well followup-well-collapsible followup-well-link followup-type-wrap followup-type-wrap-inner "
 >
   <div
     className="followup-type followup-type-right followup-type-right-alt"
@@ -161,7 +161,7 @@ exports[`rendering renders correctly 4`] = `
 
 exports[`rendering renders correctly 5`] = `
 <div
-  className=" well well-bordered followup-flow followup-well followup-well-link followup-type-wrap followup-type-wrap-inner "
+  className=" well well-bordered followup-flow followup-well followup-well-collapsible followup-well-link followup-type-wrap followup-type-wrap-inner "
 >
   <div
     className="followup-type followup-type-right followup-type-right-alt"
