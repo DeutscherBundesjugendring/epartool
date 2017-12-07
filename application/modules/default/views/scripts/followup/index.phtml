@@ -1,8 +1,21 @@
 <?php
     $date = new Zend_Date();
     $locale = new Zend_Locale();
+
+    $supports = new Zend_Session_Namespace('supports');
+    if (empty($supports->clicks)) {
+        $supports->clicks = [];
+    }
+    $supportsDisabled = (
+        Zend_Date::now()->isEarlier(new Zend_Date($this->consultation->spprt_fr, Zend_Date::ISO_8601))
+        || Zend_Date::now()->isLater(new Zend_Date($this->consultation->spprt_to, Zend_Date::ISO_8601))
+        || !$this->consultation->spprt_fr
+        || !$this->consultation->spprt_to
+        || !$this->consultation->is_support_phase_showed
+    );
 ?>
 
+<?=$this->openStreetMapsConfig();?>
 <?=$this->secondNavigation('follow-up');?>
 
 <div class="main-content">
@@ -153,8 +166,16 @@
 
             </div><!-- .well -->
 
+            <?=$this->partial('_partials/contributionsMap.phtml', [
+                'consultation' => $this->consultation,
+                'inputs' => $this->inputs,
+                'supports' => $supports,
+                'supportsDisabled' => $supportsDisabled,
+                'videoServicesStatus' => $this->videoServicesStatus,
+            ]);?>
+
             <!-- reaction_files by contribution -->
-            <div class="well well-bordered text-center has-sticker">
+            <div class="well well-bordered offset-top-large text-center has-sticker">
 
                 <!-- Sticker -->
                 <div class="sticker sticker-right hidden-print">

@@ -16,6 +16,7 @@
   var bindVotingRate;
   var hideOverlay;
   var indicateLoginInProgress;
+  var initMap;
   var initFB;
   var loginProcessEnd;
   var onClickButtonMyLocation;
@@ -162,16 +163,23 @@
   };
 
   bindSupportContribution = function() {
-    return $('.js-click-support').click(function(event) {
-      var kid, tid;
+    return $(document).on('click', '.js-click-support', function(event) {
+      var kid, tid, isOnMapPopup;
+      var $this = $(this);
       event.preventDefault();
-      kid = $(this).data('kid');
-      tid = $(this).attr('rel');
+      kid = $this.data('kid');
+      tid = $this.attr('rel');
+      isOnMapPopup = $this.hasClass('js-map-click-support');
       $.post(baseUrl + '/input/support/kid/' + kid + '/format/json', {
         'tid': tid
       }).done(function(data) {
         if (data.count) {
           $('#click-support-wrap-' + tid).html('<span class="glyphicon glyphicon-ok-sign icon-offset icon-shift-down text-accent" aria-hidden="true"></span>' + ' <small id="badge-' + tid + '" class="badge badge-accent">' + data.count + '</small><small class="hidden-print"> ' + jsTranslations['label_supporters'] + '</small>');
+          if (isOnMapPopup && markersData && markersData['marker' + tid]) {
+            markersData['marker' + tid].spprts = data.count;
+            markersData['marker' + tid].supportEnabled = false;
+            markers['marker' + tid]._popup.setContent(buildPopup(markersData['marker' + tid]));
+          }
         }
       });
     });
@@ -519,7 +527,7 @@
     }).addTo(map);
 
     if (latField.val()) {
-      var marker = L.marker([latField.val(), lngField.val()]);
+      marker = L.marker([latField.val(), lngField.val()]);
       marker.addTo(map);
     }
 

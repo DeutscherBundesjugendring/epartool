@@ -73,132 +73,34 @@
                     <?=$this->translate('Contribution phase is over already.');?>
                 </p>
             <?php else: ?>
+                <?=$this->openStreetMapsConfig();?>
                 <?=$this->inputForm;?>
                 <hr />
             <?php endif?>
 
+            <a href="<?=$this->url(['type' => 'map']);?>" class="btn btn-default">Map View</a>
+            <a href="<?=$this->url(['type' => null]);?>" class="btn btn-default">List View</a>
             <!-- Contributions -->
-            <?php if (count($this->paginator)): ?>
-                <?php
-                    // Reverse order of entries to show latest first.
-                    $inputs = [];
-                    foreach ($this->paginator as $item) {
-                        $inputs[] = $item;
-                    }
-                    $inputs = array_reverse($inputs);
-                ?>
-                <?php foreach ($inputs as $input): ?>
-                    <a name="input-<?=$this->escape($input['tid']);?>"></a>
 
-                    <article class="media" id="contribution-<?=$input['tid']?>">
-                        <header>
-                            <time datetime="<?=$this->formatDate($input['when'], 'y-MM-dd');?>">
-                                <?=sprintf(
-                                    $this->translate('written on %s'),
-                                    $this->formatDate($input['when'], Zend_Date::DATE_MEDIUM)
-                                );?>
-                            </time>
-                        </header>
-
-                        <p>
-                            <strong><?=$this->escape($input['thes']);?></strong>
-                        </p>
-
-                        <?php if (!empty($input['expl'])): ?>
-                            <p>
-                                <?=$this->escape($input['expl']);?>
-                            </p>
-                        <?php endif; ?>
-
-                        <?php if ($this->videoEnabled && $input['video_service'] !== null && $input['video_id'] !== null
-                            && $this->videoServicesStatus['video_' . $input['video_service'] . '_enabled']): ?>
-                            <p>
-                                <?=$this->embeddedVideo($input['video_service'], $input['video_id']);?>
-                            </p>
-                        <?php endif; ?>
-
-                        <!-- Actions -->
-                        <footer>
-
-                            <!-- Support -->
-                            <?php if ($this->consultation->is_support_phase_showed): ?>
-                                <div class="pull-left text-nowrap offset-right offset-bottom-small">
-                                    <span id="click-support-wrap-<?=$this->escape($input['tid']);?>">
-                                        <span class="glyphicon glyphicon-ok-sign icon-offset icon-shift-down text-accent" aria-hidden="true"></span>
-                                        <small id="badge-<?=$this->escape($input['tid']);?>" class="badge<?=$this->escape($input['spprts']) > 0 ? ' badge-accent' : '';?>">
-                                            <?=$this->escape($input['spprts']);?>
-                                        </small>
-                                        <?php if (in_array($input['tid'], $supports->clicks) || $supportsDisabled): ?>
-                                            <small class="hidden-print"><?=$this->translate('supporters');?></small>
-                                        <?php else: ?>
-                                            <a
-                                                href="#"
-                                                id="click-support-<?=$this->escape($input['tid']);?>"
-                                                class="btn btn-default btn-xs hidden-print js-click-support"
-                                                data-kid="<?=$this->consultation->kid;?>"
-                                                rel="<?=$this->escape($input['tid']);?>"
-                                            >
-                                                <?=$this->translate('I agree!');?>
-                                            </a>
-                                        <?php endif; ?>
-                                    </span>
-                                </div>
-                            <?php endif;?>
-
-                            <!-- Discussion -->
-                            <?php if ($this->consultation->is_discussion_active): ?>
-                                <div class="pull-left text-nowrap offset-right offset-bottom-small">
-                                    <a
-                                        href="<?=$this->url(['action' => 'discussion', 'kid' => $this->consultation->kid, 'inputId' => $this->escape($input['tid'])]);?>"
-                                        class="link-unstyled link-print-nourl"
-                                    >
-                                        <span class="glyphicon glyphicon-comment icon-offset icon-shift-down text-accent" aria-hidden="true"></span>
-                                    </a>
-                                    <a
-                                        href="<?=$this->url(['action' => 'discussion', 'kid' => $this->consultation->kid, 'inputId' => $this->escape($input['tid'])]);?>"
-                                        class="link-unstyled link-print-nourl"
-                                    >
-                                        <small class="badge<?=$this->escape($input['discussionPostCount']) > 0 ? ' badge-accent' : '';?>">
-                                            <?=$this->escape($input['discussionPostCount']);?>
-                                        </small>
-                                    </a>
-                                    <a
-                                        href="<?=$this->url(['action' => 'discussion', 'kid' => $this->consultation->kid, 'inputId' => $this->escape($input['tid'])]);?>"
-                                        class="btn btn-default btn-xs hidden-print"
-                                    >
-                                        <?php if(Zend_Date::now()->isLater(new Zend_Date($this->consultation->discussion_from, Zend_Date::ISO_8601))
-                                            && Zend_Date::now()->isEarlier(new Zend_Date($this->consultation->discussion_to, Zend_Date::ISO_8601))
-                                        ): ?>
-                                            <?=$this->translate('I would like to discuss that!');?>
-                                        <?php else : ?>
-                                            <?=$this->translate('View discussion');?>
-                                        <?php endif; ?>
-                                    </a>
-                                </div>
-                            <?php endif?>
-
-                            <!-- Reactions -->
-                            <?=$this->followupLink($input['tid'], $this->question['qi']);?>
-
-                        </footer>
-                    </article>
-
-                    <hr />
-                <?php endforeach; ?>
+            <?php if ($this->listType === 'map'): ?>
+                <?=$this->openStreetMapsConfig();?>
+                <?=$this->partial('_partials/contributionsMap.phtml', [
+                    'consultation' => $this->consultation,
+                    'inputs' => $this->inputs,
+                    'supports' => $supports,
+                    'supportsDisabled' => $supportsDisabled,
+                    'videoServicesStatus' => $this->videoServicesStatus,
+                ]);?>
             <?php else: ?>
-                <p>
-                    <span class="glyphicon glyphicon-info-sign text-info icon-offset" aria-hidden="true"></span>
-                    <?=$this->translate('There are no contributions on this question.');?>
-                </p>
+                <?=$this->partial('_partials/contributionsList.phtml', [
+                    'consultation' => $this->consultation,
+                    'paginator' => $this->paginator,
+                    'supports' => $supports,
+                    'supportsDisabled' => $supportsDisabled,
+                    'videoServicesStatus' => $this->videoServicesStatus,
+                    'videoEnabled' => $this->videoEnabled,
+                ]);?>
             <?php endif; ?>
-
-            <!-- Paging -->
-            <?=$this->paginationControl(
-                $this->paginator,
-                'Sliding',
-                '_partials/pagination.phtml',
-                ['titlePrev' => $this->translate('Older contributions'), 'titleNext' => $this->translate('Newer contributions')]
-            );?>
 
             <hr class="hidden-print" />
 

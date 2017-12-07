@@ -437,21 +437,21 @@
   document.mediaSelectPopup = mediaSelectPopup;
 
   initMap = function () {
-    var latField = $('#latitude');
-    var lngField = $('#longitude');
+    var $latField = $('#latitude');
+    var $lngField = $('#longitude');
     var marker = null;
 
     map = L.map('js-contribution-map-canvas').setView([
-      latField.val() ? latField.val() : osmConfig.defaultLocation.latitude,
-      lngField.val() ? lngField.val() : osmConfig.defaultLocation.longitude
+      $latField.val() ? $latField.val() : osmConfig.defaultLocation.latitude,
+      $lngField.val() ? $lngField.val() : osmConfig.defaultLocation.longitude
     ], osmConfig.defaultLocation.zoom);
 
     L.tileLayer(osmConfig.dataServerUrl, {
       attribution: osmConfig.attribution,
     }).addTo(map);
 
-    if (latField.val()) {
-      marker = L.marker([latField.val(), lngField.val()]);
+    if ($latField.val()) {
+      marker = L.marker([$latField.val(), $lngField.val()]);
       marker.addTo(map);
     }
 
@@ -462,25 +462,25 @@
 
       marker = L.marker(e.latlng);
       marker.addTo(map);
-      latField.val(e.latlng.lat);
-      lngField.val(e.latlng.lng);
+      $latField.val(e.latlng.lat);
+      $lngField.val(e.latlng.lng);
     });
   }
 
   bindContributionMap = function() {
-    var mapEl = $('#js-contribution-map');
-    if (mapEl.hasClass('in') && !mapEl.hasClass('js-contribution-map-initialized')) {
+    var $map = $('#js-contribution-map');
+    if ($map.hasClass('in') && !$map.hasClass('js-contribution-map-initialized')) {
       initMap();
-      mapEl.addClass('js-contribution-map-initialized');
+      $map.addClass('js-contribution-map-initialized');
     }
 
-    $('#js-contribution-map-toggle-location').on('click', function (e) {
+    $('#js-contribution-map-toggle-location').on('click', function () {
       if ($(this).is(':checked')) {
-        var mapEl = $('#js-contribution-map');
-        if (!mapEl.hasClass('js-contribution-map-initialized')) {
+        var $map = $('#js-contribution-map');
+        if (!$map.hasClass('js-contribution-map-initialized')) {
           setTimeout(function () {
             initMap();
-            mapEl.addClass('js-contribution-map-initialized');
+            $map.addClass('js-contribution-map-initialized');
           }, 1000);
         }
       }
@@ -503,8 +503,8 @@
 
   bindContributionForm = function () {
     $('#js-contribution-form').on('submit', function () {
-      var checkboxRemoveLocation = $('#js-contribution-remove-location');
-      if (checkboxRemoveLocation.is(':checked') || !checkboxRemoveLocation.is(':visible')) {
+      var checkboxAddLocation = $('#js-contribution-map-toggle-location');
+      if (!checkboxAddLocation.is(':checked')) {
         $('#latitude').val(null);
         $('#longitude').val(null);
       }

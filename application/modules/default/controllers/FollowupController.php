@@ -68,7 +68,11 @@ class FollowupController extends Zend_Controller_Action
                 $followup['referenceType'] = 'file';
             }
         }
+
+        $this->view->videoServicesStatus =
+            (new Model_Projects())->find((new Zend_Registry())->get('systemconfig')->project)->current();
         $this->view->followups = $followups;
+        $this->view->inputs = (new Model_Inputs())->getGeolocatedByConsultationId($kid);
         $this->view->subscriptionForm = $sbsForm;
         $this->view->followupApiUrl = $this->view->url(
             ['module' => 'api', 'controller' => 'followup', 'action' => 'index'],

@@ -509,6 +509,21 @@ class Model_Inputs extends Dbjr_Db_Table_Abstract
             ->select()
             ->setIntegrityCheck(false)
             ->from(array('i' => $this->_name))
+            ->joinLeft([
+                'f' => (new Model_FollowupsRef())->info(Model_FollowupsRef::NAME)],
+                'f.tid = i.tid',
+                [new Zend_Db_Expr('COUNT(f.tid) as count_followups')]
+            )
+            ->joinLeft(
+                ['r' => (new Model_InputRelations())->info(Model_InputRelations::NAME)],
+                'r.parent_id = i.tid',
+                [new Zend_Db_Expr('COUNT(r.parent_id) as count_relations')]
+            )
+            ->joinLeft([
+                'q' => (new Model_Questions())->info(Model_Questions::NAME)],
+                'q.qi = i.qi',
+                ['kid', 'video_enabled']
+            )
             ->joinLeft(
                 ['id' => 'input_discussion'],
                 'id.input_id = i.tid AND id.is_user_confirmed = 1',
@@ -1743,5 +1758,48 @@ class Model_Inputs extends Dbjr_Db_Table_Abstract
         }
 
         return (int) $contribution['kid'];
+    }
+
+    /**
+     * @param int $consultationId
+     * @throws \Zend_Db_Table_Row_Exception
+     * @return array
+     */
+    public function getGeolocatedByConsultationId($consultationId)
+    {
+        $select = $this->select()
+            ->setIntegrityCheck(false)
+            ->from(['i' => $this->info(self::NAME)])
+            ->joinLeft(['q' => (new Model_Questions())->info(self::NAME)], 'q.qi = i.qi', ['kid', 'video_enabled'])
+            ->joinLeft([
+                'f' => (new Model_FollowupsRef())->info(Model_FollowupsRef::NAME)],
+                'f.tid = i.tid',
+                [new Zend_Db_Expr('COUNT(f.tid) as count_followups')]
+            )
+            ->joinLeft(
+                ['r' => (new Model_InputRelations())->info(Model_InputRelations::NAME)],
+                'r.parent_id = i.tid',
+                [new Zend_Db_Expr('COUNT(r.parent_id) as count_relations')]
+            )
+            ->joinLeft(
+                ['id' => (new Model_InputDiscussion())->info(Model_InputDiscussion::NAME)],
+                'id.input_id = i.tid AND id.is_user_confirmed = 1',
+                ['discussionPostCount' => 'COUNT(id.input_id)']
+            )
+            ->where('kid = ?', $consultationId)
+            ->where('(i.uid IS NOT NULL OR i.confirmation_key IS NOT NULL)')
+            ->where(
+                '(i.uid IS NOT NULL AND i.is_confirmed_by_user = 1
+                                        AND (i.is_confirmed IS NULL OR i.is_confirmed = 1)
+                                    )
+                                    OR (i.uid IS NULL AND (i.is_confirmed_by_user IS NULL OR i.is_confirmed_by_user = 1)
+                                        AND i.is_confirmed = 1
+                                    )'
+                )
+            ->where('i.latitude IS NOT NULL')
+            ->where('i.longitude IS NOT NULL')
+            ->group('i.tid');
+
+        return $this->fetchAll($select);
     }
 }

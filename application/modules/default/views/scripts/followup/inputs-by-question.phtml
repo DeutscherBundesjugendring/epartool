@@ -61,6 +61,15 @@
                         </header>
 
                         <p>
+                            <?php if ($input['latitude'] !== null): ?>
+                                <?=$this->openStreetStaticMap(
+                                    $input['latitude'],
+                                    $input['longitude'],
+                                    150,
+                                    150,
+                                    8
+                                );?>
+                            <? endif; ?>
                             <strong><?=$this->escape($input['thes']);?></strong>
                         </p>
 

@@ -1,0 +1,211 @@
+<?php if (count($this->inputs)): ?>
+    <div id="js-contributions-map" style="height: 400px;"></div>
+    <script type="text/javascript">
+        var markers = {};
+        var markersGroup = L.markerClusterGroup();
+        var markersData = {
+            <?php
+            $leftTopCorner = null;
+            $rightBottomCorner = null;
+            foreach ($this->inputs as $input):
+                if ($input['latitude'] !== null && $input['longitude'] !== null) {
+                    if ($leftTopCorner === null) {
+                        $leftTopCorner = [
+                            'latitude' => $input['latitude'],
+                            'longitude' => $input['longitude'],
+                        ];
+                    } else {
+                        if ($leftTopCorner['latitude'] < $input['latitude']) {
+                            $leftTopCorner['latitude'] = $input['latitude'];
+                        }
+                        if ($leftTopCorner['longitude'] > $input['longitude']) {
+                            $leftTopCorner['longitude'] = $input['longitude'];
+                        }
+                    }
+                    if ($rightBottomCorner === null) {
+                        $rightBottomCorner = [
+                            'latitude' => $input['latitude'],
+                            'longitude' => $input['longitude'],
+                        ];
+                    } else {
+                        if ($rightBottomCorner['latitude'] > $input['latitude']) {
+                            $rightBottomCorner['latitude'] = $input['latitude'];
+                        }
+                        if ($rightBottomCorner['longitude'] < $input['longitude']) {
+                            $rightBottomCorner['longitude'] = $input['longitude'];
+                        }
+                    }
+                }
+                ?>
+                'marker<?=$input['tid'];?>': {
+                    'tid': <?=$input['tid'];?>,
+                    'latitude': <?=($input['latitude'] === null ? 'null' : $input['latitude']);?>,
+                    'longitude': <?=($input['longitude'] === null ? 'null' : $input['longitude']);?>,
+                    'date': '<?=$this->formatDate($input['when'], Zend_Date::DATE_MEDIUM);?>',
+                    'thes': '<?=$input['thes'];?>',
+                    'expl': '<?=($input['expl'] === null ? '' : $input['expl']);?>',
+                    'embeddedVideo': '<?php if ($input['video_enabled'] && $input['video_service'] !== null
+                        && $input['video_id'] !== null
+                        && $this->videoServicesStatus['video_' . $input['video_service'] . '_enabled']
+                    ):
+                        ?><?=trim(str_replace(PHP_EOL, '', $this->embeddedVideo($input['video_service'], $input['video_id']))); ?><?php endif; ?>',
+                    'spprts': <?=$input['spprts'];?>,
+                    'supportEnabled': <?= ((in_array($input['tid'], $this->supports->clicks) || $this->supportsDisabled) ? 'false' : 'true')?>,
+                    'discussionUrl': '<?=$this->url([
+                        'controller' => 'input',
+                        'action' => 'discussion',
+                        'kid' => $input['kid'],
+                        'inputId' => $input['tid'],
+                        'page' => null,
+                        'type' => null,
+                    ]);?>',
+                    'discussionPostCount': <?=(int)$input['discussionPostCount'];?>,
+                    'followupLink': '<?=$this->url([
+                        'controller' => 'followup',
+                        'action' => 'show',
+                        'kid' => $input['kid'],
+                        'qid' => $input['qi'],
+                        'tid' => $input['tid'],
+                        'page' => null,
+                        'type' => null,
+                    ]);?>',
+                    'reactionsCount': <?=((int)$input['count_relations'] + (int)$input['count_followups']);?>,
+                },
+
+            <?php endforeach; ?>
+        };
+
+        var buildPopup = function (data) {
+            return '<article class="media" id="contribution-' + data.tid + '">' +
+                '<header>' +
+                '<time datetime="' + data.date + '">' +
+                '<?=$this->translate('written on %s');?>'.replace('%s', data.date) +
+                '</time>' +
+                '</header>' +
+                '<p>' +
+                '<strong>' + data.thes + '</strong>' +
+                '</p>' +
+                (data.expl !== '' ? '<p>' + data.expl + '</p>' : '') +
+                (data.embeddedVideo !== '' ? '<p>' + data.embeddedVideo + '</p>' : '') +
+                '<!-- Actions -->' +
+                '<footer>' +
+                '<!-- Support -->' +
+                <?php if ($this->consultation->is_support_phase_showed):?>
+                '<div class="pull-left text-nowrap offset-right offset-bottom-small">' +
+                '<span id="click-support-wrap-' + data.tid + '">' +
+                '<span class="glyphicon glyphicon-ok-sign icon-offset icon-shift-down text-accent" aria-hidden="true"></span>' +
+                '<small id="badge-' + data.tid + '" class="badge' + (data.spprts > 0 ? ' badge-accent' : '') + '">' +
+                data.spprts +
+                '</small>' +
+                (data.supportEnabled
+                        ? '<a' +
+                    ' href="#" id="click-support-' + data.tid + '"' +
+                    ' class="btn btn-default btn-xs hidden-print js-click-support js-map-click-support"' +
+                    ' data-kid="' + data.tid + '"' +
+                    ' rel="' + data.tid + '"' +
+                    '>' +
+                    '<?=$this->translate('I agree!');?>' +
+                    '</a>'
+                        : '<small class="hidden-print"><?=$this->translate('supporters');?></small>'
+                ) +
+                '</span>' +
+                '</div>' +
+                <?php endif;?>
+                '<!-- Discussion -->' +
+                <?php if ($this->consultation->is_discussion_active): ?>
+                '<div class="pull-left text-nowrap offset-right offset-bottom-small">' +
+                '<a' +
+                ' href="' + data.discussionUrl + '"' +
+                ' class="link-unstyled link-print-nourl"' +
+                '>' +
+                '<span class="glyphicon glyphicon-comment icon-offset icon-shift-down text-accent" aria-hidden="true"></span>' +
+                '</a>' +
+                '<a' +
+                ' href="' + data.discussionUrl + '"' +
+                ' class="link-unstyled link-print-nourl"' +
+                '>' +
+                '<small class="badge' + (data.discussionPostCount > 0 ? ' badge-accent' : '') + '">' +
+                data.discussionPostCount +
+                '</small>' +
+                '</a>' +
+                '<a' +
+                ' href="' + data.discussionUrl + '"' +
+                ' class="btn btn-default btn-xs hidden-print"' +
+                '>' +
+                <?php if(Zend_Date::now()->isLater(new Zend_Date($this->consultation->discussion_from, Zend_Date::ISO_8601))
+                && Zend_Date::now()->isEarlier(new Zend_Date($this->consultation->discussion_to, Zend_Date::ISO_8601))
+                ): ?>
+                '<?=$this->translate('I would like to discuss that!');?>' +
+                <?php else : ?>
+                '<?=$this->translate('View discussion');?>' +
+                <?php endif; ?>
+                '</a>' +
+                '</div>' +
+                <?php endif; ?>
+                '<!-- Reactions -->' +
+                (data.reactionsCount > 0
+                        ? '<div class="pull-left text-nowrap offset-right offset-bottom-small">' +
+                    '<a href="' + data.followupLink + '" class="link-unstyled link-print-nourl">' +
+                    '<span class="glyphicon glyphicon-random icon-offset icon-shift-down text-accent" aria-hidden="true"></span>' +
+                    '</a>' +
+                    '<a href="' + data.followupLink +  '" class="link-unstyled link-print-nourl">' +
+                    '<small class="badge badge-accent">' +
+                    data.reactionsCount +
+                    '</small>' +
+                    '</a>' +
+                    '<a href="' + data.followupLink + '" class="btn btn-default btn-xs hidden-print">' +
+                    '<?=$this->translate('View reactions');?>' +
+                    '</a>' +
+                    '</div>'
+                        : '<div class="media pull-left offset-bottom-small hidden-print">' +
+                    '<div class="media-left">' +
+                    '<span class="glyphicon glyphicon-random icon-offset icon-shift-down text-accent" aria-hidden="true"></span>' +
+                    '</div>' +
+                    '<div class="media-body text-muted">' +
+                    '<?=$this->translate('There are currently no reactions to this contribution.');?>' +
+                    '</div>' +
+                    '</div>'
+                ) +
+                '</footer>' +
+                '</article>';
+        };
+
+        var initMarker = function (data) {
+            if (data.latitude === null || data.longitude === null) {
+                return;
+            }
+
+            markers['marker' + data.tid] = L.marker([data.latitude, data.longitude]);
+            markersGroup.addLayer(markers['marker' + data.tid].bindPopup(buildPopup(data)));
+        };
+
+        Object.keys(markersData).forEach(function(key) {
+            initMarker(markersData[key]);
+        });
+
+        <?php if ($leftTopCorner !== null && $rightBottomCorner !== null): ?>
+            var contributionsMap = L.map('js-contributions-map').fitBounds([
+                [<?=$leftTopCorner['latitude'];?>, <?=$leftTopCorner['longitude'];?>],
+                [<?=$rightBottomCorner['latitude'];?>, <?=$rightBottomCorner['longitude'];?>],
+            ]);
+
+            L.tileLayer(osmConfig.dataServerUrl, {
+                attribution: osmConfig.attribution,
+            }).addTo(contributionsMap);
+
+            contributionsMap.addLayer(markersGroup);
+        <?php endif; ?>
+    </script>
+
+    <?php if ($leftTopCorner === null && $rightBottomCorner === null): ?>
+        <p>
+            <span class="glyphicon glyphicon-info-sign text-info icon-offset" aria-hidden="true"></span>
+            <?=$this->translate('There are no contributions with GPS location on this question.');?>
+        </p>
+    <?php endif; ?>
+<?php else: ?>
+    <p>
+        <span class="glyphicon glyphicon-info-sign text-info icon-offset" aria-hidden="true"></span>
+        <?=$this->translate('There are no contributions on this question.');?>
+    </p>
+<?php endif; ?>
