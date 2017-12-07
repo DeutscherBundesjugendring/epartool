@@ -41,48 +41,42 @@ const FollowUpTimeLine = props => (
 
     <div className="followup">
       {props.isInitialLoad && (<div>
-        <div className="followup-row">
-          <div
-            className="
-              well
-              well-bordered
-              well-placeholder
-              well-placeholder-small
-              followup-placeholder
-            "
-          />
-          <div
-            className="
-              well
-              well-bordered
-              well-placeholder
-              followup-placeholder
-              followup-placeholder-delay-1
-            "
-          />
-        </div>
-        <div className="followup-row">
-          <div
-            className="
-              well
-              well-bordered
-              well-placeholder
-              followup-placeholder
-              followup-placeholder-delay-2
-            "
-          />
-        </div>
-        <div className="followup-row">
-          <div
-            className="
-              well
-              well-bordered
-              well-placeholder
-              well-placeholder-small
-              followup-placeholder
-              followup-placeholder-delay-3
-            "
-          />
+        <div className="followup-rows-container">
+          <div className="followup-row">
+            <div className="followup-row-element">
+              <div
+                className="
+                  well
+                  well-bordered
+                  well-placeholder
+                  well-placeholder-small
+                  followup-placeholder
+                "
+              />
+            </div>
+            <div className="followup-row-element">
+              <div
+                className="
+                  well
+                  well-bordered
+                  well-placeholder
+                  followup-placeholder
+                  followup-placeholder-delay-1
+                "
+              />
+            </div>
+            <div className="followup-row-element">
+              <div
+                className="
+                  well
+                  well-bordered
+                  well-placeholder
+                  followup-placeholder
+                  followup-placeholder-delay-2
+                "
+              />
+            </div>
+          </div>
         </div>
       </div>)}
       <div className="followup-rows-container">
