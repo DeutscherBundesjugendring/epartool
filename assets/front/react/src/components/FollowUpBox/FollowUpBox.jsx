@@ -60,13 +60,13 @@ class FollowUpBox extends React.Component {
         onTouchTap={this.props.modalAction}
       >
         {!!this.props.parentCount && <ArrowButton
-          direction="left"
+          direction="inward"
           label={this.props.parentCount.toString()}
           onTouchTap={this.props.parentAction}
         />}
         {this.props.element}
         {!!this.props.childCount && <ArrowButton
-          direction="right"
+          direction="outward"
           label={this.props.childCount.toString()}
           onTouchTap={this.props.childAction}
         />}

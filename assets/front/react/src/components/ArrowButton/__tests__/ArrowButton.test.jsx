@@ -11,7 +11,7 @@ injectTapEventPlugin();
 describe('rendering', () => {
   it('renders correctly right', () => {
     const tree = shallow(
-      <ArrowButton label="1" direction="right" onTouchTap={() => {}} />
+      <ArrowButton label="1" direction="outward" onTouchTap={() => {}} />
     );
 
     expect(shallowToJson(tree)).toMatchSnapshot();
@@ -19,7 +19,7 @@ describe('rendering', () => {
 
   it('renders correctly left', () => {
     const tree = shallow(
-      <ArrowButton label="1" direction="left" onTouchTap={() => {}} />
+      <ArrowButton label="1" direction="inward" onTouchTap={() => {}} />
     );
 
     expect(shallowToJson(tree)).toMatchSnapshot();
@@ -27,7 +27,7 @@ describe('rendering', () => {
 
   it('renders correctly right disabled', () => {
     const tree = shallow(
-      <ArrowButton label="1" direction="right" onTouchTap={() => {}} disabled />
+      <ArrowButton label="1" direction="outward" onTouchTap={() => {}} disabled />
     );
 
     expect(shallowToJson(tree)).toMatchSnapshot();
@@ -35,7 +35,7 @@ describe('rendering', () => {
 
   it('renders correctly left disabled', () => {
     const tree = shallow(
-      <ArrowButton label="1" direction="left" onTouchTap={() => {}} disabled />
+      <ArrowButton label="1" direction="inward" onTouchTap={() => {}} disabled />
     );
 
     expect(shallowToJson(tree)).toMatchSnapshot();
@@ -46,7 +46,7 @@ describe('functionality', () => {
   it('calls onTouchTap', () => {
     const spy = sinon.spy();
     const component = shallow(
-      <ArrowButton label="1" direction="right" onTouchTap={spy} />
+      <ArrowButton label="1" direction="outward" onTouchTap={spy} />
     );
 
     component.simulate('touchTap', { stopPropagation: () => {} });
