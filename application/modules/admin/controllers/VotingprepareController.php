@@ -218,12 +218,15 @@ class Admin_VotingprepareController extends Zend_Controller_Action
                 $newInputId = $inputModel->addInputs($postData);
                 $inputModel->appendRelIds($origInputId, [$newInputId]);
                 $this->_flashMessenger->addMessage('Contribution has been copied. This is the copy.', 'success');
-                $this->redirect($this->view->url([
-                    'controller' => 'input',
-                    'action' => 'edit',
-                    'tid' => $origInputId,
-                    'return' => 'votingprepare'
-                ]));
+                $this->redirect(
+                    $this->view->url([
+                        'controller' => 'input',
+                        'action' => 'edit',
+                        'tid' => $origInputId,
+                        'return' => 'votingprepare',
+                    ]),
+                    ['prependBase' => false]
+                );
             } else {
                 $this->_flashMessenger->addMessage('Form is not valid, please check the values entered.', 'error');
             }
