@@ -1,5 +1,6 @@
 import React from 'react';
 import EmbeddedVideo from '../EmbeddedVideo/EmbeddedVideo';
+import StaticMap from '../StaticMap/StaticMap';
 
 
 const FollowUpContributionBox = props => (
@@ -37,6 +38,12 @@ const FollowUpContributionBox = props => (
           </p>
         </div>
       }
+      {!!props.latitude && !!props.longitude &&
+        <StaticMap
+          latitude={props.latitude}
+          longitude={props.longitude}
+        />
+      }
     </div>
   </div>
 );
@@ -44,6 +51,8 @@ const FollowUpContributionBox = props => (
 FollowUpContributionBox.propTypes = {
   contributionThesis: React.PropTypes.string.isRequired,
   contributionExplanation: React.PropTypes.string,
+  latitude: React.PropTypes.number,
+  longitude: React.PropTypes.number,
   question: React.PropTypes.string.isRequired,
   questionNumber: React.PropTypes.string,
   votable: React.PropTypes.bool.isRequired,

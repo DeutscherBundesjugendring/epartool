@@ -16,19 +16,21 @@ class Application_View_Helper_OpenStreetStaticMap extends Zend_View_Helper_Abstr
      * @throws \Zend_Exception
      * @return string
      */
-    public function openStreetStaticMap($latitude, $longitude, $width, $height, $zoom, $placeMarker = false)
+    public function openStreetStaticMap($latitude, $longitude, $width, $height, $zoom, $placeMarker = true)
     {
-        $osmConfig = Zend_Registry::get('systemconfig')->osm;
-
         return sprintf(
-            '<img src="%s?center=%f,%f&zoom=%d&size=%dx%d&maptype=mapnik%s" alt="GPS" />',
-            $osmConfig->static_map_url,
+            '<img src="%s?center=%f,%f&zoom=%d&size=%dx%d%s" alt="GPS" />',
+            $this->view->url([
+                'module' => 'api',
+                'controller' => 'open-street-map',
+                'action' => 'static-map',
+            ], 'osm_api'),
             $latitude,
             $longitude,
             $zoom,
             $width,
             $height,
-            ($placeMarker ? sprintf('&markers=%f,%f,ltblu-pushpin', $latitude,$longitude) : '')
+            ($placeMarker ? sprintf('&markers=%f,%f', $latitude, $longitude) : '')
         );
     }
 }

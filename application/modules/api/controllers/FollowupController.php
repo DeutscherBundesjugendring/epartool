@@ -402,6 +402,8 @@ class Api_FollowupController extends Dbjr_Api_BaseController
                 'qi' => (int) $row['qi'],
                 'question' => $row['q'],
                 'question_number' => $row['nr'],
+                'latitude' => (float) $row['latitude'],
+                'longitude' => (float) $row['longitude'],
                 'thes' => $row['thes'],
                 'uid' => (int) $row['uid'],
                 'when' => $this->convertDateTime($row['when']),

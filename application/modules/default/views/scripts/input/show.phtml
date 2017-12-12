@@ -75,11 +75,12 @@
             <?php else: ?>
                 <?=$this->openStreetMapsConfig();?>
                 <?=$this->inputForm;?>
-                <hr />
+                <hr /> 
             <?php endif?>
 
-            <a href="<?=$this->url(['type' => 'map']);?>" class="btn btn-default">Map View</a>
-            <a href="<?=$this->url(['type' => null]);?>" class="btn btn-default">List View</a>
+            <a name="contributions" />
+            <a href="<?=$this->url(['type' => 'map']);?>#contributions" class="btn btn-default">Map View</a>
+            <a href="<?=$this->url(['type' => null]);?>#contributions" class="btn btn-default">List View</a>
             <!-- Contributions -->
 
             <?php if ($this->listType === 'map'): ?>

@@ -185,6 +185,14 @@ class FollowupController extends Zend_Controller_Action
         );
         $this->view->embedVideoUrl = $embedVideoUrl;
         $this->view->followupTranslations = $this->getFollowupTimelineTranslations();
+        $this->view->osmStaticMapUrlTemplate = sprintf(
+            '%s?center=__latitude__,__longitude__&zoom=8&size=__width__x__height__&markers=__latitude__,__longitude__',
+            $this->view->url([
+                'module' => 'api',
+                'controller' => 'open-street-map',
+                'action' => 'static-map',
+            ], 'osm_api')
+        );
     }
 
     /**
@@ -263,6 +271,14 @@ class FollowupController extends Zend_Controller_Action
         );
         $this->view->embedVideoUrl = $embedVideoUrl;
         $this->view->followupTranslations = $this->getFollowupTimelineTranslations();
+        $this->view->osmStaticMapUrlTemplate = sprintf(
+            '%s?center=__latitude__,__longitude__&zoom=8&size=__width__x__height__&markers=__latitude__,__longitude__',
+            $this->view->url([
+                'module' => 'api',
+                'controller' => 'open-street-map',
+                'action' => 'static-map',
+            ], 'osm_api')
+        );
     }
 
     public function jsonAction()

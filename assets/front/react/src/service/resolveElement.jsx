@@ -25,6 +25,8 @@ const resolveElement = (
       <FollowUpContributionBox
         contributionThesis={data.thes}
         contributionExplanation={data.expl}
+        latitude={data.latitude}
+        longitude={data.longitude}
         question={data.question}
         questionNumber={data.question_number}
         videoService={data.video_service}
