@@ -9,12 +9,9 @@ class FollowUpBox extends React.Component {
     this.addToggle();
   }
 
-  componentDidUpdate(prevProps) {
+  componentDidUpdate() {
     this.adjustContributionHeight();
-    // some contribution boxes are mounting with incorrect props then updating to the correct ones
-    if (this.props.type === 'contribution' && prevProps.type !== 'contribution') {
-      this.addToggle();
-    }
+    this.addToggle();
   }
 
   adjustContributionHeight() {
@@ -47,7 +44,10 @@ class FollowUpBox extends React.Component {
     }
 
     const canOverflow = element.scrollHeight > element.clientHeight;
-    if (!canOverflow) {
+
+    if (canOverflow) {
+      document.getElementById(`${this.props.type}-${this.props.id}-toggle`).style.display = '';
+    } else {
       document.getElementById(`${this.props.type}-${this.props.id}-toggle`).style.display = 'none';
     }
   }
