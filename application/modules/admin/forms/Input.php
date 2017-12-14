@@ -4,6 +4,7 @@ class Admin_Form_Input extends Dbjr_Form_Admin
 {
     const AFTER_SUBMIT_RETURN_TO_INDEX = 'after_submit_return_to_index';
     const AFTER_SUBMIT_SPLIT_NEXT = 'after_submit_split_next';
+    const AFTER_SUBMIT_VIEW_COPY = 'after_submit_view_copy';
 
     /**
      * @var string
@@ -136,6 +137,8 @@ class Admin_Form_Input extends Dbjr_Form_Admin
             $submit->setLabel('Save and return to index');
         } elseif ($this->afterSubmitAction === self::AFTER_SUBMIT_SPLIT_NEXT) {
             $submit->setLabel('Save and continue');
+        } elseif ($this->afterSubmitAction === self::AFTER_SUBMIT_VIEW_COPY) {
+            $submit->setLabel('Save and view copy');
         }
         $this->addElement($submit);
 

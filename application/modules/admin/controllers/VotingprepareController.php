@@ -199,7 +199,10 @@ class Admin_VotingprepareController extends Zend_Controller_Action
         $inputModel = new Model_Inputs();
         $origInputId = $this->getRequest()->getParam('inputId');
         $origData = $inputModel->getById($origInputId);
-        $form = new Admin_Form_Input($this->view->url(['action' => 'overview']));
+        $form = new Admin_Form_Input(
+            $this->view->url(['action' => 'overview']),
+            Admin_Form_Input::AFTER_SUBMIT_VIEW_COPY
+        );
 
         $projectSettings = (new Model_Projects())->find(Zend_Registry::get('systemconfig')->project)->current();
         $question = (new Model_Questions())->find($origData['qi'])->current();
@@ -222,7 +225,7 @@ class Admin_VotingprepareController extends Zend_Controller_Action
                     $this->view->url([
                         'controller' => 'input',
                         'action' => 'edit',
-                        'tid' => $origInputId,
+                        'tid' => $newInputId,
                         'return' => 'votingprepare',
                     ]),
                     ['prependBase' => false]
