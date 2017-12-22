@@ -20,30 +20,38 @@
                 </time>
             </header>
 
-            <p>
-                <?php if ($input['latitude'] !== null): ?>
-                    <?=$this->openStreetStaticMap(
-                        $input['latitude'],
-                        $input['longitude'],
-                        150,
-                        150,
-                        8
-                    );?>
-                <? endif; ?>
-                <strong><?=$this->escape($input['thes']);?></strong>
-            </p>
+            <div class="row offset-bottom">
+                <div class="col-sm-8 col-md-9">
+                    <p>
+                        <strong><?=$this->escape($input['thes']);?></strong>
+                    </p>
 
-            <?php if (!empty($input['expl'])): ?>
-                <p>
-                    <?=$this->escape($input['expl']);?>
-                </p>
-            <?php endif; ?>
+                    <?php if (!empty($input['expl'])): ?>
+                        <p>
+                            <?=$this->escape($input['expl']);?>
+                        </p>
+                    <?php endif; ?>
+                </div>
+                <?php if ($input['latitude'] !== null): ?>
+                    <div class="col-sm-4 col-md-3">
+                        <div class="map-static map-static-right-sm">
+                            <?=$this->openStreetStaticMap(
+                                $input['latitude'],
+                                $input['longitude'],
+                                150,
+                                150,
+                                8
+                            );?>
+                        </div>
+                    </div>
+                <? endif; ?>
+            </div>
 
             <?php if ($this->videoEnabled && $input['video_service'] !== null && $input['video_id'] !== null
                 && $this->videoServicesStatus['video_' . $input['video_service'] . '_enabled']): ?>
-                <p>
+                <div class="offset-bottom">
                     <?=$this->embeddedVideo($input['video_service'], $input['video_id']);?>
-                </p>
+                </div>
             <?php endif; ?>
 
             <!-- Actions -->
@@ -52,25 +60,25 @@
                 <!-- Support -->
                 <?php if ($this->consultation->is_support_phase_showed): ?>
                     <div class="pull-left text-nowrap offset-right offset-bottom-small">
-                                    <span id="click-support-wrap-<?=$this->escape($input['tid']);?>">
-                                        <span class="glyphicon glyphicon-ok-sign icon-offset icon-shift-down text-accent" aria-hidden="true"></span>
-                                        <small id="badge-<?=$this->escape($input['tid']);?>" class="badge<?=$this->escape($input['spprts']) > 0 ? ' badge-accent' : '';?>">
-                                            <?=$this->escape($input['spprts']);?>
-                                        </small>
-                                        <?php if (in_array($input['tid'], $this->supports->clicks) || $this->supportsDisabled): ?>
-                                            <small class="hidden-print"><?=$this->translate('supporters');?></small>
-                                        <?php else: ?>
-                                            <a
-                                                href="#"
-                                                id="click-support-<?=$this->escape($input['tid']);?>"
-                                                class="btn btn-default btn-xs hidden-print js-click-support"
-                                                data-kid="<?=$this->consultation->kid;?>"
-                                                rel="<?=$this->escape($input['tid']);?>"
-                                            >
-                                                <?=$this->translate('I agree!');?>
-                                            </a>
-                                        <?php endif; ?>
-                                    </span>
+                        <span id="click-support-wrap-<?=$this->escape($input['tid']);?>">
+                            <span class="glyphicon glyphicon-ok-sign icon-offset icon-shift-down text-accent" aria-hidden="true"></span>
+                            <small id="badge-<?=$this->escape($input['tid']);?>" class="badge<?=$this->escape($input['spprts']) > 0 ? ' badge-accent' : '';?>">
+                                <?=$this->escape($input['spprts']);?>
+                            </small>
+                            <?php if (in_array($input['tid'], $this->supports->clicks) || $this->supportsDisabled): ?>
+                                <small class="hidden-print"><?=$this->translate('supporters');?></small>
+                            <?php else: ?>
+                                <a
+                                    href="#"
+                                    id="click-support-<?=$this->escape($input['tid']);?>"
+                                    class="btn btn-default btn-xs hidden-print js-click-support"
+                                    data-kid="<?=$this->consultation->kid;?>"
+                                    rel="<?=$this->escape($input['tid']);?>"
+                                >
+                                    <?=$this->translate('I agree!');?>
+                                </a>
+                            <?php endif; ?>
+                        </span>
                     </div>
                 <?php endif;?>
 

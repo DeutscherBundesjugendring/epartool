@@ -166,13 +166,16 @@
 
             </div><!-- .well -->
 
-            <?=$this->partial('_partials/contributionsMap.phtml', [
-                'consultation' => $this->consultation,
-                'inputs' => $this->inputs,
-                'supports' => $supports,
-                'supportsDisabled' => $supportsDisabled,
-                'videoServicesStatus' => $this->videoServicesStatus,
-            ]);?>
+            <!-- Map -->
+            <div class="well well-bordered well-canvas">
+                <?=$this->partial('_partials/contributionsMap.phtml', [
+                    'consultation' => $this->consultation,
+                    'inputs' => $this->inputs,
+                    'supports' => $supports,
+                    'supportsDisabled' => $supportsDisabled,
+                    'videoServicesStatus' => $this->videoServicesStatus,
+                ]);?>
+            </div>
 
             <!-- reaction_files by contribution -->
             <div class="well well-bordered offset-top-large text-center has-sticker">

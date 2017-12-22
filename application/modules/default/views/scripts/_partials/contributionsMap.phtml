@@ -86,7 +86,7 @@
                 '<strong>' + data.thes + '</strong>' +
                 '</p>' +
                 (data.expl !== '' ? '<p>' + data.expl + '</p>' : '') +
-                (data.embeddedVideo !== '' ? '<p>' + data.embeddedVideo + '</p>' : '') +
+                (data.embeddedVideo !== '' ? '<div class="offset-bottom">' + data.embeddedVideo + '</div>' : '') +
                 '<!-- Actions -->' +
                 '<footer>' +
                 '<!-- Support -->' +
@@ -130,7 +130,7 @@
                 '</a>' +
                 '<a' +
                 ' href="' + data.discussionUrl + '"' +
-                ' class="btn btn-default btn-xs hidden-print"' +
+                ' class="btn btn-default btn-xs offset-left-small hidden-print"' +
                 '>' +
                 <?php if(Zend_Date::now()->isLater(new Zend_Date($this->consultation->discussion_from, Zend_Date::ISO_8601))
                 && Zend_Date::now()->isEarlier(new Zend_Date($this->consultation->discussion_to, Zend_Date::ISO_8601))
@@ -153,7 +153,7 @@
                     data.reactionsCount +
                     '</small>' +
                     '</a>' +
-                    '<a href="' + data.followupLink + '" class="btn btn-default btn-xs hidden-print">' +
+                    '<a href="' + data.followupLink + '" class="btn btn-default btn-xs offset-left-small hidden-print">' +
                     '<?=$this->translate('View reactions');?>' +
                     '</a>' +
                     '</div>'

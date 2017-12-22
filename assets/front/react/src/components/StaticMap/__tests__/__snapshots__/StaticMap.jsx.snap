@@ -1,19 +1,27 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`rendering renders correctly with default size 1`] = `
-<img
-  alt="GPS: 52.50828, 13.38581"
-  height={120}
-  src="%s?center=52.50828,13.38581&zoom=8&size=240x120&markers=52.50828,13.38581"
-  width={240}
-/>
+<div
+  className="map-static map-static-landscape"
+>
+  <img
+    alt="GPS: 52.50828, 13.38581"
+    height={120}
+    src="%s?center=52.50828,13.38581&zoom=8&size=240x120&markers=52.50828,13.38581"
+    width={240}
+  />
+</div>
 `;
 
 exports[`rendering renders correctly with specified size 1`] = `
-<img
-  alt="GPS: 52.50828, 13.38581"
-  height={100}
-  src="%s?center=52.50828,13.38581&zoom=8&size=150x100&markers=52.50828,13.38581"
-  width={150}
-/>
+<div
+  className="map-static map-static-landscape"
+>
+  <img
+    alt="GPS: 52.50828, 13.38581"
+    height={100}
+    src="%s?center=52.50828,13.38581&zoom=8&size=150x100&markers=52.50828,13.38581"
+    width={150}
+  />
+</div>
 `;

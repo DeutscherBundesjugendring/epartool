@@ -75,13 +75,28 @@
             <?php else: ?>
                 <?=$this->openStreetMapsConfig();?>
                 <?=$this->inputForm;?>
-                <hr /> 
             <?php endif?>
 
-            <a name="contributions" />
-            <a href="<?=$this->url(['type' => 'map']);?>#contributions" class="btn btn-default">Map View</a>
-            <a href="<?=$this->url(['type' => null]);?>#contributions" class="btn btn-default">List View</a>
             <!-- Contributions -->
+            <a name="contributions"></a>
+
+            <div class="btn-group btn-group-center offset-bottom" role="group" aria-label="<?=$this->translate('View');?>">
+                <a
+                    href="<?=$this->url(['type' => null]);?>#contributions"
+                    class="btn <?=$this->listType !== 'map' ? 'btn-default active' : 'btn-default-alt';?>"
+                >
+                    <span class="glyphicon glyphicon-list offset-right-small" aria-hidden="true"></span>
+                    <?=$this->translate('List');?>
+                </a>
+                <a
+                    href="<?=$this->url(['type' => 'map']);?>#contributions"
+                    class="btn <?=$this->listType === 'map' ? 'btn-default active' : 'btn-default-alt';?>"
+                >
+                    <span class="glyphicon glyphicon-map-marker offset-right-small" aria-hidden="true"></span>
+                    <?=$this->translate('Map');?>
+                </a>
+            </div>
+            <hr />
 
             <?php if ($this->listType === 'map'): ?>
                 <?=$this->openStreetMapsConfig();?>

@@ -8,16 +8,12 @@
             <?php $i = 1;?>
             <?php if (!empty($this->contributionsList)): ?>
                 <?php foreach ($this->contributionsList as $contribution): ?>
+                    <?php if ($contribution['latitude'] !== null): ?>
+                        <div class="row offset-bottom">
+                            <div class="col-sm-9">
+                    <?php endif; ?>
+
                     <p>
-                        <?php if ($contribution['latitude'] !== null): ?>
-                            <?=$this->openStreetStaticMap(
-                                $contribution['latitude'],
-                                $contribution['longitude'],
-                                90,
-                                90,
-                                12
-                            );?>
-                        <?php endif; ?>
                         <a
                             href="<?=$this->url([
                                 'controller' => 'input',
@@ -31,9 +27,26 @@
                             <?=$this->escape($contribution['thes']);?>
                         </a>
                     </p>
+
+                    <?php if ($contribution['latitude'] !== null): ?>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="map-static map-static-small map-static-right-sm">
+                                    <?=$this->openStreetStaticMap(
+                                        $contribution['latitude'],
+                                        $contribution['longitude'],
+                                        90,
+                                        90,
+                                        12
+                                    );?>
+                                </div>
+                            </div>
+                        </div>
+                    <?php endif; ?>
+
                     <p class="text-right">
                         <?=$this->formatDate($contribution['when'], 'd. M. Y H:m:s');?>
-                        in
+                        <?=$this->translate('in');?>
                         <a
                             href="<?=$this->url(['cl' => null, 'pl' => null, 'controller' => 'article', 'action' => 'show', 'kid' => $contribution['kid']]);?>"
                         >
@@ -41,14 +54,17 @@
                         </a>
                     </p>
                     <hr />
+
                     <?php if ($contributionsListCount == $i++ && $this->contributionsSum > $this->contributionsLimit): ?>
-                        <a href="<?=$this->url(['cl' => $this->contributionsLimit + $this->step]);?>" class='btn btn-lg btn-default offset-bottom'>Load More</a>
+                        <a href="<?=$this->url(['cl' => $this->contributionsLimit + $this->step]);?>" class='btn btn-lg btn-default offset-bottom'>
+                            <?=$this->translate('Load More');?>
+                        </a>
                     <?php endif; ?>
                 <?php endforeach; ?>
             <?php else: ?>
                 <p class="alert alert-info">
                     <span class="glyphicon glyphicon-info-sign icon-offset" aria-hidden="true"></span>
-                    <?=$this->translate("You have no confirmed contributions.");?>
+                    <?=$this->translate('You have no confirmed contributions.');?>
                 </p>
             <?php endif; ?>
 
@@ -93,7 +109,7 @@
             <?php else: ?>
                 <p class="alert alert-info">
                     <span class="glyphicon glyphicon-info-sign icon-offset" aria-hidden="true"></span>
-                    <?=$this->translate("You have no confirmed discussion posts.");?>
+                    <?=$this->translate('You have no confirmed discussion posts.');?>
                 </p>
             <?php endif; ?>
 
