@@ -216,7 +216,7 @@ class VotingController extends Zend_Controller_Action
     {
         // no access, redirect back
         $votingRightsSession = $this->getVotingRightsSession();
-        $this->view->settings = $this->getVotingSettings();
+        $settings = $this->getVotingSettings();
 
         $subUid = $votingRightsSession->subUid;
         $kid = $this->_consultation->kid;
@@ -247,12 +247,14 @@ class VotingController extends Zend_Controller_Action
         $filter = array( array('field' => 'is_votable', 'operator' => '=', 'value' => true));
 
         $inputModel = new Model_Inputs();
+        $this->view->settings = $settings;
         $this->view->votableInputs = $inputModel->getCountByConsultationFiltered($kid, $filter);
         // count of voted inputs
         $votingIndivModel = new Model_Votes_Individual();
         $this->view->votedInputs = $votingIndivModel->countVotesBySubuser($votingRightsSession->subUid);
         $this->view->videoServicesStatus = (new Model_Projects())
             ->find((new Zend_Registry())->get('systemconfig')->project)->current();
+        $this->view->labels = Service_Voting::BUTTONS_SET[$settings['button_type']];
 
     }
 
@@ -270,12 +272,12 @@ class VotingController extends Zend_Controller_Action
         $this->_helper->layout()->disableLayout();
         $votingRightsSession = $this->getVotingRightsSession();
 
-        $this->view->settings = $this->getVotingSettings();
+        $settings = $this->getVotingSettings();
 
         $param = $this->getRequest()->getParams();
         $pts = (isset($param['points']) ? (int) $param['points'] : null);
 
-        if ($pts < Service_Voting::POINTS_MIN || $pts > Service_Voting::POINTS_MAX) {
+        if (!(new Service_Voting())->isPointsInValidRange($this->_consultation->kid, $pts)) {
             $this->view->error = "1";
             $this->view->error_comment = $this->view->translate('Your rating is out of accepted range.');
 
@@ -309,15 +311,30 @@ class VotingController extends Zend_Controller_Action
         if (!$votingSuccess) {
             $this->view->error = "1";
             $this->view->error_comment = $this->view->translate('An error occured.');
+
+            return;
+        } elseif (is_array($votingSuccess) && isset($votingSuccess['error'])) {
+            if ($votingSuccess['error'] === Model_Votes_Individual::ERROR_INVALID_CONFIRMATION_HASH) {
+                $this->view->error = "1";
+                $this->view->error_comment = $this->view->translate('This vote cannot be changed, because it was confirmed already or probably created in another voting session by another user.');
+
+                return;
+            }
+            $this->view->error = "1";
+            $this->view->error_comment = $this->view->translate('An error occured.');
+
             return;
         } else {
             $feedback = array(
                 'points' => $votingSuccess['points'],
                 'is_pimp' => $votingSuccess['is_pimp'],
+                'status' => $votingSuccess['status'],
                 'tid' => $tid,
                 'kid' => $kid
             );
             $this->view->feedback = $feedback;
+            $this->view->settings = $settings;
+            $this->view->labels = Service_Voting::BUTTONS_SET[$settings['button_type']];
         }
 
     }
@@ -334,9 +351,9 @@ class VotingController extends Zend_Controller_Action
         $this->_helper->layout()->disableLayout();
         $votingRightsSession = $this->getVotingRightsSession();
 
-        $this->view->settings = $this->getVotingSettings();
+        $settings = $this->getVotingSettings();
 
-        if (!$this->view->settings['is_btn_important']) {
+        if (!$settings['is_btn_important']) {
             $this->view->error = "1";
             $this->view->error_comment = $this->view->translate('Using of superbutton is not allowed.');
             return;
@@ -364,9 +381,9 @@ class VotingController extends Zend_Controller_Action
             $tid,
             $votingRightsSession->subUid,
             (int) $votingRightsSession->uid,
-            $this->view->settings['btn_numbers'],
-            $this->view->settings['btn_important_factor'],
-            $this->view->settings['btn_important_max'],
+            max(array_keys(Service_Voting::BUTTONS_SET[$settings['button_type']])),
+            $settings['btn_important_factor'],
+            $settings['btn_important_max'],
             $votingRightsSession->confirmationHash
         );
 
@@ -379,8 +396,7 @@ class VotingController extends Zend_Controller_Action
             );
         } elseif (isset($votingSuccess['max'])) {
             $this->view->error = "1";
-            $this->view->error_comment = 'The Super Button allows you to value a limited number of contributions'
-                . ' higher. Change previous votings and make room for more important contributions!';
+            $this->view->error_comment = $this->translate('The Super Button allows you to value a limited number of contributions higher. Change previous votings and make room for more important contributions!');
             $currentVote = $votingIndividualModel->getCurrentVote($tid, $votingRightsSession->subUid);
             $feedback = array(
                 'points' => $currentVote['pts'],
@@ -388,12 +404,20 @@ class VotingController extends Zend_Controller_Action
                 'is_pimp' => $currentVote['is_pimp'],
                 'kid' => $kid
             );
+        } elseif (isset($votingSuccess['error'])
+            && $votingSuccess['error'] === Model_Votes_Individual::ERROR_INVALID_CONFIRMATION_HASH) {
+            $this->view->error = "1";
+            $this->view->error_comment = $this->view->translate('This vote cannot be changed, because it was confirmed already or probably created in another voting session by another user.');
+
+            return;
         } else {
             $this->view->error = "1";
             $feedback = array();
         }
 
         $this->view->feedback = $feedback;
+        $this->view->settings = $settings;
+        $this->view->labels = Service_Voting::BUTTONS_SET[$settings['button_type']];
     }
 
     /**
@@ -429,7 +453,7 @@ class VotingController extends Zend_Controller_Action
 
         // next lower level
         $votingsettings =  $this->getVotingSettings();
-        $pts = $votingsettings['btn_numbers'];
+        $pts = max(array_keys(Service_Voting::BUTTONS_SET[$votingsettings['button_type']]));
         $votingSuccess = (new Model_Votes_Individual())->updateVote(
             $tid,
             $subUid,
@@ -440,6 +464,12 @@ class VotingController extends Zend_Controller_Action
 
         if (!$votingSuccess) {
             $this->view->response = "error";
+        } elseif (is_array($votingSuccess) && isset($votingSuccess['error'])) {
+            if ($votingSuccess['error'] === Model_Votes_Individual::ERROR_INVALID_CONFIRMATION_HASH) {
+                $this->view->response = "error";
+                $this->view->message = $this->view->translate('This vote cannot be changed, because it was confirmed already or probably created in another voting session by another user.');
+                $this->getResponse()->setHttpResponseCode(401);
+            }
         } else {
             $this->view->response = "success";
         }
@@ -545,12 +575,17 @@ class VotingController extends Zend_Controller_Action
             $this->view->skipLinkParameters = $skipLinkParameters;
         }
 
+        $settings = $this ->getVotingSettings();
+
         $this->view->videoServicesStatus = (new Model_Projects())
             ->find((new Zend_Registry())->get('systemconfig')->project)->current();
         $this->view->thesesCount = count($questionResult);
         $this->view->thesesCountVoted = count($thesesVoted);
-        $this->view->settings = $this ->getVotingSettings();
+        $this->view->settings = $settings;
         $this->view->votingBasket= $this ->getVotingBasket($subUid);
+        $this->view->labels = Service_Voting::BUTTONS_SET[$settings['button_type']];
+        $this->view->buttonSkipLabel = Service_Voting::BUTTON_SKIP;
+        $this->view->buttonUndecidedLabel = Service_Voting::BUTTON_UNDECIDED;
 
         if ($question && $question['vot_q']) {
             $votingQuestion = $question['vot_q'];
@@ -593,7 +628,7 @@ class VotingController extends Zend_Controller_Action
         }
 
         // check if the points are correct
-        if ($pts > Service_Voting::POINTS_MAX || $pts < Service_Voting::POINTS_MIN) {
+        if (!(new Service_Voting())->isPointsInValidRange($this->_consultation->kid, $pts)) {
             $this->_flashMessenger->addMessage('The points are not correct.', 'info');
             $this->redirect('/voting/vote/kid/' . $this->_consultation->kid);
         }
@@ -627,24 +662,24 @@ class VotingController extends Zend_Controller_Action
         // no access, redirect back
         $votingRightsSession = $this->getVotingRightsSession();
         // no view and layout
-        $this -> _helper -> layout() -> disableLayout();
-        $this -> _helper -> viewRenderer -> setNoRender(true);
-        $this -> settings = $this -> getVotingSettings();
+        $this->_helper->layout()->disableLayout();
+        $this->_helper->viewRenderer->setNoRender(true);
+        $settings = $this->getVotingSettings();
 
-        $param = $this -> getRequest() -> getParams();
+        $param = $this->getRequest()->getParams();
         $backParam = (!empty($param['qid'])) ? '/qid/' . $param['qid'] : '/tag/' . $param['tag'];
         $pts = (string) $param['pts'];
         $tid = (int)$param['tid'];
 
-        if (!$this->settings['btn_important']) {
-            $this->_flashMessenger -> addMessage('Clicking the superbutton is not allowed.', 'info');
+        if (!$settings['is_btn_important']) {
+            $this->_flashMessenger->addMessage('Clicking the superbutton is not allowed.', 'info');
             $this->redirect('/voting/vote/kid/' . $this->_consultation->kid);
             return;
         }
 
         // check if the points are correct
         if ($pts != 'y') {
-            $this->_flashMessenger -> addMessage('The points are not correct.', 'info');
+            $this->_flashMessenger->addMessage('The points are not correct.', 'info');
             $this->redirect('/voting/vote/kid/' . $this->_consultation->kid);
         }
 
@@ -657,8 +692,8 @@ class VotingController extends Zend_Controller_Action
 
         // check if a tid is given
         if (empty($tid) || (empty($param['qid']) && empty($param['tag']))) {
-            $this -> _flashMessenger -> addMessage('Please choose a question or keyword.', 'info');
-            $this -> redirect('/voting/overview');
+            $this->_flashMessenger->addMessage('Please choose a question or keyword.', 'info');
+            $this->redirect('/voting/overview');
         }
 
         if (empty($votingRightsSession->confirmationHash)) {
@@ -667,21 +702,21 @@ class VotingController extends Zend_Controller_Action
 
         $votingSuccess = $votingIndividualModel->updateParticularImportantVote(
             $tid,
-            $votingRightsSession -> subUid,
-            (int) $votingRightsSession -> uid,
-            $this -> settings['btn_numbers'],
-            $this -> settings['btn_important_factor'],
-            $this -> settings['btn_important_max'],
+            $votingRightsSession->subUid,
+            (int) $votingRightsSession->uid,
+            max(array_keys(Service_Voting::BUTTONS_SET[$settings['button_type']])),
+            $settings['btn_important_factor'],
+            $settings['btn_important_max'],
             $votingRightsSession->confirmationHash
         );
 
         if (!$votingSuccess) {
             $this->_flashMessenger->addMessage('Your vote could not be registered. (1)', 'info');
-            $this->redirect('/voting/vote/kid/' . $this -> _consultation -> kid . '/tid/' . $tid . $backParam);
+            $this->redirect('/voting/vote/kid/' . $this->_consultation->kid . '/tid/' . $tid . $backParam);
 
         } elseif (!isset($votingSuccess['max'])) {
-            $this->_flashMessenger -> addMessage('Your vote has been counted.', 'info');
-            $this->redirect('/voting/vote/kid/' . $this -> _consultation -> kid . $backParam);
+            $this->_flashMessenger->addMessage('Your vote has been counted.', 'info');
+            $this->redirect('/voting/vote/kid/' . $this->_consultation->kid . $backParam);
         }
         if (isset($votingSuccess['max'])) {
             $this->_flashMessenger->addMessage(
@@ -689,7 +724,7 @@ class VotingController extends Zend_Controller_Action
                     . ' Change previous votings and make room for more important contributions!',
                 'info'
             );
-            $this->redirect('/voting/preview/kid/' . $this -> _consultation -> kid. $backParam);
+            $this->redirect('/voting/preview/kid/' . $this->_consultation->kid. $backParam);
         }
     }
 
@@ -797,7 +832,7 @@ class VotingController extends Zend_Controller_Action
                 $this->_flashMessenger->addMessage('Voting period has ended and it is not possible to change voting results; the voting results are no longer subject to change.', 'error');
             }
         } else {
-            $this->view->settings = $this->getVotingSettings();
+            $settings = $this->getVotingSettings();
             $votesData = (new Model_Votes_Uservotes())->fetchVotesToConfirm($confirmationHash);
             $this->view->votesData = $votesData;
 
@@ -806,8 +841,10 @@ class VotingController extends Zend_Controller_Action
             ) {
                 $form->disable();
             }
-            
+
             $this->view->form = $form;
+            $this->view->settings = $settings;
+            $this->view->labels = Service_Voting::BUTTONS_SET[$settings['button_type']];
             if (empty($votesData)) {
                 $this->_flashMessenger->addMessage('No unconfirmed votes to process.', 'info');
             } else {

@@ -6,7 +6,7 @@
 <ul class="nav nav-justified nav-voting text-center small">
 
     <?php if ($settings['is_btn_important']): ?>
-        <li class="nav-voting-superbutton<?=$this->is_pimp ? ' active' : '';?>">
+        <li class="nav-voting-<?=$settings['button_type'];?>-superbutton<?=$this->is_pimp ? ' active' : '';?>">
             <a href="#"
                data-tid="<?=$this->tid;?>"
                data-kid="<?=$settings['kid'];?>"
@@ -19,22 +19,22 @@
             </a>
         </li>
     <?php endif; ?>
-
-    <?php for ($i = $settings['btn_numbers'] - 1; $i >= 0; $i--): ?>
-        <li<?=($this->points !== null && $this->points == $i) ? ' class="active"' : '';?>>
+    <?php krsort($labels); ?>
+    <?php foreach ($labels as $points => $label): ?>
+        <li class="voting-button-<?=$settings['button_type'];?>-<?=$points;?><?=($this->points !== null && (int)$this->points === $points) ? ' active' : '';?>">
             <a href="#"
                data-tid="<?=$this->tid;?>"
                data-kid="<?=$settings['kid'];?>"
-               data-rating="<?=$i;?>"
+               data-rating="<?=$points;?>"
                class="js-voting-rate"
             >
-                <?=$this->escape($labels[$i]);?>
+                <?=$this->translate($label);?>
             </a>
         </li>
-    <?php endfor; ?>
+    <?php endforeach; ?>
 
     <?php if ($settings['btn_no_opinion']): ?>
-        <li<?=$this->points === null ? ' class="active"' : '';?>>
+        <li class="voting-button-<?=$settings['button_type'];?>-undecided<?=($this->status === 'voted' && $this->points === null) ? ' active' : '';?>">
             <a href="#"
                data-tid="<?=$this->escape($this->tid);?>"
                data-kid="<?=$settings['kid'];?>"

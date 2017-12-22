@@ -6,24 +6,17 @@ class Admin_Form_Voting_Settings extends Dbjr_Form_Admin
     {
         $translator = Zend_Registry::get('Zend_Translate');
 
-        $buttonNum = $this->createElement('number', 'btn_numbers');
-        $buttonNum
-            ->setLabel('Number of voting buttons')
-            ->setAttrib('max', 4)
-            ->setAttrib('min', 1)
-            ->addValidator('Int')
-            ->addValidator('LessThan', false, ['max' => 5])
-            ->addValidator('GreaterThan', false, ['min' => 0]);
-        $this->addElement($buttonNum);
-
-        $desc = sprintf($translator->translate('Comma separated, lower first, max. %d characters'), 220);
-        $buttonLabels = $this->createElement('text', 'btn_labels');
-        $buttonLabels
-            ->setLabel('Button labels')
-            ->setDescription($desc)
-            ->setAttrib('maxlength', 220)
-            ->setRequired(true);
-        $this->addElement($buttonLabels);
+        $buttonType = $this->createElement('radio', 'button_type');
+        $buttonType
+            ->setRequired(true)
+            ->setMultiOptions(
+                [
+                    Service_Voting::BUTTONS_TYPE_STARS => $translator->translate('Stars'),
+                    Service_Voting::BUTTONS_TYPE_HEARTS => $translator->translate('Hearts'),
+                    Service_Voting::BUTTONS_TYPE_YESNO => $translator->translate('Yes/No'),
+                ]
+            );
+        $this->addElement($buttonType);
 
         $buttonNoOpinion = $this->createElement('radio', 'btn_no_opinion');
         $buttonNoOpinion
@@ -76,6 +69,14 @@ class Admin_Form_Voting_Settings extends Dbjr_Form_Admin
         $submit
             ->setAttrib('class', 'btn-primary btn-raised')
             ->setLabel('Submit');
+        $this->addElement($submit);
+
+        $submit = $this->createElement('button', 'preview');
+        $submit
+            ->setAttrib('class', 'btn-raised btn-default')
+            ->setAttrib('data-toggle', 'modal')
+            ->setAttrib('data-target', '#votingButtonsPreviewModal')
+            ->setLabel('Preview');
         $this->addElement($submit);
     }
 }

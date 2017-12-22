@@ -1,44 +1,41 @@
 <?php
-    $settings = $this->layout()->settings;
-    $labels = $this->layout()->labels;
-    $votingBasket = $this->layout()->votingBasket;
-    $linkOptions = ['action' => 'thesissupervote', 'tid' => $this->thesis['tid']];
+    $linkParameters = ['action' => 'thesissupervote', 'tid' => $this->thesis['tid']];
 
     if (!empty($this->qid)) {
-        $linkOptions['qid'] = $this->qid;
+        $linkParameters['qid'] = $this->qid;
     }
 
     if (isset($this->thesis['tg_nr'])) {
-        $linkOptions['tag'] = $this->thesis['tg_nr'];
+        $linkParameters['tag'] = $this->thesis['tg_nr'];
     }
 ?>
 
 <ul class="list-inline rating-bar-buttons">
 
     <!-- Super button -->
-    <?php if ($settings['is_btn_important']): ?>
-        <?php $linkOptions['pts'] = 'y'; ?>
+    <?php if ($this->settings['is_btn_important']): ?>
+        <?php $linkParameters['pts'] = 'y'; ?>
         <li class="offset-bottom-small">
             <div class="offset-bottom-small">
 
-                <?php if ($votingBasket['countvotes'] !== $settings['btn_important_max']): ?>
-                    <a href="<?=$this->url($linkOptions);?>#vote" class="link-unstyled link-unstyled-alt">
+                <?php if ($this->votingBasket['countvotes'] < $this->settings['btn_important_max']): ?>
+                    <a href="<?=$this->url($linkParameters);?>#vote" class="link-unstyled link-unstyled-alt">
                 <?php else: ?>
                     <a href="#modalVoting" data-toggle="modal" class="link-unstyled link-unstyled-alt">
                 <?php endif; ?>
                     <img
                         src="<?=$this->baseUrl('images/voting-rate-superbtn.png');?>"
                         class="offset-bottom-small"
-                        alt="<?=$this->escape($settings['btn_important_label']);?>"
-                        title="<?=$this->escape($settings['btn_important_label']);?>"
+                        alt="<?=$this->escape($this->translate($this->settings['btn_important_label']));?>"
+                        title="<?=$this->escape($this->translate($this->settings['btn_important_label']));?>"
                     />
                     <br />
                     <strong<?=$this->is_pimp ? ' class="text-danger"' : '';?>>
-                        <?=$this->escape($settings['btn_important_label']);?>
+                        <?=$this->escape($this->translate($this->settings['btn_important_label']));?>
                         <br />
-                        (<span class="js-supervotes-used"><?=$votingBasket['countvotes'];?></span>
+                        (<span class="js-supervotes-used"><?=$this->votingBasket['countvotes'];?></span>
                         <?=$this->translate('of');?>
-                        <?=$settings['btn_important_max'];?>)
+                        <?=$this->settings['btn_important_max'];?>)
                     </strong>
                 </a>
 
@@ -53,32 +50,50 @@
     <?php endif; ?>
 
     <!-- Regular votes -->
-    <?php $linkOptions['action'] = 'thesisvote'; ?>
-    <?php for ($i = $settings['btn_numbers'] - 1; $i >= 0; $i--): ?>
-        <?php $linkOptions['pts'] = $i; ?>
+    <?php $linkParameters['action'] = 'thesisvote'; ?>
+    <?php krsort($this->labels); ?>
+    <?php foreach ($this->labels as $points => $label): ?>
+        <?php $linkParameters['pts'] = $points; ?>
         <li class="offset-bottom-small">
-            <a href="<?=$this->url($linkOptions);?>#vote" class="link-unstyled link-unstyled-alt">
+            <a href="<?=$this->url($linkParameters);?>#vote" class="link-unstyled link-unstyled-alt">
                 <img
-                    src="<?=$this->baseUrl('images/voting-rate-' . $i . '.png');?>"
+                    src="<?=$this->baseUrl(sprintf('images/voting-rate-%s-%d.png', $this->settings['button_type'], $points));?>"
                     class="offset-bottom-small"
-                    alt="<?=$this->escape($labels[$i]);?>"
-                    title="<?=$this->escape($labels[$i]);?>"
+                    alt="<?=$this->translate($label);?>"
+                    title="<?=$this->translate($label);?>"
                 />
                 <br />
-                <strong><?=$this->escape($labels[$i]);?></strong>
+                <strong><?=$this->translate($label);?></strong>
             </a>
         </li>
-    <?php endfor; ?>
+    <?php endforeach; ?>
+
+    <li class="offset-bottom-small">
+        <a href="<?=$this->url($this->skipLinkParameters);?>#vote" class="link-unstyled link-unstyled-alt">
+            <img
+                src="<?=$this->baseUrl(sprintf('images/voting-rate-%s-skip.png', $this->settings['button_type']));?>"
+                class="offset-bottom-small"
+                alt="<?=$this->translate($this->buttonSkipLabel);?>"
+                title="<?=$this->translate($this->buttonSkipLabel);?>"
+            />
+            <br />
+            <strong><?=$this->translate($this->buttonSkipLabel);?></strong>
+        </a>
+    </li>
 
     <!-- No opinion -->
-    <?php if ($settings['btn_no_opinion']): ?>
-        <?php $linkOptions['pts'] = null; ?>
+    <?php if ($this->settings['btn_no_opinion']): ?>
+        <?php $linkParameters['pts'] = null; ?>
 
         <li class="offset-bottom-small">
-            <a href="<?=$this->url($linkOptions);?>#vote" class="link-unstyled link-unstyled-alt">
-                <img src="<?=$this->baseUrl('images/voting-rate-no-opinion.png');?>" class="offset-bottom-small" alt="" />
+            <a href="<?=$this->url($linkParameters);?>#vote" class="link-unstyled link-unstyled-alt">
+                <img
+                    src="<?=$this->baseUrl(sprintf('images/voting-rate-%s-undecided.png', $this->settings['button_type']));?>"
+                    class="offset-bottom-small"
+                    alt=""
+                />
                 <br />
-                <strong><?=$this->translate('No opinion');?></strong>
+                <strong><?=$this->translate($this->buttonUndecidedLabel);?></strong>
             </a>
         </li>
     <?php endif; ?>

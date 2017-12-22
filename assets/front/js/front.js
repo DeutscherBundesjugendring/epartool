@@ -358,15 +358,17 @@
         data: 'format=html',
         cache: false,
         async: 'true',
-        error: function() {
-          $(e.target).html = jsTranslations['message_general_error'];
+        error: function(response) {
+          if (response.responseText) {
+            $('#thes-' + tid).html('<td colspan="2">' + response.responseText + '</td>');
+          }
+          $(e.target).html(jsTranslations['message_general_error']);
         },
         beforeSend: function() {
-          $(e.target).html = jsTranslations['label_loading'];
+          $(e.target).html(jsTranslations['label_loading']);
         },
         success: function(response) {
           votesUsed -= 1;
-          $(e.target).html = jsTranslations['label_loading'];
           $('#thes-' + tid).remove();
           $('.js-supervotes-used').html(votesUsed);
         }

@@ -7,8 +7,55 @@ class Service_Voting
     const STATUS_VOTED = 'voted';
     const STATUS_SKIPPED = 'skipped';
 
-    const POINTS_MIN = 0;
-    const POINTS_MAX = 4;
+    const BUTTONS_TYPE_STARS = 'stars';
+    const BUTTONS_TYPE_HEARTS = 'hearts';
+    const BUTTONS_TYPE_YESNO = 'yesno';
+
+    const BUTTON_SKIP = 'Skip';
+
+    const BUTTON_UNDECIDED = 'No Opinion';
+
+    const BUTTONS_SET = [
+        self::BUTTONS_TYPE_STARS => [
+            0 => 'Strongly disagree',
+            1 => 'Disagree',
+            2 => 'Somewhat disagree',
+            3 => 'Somewhat agree',
+            4 => 'Agree',
+            5 => 'Strongly agree',
+        ],
+        self::BUTTONS_TYPE_HEARTS => [
+            0 => 'Strongly disagree',
+            1 => 'Disagree',
+            2 => 'Somewhat disagree',
+            3 => 'Somewhat agree',
+            4 => 'Agree',
+            5 => 'Strongly agree',
+        ],
+        self::BUTTONS_TYPE_YESNO => [
+            -1 => 'Disagree',
+            0 => 'Unsure',
+            1 => 'Agree',
+        ],
+    ];
+
+    /**
+     * @param int $consultationId
+     * @param int $points
+     * @return bool
+     */
+    public function isPointsInValidRange($consultationId, $points)
+    {
+        if ($consultationId < 1) {
+            return false;
+        }
+        if ($points === null) {
+            return true;
+        }
+        $votingSettings = (new Model_Votes_Settings())->getById($consultationId);
+
+        return (array_key_exists($points, self::BUTTONS_SET[$votingSettings['button_type']]));
+    }
 
     /**
      * @return string
@@ -35,11 +82,11 @@ class Service_Voting
             ['upd' => new Zend_Db_Expr('NOW()'), 'confirmation_hash' => null, 'status' => self::STATUS_CONFIRMED],
             ['confirmation_hash = ?' => $confirmationHash]
         );
-        
+
         if (!$result) {
             throw new Dbjr_Voting_Exception('No votes to confirm.');
         }
-        
+
         $votingGroupModel = new Model_Votes_Groups();
         $votingGroup = $votingGroupModel->getByUser(
             $oneVoteToHandle['uid'],
@@ -96,7 +143,7 @@ class Service_Voting
     public function saveVote($vote, $confirmationHash)
     {
         $votesModel = new Model_Votes_Individual();
-        
+
         if (!$this->isVoteValid($vote)) {
             throw new Dbjr_Voting_Exception('Vote is invalid');
         }
@@ -174,7 +221,7 @@ class Service_Voting
                 $userConfirmationEmailSent = true;
             }
         }
-        
+
         return $userConfirmationEmailSent;
     }
 
@@ -185,11 +232,14 @@ class Service_Voting
     private function isVoteValid(array $vote)
     {
         if (empty($vote['tid']) || empty($vote['sub_uid']) || empty($vote['uid'])
-            || $vote['pts'] < self::POINTS_MIN || $vote['pts'] > self::POINTS_MAX
+            || !(new Service_Voting())->isPointsInValidRange(
+                (new Model_Inputs())->getConsultationIdByContribution($vote['tid']),
+                $vote['pts']
+            )
         ) {
             return false;
         }
-        
+
         return true;
     }
 

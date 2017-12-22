@@ -1,7 +1,6 @@
 <?php
-    $settings = $this->settings;
-    $this->layout()->settings = $settings;
-    $this->layout()->labels = $array = explode (',', $settings['btn_labels']);
+    $this->layout()->settings = $this->settings;
+    $this->layout()->labels = $this->labels;
 ?>
 
 <?php if ($this->error == 1): ?>

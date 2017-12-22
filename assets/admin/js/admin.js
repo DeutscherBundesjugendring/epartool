@@ -18,6 +18,7 @@
   var initSortablePartners;
   var initSortableVotingDirs;
   var mediaSelectPopup;
+  var bindPreviewVotingButtons;
   var themeSettings;
   var bindToggleAnonymousContributionSwitch;
 
@@ -42,6 +43,7 @@
     initSortablePartners();
     initMediaIndexFileLazyLoad();
     changeContributionStatus();
+    bindPreviewVotingButtons();
     $('[data-toggle="tooltip"]').tooltip();
   });
 
@@ -509,6 +511,18 @@
         $('#longitude').val(null);
       }
     });
+  }
+
+  bindPreviewVotingButtons = function () {
+    $('#button_type-element input[type="radio"]').on('click', function () {
+      $this = $(this);
+      $('#votingButtonsPreviewContent').html($('#votingButtonsPreviewType'
+        + $this.val().charAt(0).toUpperCase() + $this.val().slice(1)).html());
+    });
+
+    var $previewOfSelected = $('#button_type-element input[type="radio"]:checked');
+    $('#votingButtonsPreviewContent').html($('#votingButtonsPreviewType'
+      + $previewOfSelected.val().charAt(0).toUpperCase() + $previewOfSelected.val().slice(1)).html());
   }
 
 }).call(this);

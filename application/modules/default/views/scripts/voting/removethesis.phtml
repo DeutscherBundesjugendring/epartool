@@ -1,9 +1,13 @@
-<?php if ($this->response == 'success'): ?>
+<?php if ($this->response === 'success'): ?>
     <p class="alert alert-success">
         <?=$this->translate('The contribution has been deleted!');?>
     </p>
 <?php else: ?>
     <p class="alert alert-error">
+    <?php if ($this->message !== null): ?>
+        <?=$this->message;?>
+    <?php else: ?>
         <?=$this->translate('Error, the contribution has not been deleted!');?>
+    <?php endif; ?>
     </p>
 <?php endif; ?>

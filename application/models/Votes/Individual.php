@@ -5,6 +5,8 @@
  */
 class Model_Votes_Individual extends Dbjr_Db_Table_Abstract
 {
+    const ERROR_INVALID_CONFIRMATION_HASH = 'invalid_confirmation_hash';
+
     protected $_name = 'vt_indiv';
     protected $_primary = ['uid', 'tid', 'sub_uid'];
 
@@ -78,7 +80,8 @@ class Model_Votes_Individual extends Dbjr_Db_Table_Abstract
      */
     public function updateVote($tid, $subUid, $uid, $pts, $confirmationHash, $particular = null)
     {
-        if ($pts < Service_Voting::POINTS_MIN || $pts > Service_Voting::POINTS_MAX) {
+        if (!(new Service_Voting())
+            ->isPointsInValidRange((new Model_Inputs())->getConsultationIdByContribution($tid), $pts)) {
             return false;
         }
 
@@ -97,6 +100,16 @@ class Model_Votes_Individual extends Dbjr_Db_Table_Abstract
             $select->where('sub_uid = ?', $subUid);
 
             $row = $this->fetchRow($select);
+            if (!$row) {
+                $select = $this->select();
+                $select->where('tid = ?', $tid);
+                $select->where('sub_uid = ?', $subUid);
+                if ($this->fetchRow($select)) {
+                    return ['error' => self::ERROR_INVALID_CONFIRMATION_HASH];
+                }
+
+                return false;
+            }
             $row['pts'] = $pts;
             $row['is_pimp'] = (int) $pimp;
             $row['upd'] = new Zend_Db_Expr('NOW()');
@@ -104,7 +117,8 @@ class Model_Votes_Individual extends Dbjr_Db_Table_Abstract
             if ($row->save()) {
                 return [
                     'points' => $row['pts'],
-                    'is_pimp' => $row['is_pimp']
+                    'is_pimp' => $row['is_pimp'],
+                    'status' => $row['status'],
                 ];
 
             } else {
@@ -125,7 +139,8 @@ class Model_Votes_Individual extends Dbjr_Db_Table_Abstract
             if ($row) {
                 return [
                     'points' => $row['pts'],
-                    'is_pimp' => $row['is_pimp']
+                    'is_pimp' => $row['is_pimp'],
+                    'status' => $row['status'],
                 ];
             }
 
@@ -185,7 +200,7 @@ class Model_Votes_Individual extends Dbjr_Db_Table_Abstract
                 ->where('vi.tid = ?', $tid)
                 ->where('vg.is_member = ?', true)
                 ->where('vi.status = ?', Service_Voting::STATUS_CONFIRMED)
-                ->where('vi.pts < ?', Service_Voting::POINTS_MAX)
+                ->where('vi.pts IS NOT NULL')
         )->fetchAll();
         $cast = count($indiv_votes);
 
@@ -194,7 +209,7 @@ class Model_Votes_Individual extends Dbjr_Db_Table_Abstract
                 $countIndivByUid = $this->fetchRow(
                     $this->select()->from($this->_name, new Zend_Db_Expr('COUNT(*) AS count'))
                         ->where('tid = ?', $tid)
-                        ->where('pts < ?', Service_Voting::POINTS_MAX)
+                        ->where('pts IS NOT NULL')
                         ->where('status = ?', Service_Voting::STATUS_CONFIRMED)
                         ->where('uid = ?', $indiv_vote['uid'])
                 );
@@ -237,7 +252,7 @@ class Model_Votes_Individual extends Dbjr_Db_Table_Abstract
                 []
             )
             ->where('q.kid = ?', $kid)
-            ->where('vi.pts < ?', Service_Voting::POINTS_MAX);
+            ->where('vi.pts IS NOT NULL');
         $stmt = $db->query($select);
 
         return $stmt->fetchColumn();
@@ -403,6 +418,10 @@ class Model_Votes_Individual extends Dbjr_Db_Table_Abstract
         if ($this->countParticularImportantVote($subUid) < $max) {
             $particular = $maxpoints * $factor;
             $updateVoteSuccess = $this->updateVote($tid, $subUid, $uid, 0, $confirmationHash, $particular);
+
+            if (is_array($updateVoteSuccess) && isset($updateVoteSuccess['error'])) {
+                return $updateVoteSuccess;
+            }
 
             if ($updateVoteSuccess) {
                 return array(

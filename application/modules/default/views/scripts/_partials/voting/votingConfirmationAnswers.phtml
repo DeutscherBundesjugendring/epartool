@@ -6,7 +6,7 @@
 <ul class="nav nav-justified nav-voting text-center small">
 
     <?php if ($settings['is_btn_important']) : ?>
-        <li class="nav-voting-superbutton<?=$this->is_pimp ? ' active' : '';?>">
+        <li class="nav-voting-<?=$settings['button_type'];?>-superbutton<?=$this->is_pimp ? ' active' : '';?>">
             <span>
                 <span class="glyphicon glyphicon-star nav-voting-superbutton-icon icon-lg" aria-hidden="true"></span>
                 <br />
@@ -14,15 +14,15 @@
             </span>
         </li>
     <?php endif; ?>
-
-    <?php for ($i = $settings['btn_numbers'] - 1; $i >= 0; $i--) : ?>
-        <li<?=($this->points !== null && $this->points == $i) ? ' class="active"' : '';?>>
-            <span><?=$this->escape($labels[$i]);?></span>
+    <?php krsort($labels); ?>
+    <?php foreach ($labels as $points => $label): ?>
+        <li class="voting-button-<?=$settings['button_type'];?>-<?=$points;?><?=($this->points !== null && (int)$this->points === $points) ? ' active' : '';?>">
+            <span><?=$this->translate($label);?></span>
         </li>
-    <?php endfor; ?>
+    <?php endforeach; ?>
 
     <?php if ($settings['btn_no_opinion']) : ?>
-        <li<?=$this->points === null ? ' class="active"' : '';?>>
+        <li class="voting-button-<?=$settings['button_type'];?>-undecided<?=($this->status === 'voted' && $this->points === null) ? ' active' : '';?>">
             <span><?=$this->translate('No opinion');?></span>
         </li>
     <?php endif; ?>

@@ -403,13 +403,13 @@ class Admin_VotingController extends Zend_Controller_Action
         }
 
         $settingsModel = new Model_Votes_Settings();
-        $this->_settings = $settingsModel->find($this->_consultation->kid)->current();
+        $settings = $settingsModel->find($this->_consultation->kid)->current();
 
-        if (!$this->_settings) {
+        if (!$settings) {
             $settingsResult = $settingsModel->add($this->_consultation->kid);
             if ($settingsResult) {
                 $this->_flashMessenger->addMessage('Changes saved.', 'success');
-                $this->_settings = $settingsModel->find($this->_consultation->kid)->current();
+                $settings = $settingsModel->find($this->_consultation->kid)->current();
             } else {
                 $this->_flashMessenger->addMessage('Saving changes failed.', 'error');
             }
@@ -417,29 +417,72 @@ class Admin_VotingController extends Zend_Controller_Action
 
         $form = new Admin_Form_Voting_Settings();
         $form->setAction($this->view->baseUrl() . '/admin/voting/settings/kid/' . $this->_consultation->kid);
-
-        $settings = array_merge($this->_settings->toArray(), $this->_consultation->toArray());
         $post = $this->_request->getPost();
-
         if ($post) {
             if (!$form->isValid($post)) {
                 $form->populate($post);
                 $this->_flashMessenger->addMessage('Form is not valid, please check the values entered.', 'error');
             } else {
                 $values = $form->getValues();
+                $valid = true;
+                if ((new Model_Votes_Individual())->getCountByConsultation($this->_consultation->kid) > 0) {
+                    if ((int) $settings->is_btn_important !== (int) $values['is_btn_important']) {
+                        $values['is_btn_important'] = $settings->is_btn_important;
+                        $this->_flashMessenger->addMessage('Voting has started already. You cannot disable Superbutton', 'error');
+                        $valid = false;
+                    }
+                    if ((int) $settings->btn_no_opinion !== (int) $values['btn_no_opinion']) {
+                        $values['btn_no_opinion'] = $settings->btn_no_opinion;
+                        $this->_flashMessenger->addMessage('Voting has started already. You cannot disable No opinion button', 'error');
+                        $valid = false;
+                    }
+                    if ((int) $settings->btn_important_max > (int) $values['btn_important_max']) {
+                        $values['btn_important_max'] = $settings->btn_important_max;
+                        $this->_flashMessenger->addMessage('Voting has started already. You cannot restrict using of superbutton.', 'error');
+                        $valid = false;
+                    }
+                    if ((int) $settings->btn_important_factor !== (int)$values['btn_important_factor']) {
+                        $values['btn_important_factor'] = $settings->btn_important_factor;
+                        $this->_flashMessenger->addMessage('Voting has started already. You cannot change rating factor.', 'error');
+                        $valid = false;
+                    }
+                    if ((in_array($settings->button_type, [
+                            Service_Voting::BUTTONS_TYPE_STARS,
+                            Service_Voting::BUTTONS_TYPE_HEARTS,
+                        ]) && $values['button_type'] === Service_Voting::BUTTONS_TYPE_YESNO)
+                    ) {
+                        $values['button_type'] = $settings->button_type;
+                        $this->_flashMessenger->addMessage('Voting has started already. You cannot change button type from stars or hearts type to incompatible yes/no type.', 'error');
+                        $valid = false;
+                    }
+                    if (($settings->button_type === Service_Voting::BUTTONS_TYPE_YESNO
+                        && in_array($values['button_type'], [
+                            Service_Voting::BUTTONS_TYPE_STARS,
+                            Service_Voting::BUTTONS_TYPE_HEARTS,
+                        ]))
+                    ) {
+                        $values['button_type'] = $settings->button_type;
+                        $this->_flashMessenger->addMessage('Voting has started already. You cannot change button type from yes/no to incompatible stars or hearts type', 'error');
+                        $valid = false;
+                    }
+                }
 
-                $this->_settings->is_btn_important = $values['is_btn_important'];
-                $this->_settings->btn_no_opinion = $values['btn_no_opinion'];
-                $this->_settings->btn_important_label = $values['btn_important_label'];
-                $this->_settings->btn_numbers = $values['btn_numbers'];
-                $this->_settings->btn_labels = $values['btn_labels'];
-                $this->_settings->btn_important_max= $values['btn_important_max'];
-                $this->_settings->save();
+                if ($valid) {
+                    $settings->is_btn_important = $values['is_btn_important'];
+                    $settings->btn_no_opinion = $values['btn_no_opinion'];
+                    $settings->button_type = $values['button_type'];
+                    $settings->btn_important_label = $values['btn_important_label'];
+                    $settings->btn_important_max= $values['btn_important_max'];
+                    $settings->btn_important_factor= $values['btn_important_factor'];
+                    $settings->save();
 
-                $this->_flashMessenger->addMessage('Changes saved.', 'success');
+                    $this->_flashMessenger->addMessage('Changes saved.', 'success');
+                }
+
+                $form->populate($values);
             }
         } else {
-            $form->populate($settings);
+            $form->populate($settings->toArray());
         }
 
         $this->view->form = $form;
