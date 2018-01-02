@@ -112,6 +112,11 @@ class Model_FollowupsRef extends Zend_Db_Table_Abstract
         return $result;
     }
 
+    /**
+     * @param int $fid
+     * @throws \Zend_Exception
+     * @return array[]
+     */
     public function getRelatedFollowupByFid($fid)
     {
         $validator = new Zend_Validate_Int();
@@ -125,6 +130,25 @@ class Model_FollowupsRef extends Zend_Db_Table_Abstract
         $result = $this->fetchAll($select)->toArray();
 
         return $result;
+    }
+
+    /**
+     * @param int $ffid
+     * @return int[]
+     */
+    public function getRelatedFollowupsByFfid($ffid)
+    {
+        $select = $this->select()
+            ->from($this, ['fid_ref'])
+            ->where('ffid=?', $ffid);
+
+        $result = $this->fetchAll($select)->toArray();
+        $ids = [];
+        foreach ($result as $r) {
+            $ids[] = $r['fid_ref'];
+        }
+
+        return $ids;
     }
 
     /**

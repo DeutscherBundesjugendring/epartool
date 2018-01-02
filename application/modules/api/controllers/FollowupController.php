@@ -59,7 +59,10 @@ class Api_FollowupController extends Dbjr_Api_BaseController
             list($type, $id) = $this->getParameters(['type', 'id']);
             if ($type === self::TYPE_DOCUMENT) {
                 $snippets = (new Model_FollowupFiles())->getFollowupsById($id);
-                $this->buildResponse(self::HTTP_STATUS_OK, $this->buildSnippetDetailsData($snippets));
+                $relatedSnippetsIds = (new Model_FollowupsRef())->getRelatedFollowupsByFfid($id);
+                $this->buildResponse(self::HTTP_STATUS_OK, $this->buildSnippetDetailsData(
+                    array_merge($snippets->toArray(), $this->getSnippetData($relatedSnippetsIds))
+                ));
             } elseif ($type === self::TYPE_SNIPPET) {
                 $snippetsRaw = (new Model_FollowupsRef())->getRelatedFollowupByFid($id);
                 $snippets = [];
@@ -468,7 +471,23 @@ class Api_FollowupController extends Dbjr_Api_BaseController
                     ['ffid', new Zend_Db_Expr('COUNT(*) as count')]
                 );
 
-            return $this->getCounts($select, $ids, 'ffid');
+            $snippetCount = $this->getCounts($select, $ids, 'ffid');
+
+            $followupRefModel = new Model_FollowupsRef();
+            $select = $followupRefModel->select()
+                ->from(
+                    ['r' => $followupRefModel->info($followupRefModel::NAME)],
+                    ['ffid', new Zend_Db_Expr('COUNT(*) as count')]
+                );
+
+            $relatedSnippetCount = $this->getCounts($select, $ids, 'ffid');
+
+            $result = [];
+            foreach ($snippetCount as $ffid => $count) {
+                $result[$ffid] = $count + $relatedSnippetCount[$ffid];
+            }
+
+            return $result;
         }
 
         if ($type === self::TYPE_SNIPPET) {
