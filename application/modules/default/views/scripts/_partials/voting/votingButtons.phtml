@@ -8,6 +8,8 @@
     if (isset($this->thesis['tg_nr'])) {
         $linkParameters['tag'] = $this->thesis['tg_nr'];
     }
+
+    $btnLabelPattern = '_svg/label-%s-%s.svg.phtml';
 ?>
 
 <ul class="list-inline rating-bar-buttons">
@@ -23,13 +25,11 @@
                 <?php else: ?>
                     <a href="#modalVoting" data-toggle="modal" class="link-unstyled link-unstyled-alt">
                 <?php endif; ?>
-                    <img
-                        src="<?=$this->baseUrl('images/voting-rate-superbtn.png');?>"
-                        class="offset-bottom-small"
-                        alt="<?=$this->escape($this->translate($this->settings['btn_important_label']));?>"
-                        title="<?=$this->escape($this->translate($this->settings['btn_important_label']));?>"
-                    />
-                    <br />
+
+                    <span class="icon-offset offset-bottom-small">
+                        <?=$this->partial('_svg/button.svg.phtml', ['btnLabel' => sprintf($btnLabelPattern, $this->settings['button_type'], 'superbutton')]);?>
+                    </span>
+
                     <strong<?=$this->is_pimp ? ' class="text-danger"' : '';?>>
                         <?=$this->escape($this->translate($this->settings['btn_important_label']));?>
                         <br />
@@ -56,13 +56,25 @@
         <?php $linkParameters['pts'] = $points; ?>
         <li class="offset-bottom-small">
             <a href="<?=$this->url($linkParameters);?>#vote" class="link-unstyled link-unstyled-alt">
-                <img
-                    src="<?=$this->baseUrl(sprintf('images/voting-rate-%s-%d.png', $this->settings['button_type'], $points));?>"
-                    class="offset-bottom-small"
-                    alt="<?=$this->translate($label);?>"
-                    title="<?=$this->translate($label);?>"
-                />
-                <br />
+
+                <?php
+                $voteLabels = [
+                    '0' => 'disagree', // TODO: Missing svg image
+                    '1' => 'disagree',
+                    '2' => 'somewhat-disagree',
+                    '3' => 'somewhat-agree',
+                    '4' => 'agree',
+                    '5' => 'strongly-agree',
+                ];
+
+                $btnLabel = '';
+                if (array_key_exists($points, $voteLabels)) {
+                    $btnLabel = sprintf($btnLabelPattern, $this->settings['button_type'], $voteLabels[$points]);
+                }
+                ?>
+                <span class="icon-offset offset-bottom-small">
+                    <?=$this->partial('_svg/button.svg.phtml', ['btnLabel' => $btnLabel]);?>
+                </span>
                 <strong><?=$this->translate($label);?></strong>
             </a>
         </li>
@@ -70,13 +82,7 @@
 
     <li class="offset-bottom-small">
         <a href="<?=$this->url($this->skipLinkParameters);?>#vote" class="link-unstyled link-unstyled-alt">
-            <img
-                src="<?=$this->baseUrl(sprintf('images/voting-rate-%s-skip.png', $this->settings['button_type']));?>"
-                class="offset-bottom-small"
-                alt="<?=$this->translate($this->buttonSkipLabel);?>"
-                title="<?=$this->translate($this->buttonSkipLabel);?>"
-            />
-            <br />
+            <?=$this->partial('_svg/button.svg.phtml', ['btnClean' => true]);?>
             <strong><?=$this->translate($this->buttonSkipLabel);?></strong>
         </a>
     </li>
@@ -87,12 +93,7 @@
 
         <li class="offset-bottom-small">
             <a href="<?=$this->url($linkParameters);?>#vote" class="link-unstyled link-unstyled-alt">
-                <img
-                    src="<?=$this->baseUrl(sprintf('images/voting-rate-%s-undecided.png', $this->settings['button_type']));?>"
-                    class="offset-bottom-small"
-                    alt=""
-                />
-                <br />
+                <?=$this->partial('_svg/button.svg.phtml', ['btnLabel' => sprintf($btnLabelPattern, $this->settings['button_type'], 'no-opinion')]);?>
                 <strong><?=$this->translate($this->buttonUndecidedLabel);?></strong>
             </a>
         </li>

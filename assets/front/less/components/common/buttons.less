@@ -82,4 +82,29 @@
     &-sm {
         .button-size(@padding-small-vertical; @padding-small-horizontal; @font-size-large; 1; @border-radius-small);
     }
+
+    // SVG Buttons
+    &-voting {
+
+        g[id^="label-"] {
+            .translate(3px, 0);
+        }
+
+        g[id^="BUTTON1"] {
+            transition: transform .3s ease .1s;
+        }
+
+        &:hover {
+            g[id^="BUTTON1"] {
+                .translate(0, 5px);
+            }
+        }
+
+        &:active,
+        &:focus {
+            g[id^="BUTTON1"] {
+                .translate(0, 10px);
+            }
+        }
+    }
 }
