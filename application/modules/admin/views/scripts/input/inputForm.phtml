@@ -55,7 +55,7 @@
         </div>
     <?php endif; ?>
 
-    <div class="form-froup">
+    <div class="form-group">
         <label for="js-contribution-map-toggle-location">
             <input type="checkbox"
                 id="js-contribution-map-toggle-location"
@@ -63,13 +63,13 @@
                 data-target="#js-contribution-map"
                 <?php if ($this->element->latitude->getValue() !== null) :?> checked="checked"<? endif; ?>
             >
-                <?=$this->translate('Add location');?>
+                <span class="offset-left"><?=$this->translate('Add location');?></span>
             </input>
         </label>
     </div>
 
     <div
-        class="collapse<?php if ($this->element->latitude->getValue() !== null) :?> in<? endif; ?>"
+        class="collapse<?php if ($this->element->latitude->getValue() !== null) :?> in<? endif; ?> offset-bottom"
         id="js-contribution-map"
     >
 
