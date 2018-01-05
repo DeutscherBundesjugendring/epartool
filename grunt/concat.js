@@ -15,6 +15,7 @@ module.exports = {
       '<%= paths.bower %>/bootstrap/js/dropdown.js',
       '<%= paths.bower %>/bootstrap/js/modal.js',
       '<%= paths.bower %>/bootstrap/js/transition.js',
+      '<%= paths.bower %>/bootstrap-toggle/js/bootstrap-toggle.js',
       '<%= paths.npm %>/leaflet/dist/leaflet.js',
       '<%= paths.npm %>/leaflet.markercluster/dist/leaflet.markercluster.js',
       '<%= paths.src.front %>/js/FollowUp.js',

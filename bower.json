@@ -9,6 +9,7 @@
     "jquery.ui": "~1.10.3",
     "pwstrength-bootstrap": "~1.1.4",
     "bootstrap-colorpicker": "^2.3.3",
-    "ink": "~1.0.5"
+    "ink": "~1.0.5",
+    "bootstrap-toggle": "^2.2.2"
   }
 }

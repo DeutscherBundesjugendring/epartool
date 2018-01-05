@@ -28,23 +28,30 @@
             <?=$input->getElements()['tid'];?>
 
             <!-- Counter -->
-            <div class="text-left js-character-counter">
+            <div class="pull-left text-left js-character-counter">
                 <span id="inputs-<?=$input->getName();?>-thes_counter" class="counter">
                     <span class="counter-digit">3</span><span class="counter-digit">0</span><span class="counter-digit">0</span>
                 </span>
             </div>
 
             <?php if ($this->element->getLocationEnabled()): ?>
-                <div class="text-right">
-                    <label for="js-contribution-add-location-<?=$i;?>"><?=$this->translate('Add location');?></label>
-                    <input
-                        type="checkbox"
-                        class="js-contribution-add-location"
-                        id="js-contribution-add-location-<?=$i;?>"
-                        data-index="<?=$i;?>"
-                        <?php if ($input->getElements()['latitude']->getValue() !== null) :?>checked<? endif; ?>
-                    />
-                </div>
+                <div class="pull-right">
+                    <span aria-hidden="true"><?=$this->translate('Location');?></span>
+                    <label class="offset-bottom-none" for="js-contribution-add-location-<?=$i;?>">
+                        <span class="offset-right-large sr-only"><?=$this->translate('Location');?></span>
+						<input
+							type="checkbox"
+							class="js-contribution-add-location"
+							id="js-contribution-add-location-<?=$i;?>"
+							data-index="<?=$i;?>"
+							data-toggle="toggle"
+							data-size="mini"
+							data-onstyle="success"
+							data-offstyle="default"
+							<?php if ($input->getElements()['latitude']->getValue() !== null) :?>checked<? endif; ?>
+						/>
+					</label>
+				</div>
             <?php endif; ?>
 
             <?=$input->getElements()['thes']->setDecorators(['ViewHelper']);?>

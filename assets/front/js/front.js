@@ -589,7 +589,7 @@
       }
     });
 
-    $('.js-contribution-add-location').on('click', function() {
+    $('.js-contribution-add-location').on('change', function() {
       var index = $(this).data('index');
       var mapEl = $('#js-contribution-map-' + index);
 
