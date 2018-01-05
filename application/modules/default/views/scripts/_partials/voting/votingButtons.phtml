@@ -80,13 +80,6 @@
         </li>
     <?php endforeach; ?>
 
-    <li class="offset-bottom-small">
-        <a href="<?=$this->url($this->skipLinkParameters);?>#vote" class="link-unstyled link-unstyled-alt">
-            <?=$this->partial('_svg/button.svg.phtml', ['btnClean' => true]);?>
-            <strong><?=$this->translate($this->buttonSkipLabel);?></strong>
-        </a>
-    </li>
-
     <!-- No opinion -->
     <?php if ($this->settings['btn_no_opinion']): ?>
         <?php $linkParameters['pts'] = null; ?>
