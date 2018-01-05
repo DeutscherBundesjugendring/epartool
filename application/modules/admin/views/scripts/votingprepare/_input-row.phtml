@@ -37,21 +37,20 @@
         <p>
             <small>
                 <?php if (!empty($this->input['name'])): ?>
-                    <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
-                    <a href="<?=$this->url(['controller' => 'user', 'action' => 'edit', 'uid' => $this->input['uid']]);?>"><?=$this->escape($this->input['name']);?></a>,
+                    <span class="glyphicon glyphicon-user text-muted" aria-hidden="true"></span>
+                    <a class="offset-right-large" href="<?=$this->url(['controller' => 'user', 'action' => 'edit', 'uid' => $this->input['uid']]);?>"><?=$this->escape($this->input['name']);?></a>
                 <?php endif; ?>
-                <?=$this->formatDate($this->input['when']);?>
+                <span class="glyphicon glyphicon-calendar offset-right text-muted"></span>
+                <span class="offset-right-large"><?=$this->formatDate($this->input['when']);?></span>
+                <?php if ($this->input['latitude'] !== null): ?>
+                    <span
+                        class="glyphicon glyphicon-map-marker text-muted"
+                        aria-hidden="true"
+                        title="GPS: <?=$this->input['latitude'];?>, <?=$this->input['longitude'];?>"
+                    ></span>
+                <?php endif; ?>
             </small>
         </p>
-
-        <?php if ($this->input['latitude'] !== null): ?>
-            <span
-                class="glyphicon glyphicon-map-marker"
-                aria-hidden="true"
-                alt="GPS: <?=$this->input['latitude'];?>, <?=$this->input['longitude'];?>"
-                title="GPS: <?=$this->input['latitude'];?>, <?=$this->input['longitude'];?>"
-            ></span>
-        <?php endif; ?>
 
         <?php if (!empty($this->input['tags'])): ?>
             <p>

@@ -19,31 +19,32 @@
         <p>
             <small>
                 <?php if (!empty($this->input['uid'])): ?>
-                    <a href="<?=$this->url(['controller' => 'user', 'action' => 'edit', 'uid' => $this->input['uid']]);?>">
+                    <a class="offset-right-large" href="<?=$this->url(['controller' => 'user', 'action' => 'edit', 'uid' => $this->input['uid']]);?>">
                         <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
                         <?php if ($this->input['name']): ?>
-                            <?=$this->escape($this->input['name']);?>,
+                            <?=$this->escape($this->input['name']);?>
                         <?php endif;?>
                     </a>
                 <?php endif; ?>
-                <?=$this->formatDate($this->input['when']);?>
+                <span class="glyphicon glyphicon-calendar offset-right text-muted"></span>
+                <span class="offset-right-large"><?=$this->formatDate($this->input['when']);?></span>
                 <span
-                    class="glyphicon glyphicon-thumbs-up"
+                    class="glyphicon glyphicon-thumbs-up offset-right text-muted"
                     data-toggle="tooltip"
                     data-placement="bottom"
                     title="<?=$this->translate('Supported by %d users.', $this->input['spprts']);?>"
                 ></span>
-                <?=$this->input['spprts'];?>
+                <span class="offset-right-large"><?=$this->input['spprts'];?></span>
+                <?php if ($this->input['latitude'] !== null): ?>
+                    <span
+                        class="glyphicon glyphicon-map-marker text-muted"
+                        aria-hidden="true"
+                        alt="GPS: <?=$this->input['latitude'];?>, <?=$this->input['longitude'];?>"
+                        title="GPS: <?=$this->input['latitude'];?>, <?=$this->input['longitude'];?>"
+                    ></span>
+                <?php endif; ?>
             </small>
         </p>
-        <?php if ($this->input['latitude'] !== null): ?>
-            <span
-                class="glyphicon glyphicon-map-marker"
-                aria-hidden="true"
-                alt="GPS: <?=$this->input['latitude'];?>, <?=$this->input['longitude'];?>"
-                title="GPS: <?=$this->input['latitude'];?>, <?=$this->input['longitude'];?>"
-            ></span>
-        <?php endif; ?>
         <p>
             <?php foreach ($this->input['tags'] as $tag): ?>
                 <span class="label label-primary"><?=$this->escape($tag['tg_de']);?></span>
