@@ -36,9 +36,9 @@
 
             <?php if ($this->element->getLocationEnabled()): ?>
                 <div class="pull-right">
-                    <span aria-hidden="true"><?=$this->translate('Location');?></span>
+                    <span class="offset-right-small" aria-hidden="true"><?=$this->translate('Location');?></span>
                     <label class="offset-bottom-none" for="js-contribution-add-location-<?=$i;?>">
-                        <span class="offset-right-large sr-only"><?=$this->translate('Location');?></span>
+                        <span class="sr-only"><?=$this->translate('Location');?></span>
 						<input
 							type="checkbox"
 							class="js-contribution-add-location"
@@ -86,7 +86,7 @@
             <?=$input->getElements()['expl']->setDecorators(['ViewHelper']);?>
 
             <!-- Counter -->
-            <div class="text-right js-character-counter" style="display: none">
+            <div class="offset-bottom-small text-left js-character-counter" style="display: none">
                 <span id="inputs-<?=$input->getName();?>-expl_counter" class="counter">
                     <span class="counter-digit">2</span><span class="counter-digit">0</span><span class="counter-digit">0</span><span class="counter-digit">0</span>
                 </span>
