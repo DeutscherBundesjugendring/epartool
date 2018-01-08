@@ -521,8 +521,10 @@
     });
 
     var $previewOfSelected = $('#button_type-element input[type="radio"]:checked');
-    $('#votingButtonsPreviewContent').html($('#votingButtonsPreviewType'
-      + $previewOfSelected.val().charAt(0).toUpperCase() + $previewOfSelected.val().slice(1)).html());
+    if ($previewOfSelected.length > 0) {
+      $('#votingButtonsPreviewContent').html($('#votingButtonsPreviewType'
+        + $previewOfSelected.val().charAt(0).toUpperCase() + $previewOfSelected.val().slice(1)).html());
+    }
   }
 
 }).call(this);
