@@ -55,17 +55,35 @@
         </div>
     <?php endif; ?>
 
-    <div class="form-group">
-        <label for="js-contribution-map-toggle-location">
-            <input type="checkbox"
-                id="js-contribution-map-toggle-location"
-                data-toggle="collapse"
-                data-target="#js-contribution-map"
-                <?php if ($this->element->latitude->getValue() !== null) :?> checked="checked"<? endif; ?>
-            >
-                <span class="offset-left"><?=$this->translate('Add location');?></span>
-            </input>
-        </label>
+    <div class="row">
+        <div class="col-sm-4">
+            <div class="form-group">
+                <label for="js-contribution-map-toggle-location">
+                    <input type="checkbox"
+                        id="js-contribution-map-toggle-location"
+                        data-toggle="collapse"
+                        data-target="#js-contribution-map"
+                        <?php if (!$this->element->getLocationEnabled()): ?>
+                            disabled="disabled"
+                            <?php if (get_class($this->element) !== Admin_Form_CreateInput::class): ?>
+                                title="<?=$this->translate('Location is disabled. You can enable it in question settings.');?>"
+                            <?php endif; ?>
+                        <?php endif; ?>
+                        <?php if ($this->element->latitude->getValue() !== null) :?> checked="checked"<? endif; ?>
+                    >
+                        <span class="offset-left"><?=$this->translate('Add location');?></span>
+                    </input>
+                </label>
+            </div>
+        </div>
+        <div class="col-sm-8">
+            <?php if (!$this->element->getLocationEnabled()
+                && get_class($this->element) !== Admin_Form_CreateInput::class): ?>
+                <span class="alert alert-info">
+                    <?=$this->translate('Location is disabled. You can enable it in question settings.');?>
+                </span>
+            <?php endif; ?>
+        </div>
     </div>
 
     <div

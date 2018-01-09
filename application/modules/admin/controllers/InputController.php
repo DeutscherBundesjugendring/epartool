@@ -255,6 +255,8 @@ class Admin_InputController extends Zend_Controller_Action
             )
         );
 
+        $form->setLocationEnabled($question['location_enabled']);
+
         if ($this->_request->isPost()) {
             $data = $this->_request->getPost();
             if ($form->isValid($data)) {
@@ -345,6 +347,7 @@ class Admin_InputController extends Zend_Controller_Action
         $inputModel = new Model_Inputs();
         $form = new Admin_Form_CreateInput($cancelUrl);
         $form->setVideoEnabled(false);
+        $form->setLocationEnabled(false);
 
         if ($this->_request->isPost()) {
             $data = $this->_request->getPost();
@@ -374,7 +377,7 @@ class Admin_InputController extends Zend_Controller_Action
             }
         } else {
             $this->_flashMessenger->addMessage(
-                    'Video contribution settings are inherited from Question, therefore it is possible to add a video only after saving this Contribution thus linking it to a Question.',
+                    'Video contribution settings are inherited from Question, therefore it is possible to add a video or location only after saving this Contribution thus linking it to a Question.',
                     'info'
                 );
             $form->populate(['is_confirmed_by_user' => null, 'is_confirmed' => true, 'is_votable' => null]);

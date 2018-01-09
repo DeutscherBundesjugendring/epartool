@@ -7,6 +7,11 @@ class Default_Form_Input_Create extends Dbjr_Form_Web
      */
     protected $videoEnabled;
 
+    /**
+     * @var bool
+     */
+    protected $locationEnabled;
+
     public function init()
     {
         $this->setAttrib('class', 'js-contribution-create-form');
@@ -196,6 +201,26 @@ class Default_Form_Input_Create extends Dbjr_Form_Web
     public function setVideoEnabled($videoEnabled)
     {
         $this->videoEnabled = $videoEnabled;
+
+        return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function getLocationEnabled()
+    {
+        return $this->locationEnabled;
+    }
+
+    /**
+     * @param bool $locationEnabled
+     * @return \Default_Form_Input_Create
+     */
+    public function setLocationEnabled($locationEnabled)
+    {
+        $this->locationEnabled = $locationEnabled;
+
         return $this;
     }
 }

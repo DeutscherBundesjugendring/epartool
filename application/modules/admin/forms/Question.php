@@ -53,6 +53,12 @@ class Admin_Form_Question extends Dbjr_Form_Admin
             ->setRequired(false);
         $this->addElement($enableVideo);
 
+        $enableLocation = $this->createElement('checkbox', 'location_enabled');
+        $enableLocation
+            ->setLabel('Allow location in contributions')
+            ->setRequired(false);
+        $this->addElement($enableLocation);
+
         // CSRF Protection
         $hash = $this->createElement('hash', 'csrf_token_question', array('salt' => 'unique'));
         $hash->setSalt(md5(mt_rand(1, 100000) . time()));

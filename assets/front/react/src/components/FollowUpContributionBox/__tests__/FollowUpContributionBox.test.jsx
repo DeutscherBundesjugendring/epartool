@@ -17,11 +17,14 @@ describe('rendering', () => {
     expect(shallowToJson(tree)).toMatchSnapshot();
   });
 
-  it('renders correctly with all texts, embedded video and voting', () => {
+  it('renders correctly with all texts, embedded video, location and voting', () => {
     const tree = shallow(
       <FollowUpContributionBox
         contributionThesis="Contribution thesis"
         contributionExplanation="Contribution explanation"
+        locationEnabled={true}
+        latitude={1.1}
+        longitude={1.2}
         question="Question"
         questionNumber="1"
         videoService="youtube"

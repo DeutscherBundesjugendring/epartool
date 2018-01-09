@@ -38,7 +38,7 @@ const FollowUpContributionBox = props => (
           </p>
         </div>
       }
-      {!!props.latitude && !!props.longitude &&
+      {props.locationEnabled && !!props.latitude && !!props.longitude &&
         <StaticMap
           latitude={props.latitude}
           longitude={props.longitude}
@@ -52,6 +52,7 @@ FollowUpContributionBox.propTypes = {
   contributionThesis: React.PropTypes.string.isRequired,
   contributionExplanation: React.PropTypes.string,
   latitude: React.PropTypes.number,
+  locationEnabled: React.PropTypes.bool,
   longitude: React.PropTypes.number,
   question: React.PropTypes.string.isRequired,
   questionNumber: React.PropTypes.string,

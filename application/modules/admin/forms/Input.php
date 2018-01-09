@@ -17,6 +17,11 @@ class Admin_Form_Input extends Dbjr_Form_Admin
     protected $videoEnabled;
 
     /**
+     * @var bool
+     */
+    protected $locationEnabled;
+
+    /**
      * @var string
      */
     private $afterSubmitAction;
@@ -191,6 +196,26 @@ class Admin_Form_Input extends Dbjr_Form_Admin
     public function setVideoEnabled($videoEnabled)
     {
         $this->videoEnabled = $videoEnabled;
+
+        return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function getLocationEnabled()
+    {
+        return $this->locationEnabled;
+    }
+
+    /**
+     * @param bool $locationEnabled
+     * @return \Admin_Form_Input
+     */
+    public function setLocationEnabled($locationEnabled)
+    {
+        $this->locationEnabled = $locationEnabled;
+
         return $this;
     }
 

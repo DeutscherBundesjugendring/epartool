@@ -377,7 +377,7 @@ class Api_FollowupController extends Dbjr_Api_BaseController
             ->select()
             ->setIntegrityCheck(false)
             ->from(['c' => $contribModel->info($contribModel::NAME)])
-            ->join(['q' => 'quests'], 'c.qi = q.qi', ['q', 'kid', 'nr'])
+            ->join(['q' => 'quests'], 'c.qi = q.qi', ['q', 'kid', 'nr', 'location_enabled'])
             ->where('tid IN (?)', $contributionIds)
             ->query()
             ->fetchAll();
@@ -405,6 +405,7 @@ class Api_FollowupController extends Dbjr_Api_BaseController
                 'qi' => (int) $row['qi'],
                 'question' => $row['q'],
                 'question_number' => $row['nr'],
+                'location_enabled' => (bool) $row['location_enabled'],
                 'latitude' => (float) $row['latitude'],
                 'longitude' => (float) $row['longitude'],
                 'thes' => $row['thes'],

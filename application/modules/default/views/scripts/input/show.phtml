@@ -80,23 +80,25 @@
             <!-- Contributions -->
             <a name="contributions"></a>
 
-            <div class="btn-group btn-group-center offset-bottom" role="group" aria-label="<?=$this->translate('View');?>">
-                <a
-                    href="<?=$this->url(['type' => null]);?>#contributions"
-                    class="btn <?=$this->listType !== 'map' ? 'btn-default active' : 'btn-default-alt';?>"
-                >
-                    <span class="glyphicon glyphicon-list offset-right-small" aria-hidden="true"></span>
-                    <?=$this->translate('List');?>
-                </a>
-                <a
-                    href="<?=$this->url(['type' => 'map']);?>#contributions"
-                    class="btn <?=$this->listType === 'map' ? 'btn-default active' : 'btn-default-alt';?>"
-                >
-                    <span class="glyphicon glyphicon-map-marker offset-right-small" aria-hidden="true"></span>
-                    <?=$this->translate('Map');?>
-                </a>
-            </div>
-            <hr />
+            <?php if ($this->question['location_enabled']): ?>
+                <div class="btn-group btn-group-center offset-bottom" role="group" aria-label="<?=$this->translate('View');?>">
+                    <a
+                        href="<?=$this->url(['type' => null]);?>#contributions"
+                        class="btn <?=$this->listType !== 'map' ? 'btn-default active' : 'btn-default-alt';?>"
+                    >
+                        <span class="glyphicon glyphicon-list offset-right-small" aria-hidden="true"></span>
+                        <?=$this->translate('List');?>
+                    </a>
+                    <a
+                        href="<?=$this->url(['type' => 'map']);?>#contributions"
+                        class="btn <?=$this->listType === 'map' ? 'btn-default active' : 'btn-default-alt';?>"
+                    >
+                        <span class="glyphicon glyphicon-map-marker offset-right-small" aria-hidden="true"></span>
+                        <?=$this->translate('Map');?>
+                    </a>
+                </div>
+                <hr />
+            <?php endif; ?>
 
             <?php if ($this->listType === 'map'): ?>
                 <?=$this->openStreetMapsConfig();?>
@@ -106,6 +108,7 @@
                     'supports' => $supports,
                     'supportsDisabled' => $supportsDisabled,
                     'videoServicesStatus' => $this->videoServicesStatus,
+                    'question' => $this->question,
                 ]);?>
             <?php else: ?>
                 <?=$this->partial('_partials/contributionsList.phtml', [
@@ -115,6 +118,7 @@
                     'supportsDisabled' => $supportsDisabled,
                     'videoServicesStatus' => $this->videoServicesStatus,
                     'videoEnabled' => $this->videoEnabled,
+                    'question' => $this->question,
                 ]);?>
             <?php endif; ?>
 

@@ -34,16 +34,18 @@
                 </span>
             </div>
 
-            <div class="text-right">
-                <label for="js-contribution-add-location-<?=$i;?>"><?=$this->translate('Add location');?></label>
-                <input
-                    type="checkbox"
-                    class="js-contribution-add-location"
-                    id="js-contribution-add-location-<?=$i;?>"
-                    data-index="<?=$i;?>"
-                    <?php if ($input->getElements()['latitude']->getValue() !== null) :?>checked<? endif; ?>
-                />
-            </div>
+            <?php if ($this->element->getLocationEnabled()): ?>
+                <div class="text-right">
+                    <label for="js-contribution-add-location-<?=$i;?>"><?=$this->translate('Add location');?></label>
+                    <input
+                        type="checkbox"
+                        class="js-contribution-add-location"
+                        id="js-contribution-add-location-<?=$i;?>"
+                        data-index="<?=$i;?>"
+                        <?php if ($input->getElements()['latitude']->getValue() !== null) :?>checked<? endif; ?>
+                    />
+                </div>
+            <?php endif; ?>
 
             <?=$input->getElements()['thes']->setDecorators(['ViewHelper']);?>
 
@@ -83,24 +85,26 @@
                 </span>
             </div>
 
-            <div
-                class="js-contribution-map<?php if ($input->getElements()['latitude']->getValue() === null) :?> js-contribution-map-collapsed<? endif; ?>"
-                id="js-contribution-map-<?=$i;?>"
-                data-index="<?=$i;?>"
-            >
-                <a
-                    href="#"
-                    class="js-contribution-map-button-my-location btn btn-default btn-xs hidden-print"
-                    id="js-contribution-map-button-my-location-<?=$i;?>"
+            <?php if ($this->element->getLocationEnabled()): ?>
+                <div
+                    class="js-contribution-map<?php if ($input->getElements()['latitude']->getValue() === null) :?> js-contribution-map-collapsed<? endif; ?>"
+                    id="js-contribution-map-<?=$i;?>"
                     data-index="<?=$i;?>"
-                    style="position: absolute; z-index: 450;right: 50px; margin-top: 10px;"
                 >
-                    <?=$this->translate('Use My location');?>
-                </a>
-                <div id="js-contribution-map-canvas-<?=$i;?>" style="height: 300px;"></div>
-            </div>
-            <?=$input->getElements()['latitude']->setDecorators(['ViewHelper']);?>
-            <?=$input->getElements()['longitude']->setDecorators(['ViewHelper']);?>
+                    <a
+                        href="#"
+                        class="js-contribution-map-button-my-location btn btn-default btn-xs hidden-print"
+                        id="js-contribution-map-button-my-location-<?=$i;?>"
+                        data-index="<?=$i;?>"
+                        style="position: absolute; z-index: 450;right: 50px; margin-top: 10px;"
+                    >
+                        <?=$this->translate('Use My location');?>
+                    </a>
+                    <div id="js-contribution-map-canvas-<?=$i;?>" style="height: 300px;"></div>
+                </div>
+                <?=$input->getElements()['latitude']->setDecorators(['ViewHelper']);?>
+                <?=$input->getElements()['longitude']->setDecorators(['ViewHelper']);?>
+            <?php endif; ?>
         </fieldset>
 
         <?php $i++; ?>

@@ -8,7 +8,7 @@
             <?php $i = 1;?>
             <?php if (!empty($this->contributionsList)): ?>
                 <?php foreach ($this->contributionsList as $contribution): ?>
-                    <?php if ($contribution['latitude'] !== null): ?>
+                    <?php if ($contribution['location_enabled'] && $contribution['latitude'] !== null): ?>
                         <div class="row offset-bottom">
                             <div class="col-sm-9">
                     <?php endif; ?>
@@ -28,7 +28,7 @@
                         </a>
                     </p>
 
-                    <?php if ($contribution['latitude'] !== null): ?>
+                    <?php if ($contribution['location_enabled'] && $contribution['latitude'] !== null): ?>
                             </div>
                             <div class="col-sm-3">
                                 <div class="map-static map-static-small map-static-right-sm">

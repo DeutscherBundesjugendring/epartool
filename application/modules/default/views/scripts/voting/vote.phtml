@@ -98,6 +98,18 @@
                             </p>
                         <?php endif; ?>
 
+                        <?php if ($this->question['location_enabled'] && $this->thesis['latitude'] !== null): ?>
+                            <div class="thumbnail">
+                                <?=$this->openStreetStaticMap(
+                                    $this->thesis['latitude'],
+                                    $this->thesis['longitude'],
+                                    640,
+                                    240,
+                                    12
+                                );?>
+                            </div>
+                        <?php endif; ?>
+
                         <!-- Explanation toggle -->
                         <?php if (!empty($this->thesis['expl'])): ?>
                             <button type="button" class="btn btn-inverse btn-xs well-toggle js-toggle-voting-contribution-explanation" title="<?=$this->translate('Show explanation');?>">

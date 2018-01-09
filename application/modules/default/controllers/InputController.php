@@ -80,6 +80,17 @@ class InputController extends Zend_Controller_Action
 
         $form = $this->getInputForm();
         $question = (new Model_Questions())->find($qid)->current();
+        if (!$question['location_enabled'] && $listType === 'map') {
+            $this->redirect($this->view->url([
+                'controller' => 'input',
+                'action' => 'show',
+                'kid' => $kid,
+                'qid' => $qid,
+                'type' => null,
+                'tag' => $tag,
+            ]));
+        }
+        $form->setLocationEnabled($question['location_enabled']);
         $form->setVideoEnabled($question['video_enabled']);
 
         if ($this->getRequest()->isPost()) {

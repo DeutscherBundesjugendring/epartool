@@ -214,7 +214,7 @@ class Model_Inputs extends Dbjr_Db_Table_Abstract
             ->join(
                 ['q' => (new Model_Questions())->info(Model_Questions::NAME)],
                 'q.qi = i.qi',
-                []
+                ['location_enabled']
             )->join(
                 ['cnslt' => (new Model_Consultations())->info(Model_Consultations::NAME)],
                 'cnslt.kid = q.kid',
@@ -1770,7 +1770,11 @@ class Model_Inputs extends Dbjr_Db_Table_Abstract
         $select = $this->select()
             ->setIntegrityCheck(false)
             ->from(['i' => $this->info(self::NAME)])
-            ->joinLeft(['q' => (new Model_Questions())->info(self::NAME)], 'q.qi = i.qi', ['kid', 'video_enabled'])
+            ->joinLeft(
+                ['q' => (new Model_Questions())->info(self::NAME)],
+                'q.qi = i.qi',
+                ['kid', 'video_enabled', 'location_enabled']
+            )
             ->joinLeft([
                 'f' => (new Model_FollowupsRef())->info(Model_FollowupsRef::NAME)],
                 'f.tid = i.tid',

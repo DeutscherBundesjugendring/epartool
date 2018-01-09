@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`rendering renders correctly with all texts, embedded video and voting 1`] = `
+exports[`rendering renders correctly with all texts, embedded video, location and voting 1`] = `
 <div
   className="followup-flow"
 >
@@ -48,6 +48,12 @@ exports[`rendering renders correctly with all texts, embedded video and voting 1
         </a>
       </p>
     </div>
+    <StaticMap
+      height={120}
+      latitude={1.1}
+      longitude={1.2}
+      width={240}
+    />
   </div>
 </div>
 `;

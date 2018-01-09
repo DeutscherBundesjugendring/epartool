@@ -32,7 +32,7 @@
                         </p>
                     <?php endif; ?>
                 </div>
-                <?php if ($input['latitude'] !== null): ?>
+                <?php if ($this->question['location_enabled'] && $input['latitude'] !== null): ?>
                     <div class="col-sm-4 col-md-3">
                         <div class="map-static map-static-right-sm">
                             <?=$this->openStreetStaticMap(
