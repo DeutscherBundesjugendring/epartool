@@ -636,7 +636,7 @@ class VotingController extends Zend_Controller_Action
         $pts = (string) $param['pts'];
         $tid = (int)$param['tid'];
 
-        if (!$this->settings['btn_important']) {
+        if (!$this->settings['is_btn_important']) {
             $this->_flashMessenger -> addMessage('Clicking the superbutton is not allowed.', 'info');
             $this->redirect('/voting/vote/kid/' . $this->_consultation->kid);
             return;
@@ -806,7 +806,7 @@ class VotingController extends Zend_Controller_Action
             ) {
                 $form->disable();
             }
-            
+
             $this->view->form = $form;
             if (empty($votesData)) {
                 $this->_flashMessenger->addMessage('No unconfirmed votes to process.', 'info');
