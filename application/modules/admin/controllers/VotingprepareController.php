@@ -220,7 +220,7 @@ class Admin_VotingprepareController extends Zend_Controller_Action
                     $this->view->url([
                         'controller' => 'input',
                         'action' => 'edit',
-                        'tid' => $origInputId,
+                        'tid' => $newInputId,
                         'return' => 'votingprepare',
                     ]),
                     ['prependBase' => false]
