@@ -94,7 +94,7 @@
 
             <?php if ($this->element->getLocationEnabled()): ?>
                 <div
-                    class="js-contribution-map<?php if ($input->getElements()['latitude']->getValue() === null) :?> js-contribution-map-collapsed<? endif; ?>"
+                    class="js-contribution-map<?php if ($input->getElements()['latitude']->getValue() === null) :?> js-contribution-map-collapsed<? endif; ?> offset-top-small"
                     id="js-contribution-map-<?=$i;?>"
                     data-index="<?=$i;?>"
                 >
