@@ -1,12 +1,14 @@
-<?php ob_start(); ?>
+<?php
+    ob_start();
+    $leftTopCorner = null;
+    $rightBottomCorner = null;
+?>
     <?php if (count($this->inputs)): ?>
         <script type="text/javascript">
             var markers = {};
             var markersGroup = L.markerClusterGroup();
             var markersData = {
                 <?php
-                $leftTopCorner = null;
-                $rightBottomCorner = null;
                 foreach ($this->inputs as $input):
                     if ($input['location_enabled'] && $input['latitude'] !== null && $input['longitude'] !== null) {
                         if ($leftTopCorner === null) {

@@ -522,7 +522,7 @@ class Model_Inputs extends Dbjr_Db_Table_Abstract
             ->joinLeft([
                 'q' => (new Model_Questions())->info(Model_Questions::NAME)],
                 'q.qi = i.qi',
-                ['kid', 'video_enabled']
+                ['kid', 'video_enabled', 'location_enabled']
             )
             ->joinLeft(
                 ['id' => 'input_discussion'],
