@@ -39,30 +39,38 @@
                         }
                     }
                     ?>
-                    'marker<?=$input['tid'];?>': {
-                        'tid': <?=$input['tid'];?>,
-                        'latitude': <?=($input['latitude'] === null ? 'null' : $input['latitude']);?>,
-                        'longitude': <?=($input['longitude'] === null ? 'null' : $input['longitude']);?>,
-                        'date': '<?=$this->formatDate($input['when'], Zend_Date::DATE_MEDIUM);?>',
-                        'thes': '<?=$input['thes'];?>',
-                        'expl': '<?=($input['expl'] === null ? '' : $input['expl']);?>',
-                        'embeddedVideo': '<?php if ($input['video_enabled'] && $input['video_service'] !== null
+                    'marker<?=$input['tid'];?>': <?=json_encode([
+                        'tid' => $input['tid'],
+                        'latitude' => $input['latitude'] === null ? null : $input['latitude'],
+                        'longitude' => $input['longitude'] === null ? null : $input['longitude'],
+                        'date' => $this->formatDate($input['when'], Zend_Date::DATE_MEDIUM),
+                        'thes' => $input['thes'],
+                        'expl' => $input['expl'] === null ? '' : $input['expl'],
+                        'embeddedVideo' => ($input['video_enabled']
+                            && $input['video_service'] !== null
                             && $input['video_id'] !== null
                             && $this->videoServicesStatus['video_' . $input['video_service'] . '_enabled']
-                        ):
-                            ?><?=trim(str_replace(PHP_EOL, '', $this->embeddedVideo($input['video_service'], $input['video_id']))); ?><?php endif; ?>',
-                        'spprts': <?=$input['spprts'];?>,
-                        'supportEnabled': <?= ((in_array($input['tid'], $this->supports->clicks) || $this->supportsDisabled) ? 'false' : 'true')?>,
-                        'discussionUrl': '<?=$this->url([
+                        )
+                            ? trim(str_replace(
+                                PHP_EOL,
+                                '',
+                                $this->embeddedVideo($input['video_service'], $input['video_id'])
+                            ))
+                            : false,
+                        'spprts' => $input['spprts'],
+                        'supportEnabled' => (in_array($input['tid'], $this->supports->clicks) || $this->supportsDisabled)
+                            ? false
+                            : true,
+                        'discussionUrl' => $this->url([
                             'controller' => 'input',
                             'action' => 'discussion',
                             'kid' => $input['kid'],
                             'inputId' => $input['tid'],
                             'page' => null,
                             'type' => null,
-                        ]);?>',
-                        'discussionPostCount': <?=(int)$input['discussionPostCount'];?>,
-                        'followupLink': '<?=$this->url([
+                        ]),
+                        'discussionPostCount' => (int) $input['discussionPostCount'],
+                        'followupLink' => $this->url([
                             'controller' => 'followup',
                             'action' => 'show',
                             'kid' => $input['kid'],
@@ -70,9 +78,9 @@
                             'tid' => $input['tid'],
                             'page' => null,
                             'type' => null,
-                        ]);?>',
-                        'reactionsCount': <?=((int)$input['count_relations'] + (int)$input['count_followups']);?>,
-                    },
+                        ]),
+                        'reactionsCount' => (int) $input['count_relations'] + (int) $input['count_followups'],
+                    ])?>,
 
                 <?php endforeach; ?>
             };
@@ -88,7 +96,7 @@
                     '<strong>' + data.thes + '</strong>' +
                     '</p>' +
                     (data.expl !== '' ? '<p>' + data.expl + '</p>' : '') +
-                    (data.embeddedVideo !== '' ? '<div class="offset-bottom">' + data.embeddedVideo + '</div>' : '') +
+                    (data.embeddedVideo ? '<div class="offset-bottom">' + data.embeddedVideo + '</div>' : '') +
                     '<!-- Actions -->' +
                     '<footer>' +
                     '<!-- Support -->' +
