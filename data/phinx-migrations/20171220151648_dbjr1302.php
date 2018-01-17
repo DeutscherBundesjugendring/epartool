@@ -15,7 +15,7 @@ EOD
 
         $this->execute(<<<EOD
 CREATE TABLE `voting_buttons_type` (
-  `buttons_type` varchar(191) NOT NULL
+  `buttons_type` varchar(191) COLLATE 'utf8mb4_unicode_ci' NOT NULL
 ) ENGINE='InnoDB';
 EOD
         );
@@ -34,7 +34,11 @@ EOD
 
         $this->execute(<<<EOD
 ALTER TABLE `vt_settings`
-ADD `button_type` varchar(191) NOT NULL DEFAULT 'stars',
+ADD `button_type` varchar(191) NOT NULL DEFAULT 'stars';
+EOD
+        );
+        $this->execute(<<<EOD
+ALTER TABLE `vt_settings`
 ADD FOREIGN KEY (`button_type`) REFERENCES `voting_buttons_type` (`buttons_type`) ON DELETE RESTRICT;
 EOD
         );

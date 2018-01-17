@@ -50,9 +50,10 @@ You can use the file `application/configs/config.local-example.ini` as a templat
 
 #### DB
 * Create database (see [Requirements](#Requirements))
-* Run the following SQL files in the specified order:
+* Run the following SQL files and commands in the specified order:
     1. `data/create-installation.sql`
-    2. `data/create-project.sql` (ensure the var `@project_code` is set to whatever is specified in the setting `project` in `application/configs/config.local.ini`)
+    2. `$ robo phinx:migrate production` 
+    3. `data/create-project.sql` (ensure the var `@project_code` is set to whatever is specified in the setting `project` in `application/configs/config.local.ini`)
 * Optionally run the following SQL files:
     * `data/create-sample-data.sql`
     * `data/create-admin.sql`
@@ -71,7 +72,7 @@ Regardless of the installation method, the following tasks must be done:
 Upgrading the tool version consists of the following steps:
 1. Updating the project files
 2. Building the application
-3. Applying database patches
+3. Running `$ robo phinx:migrate production` to apply database patches
 
 
 ## Dev mode

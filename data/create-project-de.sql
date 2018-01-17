@@ -1082,7 +1082,6 @@ INSERT INTO `help_text` (`name`, `body`, `project_code`, `module`) VALUES
 
 ('help-text-admin-consultation-voting-preparation', 'Sample voting-preparation text.', @project_code, 'admin'),
 ('help-text-admin-consultation-voting-permissions', 'Sample voting-permissions text.', @project_code, 'admin'),
-('help-text-admin-consultation-voting-invitations', 'Sample voting-invitations text.', @project_code, 'admin'),
 ('help-text-admin-consultation-voting-participants', 'Sample voting-participants text.', @project_code, 'admin'),
 ('help-text-admin-consultation-voting-results', 'Sample voting-results text.', @project_code, 'admin'),
 ('help-text-admin-consultation-follow-up', 'Sample follow-up text.', @project_code, 'admin'),
