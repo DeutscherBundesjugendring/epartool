@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "POT-Creation-Date: 2018-01-02 16:28+0100\n"
-"PO-Revision-Date: 2018-01-02 16:28+0100\n"
+"PO-Revision-Date: 2018-01-17 11:10+0100\n"
 "Last-Translator: Martin Bohal <mb@mbohal.cz>\n"
 "Language-Team: \n"
 "Language: cs\n"
@@ -29,11 +29,11 @@ msgstr "Obecné"
 
 #: application/models/FollowupFiles.php:24 application/models/Followups.php:28
 msgid "Supporting"
-msgstr ""
+msgstr "Podpora"
 
 #: application/models/FollowupFiles.php:25 application/models/Followups.php:29
 msgid "Action"
-msgstr ""
+msgstr "Akce"
 
 #: application/models/FollowupFiles.php:26 application/models/Followups.php:30
 #: application/modules/admin/forms/Input.php:87
@@ -43,51 +43,51 @@ msgstr "Odmítnuto"
 
 #: application/models/FollowupFiles.php:27 application/models/Followups.php:31
 msgid "End"
-msgstr ""
+msgstr "Konec"
 
 #: application/models/HelpText.php:17
 msgid "Home page"
-msgstr ""
+msgstr "Domácí stránka"
 
 #: application/models/HelpText.php:18
 msgid "Consultation info"
-msgstr ""
+msgstr "Informace k poradám"
 
 #: application/models/HelpText.php:19
 msgid "Consultation question"
-msgstr ""
+msgstr "Otázka k poradám"
 
 #: application/models/HelpText.php:20
 msgid "Consultation input"
-msgstr ""
+msgstr "Příspěvky do porady"
 
 #: application/models/HelpText.php:21
 msgid "Consultation voting"
-msgstr ""
+msgstr "Hlasování porady"
 
 #: application/models/HelpText.php:22
 msgid "Consultation Reactions & Impact"
-msgstr ""
+msgstr "Doplnění porady"
 
 #: application/models/HelpText.php:23
 msgid "Login"
-msgstr ""
+msgstr "Přihlášení"
 
 #: application/models/HelpText.php:25
 msgid "Voting preparation"
-msgstr ""
+msgstr "Připrava k hlasování "
 
 #: application/models/HelpText.php:26
 msgid "Voting permissions"
-msgstr ""
+msgstr "Povolení pro Hlasování"
 
 #: application/models/HelpText.php:27
 msgid "Voting participants"
-msgstr ""
+msgstr "Účastníci Hlasování"
 
 #: application/models/HelpText.php:28
 msgid "Voting results"
-msgstr ""
+msgstr "Výsledky hlasování"
 
 #: application/models/HelpText.php:29
 #: application/modules/admin/views/scripts/consultation/_consultationForm.phtml:97
@@ -103,23 +103,23 @@ msgstr "Doplňující výňatky"
 
 #: application/models/HelpText.php:33
 msgid "Consultation general settings"
-msgstr ""
+msgstr "Obecná nastavení porady"
 
 #: application/models/HelpText.php:35
 msgid "Consultation participant settings"
-msgstr ""
+msgstr "Nastavení účastníků porady"
 
 #: application/models/HelpText.php:37
 msgid "Consultation voting settings"
-msgstr ""
+msgstr "Nastavení hlasování porady"
 
 #: application/models/HelpText.php:39
 msgid "Consultation phase settings"
-msgstr ""
+msgstr "Nastavení poradní etapy"
 
 #: application/models/HelpText.php:41
 msgid "Consultation group settings"
-msgstr ""
+msgstr "Nastavení poradní skupiny"
 
 #: application/models/HelpText.php:43
 #: application/modules/admin/views/helpers/SettingsNavigation.php:32
@@ -193,7 +193,7 @@ msgstr "Změny byly uloženy."
 
 #: application/modules/admin/controllers/ArticleController.php:215
 msgid "This article could not be deleted."
-msgstr "Tento článek nešlo smazat."
+msgstr "Tento článek se nepodařilo smazat."
 
 #: application/modules/admin/controllers/ArticleController.php:222
 msgid "Article has been deleted."
@@ -204,7 +204,7 @@ msgid ""
 "Article could not be deleted. If there are any sub-articles, these have to "
 "be removed first."
 msgstr ""
-"Článek nemohl být vytvořen. Pokud existují nějaké podčlánky, musí nejprve "
+"Článek se nepodařilo smazat. Pokud existují nějaké podčlánky, musí nejprve "
 "být smazány."
 
 #: application/modules/admin/controllers/ArticleController.php:301
@@ -247,7 +247,7 @@ msgstr "Údaje byly vytvořeny/aktualizovány."
 
 #: application/modules/admin/controllers/CloseController.php:233
 msgid "No consultation named."
-msgstr "Porada nebyla pojmenována."
+msgstr "Žádná porada nebyla jmenována."
 
 #: application/modules/admin/controllers/CloseController.php:310
 msgid "Invalid question id."
@@ -265,7 +265,7 @@ msgstr "Diskuzní příspěvek byl smazán."
 
 #: application/modules/admin/controllers/ConsultationController.php:154
 msgid "Creating new consultation failed."
-msgstr "Vytvoření nové porady selhalo."
+msgstr "Vytvoření nové porady se nepodařilo."
 
 #: application/modules/admin/controllers/ConsultationController.php:158
 msgid "New consultation has been created."
@@ -298,8 +298,8 @@ msgid ""
 "Form settings cannot be updated. Please check the errors marked in the form "
 "below and try again."
 msgstr ""
-"Aktualizace nastavení formulářů se nezdařila. Prosím opravte vyznačené chyby "
-"a zkuste znovu. "
+"Aktualizace nastavení formulářů se nezdařila. Prosím oprav vyznačené chyby a "
+"zkus znovu. "
 
 #: application/modules/admin/controllers/ConsultationController.php:511
 msgid "Cannot delete already used groups."
@@ -318,12 +318,12 @@ msgid ""
 "Age groups settings cannot be updated. Please check the errors marked in the "
 "form below and try again."
 msgstr ""
-"Aktualizace nastevní věkových skupin se nezdařila. Prosím opravte vyznačené "
-"chyby a zkuste znovu."
+"Aktualizace nastevní věkových skupin se nezdařila. Prosím oprav vyznačené "
+"chyby a zkus znovu."
 
 #: application/modules/admin/controllers/ConsultationController.php:592
 msgid "Dou you want to delete this interval?"
-msgstr ""
+msgstr "Chceš tento interval smazat?"
 
 #: application/modules/admin/controllers/FollowupController.php:57
 msgid "New snippet has been successfully created."
@@ -331,7 +331,7 @@ msgstr "Nový výňatek byl úspěšně vytvořen."
 
 #: application/modules/admin/controllers/FollowupController.php:73
 msgid "The snippet could not be created."
-msgstr "Výňatek nemohl nešlo vytvořit."
+msgstr "Výňatek se nepodařilo vytvořit."
 
 #: application/modules/admin/controllers/FollowupController.php:78
 msgid "Create Reactions & Impact Snippet"
@@ -339,7 +339,7 @@ msgstr "Vytvořit doplňující výňatek"
 
 #: application/modules/admin/controllers/FollowupController.php:116
 msgid "The snippet could not be saved."
-msgstr "Výňatek nešlo uložit."
+msgstr "Výňatek se nepodařilo uložit."
 
 #: application/modules/admin/controllers/FollowupController.php:124
 msgid "Edit Reactions & Impact Snippet"
@@ -351,7 +351,7 @@ msgstr "Nové doplnění bylo úspěšně vytvořeno."
 
 #: application/modules/admin/controllers/FollowupController.php:148
 msgid "The Reactions & Impact could not be created."
-msgstr "Doplnění nebylo vytvořeno."
+msgstr "Doplnění se nepodařilo vytvořit."
 
 #: application/modules/admin/controllers/FollowupController.php:153
 msgid "Create Reactions & Impact"
@@ -359,7 +359,7 @@ msgstr "Vytvořit doplnění"
 
 #: application/modules/admin/controllers/FollowupController.php:179
 msgid "The Reactions & Impact could not be saved."
-msgstr "Doplnění nešlo uložit."
+msgstr "Doplnění  se nepodařilo uložit."
 
 #: application/modules/admin/controllers/FollowupController.php:188
 #: application/modules/admin/views/scripts/followup/index.phtml:61
@@ -412,7 +412,7 @@ msgstr "Tento příspěvek nelze smazat, neboť se o něm už hlasovalo."
 
 #: application/modules/admin/controllers/InputController.php:278
 msgid "Contribution was deleted."
-msgstr "Příspěvek smazán."
+msgstr "Příspěvek byl smazán."
 
 #: application/modules/admin/controllers/InputController.php:281
 msgid "Delete contribution failed."
@@ -439,7 +439,7 @@ msgid ""
 "New contribution cannot be created. Please check the errors marked in the "
 "form below and try again."
 msgstr ""
-"Nový příspěvek nelze vytvořit. Prosím opravte vyznačené chyby a zkuste znovu."
+"Nový příspěvek nelze vytvořit. Prosím oprav vyznačené chyby a zkus znovu."
 
 #: application/modules/admin/controllers/InputController.php:377
 #: application/modules/admin/controllers/VotingprepareController.php:184
@@ -495,7 +495,7 @@ msgstr "Neznámý"
 
 #: application/modules/admin/controllers/InputController.php:512
 msgid "Loading…"
-msgstr ""
+msgstr "Načítám..."
 
 #: application/modules/admin/controllers/InputDiscussionController.php:51
 msgid "The discussion contribution was hidden."
@@ -525,7 +525,7 @@ msgstr "Komponent byl uložen."
 
 #: application/modules/admin/controllers/MailComponentController.php:99
 msgid "Component has been deleted."
-msgstr "Komponent byla smazán."
+msgstr "Komponent byl smazán."
 
 #: application/modules/admin/controllers/MailQueuedController.php:36
 msgid "All emails have been successfully sent."
@@ -570,7 +570,7 @@ msgstr "Složku se nepodařilo přejmenovat."
 
 #: application/modules/admin/controllers/MediaController.php:209
 msgid "The file could not be renamed."
-msgstr "Tento souborse nepodařilo přejmenovat."
+msgstr "Tento soubor se nepodařilo přejmenovat."
 
 #: application/modules/admin/controllers/MediaController.php:273
 msgid "Create"
@@ -646,8 +646,7 @@ msgid ""
 "Services settings could not be updated. Please check the errors marked in "
 "the form below and try again."
 msgstr ""
-"Aktualizace služeb se nezdařila. Prosím opravte vyznačené chyby a zkuste "
-"znovu."
+"Aktualizace služeb se nezdařila. Prosím oprav vyznačené chyby a zkus znovu."
 
 #: application/modules/admin/controllers/SettingsController.php:264
 msgid "Theme was updated."
@@ -658,14 +657,15 @@ msgid ""
 "Theme settings cannot be updated. Please check the errors marked in the form "
 "below and try again."
 msgstr ""
-"Aktualizace témat se nezdařila. Prosím opravte vyznačené chyby a zkuste "
-"znovu."
+"Aktualizace témat se nezdařila. Prosím oprav vyznačené chyby a zkus znovu."
 
 #: application/modules/admin/controllers/SettingsController.php:333
 msgid ""
 "Do you want to override the current colour scheme? Any previous custom "
 "settings will be lost."
 msgstr ""
+"Chceš opravdu změnit současné barevné nastavení? Předešlá nastavení budou "
+"ztracena."
 
 #: application/modules/admin/controllers/TagController.php:48
 msgid "New keyword has been added."
@@ -699,7 +699,7 @@ msgstr "Přemístit příspěvky od"
 
 #: application/modules/admin/controllers/UserController.php:125
 msgid "Please select"
-msgstr "Prosím zvolte"
+msgstr "Prosím zvol"
 
 #: application/modules/admin/controllers/UserController.php:159
 msgid "Contributions transferred."
@@ -734,8 +734,8 @@ msgid ""
 "New voting permission cannot be created. Please check the errors marked in "
 "the form below and try again."
 msgstr ""
-"Nové hlasovací povolení nelze vytvořit. Prosím opravte vyznačené chyby a "
-"zkuste znovu."
+"Nové hlasovací povolení nelze vytvořit. Prosím oprav vyznačené chyby a zkus "
+"znovu."
 
 #: application/modules/admin/controllers/VotingController.php:249
 msgid "Voting participant has been confirmed."
@@ -767,31 +767,35 @@ msgstr "Ukládání změn se nezdařilo."
 
 #: application/modules/admin/controllers/VotingController.php:431
 msgid "Voting has started already. You cannot disable Superbutton"
-msgstr ""
+msgstr "Hlasování již začalo. Supertlačítko nelze zakázat."
 
 #: application/modules/admin/controllers/VotingController.php:436
 msgid "Voting has started already. You cannot disable No opinion button"
-msgstr ""
+msgstr "Hlasování již začalo. Tlačítko Bez názoru nelze zakázat"
 
 #: application/modules/admin/controllers/VotingController.php:441
 msgid "Voting has started already. You cannot restrict using of superbutton."
-msgstr ""
+msgstr "Hlasování již začalo. Nelze omezit užití Supertlačítka."
 
 #: application/modules/admin/controllers/VotingController.php:446
 msgid "Voting has started already. You cannot change rating factor."
-msgstr ""
+msgstr "Hlasování již začalo. Nelze změnit faktor hodnocení"
 
 #: application/modules/admin/controllers/VotingController.php:455
 msgid ""
 "Voting has started already. You cannot change button type from stars or "
 "hearts type to incompatible yes/no type."
 msgstr ""
+"Hlasování již začalo. Tlačítko nelze změnit z typu Hvězdičky/Srdíčka na "
+"nekompatibilní typ Ano/Ne."
 
 #: application/modules/admin/controllers/VotingController.php:465
 msgid ""
 "Voting has started already. You cannot change button type from yes/no to "
 "incompatible stars or hearts type"
 msgstr ""
+"Hlasování již začalo. Tlačítko nelze změnit z typu Ano/Ne na nekompatibilní "
+"typ Hvězdičky/Srdíčka."
 
 #: application/modules/admin/controllers/VotingprepareController.php:64
 msgid "Contribution has been removed from related."
@@ -852,7 +856,7 @@ msgstr "Nebyly zvoleny žádné příspěvky."
 
 #: application/modules/admin/forms/AnonymousContributionSubmission.php:28
 msgid "Anonymous Contribution finish info"
-msgstr ""
+msgstr "Informace pro anonymní příspěvky"
 
 #: application/modules/admin/forms/AnonymousContributionSubmission.php:45
 #: application/modules/admin/forms/Article.php:92
@@ -911,7 +915,7 @@ msgstr "Text postranního panelu"
 
 #: application/modules/admin/forms/Article.php:62
 msgid "Published"
-msgstr ""
+msgstr "Publikováno"
 
 #: application/modules/admin/forms/Article.php:74
 #: application/modules/admin/forms/Consultation.php:280
@@ -1048,7 +1052,7 @@ msgstr "Povolit doplnění"
 
 #: application/modules/admin/forms/Consultation.php:242
 msgid "Reactions & Impact phase explanation"
-msgstr "Vysvětlení etapy doplnění"
+msgstr "Vysvětlit etapu doplnění"
 
 #: application/modules/admin/forms/Consultation.php:249
 msgid "Terms & Conditions text"
@@ -1095,7 +1099,7 @@ msgstr "Pro"
 
 #: application/modules/admin/forms/ConsultationPhases.php:9
 msgid "Enable custom phase names"
-msgstr "Povolit navolená jména etap"
+msgstr "Povolit zvolená jména etap"
 
 #: application/modules/admin/forms/ConsultationPhases.php:13
 #: application/modules/admin/forms/Mail/Component.php:17
@@ -1174,11 +1178,11 @@ msgstr "Ukázat pole \"Věk\""
 
 #: application/modules/admin/forms/ContributionSubmission.php:45
 msgid "Display self-defined field (e.g. \"State\")"
-msgstr "Ukázat vlastnoručně nastaveného pole (např. \"Stát\")"
+msgstr "Ukázat vlastnoručně nastaveného pole (např. \"Země\")"
 
 #: application/modules/admin/forms/ContributionSubmission.php:49
 msgid "Display field \"Comment Groups\""
-msgstr "Ukázat pole \"Skupiny komentářů\""
+msgstr "Ukázat pole \"Komentující skupiny\""
 
 #: application/modules/admin/forms/ContributionSubmission.php:53
 msgid "Allow groups"
@@ -1279,7 +1283,7 @@ msgstr "Uložit a vrátit se na rejstřík "
 #: application/modules/admin/forms/Footer.php:25
 #, php-format
 msgid "Footer %d/%d"
-msgstr ""
+msgstr "Zápatí %d/%d"
 
 #: application/modules/admin/forms/Input.php:58
 msgid "Thesis"
@@ -1289,7 +1293,7 @@ msgstr "Teze"
 #: application/modules/admin/views/scripts/input/list-by-question.phtml:102
 #: application/modules/admin/views/scripts/votingprepare/overview.phtml:139
 msgid "Tags"
-msgstr "Tags"
+msgstr "Tagy"
 
 #: application/modules/admin/forms/Input.php:81
 msgid "User confirmation"
@@ -1451,7 +1455,7 @@ msgstr "Uložit a pokračovat"
 
 #: application/modules/admin/forms/Input.php:141
 msgid "Save and view copy"
-msgstr ""
+msgstr "Uložit a zhlédnout kopii"
 
 #: application/modules/admin/forms/Input.php:148
 #: application/modules/admin/views/scripts/input/list-by-question.phtml:187
@@ -1541,7 +1545,7 @@ msgstr "Všichni zúčastnění"
 
 #: application/modules/admin/forms/Mail/Send.php:78
 msgid "Participants who voted"
-msgstr "Zúčastnění kteří hlasovali"
+msgstr "Zúčastnění, kteří hlasovali"
 
 #: application/modules/admin/forms/Mail/Send.php:86
 msgid "Participants who signed up to receive Reactions & Impact"
@@ -1644,7 +1648,7 @@ msgstr "License"
 
 #: application/modules/admin/forms/Settings/LookAndFeel.php:20
 msgid "Activity links for consultations enabled on homepage"
-msgstr ""
+msgstr "Odkazy aktivit k poradám jsou na domovské stránce povoleny"
 
 #: application/modules/admin/forms/Settings/LookAndFeel.php:30
 msgid "Primary color"
@@ -1701,8 +1705,7 @@ msgstr "Popis stránky"
 #: application/modules/admin/forms/Settings/Site.php:49
 msgid "Used as a subtitle on all pages that are not consultation specific."
 msgstr ""
-"Použito jako podtitulek na všech stránkách které nejsou specifické pro "
-"porady "
+"Použito jako podtitulek na všech stránkách které nejsou pouze pro porady "
 
 #: application/modules/admin/forms/Settings/Site.php:52
 msgid "Motto"
@@ -1800,7 +1803,7 @@ msgstr "Heslo"
 
 #: application/modules/admin/forms/User/Edit.php:80
 msgid "Leave blank to leave unchanged."
-msgstr "Nech volné pro ponechání beze změny."
+msgstr "Pro ponechání beze změny nech nevyplněné."
 
 #: application/modules/admin/forms/User/Edit.php:90
 msgid "Password confirmation"
@@ -1832,15 +1835,15 @@ msgstr "Velikost podle uživatele"
 
 #: application/modules/admin/forms/Voting/Settings.php:14
 msgid "Stars"
-msgstr ""
+msgstr "Hvězdičky"
 
 #: application/modules/admin/forms/Voting/Settings.php:15
 msgid "Hearts"
-msgstr ""
+msgstr "Srdíčka"
 
 #: application/modules/admin/forms/Voting/Settings.php:16
 msgid "Yes/No"
-msgstr ""
+msgstr "Ano/Ne"
 
 #: application/modules/admin/forms/Voting/Settings.php:23
 msgid "No Opinion"
@@ -1900,7 +1903,7 @@ msgstr "Řídící panel"
 
 #: application/modules/admin/views/helpers/ConsultationNavigation.php:70
 msgid "Preparation"
-msgstr ""
+msgstr "Příprava"
 
 #: application/modules/admin/views/helpers/ConsultationNavigation.php:77
 msgid "Permissions"
@@ -2041,7 +2044,7 @@ msgstr "Nový článek"
 #: application/modules/admin/views/scripts/article/create.phtml:32
 #: application/modules/admin/views/scripts/article/edit.phtml:32
 msgid "Back to Pages"
-msgstr "Zpět na stránky"
+msgstr "Zpět na Stránky"
 
 #: application/modules/admin/views/scripts/article/create.phtml:33
 #: application/modules/admin/views/scripts/article/index.phtml:34
@@ -2050,11 +2053,11 @@ msgstr "Nová stránka"
 
 #: application/modules/admin/views/scripts/article/edit.phtml:30
 msgid "Edit Article"
-msgstr "Upravit Článek"
+msgstr "Upravit článek"
 
 #: application/modules/admin/views/scripts/article/edit.phtml:33
 msgid "Edit Page"
-msgstr "Upravit Stránku"
+msgstr "Upravit stránku"
 
 #: application/modules/admin/views/scripts/article/index.phtml:46
 msgid "There are no articles yet."
@@ -2098,7 +2101,7 @@ msgstr "Pravidla a podmínky"
 msgid ""
 "Title of the publication terms for this website as mentioned in general "
 "footer."
-msgstr "Práva publikování pro tuto stránku dle společného zápatí."
+msgstr "Práva publikování pro tuto stránku dle obecného zápatí."
 
 #: application/modules/admin/views/scripts/consultation/_consultationForm.phtml:116
 msgid ""
@@ -2151,7 +2154,7 @@ msgstr "Přidat interval"
 
 #: application/modules/admin/views/scripts/consultation/_groupsForm.phtml:118
 msgid "Categories of Group Sizes"
-msgstr "Kategorie Velikostí skupin"
+msgstr "Kategorie velikostí skupin"
 
 #: application/modules/admin/views/scripts/consultation/_groupsForm.phtml:143
 #: application/modules/admin/views/scripts/consultation/_groupsForm.phtml:152
@@ -2168,19 +2171,19 @@ msgstr "Čas serveru (při otevření této stránky)"
 
 #: application/modules/admin/views/scripts/consultation/contribution-submission-form.phtml:23
 msgid "Anonymous contributions"
-msgstr ""
+msgstr "Anonymní příspěvky"
 
 #: application/modules/admin/views/scripts/consultation/contribution-submission-form.phtml:26
 msgid "On"
-msgstr ""
+msgstr "Zapnuto"
 
 #: application/modules/admin/views/scripts/consultation/contribution-submission-form.phtml:37
 msgid "Off"
-msgstr ""
+msgstr "Vypnuto"
 
 #: application/modules/admin/views/scripts/consultation/contribution-submission-form.phtml:72
 msgid "Anonymous contributions finish page"
-msgstr ""
+msgstr "Koncová stránka pro anonymní příspěvky"
 
 #: application/modules/admin/views/scripts/consultation/edit.phtml:50
 msgid "Consultation Settings"
@@ -2254,15 +2257,15 @@ msgstr ""
 
 #: application/modules/admin/views/scripts/consultation/report.phtml:40
 msgid "of which the contributions that were confirmed"
-msgstr "příspěvky, které byly potvrzeny "
+msgstr "z nichž příspěvky, které byly potvrzeny "
 
 #: application/modules/admin/views/scripts/consultation/report.phtml:43
 msgid "of which remained unconfirmed or anonymous"
-msgstr "které zůstaly nepotvrzeny či anonymní "
+msgstr "z nichž zůstaly nepotvrzeny či anonymní "
 
 #: application/modules/admin/views/scripts/consultation/report.phtml:46
 msgid "of which were blocked by organisers"
-msgstr "které byly organizátory zablokovány "
+msgstr "z nichž byly organizátory zablokovány "
 
 #: application/modules/admin/views/scripts/consultation/report.phtml:50
 msgid "Contributions that were available to vote on"
@@ -2343,11 +2346,11 @@ msgstr "Zúčastněná strana"
 
 #: application/modules/admin/views/scripts/followup/index.phtml:68
 msgid "Edit snippets"
-msgstr "Upravit výňatek"
+msgstr "Upravit výňatky"
 
 #: application/modules/admin/views/scripts/followup/index.phtml:77
 msgid "Delete Reactions & Impact?"
-msgstr "Smazat doplnění"
+msgstr "Smazat doplnění?"
 
 #: application/modules/admin/views/scripts/followup/index.phtml:80
 msgid "Delete reaction & impact"
@@ -2467,7 +2470,7 @@ msgstr "Ukázat všechny příspěvky do diskuzí"
 
 #: application/modules/admin/views/scripts/index/index.phtml:203
 msgid "No posts yet."
-msgstr "Zatím žádné příspěvky do diskuzí."
+msgstr "Zatím žádné příspěvky."
 
 #: application/modules/admin/views/scripts/index/index.phtml:218
 msgid "There are no consultations yet."
@@ -2481,7 +2484,7 @@ msgstr "Zpět na Příspěvky"
 
 #: application/modules/admin/views/scripts/input-discussion/index.phtml:29
 msgid "Contribution Discussion"
-msgstr "Diskuze Příspěvku"
+msgstr "Diskuze k Příspěvku"
 
 #: application/modules/admin/views/scripts/input-discussion/index.phtml:58
 #: application/modules/admin/views/scripts/input/_inputBox.phtml:94
@@ -2639,11 +2642,11 @@ msgstr "Video"
 
 #: application/modules/admin/views/scripts/input/inputForm.phtml:66
 msgid "Add location"
-msgstr ""
+msgstr "Přidat místo"
 
 #: application/modules/admin/views/scripts/input/inputForm.phtml:82
 msgid "Use My location"
-msgstr ""
+msgstr "Použít mou lokaci"
 
 #: application/modules/admin/views/scripts/input/inputForm.phtml:118
 #: application/modules/admin/views/scripts/question/create.phtml:53
@@ -2876,6 +2879,8 @@ msgid ""
 "Sent e-mails are stored for %d months. During that period, they can be "
 "manually re-sent from the list below."
 msgstr ""
+"Odeslané emaily jsou uloženy po dobu %d měsíců. Během tohoto období mohou "
+"být znovu odeslány z tohoto seznamu."
 
 #: application/modules/admin/views/scripts/mail-sent/index.phtml:40
 msgid "No emails have been sent yet."
@@ -2983,7 +2988,7 @@ msgstr "Nahrát soubor"
 
 #: application/modules/admin/views/scripts/media/upload.phtml:41
 msgid "Maximum file size"
-msgstr ""
+msgstr "Maximální velikost souborů"
 
 #: application/modules/admin/views/scripts/media/upload.phtml:48
 msgid "Following file types are allowed:"
@@ -3023,7 +3028,7 @@ msgstr "Zpět na Nápovědy"
 
 #: application/modules/admin/views/scripts/settings/help-text-index.phtml:16
 msgid "Helptexts on Frontend"
-msgstr ""
+msgstr "Nápověda pro Frontend"
 
 #: application/modules/admin/views/scripts/settings/help-text-index.phtml:33
 #: application/modules/admin/views/scripts/settings/help-text-index.phtml:42
@@ -3034,7 +3039,7 @@ msgstr "Upravit nápovědu"
 
 #: application/modules/admin/views/scripts/settings/help-text-index.phtml:52
 msgid "Helptexts on Backend"
-msgstr ""
+msgstr "Nápověda pro Backend"
 
 #: application/modules/admin/views/scripts/settings/lookAndFeelForm.phtml:9
 msgid "Logo"
@@ -3050,7 +3055,7 @@ msgstr "Nadpis"
 
 #: application/modules/admin/views/scripts/settings/lookAndFeelForm.phtml:18
 msgid "News bars in header"
-msgstr ""
+msgstr "Lišta s novinkami v záhlaví"
 
 #: application/modules/admin/views/scripts/settings/lookAndFeelForm.phtml:21
 msgid "Predefined themes"
@@ -3176,7 +3181,7 @@ msgstr "Hlasovací Povolení pro"
 
 #: application/modules/admin/views/scripts/voting/index.phtml:38
 msgid "Send an email to all"
-msgstr ""
+msgstr "Poslat email všem"
 
 #: application/modules/admin/views/scripts/voting/index.phtml:42
 msgid "Voting Permissions"
@@ -3350,44 +3355,44 @@ msgstr "Nastavení hlasování"
 
 #: application/modules/admin/views/scripts/voting/settings.phtml:33
 msgid "Voting buttons preview"
-msgstr ""
+msgstr "Náhled volebních tlačítek"
 
 #: application/modules/admin/views/scripts/voting/settings.phtml:46
 #: application/modules/admin/views/scripts/voting/settings.phtml:58
 msgid "Strongly Disagree"
-msgstr ""
+msgstr "Velmi nesouhlasím"
 
 #: application/modules/admin/views/scripts/voting/settings.phtml:47
 #: application/modules/admin/views/scripts/voting/settings.phtml:59
 #: application/modules/admin/views/scripts/voting/settings.phtml:70
 msgid "Disagree"
-msgstr ""
+msgstr "Nesouhlasím"
 
 #: application/modules/admin/views/scripts/voting/settings.phtml:48
 #: application/modules/admin/views/scripts/voting/settings.phtml:60
 msgid "Somewhat disagree"
-msgstr ""
+msgstr "Spíše nesouhlasím"
 
 #: application/modules/admin/views/scripts/voting/settings.phtml:49
 #: application/modules/admin/views/scripts/voting/settings.phtml:61
 #: application/modules/admin/views/scripts/voting/settings.phtml:72
 msgid "Agree"
-msgstr ""
+msgstr "Souhlasím"
 
 #: application/modules/admin/views/scripts/voting/settings.phtml:50
 #: application/modules/admin/views/scripts/voting/settings.phtml:62
 msgid "Strongly agree"
-msgstr ""
+msgstr "Naprosto souhlasím"
 
 #: application/modules/admin/views/scripts/voting/settings.phtml:52
 #: application/modules/admin/views/scripts/voting/settings.phtml:64
 #: application/modules/admin/views/scripts/voting/settings.phtml:74
 msgid "Skip"
-msgstr ""
+msgstr "Přeskočit"
 
 #: application/modules/admin/views/scripts/voting/settings.phtml:71
 msgid "Unsure"
-msgstr ""
+msgstr "Nejsem si jist/a"
 
 #: application/modules/admin/views/scripts/votingprepare/_input-row.phtml:65
 msgid "Related"
@@ -3395,7 +3400,7 @@ msgstr "Spřízněné"
 
 #: application/modules/admin/views/scripts/votingprepare/_input-row.phtml:69
 msgid "Add related contributions"
-msgstr "Přidat spřízněný přispěvek"
+msgstr "Přidat relevantní přispěvky"
 
 #: application/modules/admin/views/scripts/votingprepare/_input-row.phtml:89
 #: application/modules/admin/views/scripts/votingprepare/_input-row.phtml:90

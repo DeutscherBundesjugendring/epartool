@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "POT-Creation-Date: 2018-01-02 16:20+0100\n"
-"PO-Revision-Date: 2018-01-02 16:24+0100\n"
+"PO-Revision-Date: 2018-01-17 11:10+0100\n"
 "Last-Translator: Martin Bohal <mb@mbohal.cz>\n"
 "Language-Team: \n"
 "Language: cs\n"
@@ -29,7 +29,7 @@ msgstr "V tomto kole účasti zatím nejsou žádné Reakce."
 #: application/modules/default/controllers/FollowupController.php:39
 #: application/modules/default/controllers/InputController.php:41
 msgid "No consultation provided!"
-msgstr "Nebyla poskytnuta porada!"
+msgstr "Nebyla zadána porada!"
 
 #: application/modules/default/controllers/FollowupController.php:93
 msgid "There are no questions in this consultation."
@@ -67,7 +67,7 @@ msgstr "Příhláškový formulář je neplatný."
 #: application/modules/default/controllers/InputController.php:343
 #: application/modules/default/controllers/InputController.php:376
 msgid "You have been unsubscribed."
-msgstr "Jsi odhlášen/a."
+msgstr "Byl/a jsi odhlášen/a."
 
 #: application/modules/default/controllers/FollowupController.php:596
 #: application/modules/default/views/scripts/followup/index.phtml:132
@@ -76,11 +76,11 @@ msgstr "Stáhnout"
 
 #: application/modules/default/controllers/FollowupController.php:597
 msgid "Like"
-msgstr ""
+msgstr "Líbí"
 
 #: application/modules/default/controllers/FollowupController.php:598
 msgid "Dislike"
-msgstr ""
+msgstr "Nelíbí"
 
 #: application/modules/default/controllers/FollowupController.php:599
 msgid "Back to timeline"
@@ -92,42 +92,42 @@ msgstr "Pokračovat"
 
 #: application/modules/default/controllers/FollowupController.php:601
 msgid "An error occurred. Unable to load Reactions & Impact timeline."
-msgstr ""
+msgstr "Při pokusu o načtení Rakcí & Dopadů došlo k chybě."
 
 #: application/modules/default/controllers/FollowupController.php:602
 msgid "Back to reactions and snippets"
-msgstr ""
+msgstr "Zpět na reakce a výňatky"
 
 #: application/modules/default/controllers/FollowupController.php:603
 msgid "Result of voting:"
-msgstr ""
+msgstr "Výsledek hlasování:"
 
 #: application/modules/default/controllers/FollowupController.php:604
 msgid "You can vote only once for each reaction."
-msgstr ""
+msgstr "Pro každou reakci můžeš hlasovat pouze jednou."
 
 #: application/modules/default/controllers/FollowupController.php:605
 msgid "position"
-msgstr ""
+msgstr "pozice"
 
 #: application/modules/default/controllers/FollowupController.php:607
 msgid ""
 "Follow the Reactions to your contribution here. Click on the arrows for the "
 "next steps."
-msgstr "Zde sleduj reakce na tvé příspěvky. Pro další kroky klikni na šipky."
+msgstr "Zde sleduj reakce na tvé příspěvky. Pro další postup klikni na šipky."
 
 #: application/modules/default/controllers/FollowupController.php:609
 msgid "Show less"
-msgstr ""
+msgstr "Zobrazit méně"
 
 #: application/modules/default/controllers/FollowupController.php:610
 msgid "Show more"
-msgstr ""
+msgstr "Zobrazit více"
 
 #: application/modules/default/controllers/FollowupController.php:611
 #: application/modules/default/views/scripts/followup/index.phtml:90
 msgid "Supporting"
-msgstr ""
+msgstr "Podpora"
 
 #: application/modules/default/controllers/FollowupController.php:612
 #: application/modules/default/views/scripts/followup/index.phtml:93
@@ -138,12 +138,12 @@ msgstr "Akce"
 #: application/modules/default/controllers/FollowupController.php:613
 #: application/modules/default/views/scripts/followup/index.phtml:96
 msgid "Rejected"
-msgstr ""
+msgstr "Odmítnuto"
 
 #: application/modules/default/controllers/FollowupController.php:614
 #: application/modules/default/views/scripts/followup/index.phtml:99
 msgid "End"
-msgstr ""
+msgstr "Konec"
 
 #: application/modules/default/controllers/IndexController.php:144
 #: library/Plugin/Auth/AccessControl.php:47
@@ -160,13 +160,15 @@ msgstr "Textové pole příspěvku nesmí být prázdné."
 
 #: application/modules/default/controllers/InputController.php:443
 msgid "Contributions were saved."
-msgstr ""
+msgstr "Příspěvky byly uloženy"
 
 #: application/modules/default/controllers/InputController.php:469
 msgid ""
 "There are no contributions to save. Please add at least one contribution "
 "before you click on finish."
 msgstr ""
+"Nejsou zde žádné přípsvěky k uložení. Přidej prosím aspoň jeden příspěvek "
+"než zmáčkneš Dokončit."
 
 #: application/modules/default/controllers/InputController.php:480
 msgid ""
@@ -180,7 +182,7 @@ msgstr ""
 #: application/modules/default/controllers/InputController.php:540
 #: application/modules/default/controllers/InputController.php:572
 msgid "This confirmation link is invalid!"
-msgstr "Tento potvrzující odkaz je neplatný!"
+msgstr "Tento odkaz pro potvrzení je neplatný!"
 
 #: application/modules/default/controllers/InputController.php:531
 msgid "Thank you! Your inputs have been confirmed!"
@@ -239,7 +241,7 @@ msgstr "Toto tlačítko nemá žádnou funkci."
 
 #: application/modules/default/controllers/UserController.php:33
 msgid "Logout successful!"
-msgstr "Jsi úspěšně odhlášen/a!"
+msgstr "Odhlášení proběhlo úspěšně!"
 
 #: application/modules/default/controllers/UserController.php:78
 msgid ""
@@ -310,7 +312,7 @@ msgstr "Přihlaš se prosím."
 #: application/modules/default/controllers/UserController.php:383
 #: application/modules/default/controllers/UserController.php:387
 msgid "You were successfully unsubscribed."
-msgstr "Byli jste úspěšně odhlášeni."
+msgstr "Byl/a jsi úspěšně odhlášen/a."
 
 #: application/modules/default/controllers/UserController.php:425
 msgid "Your user profile was updated"
@@ -352,7 +354,7 @@ msgstr "Tvé údaje nejsou správné. Zkontroluj je prosím."
 
 #: application/modules/default/controllers/VotingController.php:282
 msgid "Your rating is out of accepted range."
-msgstr "Tvé ohodnocení stojí mimo přijatelné rozmezí."
+msgstr "Tvé hodnocení stojí mimo přijatelné rozmezí."
 
 #: application/modules/default/controllers/VotingController.php:295
 #: application/modules/default/controllers/VotingController.php:373
@@ -371,6 +373,8 @@ msgid ""
 "This vote cannot be changed, because it was confirmed already or probably "
 "created in another voting session by another user."
 msgstr ""
+"Tento hlas nelze změnit, neboť byl již potvrzen, nebo byl nejspíš vytvořen "
+"jiným uživatelem během jiného hlasování."
 
 #: application/modules/default/controllers/VotingController.php:358
 msgid "Using of superbutton is not allowed."
@@ -383,15 +387,15 @@ msgid ""
 "higher. Change previous votings and make room for more important "
 "contributions!"
 msgstr ""
-"Supertlačítko ti umožňuje jisté příspěvky ohodnotit lépe. Změň své předešlé "
-"hlasy a udělej místo pro důležitější příspěvky!"
+"Supertlačítko ti umožňuje jisté příspěvky ohodnotit lépe. Změň předešlé "
+"hlasování a udělej místo pro důležitější příspěvky!"
 
 #: application/modules/default/controllers/VotingController.php:446
 #: application/modules/default/controllers/VotingController.php:517
 #: application/modules/default/controllers/VotingController.php:620
 #: application/modules/default/controllers/VotingController.php:689
 msgid "Such contribution does not exist!"
-msgstr "Takový příspěvek neexistuje."
+msgstr "Takový příspěvek neexistuje!"
 
 #: application/modules/default/controllers/VotingController.php:626
 msgid "Something went wrong."
@@ -413,7 +417,7 @@ msgstr "Hlas nemohl být započítán. (1)"
 
 #: application/modules/default/controllers/VotingController.php:675
 msgid "Clicking the superbutton is not allowed."
-msgstr "Zmáčknout supertlačítko není dovoleno."
+msgstr "Zmáčknutí supertlačítka není dovoleno."
 
 #: application/modules/default/controllers/VotingController.php:695
 msgid "Please choose a question or keyword."
@@ -433,7 +437,7 @@ msgstr "Nejsou zde žádné hlasy pro zpracování."
 
 #: application/modules/default/controllers/VotingController.php:759
 msgid "Voter not found."
-msgstr "Hlasující nenalezen."
+msgstr "Hlasující nebyl nalezen."
 
 #: application/modules/default/controllers/VotingController.php:765
 msgid "No votes to handle."
@@ -449,7 +453,7 @@ msgstr "Hlasovací skupinu nelze najít."
 
 #: application/modules/default/controllers/VotingController.php:774
 msgid "No voting rights found."
-msgstr "Nebyly nalezeny žádná hlasovací práva."
+msgstr "Nebyla nalezena žádná hlasovací práva."
 
 #: application/modules/default/controllers/VotingController.php:794
 #: application/modules/default/controllers/VotingController.php:868
@@ -464,7 +468,7 @@ msgstr "Hlasy byly potvrzeny."
 
 #: application/modules/default/controllers/VotingController.php:816
 msgid "Votes confirmation error."
-msgstr "V potvrzení hlasů se stala chyba."
+msgstr "V potvrzení hlasů nastala chyba."
 
 #: application/modules/default/controllers/VotingController.php:823
 msgid "Votes were deleted."
@@ -655,7 +659,7 @@ msgstr "Popiš prosím původ tvých příspěvků:"
 
 #: application/modules/default/forms/Register.php:90
 msgid "Results from a meeting or project related to the topic"
-msgstr "Výsledky ze schůzky či projektu, které se týkají tématu"
+msgstr "Výsledky ze schůzky či projektu, které se týkají daného téma"
 
 #: application/modules/default/forms/Register.php:91
 msgid "Compiled by our group (e.g. in a workshop or a group session)"
@@ -788,7 +792,7 @@ msgstr "Momentálně na tento příspěvek nejsou žádné reakce."
 
 #: application/modules/default/views/helpers/FollowupNavigation.php:13
 msgid "Overview over Reactions & Impact"
-msgstr "Přehled Reakcí a Výsledků"
+msgstr "Přehled Doplnění"
 
 #: application/modules/default/views/helpers/FollowupNavigation.php:14
 msgid "Contributions sorted by Questions"
@@ -808,7 +812,7 @@ msgstr "Normální"
 
 #: application/modules/default/views/helpers/JsTranslations.php:15
 msgid "Medium"
-msgstr "Médium"
+msgstr "Střední"
 
 #: application/modules/default/views/helpers/JsTranslations.php:16
 msgid "Strong"
@@ -848,11 +852,11 @@ msgstr "Něco se pokazilo"
 
 #: application/modules/default/views/helpers/JsTranslations.php:24
 msgid "Your contributions have not been saved"
-msgstr ""
+msgstr "Tvoje příspěvky nebyly uloženy"
 
 #: application/modules/default/views/helpers/JsTranslations.php:25
 msgid "Geolocation is not available in your browser"
-msgstr ""
+msgstr "Geolokalizace není pro tvůj internetový browser dostupná."
 
 #: application/modules/default/views/helpers/RibbonImage.php:17
 #: application/modules/default/views/helpers/RibbonImage.php:29
@@ -911,7 +915,7 @@ msgstr "Hlasování"
 #: application/modules/default/views/scripts/followup/show.phtml:5
 #: application/modules/default/views/scripts/user/notifications.phtml:110
 msgid "Reactions & Impact"
-msgstr "Reakce a výsledky"
+msgstr "Doplnění"
 
 #: application/modules/default/views/helpers/SecondNavigation.php:52
 #: application/modules/default/views/helpers/SecondNavigation.php:59
@@ -949,7 +953,7 @@ msgstr "Hlasuj!"
 
 #: application/modules/default/views/helpers/Teaser.php:30
 msgid "You can publish your contribution now!"
-msgstr "Můžeš publikovat své příspěvky!"
+msgstr "Své příspěvky již můžeš publikovat!"
 
 #: application/modules/default/views/helpers/Teaser.php:31
 msgid "From"
@@ -965,7 +969,7 @@ msgstr "Hlasuj o nejdůležitějších příspěvcích!"
 
 #: application/modules/default/views/helpers/Teaser.php:62
 msgid "Voting has finished! There will soon be reactions available"
-msgstr "Hlasování skončilo! Brzo budou dostupné reakce."
+msgstr "Hlasování skončilo! Brzy budou dostupné reakce."
 
 #: application/modules/default/views/helpers/Teaser.php:70
 msgid "Get informed now"
@@ -1020,7 +1024,7 @@ msgstr "K této stránce nejsou přístupová práva!"
 
 #: library/Plugin/Auth/AuthAdapter.php:44
 msgid "A record with the supplied identity could not be found."
-msgstr "Záznam s poskytnutou identitou nelze nalézt."
+msgstr "Záznam poskytnuté identity nelze nalézt."
 
 #: library/Plugin/Auth/AuthAdapter.php:48
 msgid "Authentication successful."
@@ -1040,7 +1044,7 @@ msgstr "Nápověda"
 #: application/modules/default/views/scripts/user/register.phtml:33
 #: application/modules/default/views/scripts/user/register.phtml:35
 msgid "Sign in with Google"
-msgstr "Přihlásit se účtem Google"
+msgstr "Přihlásit se přes Google"
 
 #: application/modules/default/views/scripts/_helpers/login.phtml:56
 #: application/modules/default/views/scripts/user/passwordrecover.phtml:5
@@ -1122,7 +1126,7 @@ msgstr "Novější příspěvky"
 
 #: application/modules/default/views/scripts/_partials/contributionsMap.phtml:203
 msgid "There are no contributions with GPS location on this question."
-msgstr ""
+msgstr "K této otázce nejsou žádné příspěvky s GPS lokalizací."
 
 #: application/modules/default/views/scripts/_partials/followup-snippet-box.phtml:34
 msgid "Follow this path"
@@ -1157,7 +1161,7 @@ msgstr "Žádný názor"
 
 #: application/modules/default/views/scripts/followup/index.phtml:31
 msgid "How it all proceeeded:"
-msgstr "Jak se to vše odvíjelo:"
+msgstr "Jak se to vše vyvíjelo:"
 
 #: application/modules/default/views/scripts/followup/index.phtml:55
 msgid "Overview of reactions so far:"
@@ -1299,11 +1303,11 @@ msgstr "Vytvořit nový příspěvek"
 
 #: application/modules/default/views/scripts/input/createForm.phtml:38
 msgid "Add location"
-msgstr ""
+msgstr "Přidat lokaci"
 
 #: application/modules/default/views/scripts/input/createForm.phtml:98
 msgid "Use My location"
-msgstr ""
+msgstr "Použít mou lokaci"
 
 #: application/modules/default/views/scripts/input/createForm.phtml:117
 msgid "Click here for another contribution"
@@ -1316,7 +1320,7 @@ msgstr "Diskuze k Příspěvku"
 
 #: application/modules/default/views/scripts/input/discussion.phtml:11
 msgid "Back to contributions"
-msgstr "Zpět na příspěvek"
+msgstr "Zpět na příspěvky"
 
 #: application/modules/default/views/scripts/input/discussion.phtml:39
 msgid "Anonymous"
@@ -1350,7 +1354,7 @@ msgstr "Zpět"
 
 #: application/modules/default/views/scripts/input/finished.phtml:8
 msgid "Thank you for contributing"
-msgstr ""
+msgstr "Děkujeme za příspěvek!"
 
 #: application/modules/default/views/scripts/input/index.phtml:40
 msgid "All tags"
@@ -1371,11 +1375,11 @@ msgstr "Etapa přispívání již skončila."
 
 #: application/modules/default/views/scripts/input/show.phtml:89
 msgid "List"
-msgstr ""
+msgstr "Seznam"
 
 #: application/modules/default/views/scripts/input/show.phtml:96
 msgid "Map"
-msgstr ""
+msgstr "Mapa"
 
 #: application/modules/default/views/scripts/question/index.phtml:18
 msgid "All questions"
@@ -1383,7 +1387,7 @@ msgstr "Všechny otázky"
 
 #: application/modules/default/views/scripts/question/index.phtml:43
 msgid "Click here to answer"
-msgstr "Klikni sem a odpověz"
+msgstr "Zde odpověz"
 
 #: application/modules/default/views/scripts/question/index.phtml:49
 msgid "View contributions"
@@ -1411,7 +1415,7 @@ msgstr "Upravit"
 
 #: application/modules/default/views/scripts/user/activity.phtml:49
 msgid "in"
-msgstr ""
+msgstr "v"
 
 #: application/modules/default/views/scripts/user/activity.phtml:60
 #: application/modules/default/views/scripts/user/activity.phtml:105
@@ -1577,7 +1581,7 @@ msgstr ""
 
 #: application/modules/default/views/scripts/voting/confirmmember.phtml:9
 msgid "Individual vote has been rejected and will not be counted."
-msgstr "Jednotlivé hlasování bylo odmítnuto a nebude započítáno."
+msgstr "Tento hlas byl odmítnut a nebude započítán."
 
 #: application/modules/default/views/scripts/voting/confirmmember.phtml:11
 #, php-format
@@ -1613,7 +1617,7 @@ msgstr "Ukázat výsledky hlasování"
 
 #: application/modules/default/views/scripts/voting/index.phtml:19
 msgid "Login for the voting"
-msgstr "Přihlásit se pro hlasování"
+msgstr "Přihlásit se do hlasování"
 
 #: application/modules/default/views/scripts/voting/index.phtml:21
 #, php-format
@@ -1624,7 +1628,7 @@ msgid ""
 "and months."
 msgstr ""
 "Zde hlasuješ o příspěvcích na téma \"%s\", které jsou podle tebe zvláště "
-"důležité! Příspěvky se skládají z názorů, stanovisek a návrhů mladých "
+"důležité! Příspěvky se skládají z názorů, stanovisek a návrhů mladistvých "
 "jednotlivců i skupin, které sem byly přidány v předešlých týdnech a měsících."
 
 #: application/modules/default/views/scripts/voting/index.phtml:30
@@ -1715,7 +1719,7 @@ msgstr "Ukázat příspěvek v kontextu"
 
 #: application/modules/default/views/scripts/voting/stopvoting.phtml:7
 msgid "Thank you for voting!"
-msgstr "Děkujeme za tvé hlasy!"
+msgstr "Děkujeme za hlasování!"
 
 #: application/modules/default/views/scripts/voting/stopvoting.phtml:10
 msgid ""
