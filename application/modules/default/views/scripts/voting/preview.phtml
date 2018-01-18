@@ -10,11 +10,20 @@ $this->layout()->settings = $this->settings;
         <div class="sidebar-left hidden-print">
 
             <p>
-                <span class="glyphicon glyphicon-arrow-left icon-offset text-muted" aria-hidden="true"></span>
-                <a href="<?=$this->url(['action' => 'overview']);?>"><?=$this->translate('Continue voting');?></a>
-                <br />
-                <span class="glyphicon glyphicon-log-out icon-offset text-muted" aria-hidden="true"></span>
-                <a href="<?=$this->url(['action' => 'stopvoting']);?>"><?=$this->translate('Finish voting');?></a>
+                <?php if ($this->logout): ?>
+                    <span class="glyphicon glyphicon-log-out icon-offset text-muted" aria-hidden="true"></span>
+                    <a href="<?=$this->url(['action' => 'index']);?>">
+                        <?=$this->translate('Login for voting');?>
+                    </a>
+                <?php else: ?>
+                    <span class="glyphicon glyphicon-arrow-left icon-offset text-muted" aria-hidden="true"></span>
+                    <a href="<?=$this->url(['action' => 'overview']);?>#voting"><?=$this->translate('Continue voting');?></a>
+                    <br />
+                    <span class="glyphicon glyphicon-log-out icon-offset text-muted" aria-hidden="true"></span>
+                    <a href="<?=$this->url(['action' => 'stopvoting']);?>">
+                        <?=$this->translate('Finish voting');?>
+                    </a>
+                <?php endif; ?>
             </p>
 
         </div>

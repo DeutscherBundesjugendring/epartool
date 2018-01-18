@@ -24,15 +24,14 @@ class VotingController extends Zend_Controller_Action
     }
 
     /**
-     * @param session params
-     * @return bool or redirect
+     * @return Zend_Session_Namespace
+     * @throws Exception
      */
     private function getVotingRightsSession()
     {
         $votingRightsSession = new Zend_Session_Namespace('votingRights');
         if ($votingRightsSession->access != $this->_consultation->kid) {
-            $this->_flashMessenger->addMessage('This participation round is currently not open for voting.', 'error');
-            $this->redirect('/');
+            throw new \Exception('No access rights in session found.');
         }
 
         return $votingRightsSession;
@@ -182,9 +181,22 @@ class VotingController extends Zend_Controller_Action
      */
     public function overviewAction()
     {
-        // no access, redirect back
-        $votingRightsSession = $this->getVotingRightsSession();
         $kid = $this->_consultation->kid;
+        // no access, redirect back
+        try {
+            $votingRightsSession = $this->getVotingRightsSession();
+        } catch (Exception $e) {
+            $this->_flashMessenger->addMessage(
+                'There is no valid open voting session. Please login for voting.',
+                'error'
+            );
+            $this->redirect($this->view->url([
+                'controller' => 'voting',
+                'action' => 'index',
+                'kid' => $kid,
+            ]), ['prependBase' => false]);
+        }
+
         // Questions
         $questionModel = new Model_Questions();
         $this->view->questions = $questionModel->getByConsultation($kid);
@@ -214,12 +226,24 @@ class VotingController extends Zend_Controller_Action
      */
     public function previewAction()
     {
+        $kid = $this->_consultation->kid;
         // no access, redirect back
-        $votingRightsSession = $this->getVotingRightsSession();
+        try {
+            $votingRightsSession = $this->getVotingRightsSession();
+        } catch (Exception $e) {
+            $this->_flashMessenger->addMessage(
+                'There is no valid open voting session. Please login for voting.',
+                'error'
+            );
+            $this->redirect($this->view->url([
+                'controller' => 'voting',
+                'action' => 'index',
+                'kid' => $kid,
+            ]), ['prependBase' => false]);
+        }
         $settings = $this->getVotingSettings();
 
         $subUid = $votingRightsSession->subUid;
-        $kid = $this->_consultation->kid;
 
         // Questions
         $questionModel = new Model_Questions();
@@ -241,6 +265,14 @@ class VotingController extends Zend_Controller_Action
             $i++;
         }
 
+        $logout = false;
+        $votedInputs = (new Model_Votes_Individual())->countVotesBySubuser($votingRightsSession->subUid);
+        if (isset($votingRightsSession->logout) && $votingRightsSession->logout) {
+            $votingRightsSession->unsetAll();
+            $logout = true;
+        }
+
+        $this->view->logout = $logout;
         $this->view->questions = $questionResult;
 
         // count of votable inputs
@@ -250,8 +282,7 @@ class VotingController extends Zend_Controller_Action
         $this->view->settings = $settings;
         $this->view->votableInputs = $inputModel->getCountByConsultationFiltered($kid, $filter);
         // count of voted inputs
-        $votingIndivModel = new Model_Votes_Individual();
-        $this->view->votedInputs = $votingIndivModel->countVotesBySubuser($votingRightsSession->subUid);
+        $this->view->votedInputs = $votedInputs;
         $this->view->videoServicesStatus = (new Model_Projects())
             ->find((new Zend_Registry())->get('systemconfig')->project)->current();
         $this->view->labels = Service_Voting::BUTTONS_SET[$settings['button_type']];
@@ -270,7 +301,16 @@ class VotingController extends Zend_Controller_Action
         }
 
         $this->_helper->layout()->disableLayout();
-        $votingRightsSession = $this->getVotingRightsSession();
+        try {
+            $votingRightsSession = $this->getVotingRightsSession();
+        } catch (Exception $e) {
+            $this->view->error = "1";
+            $this->view->error_comment = $this->view->translate(
+                'There is no valid open voting session. Please login for voting.'
+            );
+
+            return;
+        }
 
         $settings = $this->getVotingSettings();
 
@@ -293,6 +333,7 @@ class VotingController extends Zend_Controller_Action
         if (!(new Model_Inputs())->thesisExists($tid, $kid)) {
             $this->view->error = "1";
             $this->view->error_comment = $this->view->translate('Contribution not found.');
+
             return;
         }
 
@@ -349,7 +390,16 @@ class VotingController extends Zend_Controller_Action
         }
 
         $this->_helper->layout()->disableLayout();
-        $votingRightsSession = $this->getVotingRightsSession();
+         try {
+             $votingRightsSession = $this->getVotingRightsSession();
+         } catch (Exception $e) {
+             $this->view->error = "1";
+             $this->view->error_comment = $this->view->translate(
+                 'There is no valid open voting session. Please login for voting.'
+             );
+
+             return;
+         }
 
         $settings = $this->getVotingSettings();
 
@@ -435,7 +485,12 @@ class VotingController extends Zend_Controller_Action
 
         $pts = 0;
 
-        $votingRightsSession = $this->getVotingRightsSession();
+         try {
+             $votingRightsSession = $this->getVotingRightsSession();
+         } catch (Exception $e) {
+             $this->_flashMessenger->addMessage('This participation round is currently not open for voting.', 'error');
+             $this->redirect('/');
+         }
         $subUid = $votingRightsSession->subUid;
         $uid = (int) $votingRightsSession->uid;
         $param = $this->getRequest()->getParams();
@@ -499,7 +554,12 @@ class VotingController extends Zend_Controller_Action
      */
     public function voteAction()
     {
-        $votingRightsSession = $this->getVotingRightsSession();
+        try {
+            $votingRightsSession = $this->getVotingRightsSession();
+        } catch (Exception $e) {
+            $this->_flashMessenger->addMessage('This participation round is currently not open for voting.', 'error');
+            $this->redirect('/');
+        }
 
         $kid = (int) $this->_consultation->kid;
         $qid = (int) $this->getRequest()->getParam('qid');
@@ -603,7 +663,12 @@ class VotingController extends Zend_Controller_Action
     public function thesisvoteAction()
     {
         // no access, redirect back
-        $votingRightsSession = $this->getVotingRightsSession();
+        try {
+            $votingRightsSession = $this->getVotingRightsSession();
+        } catch (Exception $e) {
+            $this->_flashMessenger->addMessage('This participation round is currently not open for voting.', 'error');
+            $this->redirect('/');
+        }
         // no view and layout
         $this->_helper->layout()->disableLayout();
         $this->_helper->viewRenderer->setNoRender(true);
@@ -660,7 +725,12 @@ class VotingController extends Zend_Controller_Action
     public function thesissupervoteAction()
     {
         // no access, redirect back
-        $votingRightsSession = $this->getVotingRightsSession();
+        try {
+            $votingRightsSession = $this->getVotingRightsSession();
+        } catch (Exception $e) {
+            $this->_flashMessenger->addMessage('This participation round is currently not open for voting.', 'error');
+            $this->redirect('/');
+        }
         // no view and layout
         $this->_helper->layout()->disableLayout();
         $this->_helper->viewRenderer->setNoRender(true);
@@ -748,6 +818,7 @@ class VotingController extends Zend_Controller_Action
 
         if (empty($votingRightsSession->confirmationHash)) {
             $this->_flashMessenger->addMessage('No votes to process.', 'error');
+            $votingRightsSession->logout = true;
             $this->redirect('/voting/preview/kid/' . $this->_consultation['kid']);
         }
 
@@ -762,17 +833,21 @@ class VotingController extends Zend_Controller_Action
                 $this->view->groupmember = $subUser['sub_user'];
             }
         } catch (Dbjr_Voting_NoVotesException $e) {
+            unset($votingRightsSession->access);
             $this->_flashMessenger->addMessage('No votes to handle.', 'error');
-            $this->redirect('/input/index/kid/' . $this->_consultation['kid']);
+            $this->redirect('/voting/index/kid/' . $this->_consultation['kid']);
         } catch (Dbjr_Voting_MissingGroupLeaderException $e) {
+            $votingRightsSession->unsetAll();
             $this->_flashMessenger->addMessage('Cannot find group leader.', 'error');
-            $this->redirect('/input/index/kid/' . $this->_consultation['kid']);
+            $this->redirect('/voting/index/kid/' . $this->_consultation['kid']);
         } catch (Dbjr_Voting_MissingVotingGroupException $e) {
+            $votingRightsSession->unsetAll();
             $this->_flashMessenger->addMessage('Cannot find voting group.', 'error');
-            $this->redirect('/input/index/kid/' . $this->_consultation['kid']);
+            $this->redirect('/voting/index/kid/' . $this->_consultation['kid']);
         } catch (Dbjr_Voting_MissingVotingRightsException $e) {
+            $votingRightsSession->unsetAll();
             $this->_flashMessenger->addMessage('No voting rights found.', 'error');
-            $this->redirect('/input/index/kid/' . $this->_consultation['kid']);
+            $this->redirect('/voting/index/kid/' . $this->_consultation['kid']);
         }
 
         unset($votingRightsSession->confirmationHash);

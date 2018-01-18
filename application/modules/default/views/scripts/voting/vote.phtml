@@ -18,7 +18,7 @@
                 </p>
 
                 <p>
-                    <a href="<?=$this->url(['controller' => 'voting', 'action' => 'overview', 'kid' => $this->consultation->kid], null, true);?>" class="btn btn-default">
+                    <a href="<?=$this->url(['controller' => 'voting', 'action' => 'overview', 'kid' => $this->consultation->kid], null, true);?>#voting" class="btn btn-default">
                         <?=$this->translate('Change question or keyword');?>
                     </a>
                     <a href="<?=$this->url(['action' => 'stopvoting', 'tag' => null]);?>" class="btn btn-default" title="<?=$this->translate('Finish voting');?>">
@@ -175,7 +175,7 @@
                     <!-- Actions -->
                     <div class="form-group">
                         <a
-                            href="<?=$this->url(['controller' => 'voting', 'action' => 'overview', 'kid' => $this->consultation->kid], null, true);?>"
+                            href="<?=$this->url(['controller' => 'voting', 'action' => 'overview', 'kid' => $this->consultation->kid], null, true);?>#voting"
                             id="buttonChangeKeyword"
                             class="btn btn-default btn-default-alt"
                         >
