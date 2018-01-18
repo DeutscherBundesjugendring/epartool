@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Dbjr Tool\n"
 "POT-Creation-Date: 2018-01-09 11:55+0100\n"
-"PO-Revision-Date: 2018-01-09 11:55+0100\n"
+"PO-Revision-Date: 2018-01-18 12:15+0100\n"
 "Last-Translator: Martin Bohal <mb@mbohal.cz>\n"
 "Language-Team: epartool@dbjr.de\n"
 "Language: de\n"
@@ -3527,7 +3527,7 @@ msgstr "Zurück zur Vorbereitung des Votings"
 
 #: application/modules/admin/views/scripts/votingprepare/copy.phtml:22
 msgid "Copy Contribution"
-msgstr "Beitrag kopieren"
+msgstr "Kopierter Beitrag"
 
 #: application/modules/admin/views/scripts/votingprepare/create-directory.phtml:23
 msgid "Create Folder"

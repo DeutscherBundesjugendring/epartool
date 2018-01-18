@@ -27,6 +27,11 @@ class Admin_Form_Input extends Dbjr_Form_Admin
     private $afterSubmitAction;
 
     /**
+     * @var bool
+     */
+    private $autoVotingInfo;
+
+    /**
      * Admin_Form_Input constructor.
      * @param null $cancelUrl
      * @param string $afterSubmitAction
@@ -119,6 +124,8 @@ class Admin_Form_Input extends Dbjr_Form_Admin
                 ]
             );
         $this->addElement($enableVoting);
+
+        $this->addElement('hidden', 'is_votable_edited');
 
         $note = $this->createElement('textarea', 'notiz');
         $note
@@ -232,5 +239,23 @@ class Admin_Form_Input extends Dbjr_Form_Admin
         }
 
         return parent::isValid($data);
+    }
+
+    /**
+     * @return Admin_Form_Input
+     */
+    public function setAutoVotingInfo($status)
+    {
+        $this->autoVotingInfo = $status;
+
+        return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function getAutoVotingInfo()
+    {
+        return $this->autoVotingInfo;
     }
 }

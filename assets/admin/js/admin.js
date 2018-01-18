@@ -21,6 +21,7 @@
   var bindPreviewVotingButtons;
   var themeSettings;
   var bindToggleAnonymousContributionSwitch;
+  var bindAutoVotingInfo;
 
   var map;
 
@@ -44,6 +45,7 @@
     initMediaIndexFileLazyLoad();
     changeContributionStatus();
     bindPreviewVotingButtons();
+    bindAutoVotingInfo();
     $('[data-toggle="tooltip"]').tooltip();
   });
 
@@ -525,6 +527,13 @@
       $('#votingButtonsPreviewContent').html($('#votingButtonsPreviewType'
         + $previewOfSelected.val().charAt(0).toUpperCase() + $previewOfSelected.val().slice(1)).html());
     }
+  }
+
+  bindAutoVotingInfo = function () {
+    $('.js-is-votable-radio').on('click', function () {
+      $('#js-is-votable-auto-info').remove();
+      $('#is_votable_edited').val(true);
+    });
   }
 
 }).call(this);

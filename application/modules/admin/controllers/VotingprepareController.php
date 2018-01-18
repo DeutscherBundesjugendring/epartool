@@ -137,14 +137,19 @@ class Admin_VotingprepareController extends Zend_Controller_Action
                 $this->_flashMessenger->addMessage('New contribution has been created.', 'success');
                 $this->redirect($this->view->url(), ['prependBase' => false]);
             } else {
+                $form->setAutoVotingInfo(
+                    !$postData['is_votable_edited'] && !$origInputData['is_votable'] && $postData['is_votable']
+                );
                 $this->_flashMessenger->addMessage('Form is not valid, please check the values entered.', 'error');
             }
         } else {
+            $form->setAutoVotingInfo(!$origInputData['is_votable']);
             $form->populate([
                 'qi' => $origInputData['qi'],
                 'is_confirmed_by_user' => $origInputData['is_confirmed_by_user'],
                 'is_confirmed' => $origInputData['is_confirmed'],
                 'is_votable' => true,
+                'is_votable_edited' => false,
                 'latitude' => $origInputData['latitude'],
                 'longitude' => $origInputData['longitude'],
             ]);
@@ -177,9 +182,12 @@ class Admin_VotingprepareController extends Zend_Controller_Action
                     ['prependBase' => false]
                 );
             } else {
+                $form->setAutoVotingInfo(!$postData['is_votable_edited'] && $postData['is_votable']);
                 $this->_flashMessenger->addMessage('Form is not valid, please check the values entered.', 'error');
             }
         } else {
+            $form->setAutoVotingInfo(true);
+            $form->populate(['is_votable' => true, 'is_votable_edited' => false]);
             $this->_flashMessenger->addMessage(
                 'Video contribution settings are inherited from Question, therefore it is possible to add a video only after saving this Contribution thus linking it to a Question.',
                 'info'
@@ -231,6 +239,9 @@ class Admin_VotingprepareController extends Zend_Controller_Action
                     ['prependBase' => false]
                 );
             } else {
+                $form->setAutoVotingInfo(
+                    !$postData['is_votable_edited'] && !$origData['is_votable'] && $postData['is_votable']
+                );
                 $this->_flashMessenger->addMessage('Form is not valid, please check the values entered.', 'error');
             }
         } else {
@@ -238,6 +249,9 @@ class Admin_VotingprepareController extends Zend_Controller_Action
             unset($origData['when']);
             unset($origData['tags']);
             unset($origData['tid']);
+            $form->setAutoVotingInfo(!$origData['is_votable']);
+            $origData['is_votable'] = true;
+            $origData['is_votable_edited'] = false;
             $form->populate($origData);
         }
 

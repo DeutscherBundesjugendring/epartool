@@ -117,9 +117,19 @@
                                 type="radio"
                                 name="<?=$this->element->{$element}->getName();?>"
                                 id="<?=$this->element->{$element}->getName();?>-<?=$value;?>"
+                                class="js-is-votable-radio"
                                 value="<?=$value;?>"
                                 <?=(string) $this->element->{$element}->getValue() === (string) $value ? 'checked' : '';?>
                             > <?=$option;?>
+                            <?php if ($element === 'is_votable' && $value && $this->element->getAutoVotingInfo()): ?>
+                                <span
+                                    id="js-is-votable-auto-info"
+                                    class="glyphicon glyphicon-info-sign"
+                                    data-toggle="tooltip"
+                                    data-placement="bottom"
+                                    title="<?=$this->translate('This value was automatically changed to yes');?>"
+                                ></span>
+                            <?php endif; ?>
                         </label>
                         <br>
                     <?php endforeach; ?>
@@ -127,6 +137,8 @@
             </div>
         <?php endforeach; ?>
     </div>
+
+    <?=$this->element->is_votable_edited;?>
 
     <?=$this->element->notiz;?>
 
