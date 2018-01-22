@@ -32,8 +32,6 @@ services:
         working_dir: /www
         links:
             - db
-            - web:test.localhost
-            - phantomjs
     web:
         build: docker/Apache
         volumes:
@@ -46,11 +44,3 @@ services:
         image: mailhog/mailhog
         ports:
             - 127.0.0.1:82:8025
-    phantomjs:
-        image: wernight/phantomjs
-        ports:
-            - 8910
-        entrypoint: phantomjs
-        command: "--webdriver=8910"
-        links:
-            - web:test.localhost

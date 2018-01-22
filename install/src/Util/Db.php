@@ -10,6 +10,8 @@ class Db {
 
     private $pdo;
 
+    private $dbName;
+
     /**
      * Db constructor.
      * @param string $dbName
@@ -19,6 +21,7 @@ class Db {
      */
     public function __construct($dbName, $dbHost, $dbUserName, $dbPass)
     {
+        $this->dbName = $dbName;
         $this->pdo = new PDO(sprintf('mysql:dbname=%s;host=%s;charset=utf8', $dbName, $dbHost), $dbUserName, $dbPass);
     }
 
@@ -34,7 +37,7 @@ class Db {
     {
         $this->execSql(sprintf(
             'ALTER DATABASE `%s` DEFAULT CHARACTER SET utf8mb4 DEFAULT COLLATE utf8mb4_unicode_ci',
-            $_POST['dbName']
+            $this->dbName
         ));
 
         $this->execSql(file_get_contents(realpath($sqlPath . '/create-installation.sql')));

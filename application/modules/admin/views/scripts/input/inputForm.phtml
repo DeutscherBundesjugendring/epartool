@@ -69,7 +69,7 @@
                                 title="<?=$this->translate('Location is disabled. You can enable it in question settings.');?>"
                             <?php endif; ?>
                         <?php endif; ?>
-                        <?php if ($this->element->latitude->getValue() !== null) :?> checked="checked"<? endif; ?>
+                        <?php if ($this->element->latitude->getValue() !== null) :?> checked="checked"<?php endif; ?>
                     >
                         <span class="offset-left"><?=$this->translate('Add location');?></span>
                     </input>
@@ -87,7 +87,7 @@
     </div>
 
     <div
-        class="collapse<?php if ($this->element->latitude->getValue() !== null) :?> in<? endif; ?> offset-bottom"
+        class="collapse<?php if ($this->element->latitude->getValue() !== null) :?> in<?php endif; ?> offset-bottom"
         id="js-contribution-map"
     >
 

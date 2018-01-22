@@ -10,7 +10,7 @@ environments:
         host: db
         name: dbjr
         user: root
-        pass: ''
+        pass: pass
         port: 3306
         charset: utf8
 
@@ -19,6 +19,6 @@ environments:
         host: db
         name: dbjr_test
         user: root
-        pass: ''
+        pass: pass
         port: 3306
         charset: utf8

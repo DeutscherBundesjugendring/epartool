@@ -7,10 +7,5 @@
 class_name: AcceptanceTester
 modules:
     enabled:
-        - WebDriver:
-            url: http://test.localhost
-            host: phantomjs
-            port: 8910
-            browser: phantomjs
         - \Helper\Acceptance
         - Db

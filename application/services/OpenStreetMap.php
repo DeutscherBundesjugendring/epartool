@@ -247,9 +247,9 @@ class Service_OpenStreetMap
             '%s/%s/cache_%s/%s/%s',
             self::MAP_CACHE_BASE_DIR,
             self::MAP_TYPE,
-            substr($mapCacheId, 0, 2),
-            substr($mapCacheId, 2, 2),
-            substr($mapCacheId, 4)
+            mb_substr($mapCacheId, 0, 2),
+            mb_substr($mapCacheId, 2, 2),
+            mb_substr($mapCacheId, 4)
         );
     }
 

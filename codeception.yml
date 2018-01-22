@@ -18,4 +18,3 @@ modules:
             dsn: 'mysql:host=db;dbname=dbjr_test'
             user: 'root'
             password: 'pass'
-            dump: '.tmp/dump.sql'

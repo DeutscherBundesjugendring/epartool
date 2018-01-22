@@ -114,7 +114,7 @@ if (!empty($_POST)) {
                     'host: db',
                     'name: dbjr',
                     'user: root',
-                    'pass: \'\'',
+                    'pass: pass',
                 ], [
                     sprintf('host: %s', $_POST['dbHost']),
                     sprintf('name: %s', $_POST['dbName']),

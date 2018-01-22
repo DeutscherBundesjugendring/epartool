@@ -44,7 +44,7 @@
                             );?>
                         </div>
                     </div>
-                <? endif; ?>
+                <?php endif; ?>
             </div>
 
             <?php if ($this->videoEnabled && $input['video_service'] !== null && $input['video_id'] !== null
@@ -80,7 +80,7 @@
                             <?php endif; ?>
                         </span>
                     </div>
-                <?php endif;?>
+                <?php endif; ?>
 
                 <!-- Discussion -->
                 <?php if ($this->consultation->is_discussion_active): ?>
@@ -112,7 +112,7 @@
                             <?php endif; ?>
                         </a>
                     </div>
-                <?php endif?>
+                <?php endif; ?>
 
                 <!-- Reactions -->
                 <?=$this->followupLink($input['tid'], $input['qi']);?>
