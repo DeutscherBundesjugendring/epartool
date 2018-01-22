@@ -67,7 +67,8 @@ class Default_Form_Input_Create extends Dbjr_Form_Web
                 isset($input['video_id']) ? $input['video_id'] : null,
                 isset($input['tid']) ? $input['tid'] : null,
                 isset($input['latitude']) ? $input['latitude'] : null,
-                isset($input['longitude']) ? $input['longitude'] : null
+                isset($input['longitude']) ? $input['longitude'] : null,
+                isset($input['location_enabled']) ? $input['location_enabled'] : true
             );
         }
 
@@ -89,6 +90,7 @@ class Default_Form_Input_Create extends Dbjr_Form_Web
      * @param  int $tid
      * @param  float $latitude
      * @param  float $longitude
+     * @param  bool $locationEnabled
      * @return Default_Form_Input_Create              Fluent interface
      */
     protected function addInputField(
@@ -99,7 +101,8 @@ class Default_Form_Input_Create extends Dbjr_Form_Web
         $videoId = null,
         $tid = null,
         $latitude = null,
-        $longitude = null
+        $longitude = null,
+        $locationEnabled = true
     ) {
         $view = new Zend_View();
         $thesElOpts = array(
@@ -149,6 +152,10 @@ class Default_Form_Input_Create extends Dbjr_Form_Web
             ->setValue($videoService)
             ->setLabel('Video:')
             ->setDecorators(array(array("Label",array("class"=>"control-label offset-right")),"ViewHelper"));
+
+        $inputForm->addElement('checkbox', 'location_enabled');
+        $inputForm->getElement('location_enabled')->setOptions(['belongsTo' => 'inputs[' . $inputName . ']'])
+            ->setValue($locationEnabled);
 
         $inputForm->addElement('videoId', 'video_id');
         $inputForm->getElement('video_id')->setOptions(['belongsTo' => 'inputs[' . $inputName . ']'])

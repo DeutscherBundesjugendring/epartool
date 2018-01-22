@@ -18,8 +18,8 @@
     </h2>
 
     <?php $i = 0; ?>
-    <?php foreach ($this->element->inputs->getSubForms() as $input) : ?>
-        <?php if ($i > 0) : ?>
+    <?php foreach ($this->element->inputs->getSubForms() as $input): ?>
+        <?php if ($i > 0): ?>
             <hr />
         <?php endif; ?>
 
@@ -39,22 +39,59 @@
                     <span class="offset-right-small" aria-hidden="true"><?=$this->translate('Location');?></span>
                     <label class="offset-bottom-none" for="js-contribution-add-location-<?=$i;?>">
                         <span class="sr-only"><?=$this->translate('Location');?></span>
-						<input
-							type="checkbox"
-							class="js-contribution-add-location"
-							id="js-contribution-add-location-<?=$i;?>"
-							data-index="<?=$i;?>"
-							data-toggle="toggle"
-							data-size="mini"
-							data-onstyle="success"
-							data-offstyle="default"
-							<?php if ($input->getElements()['latitude']->getValue() !== null) :?>checked<? endif; ?>
-						/>
-					</label>
-				</div>
+                        <span id="js-contribution-add-location-wrapper-<?=$i;?>">
+                            <input
+                                type="checkbox"
+                                name="inputs[<?=$i;?>][location_enabled]"
+                                value="1"
+                                class="js-contribution-add-location"
+                                id="js-contribution-add-location-<?=$i;?>"
+                                data-index="<?=$i;?>"
+                                data-toggle="toggle"
+                                data-size="mini"
+                                data-onstyle="success"
+                                data-offstyle="default"
+                                <?=((($input->getElements()['tid']->getValue() === null
+                                    || $input->getElements()['latitude']->getValue() !== null)
+                                    && $input->getElements()['location_enabled']->getValue())
+                                    ? 'checked'
+                                    : ''
+                                );
+                                ?>
+                            />
+                        </span>
+                    </label>
+                </div>
             <?php endif; ?>
 
             <?=$input->getElements()['thes']->setDecorators(['ViewHelper']);?>
+
+            <?php if ($this->element->getLocationEnabled()): ?>
+                <div
+                    class="js-contribution-map<?=((($input->getElements()['tid']->getValue() !== null
+                            && $input->getElements()['latitude']->getValue() === null)
+                            || !$input->getElements()['location_enabled']->getValue())
+                            ? ' js-contribution-map-collapsed'
+                            : ''
+                        );
+                        ?> offset-top-small"
+                    id="js-contribution-map-<?=$i;?>"
+                    data-index="<?=$i;?>"
+                >
+                    <a
+                        href="#"
+                        class="js-contribution-map-button-my-location btn btn-default btn-xs hidden-print"
+                        id="js-contribution-map-button-my-location-<?=$i;?>"
+                        data-index="<?=$i;?>"
+                        style="position: absolute; z-index: 450;right: 50px; margin-top: 10px;"
+                    >
+                        <?=$this->translate('Use My location');?>
+                    </a>
+                    <div id="js-contribution-map-canvas-<?=$i;?>" style="height: 300px;"></div>
+                </div>
+                <?=$input->getElements()['latitude']->setDecorators(['ViewHelper']);?>
+                <?=$input->getElements()['longitude']->setDecorators(['ViewHelper']);?>
+            <?php endif; ?>
 
             <?php if ($this->element->getVideoEnabled()) : ?>
                 <div class="form-inline form-inline-flex form-group text-left offset-top-small offset-bottom-small js-video-service">
@@ -91,27 +128,6 @@
                     <span class="counter-digit">2</span><span class="counter-digit">0</span><span class="counter-digit">0</span><span class="counter-digit">0</span>
                 </span>
             </div>
-
-            <?php if ($this->element->getLocationEnabled()): ?>
-                <div
-                    class="js-contribution-map<?php if ($input->getElements()['latitude']->getValue() === null) :?> js-contribution-map-collapsed<? endif; ?> offset-top-small"
-                    id="js-contribution-map-<?=$i;?>"
-                    data-index="<?=$i;?>"
-                >
-                    <a
-                        href="#"
-                        class="js-contribution-map-button-my-location btn btn-default btn-xs hidden-print"
-                        id="js-contribution-map-button-my-location-<?=$i;?>"
-                        data-index="<?=$i;?>"
-                        style="position: absolute; z-index: 450;right: 50px; margin-top: 10px;"
-                    >
-                        <?=$this->translate('Use My location');?>
-                    </a>
-                    <div id="js-contribution-map-canvas-<?=$i;?>" style="height: 300px;"></div>
-                </div>
-                <?=$input->getElements()['latitude']->setDecorators(['ViewHelper']);?>
-                <?=$input->getElements()['longitude']->setDecorators(['ViewHelper']);?>
-            <?php endif; ?>
         </fieldset>
 
         <?php $i++; ?>

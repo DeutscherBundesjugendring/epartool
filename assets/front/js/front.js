@@ -465,16 +465,18 @@
         .attr('name', newPrefixName + '[longitude]')
         .val('');
 
-      newFieldset.find('#js-contribution-add-location-0')
+      var rawCheckbox = newFieldset.find('#js-contribution-add-location-0').clone()
         .attr('id', 'js-contribution-add-location-' + newIndex)
-        .attr('checked', false)
+        .prop('checked', true)
         .attr('data-index', newIndex);
+      newFieldset.find('#js-contribution-add-location-wrapper-0').empty().append(rawCheckbox)
+        .attr('id', 'js-contribution-add-location-wrapper-' + newIndex);
       newFieldset.find('label[for="js-contribution-add-location-0"]')
         .attr('for', 'js-contribution-add-location-' + newIndex)
         .attr('data-index', newIndex);
       newFieldset.find('#js-contribution-map-0')
         .attr('id', 'js-contribution-map-' + newIndex)
-        .attr('class', 'js-contribution-map-collapsed')
+        .attr('class', 'js-contribution-map-collapsed offset-top-small')
         .attr('data-index', newIndex)
         .attr('style', 'display: none;');
       newFieldset.find('#js-contribution-map-canvas-0')
@@ -490,10 +492,14 @@
       $('.js-toggle-extended-input').unbind('click');
       $('textarea.js-has-counter').unbind('change').unbind('keyup');
 
-      $('#js-contribution-add-location-' + newIndex).on('click', function() {
+      $('#js-contribution-add-location-' + newIndex).on('change', function() {
         var index = $(this).data('index');
         var mapEl = $('#js-contribution-map-' + index);
         toggleMap(maps, mapEl, index);
+      }).bootstrapToggle({
+        size: 'mini',
+        onstyle: 'success',
+        offstyle: 'default',
       });
 
       $('#js-contribution-map-button-my-location-' + newIndex).on('click', function(e) {
@@ -503,6 +509,8 @@
 
       bindToggleExtendedInput();
       bindCharacterCounters();
+
+      toggleMap(maps, $('#js-contribution-map-' + newIndex), newIndex);
     });
   };
 
