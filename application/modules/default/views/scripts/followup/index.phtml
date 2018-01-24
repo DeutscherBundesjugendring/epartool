@@ -176,6 +176,10 @@
             ]);?>
             <?php if ($mapContent): ?>
                 <div class="well well-bordered well-canvas">
+                    <p class="text-center offset-top">
+                        <span class="glyphicon glyphicon-info-sign offset-right text-info" aria-hidden="true"></span>
+                        <?=$this->translate('Click a pin to see details of a contribution.');?>
+                    </p>
                     <?=$mapContent;?>
                 </div>
             <?php endif; ?>

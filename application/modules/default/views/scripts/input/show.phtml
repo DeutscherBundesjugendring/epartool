@@ -101,6 +101,10 @@
             <?php endif; ?>
 
             <?php if ($this->listType === 'map'): ?>
+                <p class="text-center">
+                    <span class="glyphicon glyphicon-info-sign offset-right text-info" aria-hidden="true"></span>
+                    <?=$this->translate('Click a pin to see details of a contribution.');?>
+                </p>
                 <?=$this->openStreetMapsConfig();?>
                 <?=$this->partial('_partials/contributionsMap.phtml', [
                     'consultation' => $this->consultation,
