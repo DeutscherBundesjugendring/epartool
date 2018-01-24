@@ -14,6 +14,55 @@
     <?php endif; ?>
     <?=$this->element->expl;?>
 
+    <div class="row">
+        <div class="col-sm-4">
+            <div class="form-group">
+                <label for="js-contribution-map-toggle-location">
+                    <input
+                        type="checkbox"
+                        id="js-contribution-map-toggle-location"
+                        data-toggle="collapse"
+                        data-target="#js-contribution-map"
+                        <?php if (!$this->element->getLocationEnabled()): ?>
+                            disabled="disabled"
+                            <?php if (get_class($this->element) !== Admin_Form_CreateInput::class): ?>
+                                title="<?=$this->translate('Location is disabled. You can enable it in question settings.');?>"
+                            <?php endif; ?>
+                        <?php endif; ?>
+                        <?=($this->element->latitude->getValue() !== null ? 'checked' : ''); ?>
+                    >
+                        <span class="offset-left"><?=$this->translate('Add location');?></span>
+                    </input>
+                </label>
+            </div>
+        </div>
+        <div class="col-sm-8">
+            <?php if (!$this->element->getLocationEnabled()
+                && get_class($this->element) !== Admin_Form_CreateInput::class): ?>
+                <span class="alert alert-info">
+                    <?=$this->translate('Location is disabled. You can enable it in question settings.');?>
+                </span>
+            <?php endif; ?>
+        </div>
+    </div>
+
+    <div
+        class="collapse<?=($this->element->latitude->getValue() !== null ? ' in' : ''); ?> offset-bottom"
+        id="js-contribution-map"
+    >
+
+        <a
+            href="#"
+            class="btn btn-default btn-xs"
+            id="js-contribution-map-button-my-location"
+            style="position: absolute; z-index: 450;right: 50px; margin-top: 10px;"
+        >
+            <?=$this->translate('Use My location');?>
+        </a>
+        <div id="js-contribution-map-canvas" style="height: 300px;"></div>
+    </div>
+    <?=$this->element->latitude;?>
+    <?=$this->element->longitude;?>
 
     <?php if (!$this->element->getVideoEnabled()) :
         $this->element->video_service->setAttrib('disabled', 'disabled');
@@ -54,55 +103,6 @@
             );?>
         </div>
     <?php endif; ?>
-
-    <div class="row">
-        <div class="col-sm-4">
-            <div class="form-group">
-                <label for="js-contribution-map-toggle-location">
-                    <input type="checkbox"
-                        id="js-contribution-map-toggle-location"
-                        data-toggle="collapse"
-                        data-target="#js-contribution-map"
-                        <?php if (!$this->element->getLocationEnabled()): ?>
-                            disabled="disabled"
-                            <?php if (get_class($this->element) !== Admin_Form_CreateInput::class): ?>
-                                title="<?=$this->translate('Location is disabled. You can enable it in question settings.');?>"
-                            <?php endif; ?>
-                        <?php endif; ?>
-                        <?php if ($this->element->latitude->getValue() !== null) :?> checked="checked"<?php endif; ?>
-                    >
-                        <span class="offset-left"><?=$this->translate('Add location');?></span>
-                    </input>
-                </label>
-            </div>
-        </div>
-        <div class="col-sm-8">
-            <?php if (!$this->element->getLocationEnabled()
-                && get_class($this->element) !== Admin_Form_CreateInput::class): ?>
-                <span class="alert alert-info">
-                    <?=$this->translate('Location is disabled. You can enable it in question settings.');?>
-                </span>
-            <?php endif; ?>
-        </div>
-    </div>
-
-    <div
-        class="collapse<?php if ($this->element->latitude->getValue() !== null) :?> in<?php endif; ?> offset-bottom"
-        id="js-contribution-map"
-    >
-
-        <a
-            href="#"
-            class="btn btn-default btn-xs"
-            id="js-contribution-map-button-my-location"
-            style="position: absolute; z-index: 450;right: 50px; margin-top: 10px;"
-        >
-            <?=$this->translate('Use My location');?>
-        </a>
-        <div id="js-contribution-map-canvas" style="height: 300px;"></div>
-    </div>
-    <?=$this->element->latitude;?>
-    <?=$this->element->longitude;?>
 
     <?=$this->element->tags;?>
 
