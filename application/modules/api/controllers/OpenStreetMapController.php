@@ -52,6 +52,7 @@ class Api_OpenStreetMapController extends Dbjr_Api_BaseController
     /**
      * @param array $params
      * @param int $defaultZoom
+     * @throws \Dbjr_Exception
      * @throws \Dbjr_Api_Exception
      * @return array
      */

@@ -7,22 +7,22 @@ class Service_OpenStreetMap
 {
     const TILE_SIZE = 256;
     const MAP_IMAGE_EXTENSION = '.png';
-    const OSM_ASSETS_PATH = APPLICATION_PATH . '/../assets/common';
-    const OSM_LOGO = '/images/osm_logo.png';
+    const OSM_RESOURCES_PATH = APPLICATION_PATH . '/../www';
+    const OSM_LOGO = 'images/osm_logo.png';
     const MAP_TYPE = 'mapnik';
     const TILE_CACHE_BASE_DIR = APPLICATION_PATH . '/../runtime/cache/osm/tiles';
     const MAP_CACHE_BASE_DIR = APPLICATION_PATH . '/../runtime/cache/osm/maps';
     const MARKER_PROTOTYPES = [
         'default' => [
-            'image' => '/images/marker_default.png',
+            'image' => 'images/marker-icon.png',
             'offsetImage' => [
                 'x' => -12,
                 'y' => -41,
             ],
-            'shadowImage' => '/images/marker_default_shadow.png',
+            'shadowImage' => 'images/marker-shadow.png',
             'offsetShadowImage' => [
-                'x' => 0,
-                'y' => -13,
+                'x' => -12,
+                'y' => -41,
             ],
         ],
     ];
@@ -163,12 +163,12 @@ class Service_OpenStreetMap
             }
             $markerPrototype = self::MARKER_PROTOTYPES[$marker['type']];
             $markerImg = imagecreatefrompng(
-                sprintf('%s/%s', self::OSM_ASSETS_PATH, $markerPrototype['image'])
+                sprintf('%s/%s', self::OSM_RESOURCES_PATH, $markerPrototype['image'])
             );
             $markerShadowImg = null;
             if ($markerPrototype['shadowImage'] !== null) {
                 $markerShadowImg = imagecreatefrompng(
-                    sprintf('%s/%s', self::OSM_ASSETS_PATH, $markerPrototype['shadowImage'])
+                    sprintf('%s/%s', self::OSM_RESOURCES_PATH, $markerPrototype['shadowImage'])
                 );
             }
             $destX = floor(($width / 2) - self::TILE_SIZE
@@ -301,7 +301,7 @@ class Service_OpenStreetMap
      */
     private function copyrightNotice($image)
     {
-        $logoImg = imagecreatefrompng(self::OSM_ASSETS_PATH . '/' . self::OSM_LOGO);
+        $logoImg = imagecreatefrompng(sprintf('%s/%s', self::OSM_RESOURCES_PATH, self::OSM_LOGO));
         imagecopy(
             $image,
             $logoImg,
