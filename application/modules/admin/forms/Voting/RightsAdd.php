@@ -46,6 +46,7 @@ class Admin_Form_Voting_RightsAdd extends Dbjr_Form_Admin
         $user = $this->createElement('select', 'uid');
         $user
             ->setLabel('User')
+            ->setRequired(true)
             ->setAttrib('data-onload-select2', '{}')
             ->setMultiOptions($this->userOptions);
         $this->addElement($user);

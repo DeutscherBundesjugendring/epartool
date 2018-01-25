@@ -22,8 +22,17 @@
                 <h2>
                     <?=$this->translate('New Permission');?>
                 </h2>
-                <?=$this->form;?>
 
+                <?php if ($this->usersWithoutRights > 0): ?>
+                    <?=$this->form;?>
+                <?php else: ?>
+                    <p class="alert alert-info">
+                        <?=$this->translate('There are no users without voting permissions.');?>
+                        <a href="<?=$this->url(['controller' => 'user', 'action' => 'create']);?>">
+                            <?=$this->translate('Create a new user');?>
+                        </a>
+                    </p>
+                <?php endif; ?>
             </div>
         </div>
     </div>

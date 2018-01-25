@@ -141,6 +141,7 @@ class Admin_VotingController extends Zend_Controller_Action
             $form->populate(['vt_code' => $votingRights->generateVotingCode()]);
         }
 
+        $this->view->usersWithoutRights = count ($users);
         $this->view->form = $form;
     }
 
