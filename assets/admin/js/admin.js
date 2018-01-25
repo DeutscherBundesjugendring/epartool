@@ -522,10 +522,42 @@
         + $this.val().charAt(0).toUpperCase() + $this.val().slice(1)).html());
     });
 
+    $('#btn_no_opinion-element input[type="radio"]').on('click', function () {
+      if ($(this).val() === '1') {
+        $('#votingButtonsPreviewContent > ul > li.voting-button-no-opinion').show();
+        $('#votingButtonsPreview > div > ul > li.voting-button-no-opinion').show();
+
+        return;
+      }
+      $('#votingButtonsPreviewContent > ul > li.voting-button-no-opinion').hide();
+      $('#votingButtonsPreview > div > ul > li.voting-button-no-opinion').hide();
+    });
+
+    $('#is_btn_important-element input[type="radio"]').on('click', function () {
+      if ($(this).val() === '1') {
+        $('#votingButtonsPreviewContent > ul > li.voting-button-superbutton').show();
+        $('#votingButtonsPreview > div > ul > li.voting-button-superbutton').show();
+
+        return;
+      }
+      $('#votingButtonsPreviewContent > ul > li.voting-button-superbutton').hide();
+      $('#votingButtonsPreview > div > ul > li.voting-button-superbutton').hide();
+    });
+
     var $previewOfSelected = $('#button_type-element input[type="radio"]:checked');
     if ($previewOfSelected.length > 0) {
-      $('#votingButtonsPreviewContent').html($('#votingButtonsPreviewType'
-        + $previewOfSelected.val().charAt(0).toUpperCase() + $previewOfSelected.val().slice(1)).html());
+      $('#votingButtonsPreviewContent').empty().append($('#votingButtonsPreviewType'
+        + $previewOfSelected.val().charAt(0).toUpperCase() + $previewOfSelected.val().slice(1)).children().clone());
+    }
+
+    if ($('#is_btn_important-element input[type="radio"]:checked').val() === '0') {
+      $('#votingButtonsPreviewContent > ul > li.voting-button-superbutton').hide();
+      $('#votingButtonsPreview > div > ul > li.voting-button-superbutton').hide();
+    }
+
+    if ($('#btn_no_opinion-element input[type="radio"]:checked').val() === '0') {
+      $('#votingButtonsPreviewContent > ul > li.voting-button-no-opinion').hide();
+      $('#votingButtonsPreview > div > ul > li.voting-button-no-opinion').hide();
     }
   }
 
