@@ -101,12 +101,7 @@
             <?php endif; ?>
 
             <?php if ($this->listType === 'map'): ?>
-                <p class="text-center">
-                    <span class="glyphicon glyphicon-info-sign offset-right text-info" aria-hidden="true"></span>
-                    <?=$this->translate('Click a pin to see details of a contribution.');?>
-                </p>
-                <?=$this->openStreetMapsConfig();?>
-                <?=$this->partial('_partials/contributionsMap.phtml', [
+                <?php $map = $this->partial('_partials/contributionsMap.phtml', [
                     'consultation' => $this->consultation,
                     'inputs' => $this->inputs,
                     'supports' => $supports,
@@ -114,6 +109,19 @@
                     'videoServicesStatus' => $this->videoServicesStatus,
                     'question' => $this->question,
                 ]);?>
+                <?php if ($map): ?>
+                    <p class="text-center">
+                        <span class="glyphicon glyphicon-info-sign icon-offset text-info" aria-hidden="true"></span>
+                        <?=$this->translate('Click a pin to see details of a contribution.');?>
+                    </p>
+                    <?=$this->openStreetMapsConfig();?>
+                    <?=$map;?>
+                <?php else: ?>
+                    <p class="text-center">
+                        <span class="glyphicon glyphicon-info-sign text-info icon-offset" aria-hidden="true"></span>
+                        <?=$this->translate('There are no contributions with location on this question.');?>
+                    </p>
+                <?php endif; ?>
             <?php else: ?>
                 <?=$this->partial('_partials/contributionsList.phtml', [
                     'consultation' => $this->consultation,
