@@ -81,6 +81,8 @@ class Admin_InputDiscussionController extends Zend_Controller_Action {
                             'uid' => null,
                             'type' => Model_Inputs::TYPE_FROM_DISCUSSION,
                             'input_discussion_contrib' => $contribId,
+                            'video_service' => $contrib->video_service,
+                            'video_id' => $contrib->video_id,
                         ];
                         $newInputId = $inputModel->add($newInput);
 
