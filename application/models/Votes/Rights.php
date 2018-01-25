@@ -5,6 +5,8 @@
  */
 class Model_Votes_Rights extends Dbjr_Db_Table_Abstract
 {
+    const MAX_GENERATOR_ATTEMPTS = 3;
+
     protected $_name = 'vt_rights';
     protected $_primary = array(
         'kid', 'uid'
@@ -146,20 +148,32 @@ class Model_Votes_Rights extends Dbjr_Db_Table_Abstract
         $i = 0;
 
         // add random characters to $password until $length is reached
-        while ($i < $length) {
-            // pick a random character from the possible ones
-            $char = mb_substr($possible, mt_rand(0, $maxlength-1), 1);
+        $attempts = 0;
+        do {
+            while ($i < $length) {
+                // pick a random character from the possible ones
+                $char = mb_substr($possible, mt_rand(0, $maxlength-1), 1);
 
-            // have we already used this character in $password?
-            if (!mb_strstr($password, $char)) {
-                // no, so it's OK to add it onto the end of whatever we've already got...
-                $password .= $char;
-                // ... and increase the counter by one
-                $i++;
+                // have we already used this character in $password?
+                if (!mb_strstr($password, $char)) {
+                    // no, so it's OK to add it onto the end of whatever we've already got...
+                    $password .= $char;
+                    // ... and increase the counter by one
+                    $i++;
+                }
             }
-        }
 
-        return $password;
+            $select = $this
+                ->select()
+                ->from(['vr' => $this->_name], ['vt_code' => 'vr.vt_code'])
+                ->where('vr.vt_code = ?', $password);
+            $result = $this->fetchAll($select);
+            if (count($result) === 0) {
+                return $password;
+            }
+        } while ($attempts++ < self::MAX_GENERATOR_ATTEMPTS);
+
+        throw new Exception('Cannot generate unique voting code.');
     }
 
 
