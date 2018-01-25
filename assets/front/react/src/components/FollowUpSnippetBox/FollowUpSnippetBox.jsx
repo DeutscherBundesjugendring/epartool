@@ -38,31 +38,36 @@ const FollowUpSnippetBox = (props) => {
         followup-type-wrap-inner
       "
     >
-      {isType && (
-        <div className="followup-type followup-type-right followup-type-right-alt">
-          <span className={glyphClasses} aria-hidden="true" />
-          <span className="followup-type-title">{glyphTitle}</span>
-        </div>
-      )}
-      <img
-        src={props.document.previewImageLink}
-        alt={props.document.title}
-        width="120"
-        className="offset-bottom img-responsive"
-      />
+      <div className="js-followup-box-head">
+        {isType && (
+          <div className="followup-type followup-type-right followup-type-right-alt">
+            <span className={glyphClasses} aria-hidden="true" />
+            <span className="followup-type-title">{glyphTitle}</span>
+          </div>
+        )}
+        <img
+          src={props.document.previewImageLink}
+          alt={props.document.title}
+          width="120"
+          className="offset-bottom img-responsive"
+        />
+      </div>
       <div
+        className="js-followup-box-content"
         // eslint-disable-next-line react/no-danger
         dangerouslySetInnerHTML={{ __html: props.snippetExplanation }}
       />
-      <Reputation
-        dislikeAction={props.dislikeAction}
-        dislikeCount={props.dislikeCount}
-        dislikeLabel={props.dislikeLabel}
-        likeAction={props.likeAction}
-        likeCount={props.likeCount}
-        likeLabel={props.likeLabel}
-        votingLimitError={props.votingLimitError}
-      />
+      <div className="followup-reputation">
+        <Reputation
+          dislikeAction={props.dislikeAction}
+          dislikeCount={props.dislikeCount}
+          dislikeLabel={props.dislikeLabel}
+          likeAction={props.likeAction}
+          likeCount={props.likeCount}
+          likeLabel={props.likeLabel}
+          votingLimitError={props.votingLimitError}
+        />
+      </div>
     </div>
   );
 };

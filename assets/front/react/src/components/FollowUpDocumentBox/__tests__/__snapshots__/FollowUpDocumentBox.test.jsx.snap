@@ -4,29 +4,34 @@ exports[`rendering renders correctly with long date 1`] = `
 <div
   className=" well well-bordered followup-flow followup-well followup-well-collapsible followup-well-link followup-type-wrap followup-type-wrap-inner "
 >
-  <h2
-    className="h4"
-  >
-    Document title
-  </h2>
-  <p
-    className="text-muted"
-  >
-    1 January 2017
-    <span
-      className="offset-left offset-right"
-    >
-      |
-    </span>
-    Author of document
-  </p>
-  <img
-    alt="Document title"
-    className="offset-bottom img-responsive"
-    src="http://www.example.com/image.jpg"
-    width="120"
-  />
   <div
+    className="js-followup-box-head"
+  >
+    <h2
+      className="h4"
+    >
+      Document title
+    </h2>
+    <p
+      className="text-muted"
+    >
+      1 January 2017
+      <span
+        className="offset-left offset-right"
+      >
+        |
+      </span>
+      Author of document
+    </p>
+    <img
+      alt="Document title"
+      className="offset-bottom img-responsive"
+      src="http://www.example.com/image.jpg"
+      width="120"
+    />
+  </div>
+  <div
+    className="js-followup-box-content"
     dangerouslySetInnerHTML={
       Object {
         "__html": "Description of document",
@@ -41,41 +46,46 @@ exports[`rendering renders correctly with long date 2`] = `
   className=" well well-bordered followup-flow followup-well followup-well-collapsible followup-well-link followup-type-wrap followup-type-wrap-inner "
 >
   <div
-    className="followup-type followup-type-right followup-type-right-alt"
+    className="js-followup-box-head"
   >
-    <span
-      aria-hidden="true"
-      className="followup-type-icon glyphicon glyphicon-heart"
+    <div
+      className="followup-type followup-type-right followup-type-right-alt"
+    >
+      <span
+        aria-hidden="true"
+        className="followup-type-icon glyphicon glyphicon-heart"
+      />
+      <span
+        className="followup-type-title"
+      >
+        typeSupporting
+      </span>
+    </div>
+    <h2
+      className="h4"
+    >
+      Document title
+    </h2>
+    <p
+      className="text-muted"
+    >
+      1 January 2017
+      <span
+        className="offset-left offset-right"
+      >
+        |
+      </span>
+      Author of document
+    </p>
+    <img
+      alt="Document title"
+      className="offset-bottom img-responsive"
+      src="http://www.example.com/image.jpg"
+      width="120"
     />
-    <span
-      className="followup-type-title"
-    >
-      typeSupporting
-    </span>
   </div>
-  <h2
-    className="h4"
-  >
-    Document title
-  </h2>
-  <p
-    className="text-muted"
-  >
-    1 January 2017
-    <span
-      className="offset-left offset-right"
-    >
-      |
-    </span>
-    Author of document
-  </p>
-  <img
-    alt="Document title"
-    className="offset-bottom img-responsive"
-    src="http://www.example.com/image.jpg"
-    width="120"
-  />
   <div
+    className="js-followup-box-content"
     dangerouslySetInnerHTML={
       Object {
         "__html": "Description of document",
@@ -90,41 +100,46 @@ exports[`rendering renders correctly with long date 3`] = `
   className=" well well-bordered followup-flow followup-well followup-well-collapsible followup-well-link followup-type-wrap followup-type-wrap-inner "
 >
   <div
-    className="followup-type followup-type-right followup-type-right-alt"
+    className="js-followup-box-head"
   >
-    <span
-      aria-hidden="true"
-      className="followup-type-icon glyphicon glyphicon-play"
+    <div
+      className="followup-type followup-type-right followup-type-right-alt"
+    >
+      <span
+        aria-hidden="true"
+        className="followup-type-icon glyphicon glyphicon-play"
+      />
+      <span
+        className="followup-type-title"
+      >
+        typeAction
+      </span>
+    </div>
+    <h2
+      className="h4"
+    >
+      Document title
+    </h2>
+    <p
+      className="text-muted"
+    >
+      1 January 2017
+      <span
+        className="offset-left offset-right"
+      >
+        |
+      </span>
+      Author of document
+    </p>
+    <img
+      alt="Document title"
+      className="offset-bottom img-responsive"
+      src="http://www.example.com/image.jpg"
+      width="120"
     />
-    <span
-      className="followup-type-title"
-    >
-      typeAction
-    </span>
   </div>
-  <h2
-    className="h4"
-  >
-    Document title
-  </h2>
-  <p
-    className="text-muted"
-  >
-    1 January 2017
-    <span
-      className="offset-left offset-right"
-    >
-      |
-    </span>
-    Author of document
-  </p>
-  <img
-    alt="Document title"
-    className="offset-bottom img-responsive"
-    src="http://www.example.com/image.jpg"
-    width="120"
-  />
   <div
+    className="js-followup-box-content"
     dangerouslySetInnerHTML={
       Object {
         "__html": "Description of document",
@@ -139,41 +154,46 @@ exports[`rendering renders correctly with long date 4`] = `
   className=" well well-bordered followup-flow followup-well followup-well-collapsible followup-well-link followup-type-wrap followup-type-wrap-inner "
 >
   <div
-    className="followup-type followup-type-right followup-type-right-alt"
+    className="js-followup-box-head"
   >
-    <span
-      aria-hidden="true"
-      className="followup-type-icon glyphicon glyphicon-minus-sign"
+    <div
+      className="followup-type followup-type-right followup-type-right-alt"
+    >
+      <span
+        aria-hidden="true"
+        className="followup-type-icon glyphicon glyphicon-minus-sign"
+      />
+      <span
+        className="followup-type-title"
+      >
+        typeRejected
+      </span>
+    </div>
+    <h2
+      className="h4"
+    >
+      Document title
+    </h2>
+    <p
+      className="text-muted"
+    >
+      1 January 2017
+      <span
+        className="offset-left offset-right"
+      >
+        |
+      </span>
+      Author of document
+    </p>
+    <img
+      alt="Document title"
+      className="offset-bottom img-responsive"
+      src="http://www.example.com/image.jpg"
+      width="120"
     />
-    <span
-      className="followup-type-title"
-    >
-      typeRejected
-    </span>
   </div>
-  <h2
-    className="h4"
-  >
-    Document title
-  </h2>
-  <p
-    className="text-muted"
-  >
-    1 January 2017
-    <span
-      className="offset-left offset-right"
-    >
-      |
-    </span>
-    Author of document
-  </p>
-  <img
-    alt="Document title"
-    className="offset-bottom img-responsive"
-    src="http://www.example.com/image.jpg"
-    width="120"
-  />
   <div
+    className="js-followup-box-content"
     dangerouslySetInnerHTML={
       Object {
         "__html": "Description of document",
@@ -188,41 +208,46 @@ exports[`rendering renders correctly with long date 5`] = `
   className=" well well-bordered followup-flow followup-well followup-well-collapsible followup-well-link followup-type-wrap followup-type-wrap-inner "
 >
   <div
-    className="followup-type followup-type-right followup-type-right-alt"
+    className="js-followup-box-head"
   >
-    <span
-      aria-hidden="true"
-      className="followup-type-icon glyphicon glyphicon-lock"
+    <div
+      className="followup-type followup-type-right followup-type-right-alt"
+    >
+      <span
+        aria-hidden="true"
+        className="followup-type-icon glyphicon glyphicon-lock"
+      />
+      <span
+        className="followup-type-title"
+      >
+        typeEnd
+      </span>
+    </div>
+    <h2
+      className="h4"
+    >
+      Document title
+    </h2>
+    <p
+      className="text-muted"
+    >
+      1 January 2017
+      <span
+        className="offset-left offset-right"
+      >
+        |
+      </span>
+      Author of document
+    </p>
+    <img
+      alt="Document title"
+      className="offset-bottom img-responsive"
+      src="http://www.example.com/image.jpg"
+      width="120"
     />
-    <span
-      className="followup-type-title"
-    >
-      typeEnd
-    </span>
   </div>
-  <h2
-    className="h4"
-  >
-    Document title
-  </h2>
-  <p
-    className="text-muted"
-  >
-    1 January 2017
-    <span
-      className="offset-left offset-right"
-    >
-      |
-    </span>
-    Author of document
-  </p>
-  <img
-    alt="Document title"
-    className="offset-bottom img-responsive"
-    src="http://www.example.com/image.jpg"
-    width="120"
-  />
   <div
+    className="js-followup-box-content"
     dangerouslySetInnerHTML={
       Object {
         "__html": "Description of document",
@@ -236,29 +261,34 @@ exports[`rendering renders correctly with short date 1`] = `
 <div
   className=" well well-bordered followup-flow followup-well followup-well-collapsible followup-well-link followup-type-wrap followup-type-wrap-inner "
 >
-  <h2
-    className="h4"
-  >
-    Document title
-  </h2>
-  <p
-    className="text-muted"
-  >
-    January 2017
-    <span
-      className="offset-left offset-right"
-    >
-      |
-    </span>
-    Author of document
-  </p>
-  <img
-    alt="Document title"
-    className="offset-bottom img-responsive"
-    src="http://www.example.com/image.jpg"
-    width="120"
-  />
   <div
+    className="js-followup-box-head"
+  >
+    <h2
+      className="h4"
+    >
+      Document title
+    </h2>
+    <p
+      className="text-muted"
+    >
+      January 2017
+      <span
+        className="offset-left offset-right"
+      >
+        |
+      </span>
+      Author of document
+    </p>
+    <img
+      alt="Document title"
+      className="offset-bottom img-responsive"
+      src="http://www.example.com/image.jpg"
+      width="120"
+    />
+  </div>
+  <div
+    className="js-followup-box-content"
     dangerouslySetInnerHTML={
       Object {
         "__html": "Description of document",

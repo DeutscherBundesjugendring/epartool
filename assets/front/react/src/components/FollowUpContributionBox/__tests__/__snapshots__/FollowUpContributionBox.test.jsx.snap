@@ -5,7 +5,7 @@ exports[`rendering renders correctly with all texts, embedded video, location an
   className="followup-flow"
 >
   <div
-    className="well well-bordered well-deep"
+    className="well well-bordered well-deep js-followup-box-head"
   >
     <h4>
       <span
@@ -17,7 +17,7 @@ exports[`rendering renders correctly with all texts, embedded video, location an
     </h4>
   </div>
   <div
-    className="well well-bordered followup-well-collapsible"
+    className="well well-bordered followup-well-collapsible js-followup-box-content"
   >
     <EmbeddedVideo
       height={120}
@@ -63,14 +63,14 @@ exports[`rendering renders correctly with contribution text only 1`] = `
   className="followup-flow"
 >
   <div
-    className="well well-bordered well-deep"
+    className="well well-bordered well-deep js-followup-box-head"
   >
     <h4>
       Question
     </h4>
   </div>
   <div
-    className="well well-bordered followup-well-collapsible"
+    className="well well-bordered followup-well-collapsible js-followup-box-content"
   >
     <p>
       Contribution thesis

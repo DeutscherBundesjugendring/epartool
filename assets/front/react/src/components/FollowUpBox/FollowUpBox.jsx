@@ -23,11 +23,25 @@ class FollowUpBox extends React.Component {
     if (this.props.type === 'contribution') {
       const wellArray = document
         .getElementById(`${this.props.type}-${this.props.id}`)
-        .getElementsByClassName('followup-flow')[0]
-        .getElementsByTagName('div');
+        .getElementsByClassName('followup-flow')[0];
       // 400px is collapsed followup-timeline-box height, -20px is adjustment for margin
-      const newHeight = 400 - (wellArray[0].offsetHeight - 20);
-      wellArray[1].style.height = this.props.isOpened() ? '' : `${newHeight}px`;
+      const newHeight = 400
+        - (wellArray.getElementsByClassName('js-followup-box-head')[0].offsetHeight - 20);
+      wellArray.getElementsByClassName('js-followup-box-content')[0].style.height
+        = this.props.isOpened() ? '' : `${newHeight}px`;
+    } else {
+      const wellArray = document
+        .getElementById(`${this.props.type}-${this.props.id}`)
+        .getElementsByClassName('followup-flow')[0];
+      const headEl = wellArray.getElementsByClassName('js-followup-box-head')[0];
+      // 400px is collapsed followup-timeline-box height, -20px is adjustment for margin
+      // 31.01.2018 - jiri@visionapps.cz - 121px is an experimentally found value to prevent two
+      // phase resizing of the box when it is collapsing
+      const newHeight = 400 - headEl.offsetHeight - 121;
+      wellArray.getElementsByClassName('js-followup-box-content')[0].style.height =
+        this.props.isOpened()
+          ? ''
+          : `${newHeight}px`;
     }
   }
 
@@ -44,7 +58,6 @@ class FollowUpBox extends React.Component {
     }
 
     const canOverflow = element.scrollHeight > element.clientHeight;
-
     if (canOverflow) {
       document.getElementById(`${this.props.type}-${this.props.id}-toggle`).style.display = '';
     } else {

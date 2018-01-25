@@ -4,29 +4,38 @@ exports[`rendering renders correctly 1`] = `
 <div
   className=" well well-bordered followup-flow followup-well followup-well-collapsible followup-well-link followup-type-wrap followup-type-wrap-inner "
 >
-  <img
-    alt="title"
-    className="offset-bottom img-responsive"
-    src="abc"
-    width="120"
-  />
   <div
+    className="js-followup-box-head"
+  >
+    <img
+      alt="title"
+      className="offset-bottom img-responsive"
+      src="abc"
+      width="120"
+    />
+  </div>
+  <div
+    className="js-followup-box-content"
     dangerouslySetInnerHTML={
       Object {
         "__html": "Snippet",
       }
     }
   />
-  <Reputation
-    dislikeAction={[Function]}
-    dislikeCount={0}
-    dislikeLabel="dislike"
-    likeAction={[Function]}
-    likeCount={0}
-    likeLabel="like"
-    voted={false}
-    votingLimitError="voting-error"
-  />
+  <div
+    className="followup-reputation"
+  >
+    <Reputation
+      dislikeAction={[Function]}
+      dislikeCount={0}
+      dislikeLabel="dislike"
+      likeAction={[Function]}
+      likeCount={0}
+      likeLabel="like"
+      voted={false}
+      votingLimitError="voting-error"
+    />
+  </div>
 </div>
 `;
 
@@ -35,41 +44,50 @@ exports[`rendering renders correctly 2`] = `
   className=" well well-bordered followup-flow followup-well followup-well-collapsible followup-well-link followup-type-wrap followup-type-wrap-inner "
 >
   <div
-    className="followup-type followup-type-right followup-type-right-alt"
+    className="js-followup-box-head"
   >
-    <span
-      aria-hidden="true"
-      className="followup-type-icon glyphicon glyphicon-heart"
-    />
-    <span
-      className="followup-type-title"
+    <div
+      className="followup-type followup-type-right followup-type-right-alt"
     >
-      typeSupporting
-    </span>
+      <span
+        aria-hidden="true"
+        className="followup-type-icon glyphicon glyphicon-heart"
+      />
+      <span
+        className="followup-type-title"
+      >
+        typeSupporting
+      </span>
+    </div>
+    <img
+      alt="title"
+      className="offset-bottom img-responsive"
+      src="abc"
+      width="120"
+    />
   </div>
-  <img
-    alt="title"
-    className="offset-bottom img-responsive"
-    src="abc"
-    width="120"
-  />
   <div
+    className="js-followup-box-content"
     dangerouslySetInnerHTML={
       Object {
         "__html": "Snippet",
       }
     }
   />
-  <Reputation
-    dislikeAction={[Function]}
-    dislikeCount={0}
-    dislikeLabel="dislike"
-    likeAction={[Function]}
-    likeCount={0}
-    likeLabel="like"
-    voted={false}
-    votingLimitError="voting-error"
-  />
+  <div
+    className="followup-reputation"
+  >
+    <Reputation
+      dislikeAction={[Function]}
+      dislikeCount={0}
+      dislikeLabel="dislike"
+      likeAction={[Function]}
+      likeCount={0}
+      likeLabel="like"
+      voted={false}
+      votingLimitError="voting-error"
+    />
+  </div>
 </div>
 `;
 
@@ -78,41 +96,50 @@ exports[`rendering renders correctly 3`] = `
   className=" well well-bordered followup-flow followup-well followup-well-collapsible followup-well-link followup-type-wrap followup-type-wrap-inner "
 >
   <div
-    className="followup-type followup-type-right followup-type-right-alt"
+    className="js-followup-box-head"
   >
-    <span
-      aria-hidden="true"
-      className="followup-type-icon glyphicon glyphicon-play"
-    />
-    <span
-      className="followup-type-title"
+    <div
+      className="followup-type followup-type-right followup-type-right-alt"
     >
-      typeAction
-    </span>
+      <span
+        aria-hidden="true"
+        className="followup-type-icon glyphicon glyphicon-play"
+      />
+      <span
+        className="followup-type-title"
+      >
+        typeAction
+      </span>
+    </div>
+    <img
+      alt="title"
+      className="offset-bottom img-responsive"
+      src="abc"
+      width="120"
+    />
   </div>
-  <img
-    alt="title"
-    className="offset-bottom img-responsive"
-    src="abc"
-    width="120"
-  />
   <div
+    className="js-followup-box-content"
     dangerouslySetInnerHTML={
       Object {
         "__html": "Snippet",
       }
     }
   />
-  <Reputation
-    dislikeAction={[Function]}
-    dislikeCount={0}
-    dislikeLabel="dislike"
-    likeAction={[Function]}
-    likeCount={0}
-    likeLabel="like"
-    voted={false}
-    votingLimitError="voting-error"
-  />
+  <div
+    className="followup-reputation"
+  >
+    <Reputation
+      dislikeAction={[Function]}
+      dislikeCount={0}
+      dislikeLabel="dislike"
+      likeAction={[Function]}
+      likeCount={0}
+      likeLabel="like"
+      voted={false}
+      votingLimitError="voting-error"
+    />
+  </div>
 </div>
 `;
 
@@ -121,41 +148,50 @@ exports[`rendering renders correctly 4`] = `
   className=" well well-bordered followup-flow followup-well followup-well-collapsible followup-well-link followup-type-wrap followup-type-wrap-inner "
 >
   <div
-    className="followup-type followup-type-right followup-type-right-alt"
+    className="js-followup-box-head"
   >
-    <span
-      aria-hidden="true"
-      className="followup-type-icon glyphicon glyphicon-minus-sign"
-    />
-    <span
-      className="followup-type-title"
+    <div
+      className="followup-type followup-type-right followup-type-right-alt"
     >
-      typeRejected
-    </span>
+      <span
+        aria-hidden="true"
+        className="followup-type-icon glyphicon glyphicon-minus-sign"
+      />
+      <span
+        className="followup-type-title"
+      >
+        typeRejected
+      </span>
+    </div>
+    <img
+      alt="title"
+      className="offset-bottom img-responsive"
+      src="abc"
+      width="120"
+    />
   </div>
-  <img
-    alt="title"
-    className="offset-bottom img-responsive"
-    src="abc"
-    width="120"
-  />
   <div
+    className="js-followup-box-content"
     dangerouslySetInnerHTML={
       Object {
         "__html": "Snippet",
       }
     }
   />
-  <Reputation
-    dislikeAction={[Function]}
-    dislikeCount={0}
-    dislikeLabel="dislike"
-    likeAction={[Function]}
-    likeCount={0}
-    likeLabel="like"
-    voted={false}
-    votingLimitError="voting-error"
-  />
+  <div
+    className="followup-reputation"
+  >
+    <Reputation
+      dislikeAction={[Function]}
+      dislikeCount={0}
+      dislikeLabel="dislike"
+      likeAction={[Function]}
+      likeCount={0}
+      likeLabel="like"
+      voted={false}
+      votingLimitError="voting-error"
+    />
+  </div>
 </div>
 `;
 
@@ -164,40 +200,49 @@ exports[`rendering renders correctly 5`] = `
   className=" well well-bordered followup-flow followup-well followup-well-collapsible followup-well-link followup-type-wrap followup-type-wrap-inner "
 >
   <div
-    className="followup-type followup-type-right followup-type-right-alt"
+    className="js-followup-box-head"
   >
-    <span
-      aria-hidden="true"
-      className="followup-type-icon glyphicon glyphicon-lock"
-    />
-    <span
-      className="followup-type-title"
+    <div
+      className="followup-type followup-type-right followup-type-right-alt"
     >
-      typeEnd
-    </span>
+      <span
+        aria-hidden="true"
+        className="followup-type-icon glyphicon glyphicon-lock"
+      />
+      <span
+        className="followup-type-title"
+      >
+        typeEnd
+      </span>
+    </div>
+    <img
+      alt="title"
+      className="offset-bottom img-responsive"
+      src="abc"
+      width="120"
+    />
   </div>
-  <img
-    alt="title"
-    className="offset-bottom img-responsive"
-    src="abc"
-    width="120"
-  />
   <div
+    className="js-followup-box-content"
     dangerouslySetInnerHTML={
       Object {
         "__html": "Snippet",
       }
     }
   />
-  <Reputation
-    dislikeAction={[Function]}
-    dislikeCount={0}
-    dislikeLabel="dislike"
-    likeAction={[Function]}
-    likeCount={0}
-    likeLabel="like"
-    voted={false}
-    votingLimitError="voting-error"
-  />
+  <div
+    className="followup-reputation"
+  >
+    <Reputation
+      dislikeAction={[Function]}
+      dislikeCount={0}
+      dislikeLabel="dislike"
+      likeAction={[Function]}
+      likeCount={0}
+      likeLabel="like"
+      voted={false}
+      votingLimitError="voting-error"
+    />
+  </div>
 </div>
 `;

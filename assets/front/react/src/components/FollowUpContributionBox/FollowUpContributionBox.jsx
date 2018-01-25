@@ -5,7 +5,7 @@ import StaticMap from '../StaticMap/StaticMap';
 
 const FollowUpContributionBox = props => (
   <div className="followup-flow">
-    <div className="well well-bordered well-deep">
+    <div className="well well-bordered well-deep js-followup-box-head">
       <h4>
         {!!props.questionNumber &&
           <span className="badge badge-accent offset-right-small">{props.questionNumber}</span>
@@ -13,7 +13,7 @@ const FollowUpContributionBox = props => (
         {props.question}
       </h4>
     </div>
-    <div className="well well-bordered followup-well-collapsible">
+    <div className="well well-bordered followup-well-collapsible js-followup-box-content">
       {!!props.videoService && !!props.videoId &&
         <EmbeddedVideo
           videoService={props.videoService}
