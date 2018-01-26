@@ -6,13 +6,35 @@
 >
     <div class="form-group offset-bottom">
         <?=$this->element->field_switch_name;?>
-        <?=$this->element->field_switch_age;?>
+        <div class="row">
+            <div class="col-xs-4"><?=$this->element->field_switch_age;?></div>
+            <div class="col-xs-8">
+                <p class="offset-top-small">
+                    <a href="<?=$this->url(['action' => 'groups']);?>#age-groups" rel="noopener noreferrer" target="_blank">
+                        <span aria-hidden="true" class="glyphicon glyphicon-cog offset-right"></span>
+                        <?=$this->translate('Settings');?>
+                    </a>
+                </p>
+            </div>
+        </div>
     </div>
 
     <div class="form-group offset-bottom">
         <?=$this->element->allow_groups;?>
         <?=$this->element->field_switch_contribution_origin;?>
-        <?=$this->element->field_switch_individuals_sum;?>
+
+        <div class="row">
+            <div class="col-xs-4"><?=$this->element->field_switch_individuals_sum;?></div>
+            <div class="col-xs-8">
+                <p class="offset-top-small">
+                    <a href="<?=$this->url(['action' => 'groups']);?>#size-groups" rel="noopener noreferrer" target="_blank">
+                        <span aria-hidden="true" class="glyphicon glyphicon-cog offset-right"></span>
+                        <?=$this->translate('Settings');?>
+                    </a>
+                </p>
+            </div>
+        </div>
+
         <?=$this->element->field_switch_group_name;?>
         <?=$this->element->field_switch_contact_person;?>
     </div>
@@ -23,8 +45,12 @@
         <?=$this->element->field_switch_comments;?>
     </div>
 
-    <?=$this->element->field_switch_state;?>
+    <div class="form-group offset-bottom">
+        <?=$this->element->field_switch_state;?>
+    </div>
+
     <?=$this->element->state_field_label;?>
+
     <?=$this->element->contribution_confirmation_info;?>
 
     <?=$this->element->submit;?>
