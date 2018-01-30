@@ -35,6 +35,34 @@ class Model_Consultations extends Dbjr_Db_Table_Abstract
     }
 
     /**
+     * @param string $confirmKey
+     * @return array
+     */
+    public function getByConfirmKey($confirmKey)
+    {
+        $select = $this
+            ->select()
+            ->setIntegrityCheck(false)
+            ->from(
+                ['i' => (new Model_Inputs())->info(Model_Inputs::NAME)],
+                []
+            )
+            ->join(
+                ['q' => (new Model_Questions())->info(Model_Questions::NAME)],
+                'q.qi = i.qi',
+                []
+            )
+            ->join(
+                ['c' => (new Model_Consultations())->info(Model_Consultations::NAME)],
+                'c.kid = q.kid'
+            )
+            ->where('i.confirmation_key = ?', $confirmKey)
+            ->group('c.kid');
+
+        return $this->fetchAll($select)->current();
+    }
+
+    /**
      * add
      * @desc add new entry to db-table
      * @param  array   $data

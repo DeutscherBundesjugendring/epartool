@@ -22,11 +22,11 @@
     "gregwar/image": "~2.0.20",
     "behat/transliterator": "~1.1.0",
     "google/apiclient": "~1.1.7",
-    "facebook/php-sdk-v4" : "4.0.*",
     "phpoffice/phpexcel": "^1.8",
     "squizlabs/php_codesniffer": "^2.7",
     "codeception/codeception": "^2.2",
     "visionappscz/video-id-extractor": "~1.0.0",
-    "robmorgan/phinx": "^0.6.4"
+    "robmorgan/phinx": "^0.6.4",
+    "facebook/graph-sdk": "^5.6"
   }
 }
