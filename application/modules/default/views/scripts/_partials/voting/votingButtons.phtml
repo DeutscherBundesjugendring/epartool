@@ -9,7 +9,7 @@
         $linkParameters['tag'] = $this->thesis['tg_nr'];
     }
 
-    $btnLabelPattern = '_svg/label-%s-%s.svg.phtml';
+    $btnLabelPattern = '_svg/' . Service_Voting::BUTTON_FILENAME_PATTERN;
 ?>
 
 <ul class="list-inline rating-bar-buttons">
@@ -58,14 +58,22 @@
             <a href="<?=$this->url($linkParameters);?>#vote" class="link-unstyled link-unstyled-alt">
 
                 <?php
-                $voteLabels = [
-                    '0' => 'disagree', // TODO: Missing svg image
-                    '1' => 'disagree',
-                    '2' => 'somewhat-disagree',
-                    '3' => 'somewhat-agree',
-                    '4' => 'agree',
-                    '5' => 'strongly-agree',
-                ];
+                if ($this->settings['button_type'] == 'yesno') {
+                    $voteLabels = [
+                        '-1' => 'disagree',
+                        '0' => 'unsure',
+                        '1' => 'agree',
+                    ];
+                } else {
+                    $voteLabels = [
+                        '0' => 'strongly-disagree',
+                        '1' => 'disagree',
+                        '2' => 'somewhat-disagree',
+                        '3' => 'somewhat-agree',
+                        '4' => 'agree',
+                        '5' => 'strongly-agree',
+                    ];
+                }
 
                 $btnLabel = '';
                 if (array_key_exists($points, $voteLabels)) {
