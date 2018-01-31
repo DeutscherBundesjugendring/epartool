@@ -4,6 +4,10 @@ class Admin_Form_Voting_Settings extends Dbjr_Form_Admin
 {
     public function init()
     {
+        $this->setDecorators([['ViewScript', [
+            'viewScript' => 'votingprepare/settings-form.phtml',
+        ]]]);
+
         $translator = Zend_Registry::get('Zend_Translate');
 
         $buttonType = $this->createElement('radio', 'button_type');
@@ -67,8 +71,9 @@ class Admin_Form_Voting_Settings extends Dbjr_Form_Admin
 
         $hash = $this->createElement('hash', 'csrf_token_settingsvotingsubmissionformadmin', array('salt' => 'unique'));
         $hash->setSalt(md5(mt_rand(1, 100000) . time()));
-        if (is_numeric((Zend_Registry::get('systemconfig')->adminform->general->csfr_protect->ttl))) {
-            $hash->setTimeout(Zend_Registry::get('systemconfig')->adminform->general->csfr_protect->ttl);
+        $csfr_ttl = Zend_Registry::get('systemconfig')->adminform->general->csfr_protect->ttl;
+        if (is_numeric(($csfr_ttl))) {
+            $hash->setTimeout($csfr_ttl);
         }
         $this->addElement($hash);
 

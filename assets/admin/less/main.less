@@ -201,3 +201,44 @@ label.required:after {
 .table-extra-condensed [data-toggle="sort"] {
     white-space: initial;
 }
+
+.btn-voting { max-width: 4em;
+
+    @media screen and (min-width: @screen-sm) {
+        max-width: 7em;
+    }
+
+    g[id^="label-"] {
+        .translate(3px, 0);
+    }
+
+    g[id^="BUTTON1"] {
+        transition: transform .3s ease .1s;
+    }
+
+    &:hover {
+        g[id^="BUTTON1"] {
+            .translate(0, 5px);
+        }
+    }
+
+    &:active,
+    &:focus {
+        g[id^="BUTTON1"] {
+            .translate(0, 10px);
+        }
+    }
+
+    g[id^="BODY1"] {
+        path {
+            fill: @brand-primary !important;
+        }
+    }
+
+    g[id^="TOP"] {
+        ellipse:first-child {
+            fill: @brand-primary !important;
+        }
+    }
+}
+

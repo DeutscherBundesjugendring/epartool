@@ -39,6 +39,8 @@ class Service_Voting
         ],
     ];
 
+    const BUTTON_FILENAME_PATTERN = 'label-%s-%s.svg.phtml';
+
     /**
      * @param int $consultationId
      * @param int $points

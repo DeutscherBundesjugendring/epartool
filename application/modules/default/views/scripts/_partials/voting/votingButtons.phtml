@@ -9,7 +9,7 @@
         $linkParameters['tag'] = $this->thesis['tg_nr'];
     }
 
-    $btnLabelPattern = '_svg/' . Service_Voting::BUTTON_FILENAME_PATTERN;
+    $btnLabelPattern = sprintf('_svg/%s', Service_Voting::BUTTON_FILENAME_PATTERN);
 ?>
 
 <ul class="list-inline rating-bar-buttons">
@@ -58,7 +58,7 @@
             <a href="<?=$this->url($linkParameters);?>#vote" class="link-unstyled link-unstyled-alt">
 
                 <?php
-                if ($this->settings['button_type'] == 'yesno') {
+                if ($this->settings['button_type'] === 'yesno') {
                     $voteLabels = [
                         '-1' => 'disagree',
                         '0' => 'unsure',
