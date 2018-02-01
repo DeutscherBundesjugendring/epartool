@@ -22,3 +22,25 @@
     font-weight: normal;
     font-style: normal;
 }
+
+@font-face {
+    font-family: 'Fira Sans';
+    src: url(../fonts/fira/FiraSans-Heavy.eot);
+    src: local('Fira Sans Heavy'),
+        url(../fonts/fira/FiraSans-Heavy.eot) format('embedded-opentype'),
+        url(../fonts/fira/FiraSans-Heavy.woff) format('woff'),
+        url(../fonts/fira/FiraSans-Heavy.ttf) format('truetype');
+    font-weight: 900;
+    font-style: normal;
+}
+
+.font-family-black() {
+    font-family: @font-family-black;
+
+    &:lang(cs),
+    &:lang(pl),
+    &:lang(ru) {
+        font-family: @font-family-black-alt;
+        font-weight: 900;
+    }
+}
