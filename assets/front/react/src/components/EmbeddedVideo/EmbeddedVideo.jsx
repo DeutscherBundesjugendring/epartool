@@ -15,6 +15,7 @@ const EmbeddedVideo = (props) => {
         width={props.width}
         height={props.height}
         src={src}
+        className="followup-video"
       />
     );
   }
