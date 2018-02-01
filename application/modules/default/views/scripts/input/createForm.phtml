@@ -74,6 +74,7 @@
                             ? ' js-contribution-map-collapsed'
                             : ''
                         );
+                        ?> <?=($this->element->getVideoEnabled() ? '' : 'offset-bottom-small');
                         ?> offset-top-small"
                     id="js-contribution-map-<?=$i;?>"
                     data-index="<?=$i;?>"
