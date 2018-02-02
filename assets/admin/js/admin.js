@@ -22,6 +22,7 @@
   var themeSettings;
   var bindToggleAnonymousContributionSwitch;
   var bindAutoVotingInfo;
+  var bindGeoFenceForContributionLocation;
 
   var map;
 
@@ -46,6 +47,7 @@
     changeContributionStatus();
     bindPreviewVotingButtons();
     bindAutoVotingInfo();
+    bindGeoFenceForContributionLocation();
     $('[data-toggle="tooltip"]').tooltip();
   });
 
@@ -444,6 +446,8 @@
     var $latField = $('#latitude');
     var $lngField = $('#longitude');
     var marker = null;
+    var geoFence = $('#js-contribution-map-canvas').data('geoFence') || [];
+    var polygon = null;
 
     map = L.map('js-contribution-map-canvas').setView([
       $latField.val() ? $latField.val() : osmConfig.defaultLocation.latitude,
@@ -454,12 +458,22 @@
       attribution: osmConfig.attribution,
     }).addTo(map);
 
+    if (geoFence.length) {
+      polygon = L.polygon(geoFence, {color: 'red'}).addTo(map);
+    }
+
     if ($latField.val()) {
       marker = L.marker([$latField.val(), $lngField.val()]);
       marker.addTo(map);
     }
 
     map.on('click', function (e) {
+      if (polygon !== null && !polygon.contains(e.latlng)) {
+        alert(jsTranslations['point_is_not_in_polygon']);
+
+        return;
+      }
+
       if (marker !== null) {
         marker.remove();
       }
@@ -566,6 +580,87 @@
       $('#js-is-votable-auto-info').remove();
       $('#is_votable_edited').val(true);
     });
+  }
+
+  bindGeoFenceForContributionLocation = function () {
+    if (!$('#js-contribution-geo-fence-map-canvas').length) {
+      return;
+    }
+
+    var $polygonCoords = $('#geo_fence_polygon');
+    var polygonCoords = ($polygonCoords.val() ? $.parseJSON($polygonCoords.val()) : false) || [];
+    var geoFenceMap = L.map('js-contribution-geo-fence-map-canvas').setView([
+      osmConfig.defaultLocation.latitude,
+      osmConfig.defaultLocation.longitude
+    ], osmConfig.defaultLocation.zoom);
+    var polygon = null;
+    var renderPolygon = function () {
+      if (polygon !== null) {
+        polygon.removeFrom(geoFenceMap);
+      }
+      if (polygonCoords.length) {
+        polygon = L.polygon(polygonCoords, {color: 'red'}).addTo(geoFenceMap);
+      }
+    };
+
+    L.tileLayer(osmConfig.dataServerUrl, {
+      attribution: osmConfig.attribution,
+    }).addTo(geoFenceMap);
+
+    renderPolygon();
+    if (polygon !== null) {
+      geoFenceMap.fitBounds(polygon.getBounds());
+    }
+
+    geoFenceMap.on('click', function (e) {
+      polygonCoords.push([e.latlng.lat, e.latlng.lng]);
+      renderPolygon();
+    });
+
+    var $map = $('#js-contribution-geo-fence-map');
+    var $geoFenceEnabled = $('#geo_fence_enabled');
+
+    $('#js-question-submit').on('click', function () {
+      $polygonCoords.val(JSON.stringify(polygonCoords));
+    });
+
+    $('#js-geo-fence-destroy').on('click', function (e) {
+      e.preventDefault();
+      polygonCoords = [];
+      renderPolygon();
+    });
+
+    $('#location_enabled').on('click', function () {
+      if ($(this).is(':checked')) {
+        $geoFenceEnabled.prop('disabled', false);
+        if ($geoFenceEnabled.is(':checked')) {
+          $map.show();
+        }
+
+        return;
+      }
+
+      $geoFenceEnabled.prop('disabled', true);
+      $map.hide();
+    });
+
+    $geoFenceEnabled.on('click', function () {
+      if ($(this).is(':checked')) {
+        $map.show();
+
+        return;
+      }
+
+      $map.hide();
+    });
+
+    if (!$geoFenceEnabled.is(':checked')) {
+      $map.hide();
+    }
+    if (!$('#location_enabled').is(':checked')) {
+      $geoFenceEnabled.prop('disabled', true);
+      $map.hide();
+    }
   }
 
 }).call(this);

@@ -12,32 +12,32 @@ RUN             apt-get update && apt-get install -y \
                     libpng12-dev \
                     libjpeg-dev \
                     zip \
-                    zlib1g-dev
+                    zlib1g-dev \
 
-RUN             docker-php-ext-install pdo_mysql
-RUN             docker-php-ext-configure gd --with-jpeg-dir=/usr/
-RUN             docker-php-ext-install gd
-RUN             docker-php-ext-install zip
+                && docker-php-ext-install pdo_mysql \
+                && docker-php-ext-configure gd --with-jpeg-dir=/usr/ \
+                && docker-php-ext-install gd \
+                && docker-php-ext-install zip \
 
 
 ##################
 # Composer, Robo #
 ##################
-RUN             curl -sS https://getcomposer.org/installer | php
-RUN             mv composer.phar /usr/local/bin/composer
-RUN             curl -sSo /tmp/robo.phar http://robo.li/robo.phar
-RUN             chmod +x /tmp/robo.phar
-RUN             mv /tmp/robo.phar /usr/bin/robo
+                && curl -sS https://getcomposer.org/installer | php \
+                && mv composer.phar /usr/local/bin/composer \
+                && mkdir -p /var/www/.composer/vendor/ \
+                && composer require --working-dir=/var/www/.composer/ consolidation/robo \
+                && ln -s /var/www/.composer/vendor/bin/robo /usr/bin/robo \
 
 
 ######################
 # Npm, Grunt, Bower  #
 ######################
-RUN             curl -sL https://deb.nodesource.com/setup_8.x | bash -
-RUN             apt-get install -y nodejs
-RUN             npm install -g grunt-cli
-RUN             npm install -g webpack
-RUN             npm install -g bower
+                && curl -sL https://deb.nodesource.com/setup_8.x | bash - \
+                && apt-get install -y nodejs \
+                && npm install -g grunt-cli \
+                && npm install -g webpack \
+                && npm install -g bower
 
 
 ####################

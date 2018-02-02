@@ -78,8 +78,9 @@ class InputController extends Zend_Controller_Action
             [Service_Notification_InputCreatedNotification::PARAM_QUESTION_ID => $qid]
         );
 
+        $question = $questionModel->find($qid)->current();
         $form = $this->getInputForm();
-        $question = (new Model_Questions())->find($qid)->current();
+        $form->setQuestion($question->toArray());
         if (!$question['location_enabled'] && $listType === 'map') {
             $this->redirect($this->view->url([
                 'controller' => 'input',
@@ -405,6 +406,12 @@ class InputController extends Zend_Controller_Action
             ->getInputForm()
             ->generateInputFields($post['inputs'], false);
 
+        $question = (new Model_Questions())->find($qid)->current();
+        if (!$question) {
+            $this->flashMessenger->addMessage('Question was not found.', 'error');
+            $this->redirect($this->view->url(['action' => 'show']), ['prependBase' => false]);
+        }
+
         if ($form->isValid($post)) {
             $sessInputs = (new Zend_Session_Namespace('inputs'));
 
@@ -420,6 +427,7 @@ class InputController extends Zend_Controller_Action
             $inputModel->getAdapter()->beginTransaction();
             try {
                 $errorShown = false;
+                $errorGeoFenceShown = false;
                 $successShown = false;
                 foreach ($post['inputs'] as $input) {
                     if (!empty($input['video_id']) && empty($input['thes'])) {
@@ -444,6 +452,28 @@ class InputController extends Zend_Controller_Action
                         $input['latitude'] = !empty($input['latitude']) ? (float) $input['latitude'] : null;
                         $input['longitude'] = !empty($input['longitude']) ? (float) $input['longitude'] : null;
                         $input['confirmation_key'] = $confirmKey;
+                        if ($question['geo_fence_enabled'] && $input['latitude'] !== null
+                            && $input['longitude'] !== null
+                        ) {
+                            $geoFence = json_decode($question['geo_fence_polygon']);
+                            if (count($geoFence)) {
+                                if (!(new Service_PointInPolygon())->isPointInPolygon(
+                                    $input['latitude'],
+                                    $input['longitude'],
+                                    $geoFence
+                                )) {
+                                    $notSavedContributions[] = $input;
+                                    if (!$errorGeoFenceShown) {
+                                        $this->flashMessenger->addMessage(
+                                            'Location cannot be out of marked geo fence.',
+                                            'error'
+                                        );
+                                        $errorGeoFenceShown = true;
+                                    }
+                                    continue;
+                                }
+                            }
+                        }
                         if (!empty($input['tid'])) {
                             $inputModel->updateById($input['tid'], $input);
                         } else {

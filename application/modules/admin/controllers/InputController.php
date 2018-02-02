@@ -233,8 +233,6 @@ class Admin_InputController extends Zend_Controller_Action
         }
 
         $inputModel = new Model_Inputs();
-        $form = new Admin_Form_Input($cancelUrl);
-
         $inputRow = $inputModel->getById($tid);
 
         if (!$inputRow) {
@@ -247,6 +245,8 @@ class Admin_InputController extends Zend_Controller_Action
         }
         $projectSettings = (new Model_Projects())->find(Zend_Registry::get('systemconfig')->project)->current();
         $question = (new Model_Questions())->find($qi)->current();
+        $form = new Admin_Form_Input($cancelUrl);
+        $form->setQuestion($question->toArray());
         $form->setVideoEnabled(
             $question['video_enabled']
             && ($projectSettings['video_facebook_enabled']
@@ -285,13 +285,25 @@ class Admin_InputController extends Zend_Controller_Action
                     if (!$formValues['tags']) {
                         $formValues['tags'] = [];
                     }
-                    $updated = $inputModel->updateById($tid, $formValues);
-                    if ($updated == $tid) {
-                        $this->_flashMessenger->addMessage('Changes saved.', 'success');
-                        unset($session->urlQi);
-                        $this->redirect($url, ['prependBase' => false]);
+                    if ($question['geo_fence_enabled']
+                        && $formValues['latitude']
+                        && $formValues['longitude']
+                        && !(new Service_PointInPolygon())->isPointInPolygon(
+                            $formValues['latitude'],
+                            $formValues['longitude'],
+                            $question['geo_fence_polygon'] === null ? [] : json_decode($question['geo_fence_polygon'])
+                        )
+                    ) {
+                        $this->_flashMessenger->addMessage('Location cannot be out of marked geo fence.', 'error');
                     } else {
-                        $this->_flashMessenger->addMessage('Contribution update failed.', 'error');
+                        $updated = $inputModel->updateById($tid, $formValues);
+                        if ($updated == $tid) {
+                            $this->_flashMessenger->addMessage('Changes saved.', 'success');
+                            unset($session->urlQi);
+                            $this->redirect($url, ['prependBase' => false]);
+                        } else {
+                            $this->_flashMessenger->addMessage('Contribution update failed.', 'error');
+                        }
                     }
                 }
             } else {
@@ -327,6 +339,7 @@ class Admin_InputController extends Zend_Controller_Action
         $this->view->form = $form;
         $this->view->tid = $tid;
         $this->view->authorId = $inputRow['uid'];
+        $this->view->jsTranslations = $this->getJsTranslations();
     }
 
     public function createAction()
@@ -513,6 +526,7 @@ class Admin_InputController extends Zend_Controller_Action
         return [
             'contribution_label_unknown' => $this->view->translate('Unknown'),
             'contribution_label_loading' => $this->view->translate('Loading…'),
+            'point_is_not_in_polygon' => $this->view->translate('Location cannot be out of marked geo fence.'),
         ];
     }
 }

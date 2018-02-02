@@ -12,6 +12,11 @@ class Default_Form_Input_Create extends Dbjr_Form_Web
      */
     protected $locationEnabled;
 
+    /**
+     * @var array
+     */
+    protected $question;
+
     public function init()
     {
         $this->setAttrib('class', 'js-contribution-create-form');
@@ -227,6 +232,25 @@ class Default_Form_Input_Create extends Dbjr_Form_Web
     public function setLocationEnabled($locationEnabled)
     {
         $this->locationEnabled = $locationEnabled;
+
+        return $this;
+    }
+
+    /**
+     * @return array
+     */
+    public function getQuestion()
+    {
+        return $this->question;
+    }
+
+    /**
+     * @param array $question
+     * @return $this
+     */
+    public function setQuestion(array $question)
+    {
+        $this->question = $question;
 
         return $this;
     }

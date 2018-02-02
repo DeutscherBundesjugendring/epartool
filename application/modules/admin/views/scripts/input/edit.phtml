@@ -8,6 +8,13 @@
 
     </div>
 </section>
+<script type="text/javascript">
+    var jsTranslations = {
+    <?php foreach ($this->jsTranslations as $key => $translatedString): ?>
+        <?=$key?>: '<?=$translatedString?>',
+    <?php endforeach; ?>
+    };
+</script>
 <section class="section-content">
     <div class="container">
         <div class="row">

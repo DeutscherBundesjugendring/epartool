@@ -21,7 +21,8 @@ module.exports = {
       '<%= paths.src.front %>/js/FollowUp.js',
       '<%= paths.src.front %>/js/PageLeaveConfirmation.js',
       '<%= paths.src.front %>/js/SocialPopup.js',
-      '<%= paths.src.front %>/js/front.js'
+      '<%= paths.src.front %>/js/front.js',
+      '<%= paths.src.front %>/js/wise-leaflet-pip.js'
     ],
     dest: '<%= paths.dist %>/js/<%= pkg.name %>.js'
   },
@@ -53,7 +54,8 @@ module.exports = {
       '<%= paths.npm %>/leaflet.markercluster/dist/leaflet.markercluster.js',
       '<%= paths.src.admin %>/js/facebook.embed_video.js',
       '<%= paths.src.admin %>/js/colorpicker.js',
-      '<%= paths.src.admin %>/js/admin.js'
+      '<%= paths.src.admin %>/js/admin.js',
+      '<%= paths.src.admin %>/js/wise-leaflet-pip.js'
     ],
     dest: '<%= paths.dist %>/js/admin.js'
   }

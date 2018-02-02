@@ -59,7 +59,13 @@
         >
             <?=$this->translate('Use My location');?>
         </a>
-        <div id="js-contribution-map-canvas" style="height: 300px;"></div>
+        <div
+            id="js-contribution-map-canvas"
+            <?php if ($this->element->getQuestion()['geo_fence_enabled']): ?>
+                data-geo-fence="<?=$this->element->getQuestion()['geo_fence_polygon'];?>"
+            <?php endif; ?>
+            style="height: 300px;"
+        ></div>
     </div>
     <?=$this->element->latitude;?>
     <?=$this->element->longitude;?>

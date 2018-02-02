@@ -59,6 +59,16 @@ class Admin_Form_Question extends Dbjr_Form_Admin
             ->setRequired(false);
         $this->addElement($enableLocation);
 
+        $enableGeoFence = $this->createElement('checkbox', 'geo_fence_enabled');
+        $enableGeoFence
+            ->setLabel('Allow geo fence for location in contributions')
+            ->setRequired(false);
+        $this->addElement($enableGeoFence);
+
+        $geoFencePolygon = $this->createElement('hidden', 'geo_fence_polygon');
+        $geoFencePolygon->setRequired(false);
+        $this->addElement($geoFencePolygon);
+
         // CSRF Protection
         $hash = $this->createElement('hash', 'csrf_token_question', array('salt' => 'unique'));
         $hash->setSalt(md5(mt_rand(1, 100000) . time()));
@@ -70,6 +80,7 @@ class Admin_Form_Question extends Dbjr_Form_Admin
         $submit = $this->createElement('submit', 'submit');
         $submit
             ->setAttrib('class', 'btn-primary btn-raised')
+            ->setAttrib('id', 'js-question-submit')
             ->setLabel('Save');
         $this->addElement($submit);
     }

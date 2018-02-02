@@ -52,6 +52,26 @@
                             <?=$this->form->getElement('location_enabled');?>
                         </div>
                     </div>
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <?=$this->form->getElement('geo_fence_enabled');?>
+                            <?=$this->form->getElement('geo_fence_polygon');?>
+                        </div>
+                    </div>
+
+                    <?=$this->openStreetMapsConfig();?>
+                    <div class="offset-bottom" id="js-contribution-geo-fence-map">
+                        <a
+                            href="#"
+                            id="js-geo-fence-destroy"
+                            class="btn btn-xs btn-default"
+                            style="position: absolute; z-index: 450;right: 50px; margin-top: 10px;"
+                        >
+                            <?=$this->translate('Destroy geo fence');?>
+                        </a>
+                        <div id="js-contribution-geo-fence-map-canvas" style="height: 300px;"></div>
+                    </div>
+
                     <?=$this->form->getElement('csrf_token_question');?>
                     <?=$this->form->getElement('submit');?>
                     <div class="form-action-static">

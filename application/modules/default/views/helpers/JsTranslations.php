@@ -23,6 +23,7 @@ class Module_Default_View_Helper_JsTranslations extends Zend_View_Helper_Abstrac
             'message_general_error' => $translator->translate('Something went wrong'),
             'message_contributions_save_error' => $translator->translate('Your contributions have not been saved'),
             'navigator_geolocation_not_available' => $translator->translate('Geolocation is not available in your browser'),
+            'point_is_not_in_polygon' => $translator->translate('Location cannot be out of marked geo fence.'),
         ];
     }
 }

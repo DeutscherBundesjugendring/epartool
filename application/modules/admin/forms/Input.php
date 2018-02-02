@@ -32,6 +32,11 @@ class Admin_Form_Input extends Dbjr_Form_Admin
     private $autoVotingInfo;
 
     /**
+     * @var array
+     */
+    private $question;
+
+    /**
      * Admin_Form_Input constructor.
      * @param null $cancelUrl
      * @param string $afterSubmitAction
@@ -257,5 +262,24 @@ class Admin_Form_Input extends Dbjr_Form_Admin
     public function getAutoVotingInfo()
     {
         return $this->autoVotingInfo;
+    }
+
+    /**
+     * @return array
+     */
+    public function getQuestion()
+    {
+        return $this->question;
+    }
+
+    /**
+     * @param array $question
+     * @return \Admin_Form_Input
+     */
+    public function setQuestion(array $question)
+    {
+        $this->question = $question;
+
+        return $this;
     }
 }

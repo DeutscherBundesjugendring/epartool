@@ -523,33 +523,45 @@
   };
 
   initMap = function (index) {
-    var latField = $('#inputs-' + index + '-latitude');
-    var lngField = $('#inputs-' + index + '-longitude');
+    var $latField = $('#inputs-' + index + '-latitude');
+    var $lngField = $('#inputs-' + index + '-longitude');
+    var geoFence = $('#js-contribution-map-canvas-' + index).data('geoFence') || [];
+    var polygon = null;
     var marker = null;
 
     var map = L.map('js-contribution-map-canvas-' + index).setView([
-      latField.val() ? latField.val() : osmConfig.defaultLocation.latitude,
-      lngField.val() ? lngField.val() : osmConfig.defaultLocation.longitude
+      $latField.val() ? $latField.val() : osmConfig.defaultLocation.latitude,
+      $lngField.val() ? $lngField.val() : osmConfig.defaultLocation.longitude
     ], osmConfig.defaultLocation.zoom);
 
     L.tileLayer(osmConfig.dataServerUrl, {
       attribution: osmConfig.attribution,
     }).addTo(map);
 
-    if (latField.val()) {
-      marker = L.marker([latField.val(), lngField.val()]);
+    if (geoFence.length) {
+      polygon = L.polygon(geoFence, {color: 'red'}).addTo(map);
+    }
+
+    if ($latField.val()) {
+      marker = L.marker([$latField.val(), $lngField.val()]);
       marker.addTo(map);
     }
 
     map.on('click', function (e) {
+      if (polygon !== null && !polygon.contains(e.latlng)) {
+        alert(jsTranslations['point_is_not_in_polygon']);
+
+        return;
+      }
+
       if (marker !== null) {
         marker.remove();
       }
 
       marker = L.marker(e.latlng);
       marker.addTo(map);
-      latField.val(e.latlng.lat);
-      lngField.val(e.latlng.lng);
+      $latField.val(e.latlng.lat);
+      $lngField.val(e.latlng.lng);
     });
 
     return map;
