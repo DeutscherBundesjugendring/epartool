@@ -741,6 +741,7 @@ class InputController extends Zend_Controller_Action
             } elseif (Zend_Date::now()->isLater(new Zend_Date($this->consultation->discussion_from, Zend_Date::ISO_8601))
                 && Zend_Date::now()->isEarlier(new Zend_Date($this->consultation->discussion_to, Zend_Date::ISO_8601))
             ) {
+                $post = $this->extractVideoId($post);
                 if ($form->isValid($post)) {
                     Zend_Registry::get('dbAdapter')->beginTransaction();
                     $formData = $form->getValues();
@@ -868,27 +869,36 @@ class InputController extends Zend_Controller_Action
      * @param $inputs
      * @return array
      */
-    private function extractVideoIds($inputs)
+    private function extractVideoIds(array $inputs)
     {
         $preparedInputs = $inputs;
         foreach ($inputs as $key => $input) {
-            try {
-                if (!isset($input['video_service'])) {
-                    $preparedInputs[$key] = $inputs[$key];
-                    continue;
-                }
-                if ($input['video_service'] === 'youtube') {
-                    $preparedInputs[$key]['video_id'] = (new YoutubeVideoIdExtractor())->extract($input['video_id']);
-                } elseif ($input['video_service'] === 'vimeo') {
-                    $preparedInputs[$key]['video_id'] = (new VimeoVideoIdExtractor())->extract($input['video_id']);
-                } elseif ($input['video_service'] === 'facebook') {
-                    $preparedInputs[$key]['video_id'] = (new FacebookVideoIdExtractor())->extract($input['video_id']);
-                }
-            } catch (VideoIdExtractException $e) {
-                $preparedInputs[$key] = $inputs[$key];
-            }
+            $preparedInputs[$key] = $this->extractVideoId($input);
         }
 
         return $preparedInputs;
+    }
+
+    /**
+     * @param array $input
+     * @return array
+     */
+    private function extractVideoId(array $input)
+    {
+        try {
+            if (isset($input['video_service'])) {
+                if ($input['video_service'] === 'youtube') {
+                    $input['video_id'] = (new YoutubeVideoIdExtractor())->extract($input['video_id']);
+                } elseif ($input['video_service'] === 'vimeo') {
+                    $input['video_id'] = (new VimeoVideoIdExtractor())->extract($input['video_id']);
+                } elseif ($input['video_service'] === 'facebook') {
+                    $input['video_id'] = (new FacebookVideoIdExtractor())->extract($input['video_id']);
+                }
+            }
+        } catch (VideoIdExtractException $e) {
+
+        }
+
+        return $input;
     }
 }

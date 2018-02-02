@@ -4,12 +4,12 @@ class Dbjr_Validate_VideoValidator extends Zend_Validate_Abstract
 {
     const API_UNAVAILABLE = 'api_unavailable';
     const NOT_PUBLIC = 'not_public';
-    
+
     protected $_messageTemplates = [
         self::API_UNAVAILABLE => 'Video provider is not currently available. Video could not be verified for accessibility.',
         self::NOT_PUBLIC => 'Video is not public.',
     ];
-    
+
     /**
      * @param string $value
      * @param array $context
@@ -26,10 +26,10 @@ class Dbjr_Validate_VideoValidator extends Zend_Validate_Abstract
                 return $this->validateFacebookVideo($value);
             }
         }
-        
+
         return true;
     }
-    
+
     /**
      * @param string $id
      * @return boolean
@@ -50,7 +50,7 @@ class Dbjr_Validate_VideoValidator extends Zend_Validate_Abstract
 
             return false;
         }
-        
+
         $jsonResponse = json_decode($accessToken['output'], true);
         if ($jsonResponse && isset($jsonResponse['error'])) {
             $this->_error(self::API_UNAVAILABLE);
@@ -70,7 +70,7 @@ class Dbjr_Validate_VideoValidator extends Zend_Validate_Abstract
 
         return false;
     }
-    
+
     /**
      * @param string $id
      * @return boolean
@@ -96,7 +96,7 @@ class Dbjr_Validate_VideoValidator extends Zend_Validate_Abstract
 
         return false;
     }
-    
+
     /**
      * @param string $id
      * @return boolean
@@ -107,7 +107,7 @@ class Dbjr_Validate_VideoValidator extends Zend_Validate_Abstract
             'url' => 'http://www.youtube.com/watch?v=' . $id,
             'format' => 'json',
         ]);
-        
+
         if ($response['httpCode'] === 200) {
             return true;
         } elseif ($response['httpCode'] === 401) {
