@@ -2,6 +2,8 @@
 
 class Admin_UserController extends Zend_Controller_Action
 {
+    const SQL_STATE_CODE_CANNOT_DELETE = 23000;
+
     protected $_flashMessenger = null;
 
     public function init()
@@ -183,7 +185,13 @@ class Admin_UserController extends Zend_Controller_Action
                 $userModel->deleteById($this->getRequest()->getPost('delete'));
                 $userModel->getAdapter()->commit();
                 $this->_flashMessenger->addMessage('User has been deleted.', 'success');
-            } catch (Exceptioin $e) {
+            } catch (Zend_Db_Statement_Exception $e) {
+                $userModel->getAdapter()->rollback();
+                if ($e->getCode() !== self::SQL_STATE_CODE_CANNOT_DELETE) {
+                    throw $e;
+                }
+                $this->_flashMessenger->addMessage('User cannot be deleted because other entities depend on it.', 'error');
+            } catch (Exception $e) {
                 $userModel->getAdapter()->rollback();
                 throw $e;
             }
