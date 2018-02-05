@@ -620,6 +620,8 @@
 
     var $map = $('#js-contribution-geo-fence-map');
     var $geoFenceEnabled = $('#geo_fence_enabled');
+    var $locationEnabled = $('#location_enabled');
+    var $noHttpsInfo = $('.js-no-https-info');
 
     $('#js-question-submit').on('click', function () {
       $polygonCoords.val(JSON.stringify(polygonCoords));
@@ -631,8 +633,11 @@
       renderPolygon();
     });
 
-    $('#location_enabled').on('click', function () {
+    $locationEnabled.on('click', function () {
       if ($(this).is(':checked')) {
+        if ($noHttpsInfo.length) {
+          $noHttpsInfo.show();
+        }
         $geoFenceEnabled.prop('disabled', false);
         if ($geoFenceEnabled.is(':checked')) {
           $map.show();
@@ -641,6 +646,9 @@
         return;
       }
 
+      if ($noHttpsInfo.length) {
+        $noHttpsInfo.hide();
+      }
       $geoFenceEnabled.prop('disabled', true);
       $map.hide();
     });
@@ -658,9 +666,12 @@
     if (!$geoFenceEnabled.is(':checked')) {
       $map.hide();
     }
-    if (!$('#location_enabled').is(':checked')) {
+    if (!$locationEnabled.is(':checked')) {
       $geoFenceEnabled.prop('disabled', true);
       $map.hide();
+      if ($noHttpsInfo.length) {
+        $noHttpsInfo.hide();
+      }
     }
   }
 

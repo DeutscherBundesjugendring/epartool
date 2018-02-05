@@ -60,6 +60,7 @@ class Admin_QuestionController extends Zend_Controller_Action
 
         $this->view->consultation = $this->_consultation;
         $this->view->form = $form;
+        $this->view->isConnectionSecured = (new Service_RequestInfo())->isSecure();
     }
 
     public function editAction()
@@ -92,6 +93,7 @@ class Admin_QuestionController extends Zend_Controller_Action
 
         $this->view->consultation = $this->_consultation;
         $this->view->form = $form;
+        $this->view->isConnectionSecured = (new Service_RequestInfo())->isSecure();
     }
 
     /**

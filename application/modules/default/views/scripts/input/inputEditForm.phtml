@@ -1,12 +1,77 @@
 <form
     enctype="<?=$this->element->getEnctype();?>"
     method="<?=$this->element->getMethod();?>"
+    id="js-contribution-create-form"
     class="offset-bottom"
 >
     <?=$this->element->csrf_token_inputedit;?>
 
+    <?php if ($this->element->getLocationEnabled()): ?>
+        <div class="pull-right">
+            <span class="offset-right-small" aria-hidden="true"><?=$this->translate('Location');?></span>
+            <label class="offset-bottom-none" for="js-contribution-add-location-0">
+                <span class="sr-only"><?=$this->translate('Location');?></span>
+                        <span id="js-contribution-add-location-wrapper-0">
+                            <input
+                                type="checkbox"
+                                name="inputs[0][location_enabled]"
+                                value="1"
+                                class="js-contribution-add-location"
+                                id="js-contribution-add-location-0"
+                                data-index="0"
+                                data-toggle="toggle"
+                                data-size="mini"
+                                data-onstyle="success"
+                                data-offstyle="default"
+                                <?=((($this->element->getElements()['latitude']->getValue() !== null)
+                                    && $this->element->getElements()['location_enabled']->getValue())
+                                    ? 'checked'
+                                    : ''
+                                );
+                                ?>
+                            />
+                        </span>
+            </label>
+        </div>
+    <?php endif; ?>
+
     <?=$this->element->thes;?>
     <?=$this->element->expl;?>
+
+    <?php if ($this->element->getLocationEnabled()): ?>
+        <div
+            class="js-contribution-map<?=((($this->element->getElements()['latitude']->getValue() === null)
+                || !$this->element->getElements()['location_enabled']->getValue())
+                ? ' js-contribution-map-collapsed'
+                : ''
+            );
+            ?> <?=($this->element->getVideoEnabled() ? '' : 'offset-bottom-small');
+            ?> offset-top-small"
+            id="js-contribution-map-0"
+            data-index="0"
+        >
+            <?php if ($this->element->isConnectionSecured()): ?>
+                <a
+                    href="#"
+                    class="js-contribution-map-button-my-location btn btn-default btn-xs hidden-print"
+                    id="js-contribution-map-button-my-location-0"
+                    data-index="0"
+                    style="position: absolute; z-index: 450;right: 50px; margin-top: 10px;"
+                >
+                    <?=$this->translate('Use My location');?>
+                </a>
+            <?php endif; ?>
+            <div
+                id="js-contribution-map-canvas-0"
+                <?php if ($this->element->getQuestion()['geo_fence_enabled']): ?>
+                    data-geo-fence="<?=$this->element->getQuestion()['geo_fence_polygon'];?>"
+                <?php endif; ?>
+                style="height: 300px;"
+            ></div>
+        </div>
+        <?=$this->element->getElements()['latitude']->setDecorators(['ViewHelper']);?>
+        <?=$this->element->getElements()['longitude']->setDecorators(['ViewHelper']);?>
+    <?php endif; ?>
 
     <?php if ($this->element->getVideoEnabled()) : ?>
         <div class="form-group offset-top offset-bottom js-video-service">

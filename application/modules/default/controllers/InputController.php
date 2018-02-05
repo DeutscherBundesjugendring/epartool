@@ -165,7 +165,7 @@ class InputController extends Zend_Controller_Action
 
             $this->view->paginator = $paginator;
         }
-
+        
         $this->view->videoServicesStatus = $project;
         $this->view->videoEnabled = $question['video_enabled'];
         $this->view->subscriptionForm = $sbsForm;
@@ -663,9 +663,11 @@ class InputController extends Zend_Controller_Action
 
         if (Zend_Date::now()->isEarlier(new Zend_Date($this->consultation->inp_to, Zend_Date::ISO_8601))) {
             // allow editing only BEFORE inputs period is over
-            $form = new Default_Form_Input_Edit();
+            $form = new Default_Form_Input_Edit(new Service_RequestInfo());
             $question = (new Model_Questions())->find($contribution['qi'])->current();
+            $form->setQuestion($question->toArray());
             $form->setVideoEnabled($question['video_enabled'] && (new Model_Projects())->getVideoServiceStatus());
+            $form->setLocationEnabled($question['location_enabled']);
 
             if ($this->_request->isPost()) {
                 // form submitted
@@ -692,7 +694,13 @@ class InputController extends Zend_Controller_Action
                     $form->populate($data);
                 }
             } else {
-                $data = ['thes' => $contribution['thes'], 'expl' => $contribution['expl']];
+                $data = [
+                    'thes' => $contribution['thes'],
+                    'expl' => $contribution['expl'],
+                    'latitude' => $contribution['latitude'],
+                    'longitude' => $contribution['longitude'],
+                    'location_enabled' => $contribution['latitude'] !== null,
+                ];
                 if ($contribution['video_service'] !== null) {
                     $project = (new Model_Projects)->find((new Zend_Registry())->get('systemconfig')->project)
                         ->current();
@@ -889,7 +897,7 @@ class InputController extends Zend_Controller_Action
     private function getInputForm()
     {
         if (null === $this->inputForm) {
-            $this->inputForm = new Default_Form_Input_Create();
+            $this->inputForm = new Default_Form_Input_Create(new Service_RequestInfo());
         }
 
         return $this->inputForm;

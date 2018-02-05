@@ -50,15 +50,16 @@
         class="collapse<?=($this->element->latitude->getValue() !== null ? ' in' : ''); ?> offset-bottom"
         id="js-contribution-map"
     >
-
-        <a
-            href="#"
-            class="btn btn-default btn-xs"
-            id="js-contribution-map-button-my-location"
-            style="position: absolute; z-index: 450;right: 50px; margin-top: 10px;"
-        >
-            <?=$this->translate('Use My location');?>
-        </a>
+        <?php if ($this->element->isConnectionSecured()): ?>
+            <a
+                href="#"
+                class="btn btn-default btn-xs"
+                id="js-contribution-map-button-my-location"
+                style="position: absolute; z-index: 450;right: 50px; margin-top: 10px;"
+            >
+                <?=$this->translate('Use My location');?>
+            </a>
+        <?php endif; ?>
         <div
             id="js-contribution-map-canvas"
             <?php if ($this->element->getQuestion()['geo_fence_enabled']): ?>

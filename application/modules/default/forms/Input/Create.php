@@ -17,6 +17,21 @@ class Default_Form_Input_Create extends Dbjr_Form_Web
      */
     protected $question;
 
+    /**
+     * @var Service_RequestInfo
+     */
+    private $requestInfoService;
+
+    /**
+     * @param Service_RequestInfo $requestInfoService
+     * @param array|null $options
+     */
+    public function __construct(Service_RequestInfo $requestInfoService, array $options = null)
+    {
+        parent::__construct($options);
+        $this->requestInfoService = $requestInfoService;
+    }
+
     public function init()
     {
         $this->setAttrib('class', 'js-contribution-create-form');
@@ -253,5 +268,13 @@ class Default_Form_Input_Create extends Dbjr_Form_Web
         $this->question = $question;
 
         return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isConnectionSecured()
+    {
+        return $this->requestInfoService->isSecure();
     }
 }

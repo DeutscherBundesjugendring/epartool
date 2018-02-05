@@ -3,11 +3,35 @@
 class Default_Form_Input_Edit extends Dbjr_Form_Web
 {
     /**
-     *
      * @var bool
      */
     protected $videoEnabled;
-    
+
+    /**
+     * @var bool
+     */
+    protected $locationEnabled;
+
+    /**
+     * @var array
+     */
+    private $question;
+
+    /**
+     * @var Service_RequestInfo
+     */
+    private $requestInfoService;
+
+    /**
+     * @param Service_RequestInfo $requestInfoService
+     * @param array|null $opriotns
+     */
+    public function __construct(Service_RequestInfo $requestInfoService, array $options = null)
+    {
+        parent::__construct($options);
+        $this->requestInfoService = $requestInfoService;
+    }
+
     public function init()
     {
         $this->setDecorators(array(array('ViewScript', array('viewScript' => 'input/inputEditForm.phtml'))));
@@ -39,9 +63,17 @@ class Default_Form_Input_Edit extends Dbjr_Form_Web
             ->setAttrib('placeholder', $placeholder)
             ->setFilters(['StripTags']);
         $this->addElement($expl);
-        
+
         $this->addElement('videoService', 'video_service');
         $this->addElement('videoId', 'video_id');
+
+        $this->addElement('checkbox', 'location_enabled');
+
+        $this->addElement('hidden', 'latitude');
+        $this->getElement('latitude')->setAttrib('id', 'inputs-0-latitude');
+
+        $this->addElement('hidden', 'longitude');
+        $this->getElement('longitude')->setAttrib('id', 'inputs-0-longitude');
 
         $submit = $this->createElement('submit', 'submit');
         $submit
@@ -57,7 +89,7 @@ class Default_Form_Input_Edit extends Dbjr_Form_Web
         }
         $this->addElement($hash);
     }
-    
+
     /**
      * @return bool
      */
@@ -98,5 +130,51 @@ class Default_Form_Input_Edit extends Dbjr_Form_Web
         }
 
         return parent::isValid($data);
+    }
+
+    /**
+     * @return bool
+     */
+    public function getLocationEnabled()
+    {
+        return $this->locationEnabled;
+    }
+
+    /**
+     * @param bool $locationEnabled
+     * @return \Default_Form_Input_Create
+     */
+    public function setLocationEnabled($locationEnabled)
+    {
+        $this->locationEnabled = $locationEnabled;
+
+        return $this;
+    }
+
+    /**
+     * @return array
+     */
+    public function getQuestion()
+    {
+        return $this->question;
+    }
+
+    /**
+     * @param array $question
+     * @return \Admin_Form_Input
+     */
+    public function setQuestion(array $question)
+    {
+        $this->question = $question;
+
+        return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isConnectionSecured()
+    {
+        return $this->requestInfoService->isSecure();
     }
 }

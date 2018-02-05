@@ -51,6 +51,13 @@
                         <div class="col-sm-4">
                             <?=$this->form->getElement('location_enabled');?>
                         </div>
+                        <div class="col-sm-8">
+                            <?php if (!$this->isConnectionSecured): ?>
+                                <p class="alert alert-info js-no-https-info">
+                                    <?=$this->translate('Your website in not running over secured connection, browser/device location service will not be available');?>
+                                </p>
+                            <?php endif; ?>
+                        </div>
                     </div>
                     <div class="row">
                         <div class="col-sm-4">

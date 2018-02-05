@@ -245,7 +245,7 @@ class Admin_InputController extends Zend_Controller_Action
         }
         $projectSettings = (new Model_Projects())->find(Zend_Registry::get('systemconfig')->project)->current();
         $question = (new Model_Questions())->find($qi)->current();
-        $form = new Admin_Form_Input($cancelUrl);
+        $form = new Admin_Form_Input((new Service_RequestInfo()), $cancelUrl);
         $form->setQuestion($question->toArray());
         $form->setVideoEnabled(
             $question['video_enabled']
