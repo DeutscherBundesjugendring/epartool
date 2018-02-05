@@ -14,21 +14,22 @@ class Module_Default_View_Helper_QuestionNavigation extends Zend_View_Helper_Abs
 
         switch ($controllerName) {
             case 'voting':
-                $urlParams = array();
+                $urlParams = [];
                 break;
             case 'followup':
-                $urlParams = array(
+                $urlParams = [
                     'action' => 'inputs-by-question',
                     'page' => null,
-                );
+                ];
                 break;
             case 'question':
             case 'input':
             default:
-                $urlParams = array(
+                $urlParams = [
+                    'controller' => 'input',
                     'action' => 'show',
                     'page' => null,
-                );
+                ];
                 break;
         }
 
