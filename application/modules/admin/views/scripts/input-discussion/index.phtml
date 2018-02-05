@@ -28,6 +28,11 @@
                 <?php endif; ?>
                 <h2><?=$this->translate('Contribution Discussion');?></h2>
 
+                <?php if (!$this->question['video_enabled']): ?>
+                    <p class="alert alert-info">
+                        <?=$this->translate('Videos for this question are disabled. If you create a contribution from a comment, the video will be copied, but it will not be visible until you allow it in the question settings');?>.
+                    </p>
+                <?php endif; ?>
                 <?php if (count($this->discussionContribs)): ?>
                     <form method="<?=$this->form->getMethod();?>">
                         <?=$this->form->getElement($this->form->getCsrfTokenName());?>

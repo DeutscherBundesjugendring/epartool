@@ -119,9 +119,25 @@ class Model_Inputs extends Dbjr_Db_Table_Abstract
             $inserted = $modelInputsTags->insertByInputsId($id, $data['tags']);
         }
 
-        if (isset($data['video_id']) && empty($data['video_id'])) {
-            $data['video_service'] = null;
-            $data['video_id'] = null;
+        $projectSettings = (new Model_Projects())->find(Zend_Registry::get('systemconfig')->project)->current();
+        $question = (new Model_Questions())->find($data['qi'])->current();
+        if (!$question) {
+            return 0;
+        }
+
+        if ($question['video_enabled']
+            && ($projectSettings['video_facebook_enabled']
+                || $projectSettings['video_youtube_enabled']
+                || $projectSettings['video_vimeo_enabled']
+            )
+        ) {
+            if (isset($data['video_id']) && empty($data['video_id'])) {
+                $data['video_service'] = null;
+                $data['video_id'] = null;
+            }
+        } else {
+            unset($data['video_service']);
+            unset($data['video_id']);
         }
 
         if ((isset($data['latitude']) && empty($data['latitude']))

@@ -19,10 +19,7 @@
                     <?=$this->element->getElement('video_service');?>
                 </div>
                 <div class="col-sm-8">
-                    <div class="input-group">
-                        <span class="input-group-addon js-video-service-url"></span>
-                        <?=$this->element->getElement('video_id');?>
-                    </div>
+                    <?=$this->element->getElement('video_id');?>
                     <?php if (count($this->element->getElement('video_id')->getErrors()) > 0) : ?>
                         <ul class="text-danger-block">
                         <?php foreach ($this->element->getElement('video_id')->getErrors() as $error) : ?>

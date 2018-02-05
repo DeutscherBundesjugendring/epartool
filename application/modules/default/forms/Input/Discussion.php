@@ -40,17 +40,14 @@ class Default_Form_Input_Discussion extends Dbjr_Form_Web
             $project = (new Model_Projects())->find((new Zend_Registry())->get('systemconfig')->project)->current();
             $videoServiceEl = $this->createElement('select', 'video_service');
             $videoServiceOptions = [];
-            $urls = [];
             foreach (['youtube' => 'YouTube', 'vimeo' => 'Vimeo', 'facebook' => 'Facebook'] as $service => $name) {
                 if ($project['video_' . $service . '_enabled']) {
                     $videoServiceOptions[$service] = $name;
-                    $urls[$service] = sprintf(Zend_Registry::get('systemconfig')->video->url->$service->format->link, '');
                 }
             }
-            $videoServiceEl->setMultioptions($videoServiceOptions)->setOptions(['data-url' => json_encode($urls)]);
+            $videoServiceEl->setMultioptions($videoServiceOptions);
             $this->addElement($videoServiceEl);
 
-            $placeholder = Zend_Registry::get('Zend_Translate')->translate('e.g.');
             $videoId = $this->createElement('text', 'video_id');
             $videoId
                 ->setAttrib('class', 'form-control')
