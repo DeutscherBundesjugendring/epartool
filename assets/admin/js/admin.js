@@ -460,6 +460,7 @@
 
     if (geoFence.length) {
       polygon = L.polygon(geoFence, {color: 'red'}).addTo(map);
+      map.fitBounds(polygon.getBounds());
     }
 
     if ($latField.val()) {
