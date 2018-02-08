@@ -1,4 +1,10 @@
 <?php
+$this->layout()->pageTitle = $this->pageTitle(
+    Application_View_Helper_PageTitle::CONTRIBUTIONS_PAGE,
+    $this->consultation
+);
+?>
+<?php
     $linkToInputs = null;
     if ($this->consultation->is_input_phase_showed
         && (new Zend_Date($this->consultation->inp_fr, Zend_Date::ISO_8601))->isEarlier(Zend_Date::now())

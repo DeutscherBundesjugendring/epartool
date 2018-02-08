@@ -1,3 +1,10 @@
+<?php
+$this->layout()->pageTitle = $this->pageTitle(
+    Application_View_Helper_PageTitle::VOTING_PAGE,
+    $this->consultation
+);
+?>
+
 <?=$this->secondNavigation('voting');?>
 
 <div class="main-content">

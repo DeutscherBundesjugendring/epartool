@@ -1,3 +1,9 @@
+<?php
+$this->layout()->pageTitle = $this->pageTitle(
+    Application_View_Helper_PageTitle::STATIC_PAGE,
+    $this->translate('New member confirmation')
+);
+?>
 <div class="main-content">
 
     <?php if ($this->act == 'confirm'): ?>

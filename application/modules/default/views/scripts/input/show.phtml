@@ -1,4 +1,10 @@
 <?php
+$this->layout()->pageTitle = $this->pageTitle(
+    Application_View_Helper_PageTitle::CONTRIBUTIONS_BY_QUESTION_PAGE,
+    $this->question
+);
+?>
+<?php
     $supports = new Zend_Session_Namespace('supports');
     if (empty($supports->clicks)) {
         $supports->clicks = array();

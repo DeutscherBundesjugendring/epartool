@@ -15,8 +15,7 @@ $license = (new Model_License())->find($projectSettings['license'], $lang . '_' 
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <!--[if lte IE 8]><meta http-equiv="cleartype" content="on" /><![endif]-->
-
-    <title><?=$this->parameter('site.title');?></title>
+    <title><?=$this->layout()->pageTitle ? $this->layout()->pageTitle : $this->pageTitle();?></title>
 
     <meta name="description" content="<?=$this->parameter('site.description');?>" />
     <meta name="author" content="ePartool © DBJR" />

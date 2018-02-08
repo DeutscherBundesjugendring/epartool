@@ -6,7 +6,16 @@
  * @author        Markus Hackel
  */
 ?>
-
+<?php
+$articleType = (new Model_ArticleRefNames())->fetchRow(['ref_nm = ?' => $this->article['ref_nm']]);
+$this->layout()->pageTitle = $this->pageTitle(
+    (($articleType['type'] === Model_ArticleRefNames::TYPE_GLOBAL)
+        ? Application_View_Helper_PageTitle::GLOBAL_STATIC_PAGE
+        : Application_View_Helper_PageTitle::INFO_PAGE
+    ),
+    $this->article
+);
+?>
 <?php if ($this->consultation): ?>
     <?php echo $this->secondNavigation('article') ?>
 <?php endif; ?>

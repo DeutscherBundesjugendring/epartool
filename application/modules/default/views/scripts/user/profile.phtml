@@ -1,3 +1,9 @@
+<?php
+$this->layout()->pageTitle = $this->pageTitle(
+    Application_View_Helper_PageTitle::STATIC_PAGE,
+    $this->translate('Mein Profile')
+);
+?>
 <div class="main-content">
     <?=$this->partial('_partials/userMenu.phtml', ['page' => 'profile']);?>
     <div class="row offset-top offset-bottom">

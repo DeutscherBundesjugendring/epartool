@@ -1,6 +1,11 @@
 <?php
-$this->layout()->labels = $this->labels;
-$this->layout()->settings = $this->settings;
+    $this->layout()->pageTitle = $this->pageTitle(
+        Application_View_Helper_PageTitle::VOTING_PAGE,
+        $this->consultation
+    );
+    
+    $this->layout()->labels = $this->labels;
+    $this->layout()->settings = $this->settings;
 ?>
 
 <?=$this->secondNavigation('voting');?>

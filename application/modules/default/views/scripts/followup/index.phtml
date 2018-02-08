@@ -1,4 +1,10 @@
 <?php
+    $this->layout()->pageTitle = $this->pageTitle(
+        Application_View_Helper_PageTitle::FOLLOWUP_PAGE,
+        $this->consultation
+    );
+?>
+<?php
     $date = new Zend_Date();
     $locale = new Zend_Locale();
 

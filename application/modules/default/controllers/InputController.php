@@ -888,6 +888,7 @@ class InputController extends Zend_Controller_Action
         }
 
         $this->view->input = $input;
+        $this->view->question = (new Model_Questions())->find($input['qi'])->current();
         $this->view->consultation = $this->consultation;
     }
 

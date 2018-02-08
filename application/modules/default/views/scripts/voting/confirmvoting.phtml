@@ -1,4 +1,9 @@
 <?php
+    $this->layout()->pageTitle = $this->pageTitle(
+        Application_View_Helper_PageTitle::STATIC_PAGE,
+        $this->translate('Confirmation of your votes')
+    );
+
     $this->layout()->settings = $this->settings;
     $this->layout()->labels = $this->labels;
 ?>

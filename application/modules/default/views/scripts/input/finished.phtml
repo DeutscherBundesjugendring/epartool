@@ -1,3 +1,9 @@
+<?php
+$this->layout()->pageTitle = $this->pageTitle(
+    Application_View_Helper_PageTitle::CONTRIBUTIONS_PAGE,
+    $this->consultation
+);
+?>
 <?=$this->secondNavigation('input');?>
 
 <div class="main-content">

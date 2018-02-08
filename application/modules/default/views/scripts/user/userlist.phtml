@@ -1,4 +1,10 @@
 <?php
+$this->layout()->pageTitle = $this->pageTitle(
+    Application_View_Helper_PageTitle::STATIC_PAGE,
+    $this->translate('Participating group members')
+);
+?>
+<?php
  $memberships = [
   '1' => $this->translate('confirmed'),
   '0' => $this->translate('rejected'),

@@ -1,3 +1,9 @@
+<?php
+$this->layout()->pageTitle = $this->pageTitle(
+    Application_View_Helper_PageTitle::FOLLOWUP_PAGE,
+    $this->consultation
+);
+?>
 <?=$this->secondNavigation('follow-up');?>
 
 <div class="main-content">

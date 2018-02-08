@@ -1,3 +1,9 @@
+<?php
+$this->layout()->pageTitle = $this->pageTitle(
+    Application_View_Helper_PageTitle::CONTRIBUTION_PAGE,
+    $this->question
+);
+?>
 <a name="page-content"></a>
 <?php echo $this->secondNavigation('input') ?>
 
