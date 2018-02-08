@@ -54,11 +54,17 @@
     &-buttons {
         position: relative;
         z-index: 1;
-        margin: -@line-height-computed 3em @line-height-computed;
+        margin: -@line-height-computed 1em @line-height-computed;
 
         > li {
-            width: 7em;
+            width: 6.5em;
             vertical-align: top;
+
+            &.item-break {
+                display: block;
+                margin-right: auto;
+                margin-left: auto;
+            }
         }
     }
 }

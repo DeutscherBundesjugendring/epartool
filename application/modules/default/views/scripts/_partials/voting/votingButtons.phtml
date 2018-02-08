@@ -92,7 +92,7 @@
     <?php if ($this->settings['btn_no_opinion']): ?>
         <?php $linkParameters['pts'] = null; ?>
 
-        <li class="offset-bottom-small">
+        <li class="item-break offset-bottom-small">
             <a href="<?=$this->url($linkParameters);?>#vote" class="link-unstyled link-unstyled-alt">
                 <?=$this->partial('_svg/button.svg.phtml', ['btnLabel' => sprintf($btnLabelPattern, $this->settings['button_type'], 'no-opinion')]);?>
                 <strong><?=$this->translate($this->buttonUndecidedLabel);?></strong>
