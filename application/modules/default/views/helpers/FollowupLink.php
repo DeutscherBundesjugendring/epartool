@@ -13,8 +13,14 @@ class Module_Default_View_Helper_FollowupLink extends Zend_View_Helper_Abstract
      */
     public function followupLink($inputId, $questionId)
     {
-        $inputModel = new Model_Inputs();
+        $nowDate = Zend_Date::now();
+        if (!$nowDate->isLater(new Zend_Date($this->view->consultation->vot_to, Zend_Date::ISO_8601))
+            || !$this->view->consultation->is_followup_phase_showed
+        ) {
+            return '';
+        }
 
+        $inputModel = new Model_Inputs();
         $followupsCount = $inputModel->getFollowupsCount($inputId);
         $relatedWithVotesCount = $inputModel->getRelatedCountById($inputId);
         $relationsCount = $followupsCount + $relatedWithVotesCount;
