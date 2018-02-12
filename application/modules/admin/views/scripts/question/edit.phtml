@@ -68,6 +68,9 @@
 
                     <?=$this->openStreetMapsConfig();?>
                     <div class="offset-bottom" id="js-contribution-geo-fence-map">
+                        <p class="alert alert-info">
+                            <?=$this->translate('Set points on the map by clicking in order to narrow down the area from which contributions can be submitted. The dots will automatically connect to an area (in red).');?>
+                        </p>
                         <a
                             href="#"
                             id="js-geo-fence-destroy"

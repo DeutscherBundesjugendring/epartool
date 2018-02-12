@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Dbjr Tool\n"
-"POT-Creation-Date: 2018-02-12 13:40+0100\n"
-"PO-Revision-Date: 2018-02-12 13:40+0100\n"
+"POT-Creation-Date: 2018-02-12 14:14+0100\n"
+"PO-Revision-Date: 2018-02-12 14:15+0100\n"
 "Last-Translator: Martin Bohal <mb@mbohal.cz>\n"
 "Language-Team: epartool@dbjr.de\n"
 "Language: de\n"
@@ -2043,14 +2043,14 @@ msgstr ""
 #: library/Dbjr/Form/Decorator/CancelLink.php:9
 #: application/modules/admin/views/scripts/input/inputForm.phtml:156
 #: application/modules/admin/views/scripts/question/create.phtml:59
-#: application/modules/admin/views/scripts/question/edit.phtml:86
+#: application/modules/admin/views/scripts/question/edit.phtml:89
 msgid "Cancel"
 msgstr "Abbrechen"
 
 #: library/Dbjr/Form/Decorator/CancelLink.php:10
 #: application/modules/admin/views/scripts/input/inputForm.phtml:155
 #: application/modules/admin/views/scripts/question/create.phtml:58
-#: application/modules/admin/views/scripts/question/edit.phtml:85
+#: application/modules/admin/views/scripts/question/edit.phtml:88
 msgid "or"
 msgstr "oder"
 
@@ -3144,7 +3144,17 @@ msgid ""
 "service will not be available"
 msgstr ""
 
-#: application/modules/admin/views/scripts/question/edit.phtml:77
+#: application/modules/admin/views/scripts/question/edit.phtml:72
+msgid ""
+"Set points on the map by clicking in order to narrow down the area from "
+"which contributions can be submitted. The dots will automatically connect to "
+"an area (in red)."
+msgstr ""
+"Setze durch Anklicken Punkte auf die Karte, um das Gebiet einzugrenzen, aus "
+"dem Beiträge eingebracht werden können. Die Punkte verbinden sich "
+"automatisch zu einer roten Fläche."
+
+#: application/modules/admin/views/scripts/question/edit.phtml:80
 msgid "Destroy geo fence"
 msgstr ""
 
