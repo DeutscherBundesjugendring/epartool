@@ -137,7 +137,7 @@ class InputController extends Zend_Controller_Action
             if (isset($sessInputs->confirmKey)) {
                 $contributions = $inputModel->getByConfirmKeyAndQuestion($sessInputs->confirmKey, $question['qi']);
             }
-            $form->generateInputFields($contributions);
+            $form->generateInputFields($contributions, !$question['location_enabled']);
             $form->setAction($listType === null
                 ? sprintf(
                     '%s/input/show/kid/%d/qid/%d',
@@ -165,7 +165,7 @@ class InputController extends Zend_Controller_Action
 
             $this->view->paginator = $paginator;
         }
-        
+
         $this->view->videoServicesStatus = $project;
         $this->view->videoEnabled = $question['video_enabled'];
         $this->view->subscriptionForm = $sbsForm;
