@@ -34,6 +34,13 @@
     font-style: normal;
 }
 
+@font-face {
+    font-family: 'Droid Arabic Kufi';
+    src: url(../fonts/droidkufi/DroidKufi-Bold.ttf) format('truetype');
+    font-style: normal;
+    font-weight: 600;
+}
+
 .font-family-black() {
     font-family: @font-family-black;
 
@@ -42,5 +49,10 @@
     &:lang(ru) {
         font-family: @font-family-black-alt;
         font-weight: 900;
+    }
+
+    &:lang(ar) {
+        font-family: @font-family-arabic;
+        font-weight: 600;
     }
 }
