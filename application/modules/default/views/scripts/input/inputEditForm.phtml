@@ -23,6 +23,8 @@
                                 data-size="mini"
                                 data-onstyle="success"
                                 data-offstyle="default"
+                                data-on="<?=$this->translate('On');?>"
+                                data-off="<?=$this->translate('Off');?>"
                                 <?=((($this->element->getElements()['latitude']->getValue() !== null)
                                     && $this->element->getElements()['location_enabled']->getValue())
                                     ? 'checked'

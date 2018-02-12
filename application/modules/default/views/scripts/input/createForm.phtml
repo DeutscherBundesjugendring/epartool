@@ -51,6 +51,8 @@
                                 data-size="mini"
                                 data-onstyle="success"
                                 data-offstyle="default"
+                                data-on="<?=$this->translate('On');?>"
+                                data-off="<?=$this->translate('Off');?>"
                                 <?=((($input->getElements()['tid']->getValue() === null
                                     || $input->getElements()['latitude']->getValue() !== null)
                                     && $input->getElements()['location_enabled']->getValue())
