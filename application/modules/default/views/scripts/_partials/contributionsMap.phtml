@@ -186,7 +186,10 @@
                 }
 
                 markers['marker' + data.tid] = L.marker([data.latitude, data.longitude]);
-                markersGroup.addLayer(markers['marker' + data.tid].bindPopup(buildPopup(data)));
+                markersGroup.addLayer(markers['marker' + data.tid].bindPopup(buildPopup(data), {
+                    autoPanPaddingTopLeft: L.point(60, 20),
+                    autoPan: true
+                }));
             };
 
             Object.keys(markersData).forEach(function(key) {
