@@ -214,6 +214,7 @@ class Admin_InputController extends Zend_Controller_Action
             $session->urlQi = $this->getRequest()->getParam('qi', 0);
         }
 
+        $copiedContributionHeadline = false;
         if ($this->getRequest()->getParam('return', null) === 'votingprepare') {
             $url = $this->view->url(
                 [
@@ -224,6 +225,7 @@ class Admin_InputController extends Zend_Controller_Action
                 ]
             );
             $cancelUrl = $this->view->returnUrl = $url;
+            $copiedContributionHeadline = true;
         } elseif ($session->urlQi > 0) {
             $url = $this->view->url(['action' => 'list-by-question', 'qi' => $qi, 'tid' => null]);
             $cancelUrl = $this->view->returnUrl = $url;
@@ -336,6 +338,7 @@ class Admin_InputController extends Zend_Controller_Action
             }
         }
 
+        $this->view->copiedContributionHeadline = $copiedContributionHeadline;
         $this->view->form = $form;
         $this->view->tid = $tid;
         $this->view->authorId = $inputRow['uid'];

@@ -27,7 +27,12 @@
 
                 <a href="<?=$this->returnUrl;?>" class="back"><?=$this->translate('Back to Contributions');?></a>
 
-                <h2><?=$this->translate('Edit Contribution');?></h2>
+                <?php if ($this->copiedContributionHeadline): ?>
+                    <h2><?=$this->translate('Edit copied contribution');?></h2>
+                <?php else: ?>
+                    <h2><?=$this->translate('Edit Contribution');?></h2>
+                <?php endif; ?>
+
                 <?php if ($this->authorId): ?>
                 <a
                     href="<?=$this->url(
