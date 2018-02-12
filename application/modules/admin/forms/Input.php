@@ -37,12 +37,22 @@ class Admin_Form_Input extends Dbjr_Form_Admin
     private $question;
 
     /**
+     * @var Service_RequestInfo
+     */
+    private $requestInfoService;
+
+    /**
      * Admin_Form_Input constructor.
+     * @param Service_RequestInfo
      * @param null $cancelUrl
      * @param string $afterSubmitAction
      */
-    public function __construct($cancelUrl = null, $afterSubmitAction = self::AFTER_SUBMIT_RETURN_TO_INDEX)
-    {
+    public function __construct(
+        Service_RequestInfo $requestInfoService,
+        $cancelUrl = null,
+        $afterSubmitAction = self::AFTER_SUBMIT_RETURN_TO_INDEX
+    ) {
+        $this->requestInfoService = $requestInfoService;
         $this->cancelUrl = $cancelUrl;
         $this->afterSubmitAction = $afterSubmitAction;
         parent::__construct();
@@ -281,5 +291,13 @@ class Admin_Form_Input extends Dbjr_Form_Admin
         $this->question = $question;
 
         return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isConnectionSecured()
+    {
+        return $this->requestInfoService->isSecure();
     }
 }

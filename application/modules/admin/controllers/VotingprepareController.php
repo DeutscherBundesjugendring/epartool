@@ -110,6 +110,7 @@ class Admin_VotingprepareController extends Zend_Controller_Action
     {
         $inputModel = new Model_Inputs();
         $form = new Admin_Form_Input(
+            new Service_RequestInfo(),
             $this->view->url(['action' => 'overview']),
             Admin_Form_Input::AFTER_SUBMIT_SPLIT_NEXT
         );
@@ -167,7 +168,10 @@ class Admin_VotingprepareController extends Zend_Controller_Action
     {
         $inputModel = new Model_Inputs();
         $origInputIds = $this->getRequest()->getParam('inputIds');
-        $form = new Admin_Form_Input($this->view->url(['action' => 'overview', 'inputIds' => null]));
+        $form = new Admin_Form_Input(
+            new Service_RequestInfo(),
+            $this->view->url(['action' => 'overview', 'inputIds' => null])
+        );
 
         if ($this->getRequest()->isPost()) {
             $postData = $this->getRequest()->getPost();
@@ -208,6 +212,7 @@ class Admin_VotingprepareController extends Zend_Controller_Action
         $origInputId = $this->getRequest()->getParam('inputId');
         $origData = $inputModel->getById($origInputId);
         $form = new Admin_Form_Input(
+            new Service_RequestInfo(),
             $this->view->url(['action' => 'overview']),
             Admin_Form_Input::AFTER_SUBMIT_VIEW_COPY
         );
