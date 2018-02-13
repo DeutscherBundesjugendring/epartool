@@ -103,6 +103,12 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         $this->getResource('frontController')->registerPlugin(new Plugin_Headers());
     }
 
+    protected function _initCronFallback()
+    {
+        $this->bootstrap('frontController');
+        $this->getResource('frontController')->registerPlugin(new Plugin_CronFallback());
+    }
+
     /**
      * Registers the complete URL including protocol and host in the registry,
      * used for links in emails

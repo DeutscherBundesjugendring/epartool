@@ -25,6 +25,7 @@ class Config
      * @param array $email
      * @param string $projectCode
      * @param string $cronKey
+     * @param string $securityToken
      * @param string $googleId
      * @param string $googleSecret
      * @param string $facebookId
@@ -36,6 +37,7 @@ class Config
         array $email,
         $projectCode,
         $cronKey,
+        $securityToken,
         $googleId,
         $googleSecret,
         $facebookId,
@@ -79,6 +81,8 @@ class Config
         }
         $confLocalIni->production->cron = [];
         $confLocalIni->production->cron->key = $cronKey;
+        $confLocalIni->production->security = [];
+        $confLocalIni->production->security->token = $securityToken;
         $confLocalIni->production->webservice = [];
         $confLocalIni->production->webservice->google = [];
         $confLocalIni->production->webservice->google->clientId = $googleId;

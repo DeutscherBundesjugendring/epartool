@@ -100,6 +100,7 @@ if (!empty($_POST)) {
                 ],
                 'xx',
                 $_POST['cronKey'],
+                $_POST['securityToken'],
                 $_POST['googleId'],
                 $_POST['googleSecret'],
                 $_POST['facebookId'],

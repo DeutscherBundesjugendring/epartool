@@ -68,8 +68,15 @@ class InstallForm extends Dbjr_Form_Web
             ->setRequired(true);
         $this->addElement($cronKey);
 
+        $securityToken = $this->createElement('text', 'securityToken');
+        $securityToken
+            ->setLabel('Security token')
+            ->setDescription('Random string used for generating unique values.')
+            ->setRequired(true);
+        $this->addElement($securityToken);
+
         $this->addDisplayGroup(
-            ['locale', 'cronKey'],
+            ['locale', 'cronKey', 'securityToken'],
             'toolSettings',
             ['legend' => $trans->translate('Application'), 'class' => 'offset-bottom']
         );

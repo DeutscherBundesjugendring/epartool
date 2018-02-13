@@ -7,9 +7,10 @@ class CronController extends Zend_Controller_Action
      */
     public function executeAction()
     {
-        // Cron should be at leas partially protected from public
+        // Cron should be at least partially protected from public
         $key = $this->getRequest()->getParam('key');
-        if ($key && $key === Zend_Registry::get('systemconfig')->cron->key) {
+        $cronConfig = Zend_Registry::get('systemconfig')->cron;
+        if ($key && $cronConfig && $key === $cronConfig->key) {
             Service_Cron::executeAll();
             // @codingStandardsIgnoreLine
             echo 'Success!';
@@ -17,6 +18,34 @@ class CronController extends Zend_Controller_Action
             // @codingStandardsIgnoreLine
             echo 'Error!';
         }
+        // @codingStandardsIgnoreLine
+        die();
+    }
+
+    public function fallbackAction()
+    {
+        $cronConfig = Zend_Registry::get('systemconfig')->cron;
+        if ($cronConfig && $cronConfig->key) {
+            // @codingStandardsIgnoreLine
+            die();
+        }
+
+        if (!$this->getRequest()->isPost()) {
+            // @codingStandardsIgnoreLine
+            die();
+        }
+
+        Service_Cron::waitForEnterCriticalSection();
+        if (Service_Cron::verifyHash($this->getRequest()->getParam('h'))) {
+            try {
+                Service_Cron::executeAll();
+            } catch (Exception $e) {
+                Service_Cron::leaveCriticalSection();
+
+                throw $e;
+            }
+        }
+        Service_Cron::leaveCriticalSection();
         // @codingStandardsIgnoreLine
         die();
     }
