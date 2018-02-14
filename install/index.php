@@ -74,7 +74,38 @@ if (!empty($_POST)) {
     if ($form->isValid($_POST)) {
         try {
             $db = new Db($_POST['dbName'], $_POST['dbHost'], $_POST['dbUsername'], $_POST['dbPass']);
-            $db->initDb($sqlPath, $_POST['adminName'], $_POST['adminEmail'], $_POST['adminPassword'], $_POST['locale']);
+
+            $phinxConfigTemplate = file_get_contents($configPath . '/phinx.local-example.yml');
+            if (!$phinxConfigTemplate) {
+                throw new Exception('Cannot load phinx config template.');
+            }
+            if (!file_put_contents($configPath . '/phinx.local.yml', str_replace([
+                'host: db',
+                'name: dbjr',
+                'user: root',
+                'pass: pass',
+            ], [
+                sprintf('host: %s', $_POST['dbHost']),
+                sprintf('name: %s', $_POST['dbName']),
+                sprintf('user: %s', $_POST['dbUsername']),
+                sprintf('pass: %s', $_POST['dbPass']),
+            ], $phinxConfigTemplate))
+            ) {
+                throw new Exception('Cannot write phinx config.');
+            }
+
+            $phinxMigrate = new Service_PhinxMigrate('production');
+
+            $db->initDb(
+                $sqlPath,
+                $_POST['adminName'],
+                $_POST['adminEmail'],
+                $_POST['adminPassword'],
+                $_POST['locale'],
+                function () use ($phinxMigrate) {
+                    $phinxMigrate->run();
+                }
+            );
 
             $config = new Config(new Zend_Config_Writer_Ini(), $configPath);
             $config->writeConfigLocalIni(
@@ -107,27 +138,6 @@ if (!empty($_POST)) {
                 $_POST['facebookSecret'],
                 $_POST['vimeoAccessToken']
             );
-            $phinxConfigTemplate = file_get_contents($configPath . '/phinx.local-example.yml');
-            if (!$phinxConfigTemplate) {
-                throw new Exception('Cannot load phinx config template.');
-            }
-            if (!file_put_contents($configPath . '/phinx.local.yml', str_replace([
-                    'host: db',
-                    'name: dbjr',
-                    'user: root',
-                    'pass: pass',
-                ], [
-                    sprintf('host: %s', $_POST['dbHost']),
-                    sprintf('name: %s', $_POST['dbName']),
-                    sprintf('user: %s', $_POST['dbUsername']),
-                    sprintf('pass: %s', $_POST['dbPass']),
-                ], $phinxConfigTemplate))
-            ) {
-                throw new Exception('Cannot write phinx config.');
-            }
-
-            $phinxMigrate = new Service_PhinxMigrate('production');
-            $phinxMigrate->run();
 
             $view->render('step-3.phtml');
         } catch (PDOException $e) {

@@ -31,16 +31,26 @@ class Db {
      * @param string $adminEmail
      * @param string $adminPassword
      * @param string $locale
+     * @param callback $phinxMigrate
      * @throws \Exception
      */
-    public function initDb($sqlPath, $adminName, $adminEmail, $adminPassword, $locale)
-    {
+    public function initDb(
+        $sqlPath,
+        $adminName,
+        $adminEmail,
+        $adminPassword,
+        $locale,
+        $phinxMigrate
+    ) {
         $this->execSql(sprintf(
             'ALTER DATABASE `%s` DEFAULT CHARACTER SET utf8mb4 DEFAULT COLLATE utf8mb4_unicode_ci',
             $this->dbName
         ));
 
         $this->execSql(file_get_contents(realpath($sqlPath . '/create-installation.sql')));
+
+        $phinxMigrate();
+
         $this->execSql(file_get_contents(realpath($sqlPath . '/create-project-de.sql')));
         $this->execSql(file_get_contents(realpath($sqlPath . '/create-sample-data-de.sql')));
         $this->execStatement(

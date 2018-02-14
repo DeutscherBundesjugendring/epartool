@@ -48,7 +48,6 @@ class RoboFile extends Tasks
         $this->createConfigs();
         $this->build();
         $this->createDatabase('test');
-        $this->phinxMigrate('test');
         $this->test();
     }
 
@@ -239,7 +238,17 @@ class RoboFile extends Tasks
             $credentials['username'],
             $credentials['password']
         );
-        $db->initDb(realpath(dirname(__FILE__) . '/data'), 'admin', 'email@example.com', 'pass', 'de_DE');
+
+        $db->initDb(
+            realpath(dirname(__FILE__) . '/data'),
+            'admin',
+            'email@example.com',
+            'pass',
+            'de_DE',
+            function () use ($environment) {
+                $this->phinxMigrate($environment);
+            }
+        );
     }
 
     /**
