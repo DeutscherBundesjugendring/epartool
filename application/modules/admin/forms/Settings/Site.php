@@ -29,7 +29,7 @@ class Admin_Form_Settings_Site extends Dbjr_Form_Admin
             ]);
         $this->addElement($locale);
 
-        $siteTitle = $this->createElement('text', 'site_title');
+        $siteTitle = $this->createElement('text', 'title');
         $siteTitle
             ->setLabel('Site Title')
             ->setRequired(true)
@@ -38,7 +38,7 @@ class Admin_Form_Settings_Site extends Dbjr_Form_Admin
         $this->addElement($siteTitle);
 
         $desc = $translator->translate('Used in description and og:description meta tags.');
-        $siteDescription = $this->createElement('text', 'site_description');
+        $siteDescription = $this->createElement('text', 'description');
         $siteDescription
             ->setLabel('Site Description')
             ->setRequired(true)
@@ -47,7 +47,7 @@ class Admin_Form_Settings_Site extends Dbjr_Form_Admin
         $this->addElement($siteDescription);
 
         $desc = $translator->translate('Used as a subtitle on all pages that are not consultation specific.');
-        $siteMotto = $this->createElement('text', 'site_motto');
+        $siteMotto = $this->createElement('text', 'motto');
         $siteMotto
             ->setLabel('Motto')
             ->setAttrib('maxlength', 1000)
@@ -56,7 +56,7 @@ class Admin_Form_Settings_Site extends Dbjr_Form_Admin
 
 
         $this->addDisplayGroup(
-            ['locale', 'site_title', 'site_motto', 'site_description'],
+            ['locale', 'title', 'motto', 'description'],
             'site',
             ['legend' => $translator->translate('Site Information')]
         );
@@ -89,7 +89,7 @@ class Admin_Form_Settings_Site extends Dbjr_Form_Admin
         $this->addElement($contactWww);
 
         $this->addDisplayGroup(
-            ['contact_name', 'contact_street', 'contact_town', 'contact_zip', 'contact_email', 'contact_www'],
+            ['contact_name', 'contact_email', 'contact_www'],
             'contact',
             ['legend' => $translator->translate('Contact Information')]
         );

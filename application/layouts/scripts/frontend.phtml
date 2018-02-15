@@ -17,11 +17,11 @@ $license = (new Model_License())->find($projectSettings['license'], $lang . '_' 
     <!--[if lte IE 8]><meta http-equiv="cleartype" content="on" /><![endif]-->
     <title><?=$this->layout()->pageTitle ? $this->layout()->pageTitle : $this->pageTitle();?></title>
 
-    <meta name="description" content="<?=$this->parameter('site.description');?>" />
+    <meta name="description" content="<?=$this->parameter('description');?>" />
     <meta name="author" content="ePartool © DBJR" />
-    <meta name="DC.title" content="<?=$this->parameter('site.title');?>" />
-    <meta property="og:title" content="<?=$this->parameter('site.title');?>" />
-    <meta property="og:description" content="<?=$this->parameter('site.description');?>" />
+    <meta name="DC.title" content="<?=$this->parameter('title');?>" />
+    <meta property="og:title" content="<?=$this->parameter('title');?>" />
+    <meta property="og:description" content="<?=$this->parameter('description');?>" />
 
     <link rel="stylesheet" href="<?=$this->baseUrl('css/front.min.css');?>?v=<?=$this->toolVersion();?>" type="text/css" />
     <link rel="stylesheet" href="<?=$this->url(['controller' => 'index', 'action' => 'custom-css'], 'default');?>?v=<?=$this->toolVersion();?>" type="text/css" />
@@ -93,7 +93,7 @@ $license = (new Model_License())->find($projectSettings['license'], $lang . '_' 
                     <?php endif; ?>
                     class="img-responsive"
                     itemprop="image"
-                    alt="<?=$this->parameter('site.title');?>"
+                    alt="<?=$this->parameter('title');?>"
                 />
             </a>
 
@@ -204,7 +204,7 @@ $license = (new Model_License())->find($projectSettings['license'], $lang . '_' 
                                     </button>
                                     <div id="sharebtn-holder" class="share-dropdown dropdown-menu text-center" aria-labelledby="socialshare">
                                         <a
-                                            href="https://twitter.com/intent/tweet?text=<?=$this->parameter('site.title');?>&url=<?=$this->serverUrl(true);?>"
+                                            href="https://twitter.com/intent/tweet?text=<?=$this->parameter('title');?>&url=<?=$this->serverUrl(true);?>"
                                             class="btn btn-default offset-bottom-small js-share"
                                             title="Twitter <?=$this->translate('Share');?>"
                                             target="_blank"
@@ -267,7 +267,7 @@ $license = (new Model_License())->find($projectSettings['license'], $lang . '_' 
                     <?php endif; ?>
 
                     <p class="header-box-description" itemprop="description">
-                        <?=$this->parameter('site.motto');?>
+                        <?=$this->parameter('motto');?>
                     </p>
 
                     <!-- Menu -->

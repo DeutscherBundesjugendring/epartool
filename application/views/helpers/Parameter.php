@@ -17,7 +17,8 @@ class Application_View_Helper_Parameter extends Zend_View_Helper_Abstract
     {
         // The parameters are often needed all in one request and therefore we want to cache them.
         if (!$this->_params) {
-            $this->_params = (new Model_Parameter())->getAsArray();
+            $this->_params = $project = (new Model_Projects())->find(Zend_Registry::get('systemconfig')->project)
+                ->current()->toArray();
         }
 
         if (!isset($this->_params[$paramName])) {

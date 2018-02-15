@@ -17,39 +17,37 @@ class Admin_SettingsController extends Zend_Controller_Action
 
     public function indexAction()
     {
-        $paramModel = new Model_Parameter();
+        $projectModel = new Model_Projects();
         $form = new Admin_Form_Settings_Site();
         $projectCode = Zend_Registry::get('systemconfig')->project;
 
         if ($this->getRequest()->isPost()) {
             $data = $this->getRequest()->getPost();
             if ($form->isValid($data)) {
-                $db = $paramModel->getAdapter();
+                $db = $projectModel->getAdapter();
                 $db->beginTransaction();
                 try {
-                    foreach ($data as $field => $value) {
-                        if ($field === 'locale') {
-                            (new Model_Projects())->update(['locale' => $value], ['proj = ?' => $projectCode]);
-                            continue;
-                        }
-
-                        $paramModel->update(
-                            ['value' => $value],
-                            ['name=?' => str_replace('_', '.', $field), 'proj=?' => $projectCode]
-                        );
-                    }
+                    $projectModel->update(array_intersect_key($data, [
+                        'title' => true,
+                        'motto' => true,
+                        'description' => true,
+                        'contact_www' => true,
+                        'contact_name' => true,
+                        'contact_email' => true,
+                    ]), ['proj = ?' => $projectCode]);
                     $db->commit();
                     $this->_flashMessenger->addMessage('Settings were saved.', 'success');
                     $this->redirect('/admin/settings');
                 } catch (Exception $e) {
                     $db->rollback();
+
                     throw $e;
                 }
             } else {
                 $this->_flashMessenger->addMessage('Form invalid', 'error');
             }
         } else {
-            $form->populate(array_merge($paramModel->getAsArray(), ['locale' => (new Model_Projects())->find($projectCode)->current()['locale']]));
+            $form->populate($projectModel->find($projectCode)->current()->toArray());
         }
 
         $this->view->form = $form;

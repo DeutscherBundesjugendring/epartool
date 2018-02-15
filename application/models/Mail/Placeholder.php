@@ -47,17 +47,15 @@ class Model_Mail_Placeholder extends Dbjr_Db_Table_Abstract
      */
     public function getGlobalValues()
     {
-        $params = (new Model_Parameter())->getAsArray(
-            ['name IN (?)' => ['contact.name', 'contact.www', 'contact.email']]
-        );
+        $project = (new Model_Projects())->find(Zend_Registry::get('systemconfig')->project)->current();
 
         $mailer = new Zend_Mail();
         return [
             self::GLOBAL_PLACEHOLDER_FROM_NAME => $mailer->getDefaultFrom()['name'],
             self::GLOBAL_PLACEHOLDER_FROM_ADDRESS => $mailer->getDefaultFrom()['email'],
-            self::GLOBAL_PLACEHOLDER_CONTACT_NAME => $params['contact.name'],
-            self::GLOBAL_PLACEHOLDER_CONTACT_WWW => $params['contact.www'],
-            self::GLOBAL_PLACEHOLDER_CONTACT_EMAIL => $params['contact.email'],
+            self::GLOBAL_PLACEHOLDER_CONTACT_NAME => $project['contact_name'],
+            self::GLOBAL_PLACEHOLDER_CONTACT_WWW => $project['contact_www'],
+            self::GLOBAL_PLACEHOLDER_CONTACT_EMAIL => $project['contact_email'],
             self::GLOBAL_PLACEHOLDER_SEND_DATE => Zend_Date::now()->get(Zend_Date::DATE_MEDIUM),
         ];
     }

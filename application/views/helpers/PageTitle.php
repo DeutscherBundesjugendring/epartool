@@ -31,7 +31,8 @@ class Application_View_Helper_PageTitle extends Zend_View_Helper_Abstract
     public function __construct()
     {
         $this->translator = Zend_Registry::get('Zend_Translate');
-        $this->globalSiteTitle = (new Model_Parameter())->getAsArray()['site.title'];
+        $this->globalSiteTitle = (new Model_Projects())->find(Zend_Registry::get('systemconfig')->project)->current()
+            ->toArray()['title'];
     }
 
     /**
