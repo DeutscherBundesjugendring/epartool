@@ -3,7 +3,7 @@ SET @project_code = 'xx';
 SET @project_name = 'ePartool (default)';
 SET @locale = 'de_DE';
 
-INSERT INTO `proj` (`proj`, `titl_short`, `vot_q`, `locale`, `license`) VALUES
+INSERT INTO `proj` (`proj`, `title`, `vot_q`, `locale`, `license`) VALUES
     (
         @project_code,
         @project_name,

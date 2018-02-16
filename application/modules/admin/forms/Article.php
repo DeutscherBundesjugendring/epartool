@@ -67,7 +67,7 @@ class Admin_Form_Article extends Dbjr_Form_Admin
         $projects = (new Model_Projects())->getAll();
         $options = [];
         foreach ($projects as $project) {
-            $options[$project['proj']] = $project['titl_short'];
+            $options[$project['proj']] = $project['title'];
         }
         $project = $this->createElement('multiCheckbox', 'proj');
         $project

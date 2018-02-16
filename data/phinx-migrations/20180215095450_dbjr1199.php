@@ -29,11 +29,11 @@ EOD
 
         $this->execute(<<<EOD
 ALTER TABLE `proj`
-CHANGE `title` `title` text COLLATE 'utf8mb4_unicode_ci' NOT NULL AFTER `motto`,
-CHANGE `description` `description` text COLLATE 'utf8mb4_unicode_ci' NOT NULL AFTER `title`,
-CHANGE `contact_www` `contact_www` text COLLATE 'utf8mb4_unicode_ci' NOT NULL AFTER `description`,
-CHANGE `contact_name` `contact_name` text COLLATE 'utf8mb4_unicode_ci' NOT NULL AFTER `contact_www`,
-CHANGE `contact_email` `contact_email` text COLLATE 'utf8mb4_unicode_ci' NOT NULL AFTER `contact_name`;
+CHANGE `title` `title` text NOT NULL AFTER `motto`,
+CHANGE `description` `description` text NOT NULL AFTER `title`,
+CHANGE `contact_www` `contact_www` text NOT NULL AFTER `description`,
+CHANGE `contact_name` `contact_name` text NOT NULL AFTER `contact_www`,
+CHANGE `contact_email` `contact_email` text NOT NULL AFTER `contact_name`;
 EOD
         );
 
