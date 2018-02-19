@@ -429,12 +429,12 @@ class Admin_VotingController extends Zend_Controller_Action
                 if ((new Model_Votes_Individual())->getCountByConsultation($this->_consultation->kid) > 0) {
                     if ((int) $settings->is_btn_important !== (int) $values['is_btn_important']) {
                         $values['is_btn_important'] = $settings->is_btn_important;
-                        $this->_flashMessenger->addMessage('Voting has started already. You cannot disable Superbutton', 'error');
+                        $this->_flashMessenger->addMessage('Voting has started already. You cannot disable the Superbutton.', 'error');
                         $valid = false;
                     }
                     if ((int) $settings->btn_no_opinion !== (int) $values['btn_no_opinion']) {
                         $values['btn_no_opinion'] = $settings->btn_no_opinion;
-                        $this->_flashMessenger->addMessage('Voting has started already. You cannot disable No opinion button', 'error');
+                        $this->_flashMessenger->addMessage('Voting has started already. You cannot disable No opinion button.', 'error');
                         $valid = false;
                     }
                     if ((int) $settings->btn_important_max > (int) $values['btn_important_max']) {
@@ -463,7 +463,7 @@ class Admin_VotingController extends Zend_Controller_Action
                         ]))
                     ) {
                         $values['button_type'] = $settings->button_type;
-                        $this->_flashMessenger->addMessage('Voting has started already. You cannot change button type from yes/no to incompatible stars or hearts type', 'error');
+                        $this->_flashMessenger->addMessage('Voting has started already. You cannot change button type from yes/no to incompatible stars or hearts type.', 'error');
                         $valid = false;
                     }
                 }

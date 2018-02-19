@@ -422,7 +422,7 @@ class UserController extends Zend_Controller_Action
                 $data = $form->getValues();
                 try {
                     if ($userModel->updateProfile($user, $data)) {
-                        $this->_flashMessenger->addMessage('Your user profile was updated', 'success');
+                        $this->_flashMessenger->addMessage('Your user profile was updated.', 'success');
                         $this->redirect($this->view->url(), ['prependBase' => false]);
                     }
                 } catch (Zend_Auth_Exception $e) {

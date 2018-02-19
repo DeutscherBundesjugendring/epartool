@@ -45,7 +45,7 @@ class Plugin_Auth_AuthAdapter implements Zend_Auth_Adapter_Interface
         } else {
             if (crypt($this->_password, $user->password) === $user->password) {
                 $code = Zend_Auth_Result::SUCCESS;
-                $message = $translator->translate('Authentication successful.');
+                $message = $translator->translate('Login successful!');
                 $this->_user = $user;
             } else {
                 $code = Zend_Auth_Result::FAILURE_CREDENTIAL_INVALID;

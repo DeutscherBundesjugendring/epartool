@@ -1,15 +1,15 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Dbjr Tool\n"
-"POT-Creation-Date: 2018-02-12 13:40+0100\n"
-"PO-Revision-Date: 2018-02-12 13:40+0100\n"
+"POT-Creation-Date: 2018-02-19 16:09+0100\n"
+"PO-Revision-Date: 2018-02-19 16:09+0100\n"
 "Last-Translator: Martin Bohal <mb@mbohal.cz>\n"
 "Language-Team: epartool@dbjr.de\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.8.7.1\n"
+"X-Generator: Poedit 2.0.3\n"
 "X-Poedit-KeywordsList: _;translate;setLabel;setLegend;addMessage;"
 "setConfirmMessage;setDescription\n"
 "X-Poedit-Basepath: ../..\n"
@@ -122,11 +122,11 @@ msgstr ""
 
 #: application/modules/default/controllers/FollowupController.php:609
 msgid "Show less"
-msgstr ""
+msgstr "Weniger anzeigen"
 
 #: application/modules/default/controllers/FollowupController.php:610
 msgid "Show more"
-msgstr ""
+msgstr "Mehr anzeigen"
 
 #: application/modules/default/controllers/FollowupController.php:611
 #: application/modules/default/views/scripts/followup/index.phtml:96
@@ -151,6 +151,7 @@ msgstr "Ende"
 
 #: application/modules/default/controllers/IndexController.php:144
 #: library/Plugin/Auth/AccessControl.php:47
+#: library/Plugin/Auth/AuthAdapter.php:48
 msgid "Login successful!"
 msgstr "Login erfolgreich!"
 
@@ -181,6 +182,8 @@ msgid ""
 "There are no contributions to save. Please add at least one contribution "
 "before you click on finish."
 msgstr ""
+"Es gibt nichts zu speichern. Bitte zumindest einen Beitrag hinzufügen, bevor "
+"du auf »Beenden« klickst."
 
 #: application/modules/default/controllers/InputController.php:521
 msgid ""
@@ -285,7 +288,7 @@ msgid ""
 "address."
 msgstr ""
 "Eine E-Mail zum Zurücksetzen des Passworts wurde an die angegebene E-Mail-"
-"Adresse verschickt!"
+"Adresse verschickt."
 
 #: application/modules/default/controllers/UserController.php:216
 msgid "Password reset failed!"
@@ -332,7 +335,7 @@ msgid "You were successfully unsubscribed."
 msgstr "Du wurdest erfolgreich ausgetragen."
 
 #: application/modules/default/controllers/UserController.php:425
-msgid "Your user profile was updated"
+msgid "Your user profile was updated."
 msgstr "Das Nutzerprofil wurde aktualisiert."
 
 #: application/modules/default/controllers/UserController.php:430
@@ -372,6 +375,7 @@ msgstr "Ihre Eingaben sind nicht korrekt. Bitte pr&uuml;fen Sie diese."
 #: application/modules/default/controllers/VotingController.php:398
 msgid "There is no valid open voting session. Please login for voting."
 msgstr ""
+"Keine für dich verfügbare Abstimmung vorhanden. Bitte zuerst einloggen."
 
 #: application/modules/default/controllers/VotingController.php:322
 msgid "Your rating is out of accepted range."
@@ -385,15 +389,14 @@ msgstr "Beitrag wurde nicht gefunden."
 #: application/modules/default/controllers/VotingController.php:354
 #: application/modules/default/controllers/VotingController.php:365
 msgid "An error occured."
-msgstr "Es ist ein Fehler aufgetreten"
+msgstr "Es ist ein Fehler aufgetreten."
 
 #: application/modules/default/controllers/VotingController.php:360
 #: application/modules/default/controllers/VotingController.php:460
 #: application/modules/default/controllers/VotingController.php:525
-msgid ""
-"This vote cannot be changed, because it was confirmed already or probably "
-"created in another voting session by another user."
+msgid "This vote cannot be changed, because it was confirmed already."
 msgstr ""
+"Diese Stimme kann nicht verändert werden, weil sie schon bestätigt wurde."
 
 #: application/modules/default/controllers/VotingController.php:408
 msgid "Using of superbutton is not allowed."
@@ -536,7 +539,7 @@ msgstr "Beenden"
 #: application/modules/default/forms/Input/Edit.php:44
 #, php-format
 msgid "Here you can type in your contribution (up to %s characters)."
-msgstr "Hier könnt ihr euren Beitrag mit bis zu %s Buchstaben schreiben"
+msgstr "Hier könnt ihr euren Beitrag mit bis zu %s Buchstaben schreiben."
 
 #: application/modules/default/forms/Input/Create.php:149
 #: application/modules/default/forms/Input/Edit.php:58
@@ -544,7 +547,7 @@ msgstr "Hier könnt ihr euren Beitrag mit bis zu %s Buchstaben schreiben"
 msgid ""
 "Here you explain your contribution more in depth, e.g. with examples (up to "
 "%s characters)."
-msgstr "Hier könnt ihr euren Beitrag mit bis zu %s Buchstaben erläutern"
+msgstr "Hier könnt ihr euren Beitrag mit bis zu %s Buchstaben erläutern."
 
 #: application/modules/default/forms/Input/Create.php:173
 msgid "Video:"
@@ -851,7 +854,7 @@ msgid "Shut back"
 msgstr "Wieder einklappen"
 
 #: application/modules/default/views/helpers/JsTranslations.php:19
-#: application/modules/default/views/scripts/input/createForm.phtml:130
+#: application/modules/default/views/scripts/input/createForm.phtml:123
 msgid "Click here to explain contribution"
 msgstr "Klicken, um Eintrag zu erläutern"
 
@@ -879,12 +882,11 @@ msgid "Your contributions have not been saved"
 msgstr "Vielen Dank fürs Beitragen!"
 
 #: application/modules/default/views/helpers/JsTranslations.php:25
-msgid "Geolocation is not available in your browser"
-msgstr ""
+msgid "Geolocation is not available in your browser."
+msgstr "Ortserkennung ist in deinem Browser nicht möglich."
 
 #: application/modules/default/views/helpers/RibbonImage.php:17
 #: application/modules/default/views/helpers/RibbonImage.php:29
-#: application/modules/default/views/scripts/input/createForm.phtml:12
 msgid "Participate"
 msgstr "Mitmachen"
 
@@ -969,7 +971,7 @@ msgstr "Jetzt mitmachen!"
 
 #: application/modules/default/views/helpers/SecondNavigation.php:112
 #: application/modules/default/views/scripts/_partials/consultationPreviews.phtml:172
-#: application/modules/default/views/scripts/voting/index.phtml:41
+#: application/modules/default/views/scripts/voting/index.phtml:34
 #: application/modules/default/views/scripts/voting/overview.phtml:50
 #: application/modules/default/views/scripts/voting/vote.phtml:72
 msgid "Vote now!"
@@ -1050,17 +1052,13 @@ msgstr "Keine Rechte für die angeforderte Seite!"
 msgid "A record with the supplied identity could not be found."
 msgstr "Es konnte kein Eintrag zur angegebenen Identität gefunden werden."
 
-#: library/Plugin/Auth/AuthAdapter.php:48
-msgid "Authentication successful."
-msgstr "Anmeldung erfolgreich."
-
 #: library/Plugin/Auth/AuthAdapter.php:52
 msgid "Supplied credential is invalid."
 msgstr "Anmeldedaten sind inkorrekt."
 
 #: application/layouts/scripts/backend-popup.phtml:7
 #: application/layouts/scripts/backend.phtml:7
-msgid "DBJR TOOL Admin"
+msgid "ePartool Administration"
 msgstr "ePartool Administration"
 
 #: application/layouts/scripts/backend.phtml:42
@@ -1124,7 +1122,7 @@ msgstr "Machen"
 
 #: application/layouts/scripts/frontend.phtml:121
 msgid "Search…"
-msgstr "Suchbegriff..."
+msgstr "Suchbegriff…"
 
 #: application/layouts/scripts/frontend.phtml:123
 #: application/modules/default/views/scripts/index/search.phtml:4
@@ -1269,7 +1267,7 @@ msgstr "Wie's weiterging:"
 
 #: application/modules/default/views/scripts/followup/index.phtml:61
 msgid "Overview of reactions so far:"
-msgstr "Bisherige Reaktionen im Überblick"
+msgstr "Bisherige Reaktionen im Überblick:"
 
 #: application/modules/default/views/scripts/followup/index.phtml:86
 msgid "Preview"
@@ -1409,33 +1407,33 @@ msgstr "Reaktionen"
 msgid "Video (optional)"
 msgstr "Video (optional)"
 
-#: application/modules/default/views/scripts/input/createForm.phtml:17
+#: application/modules/default/views/scripts/input/createForm.phtml:10
 msgid "Create new contribution"
 msgstr "Neuen Beitrag verfassen"
 
-#: application/modules/default/views/scripts/input/createForm.phtml:39
-#: application/modules/default/views/scripts/input/createForm.phtml:41
+#: application/modules/default/views/scripts/input/createForm.phtml:32
+#: application/modules/default/views/scripts/input/createForm.phtml:34
 #: application/modules/default/views/scripts/input/inputEditForm.phtml:11
 #: application/modules/default/views/scripts/input/inputEditForm.phtml:13
 msgid "Location"
-msgstr "Landkarte"
+msgstr "Ortsangabe"
 
-#: application/modules/default/views/scripts/input/createForm.phtml:54
+#: application/modules/default/views/scripts/input/createForm.phtml:47
 #: application/modules/default/views/scripts/input/inputEditForm.phtml:26
 msgid "On"
-msgstr "An"
+msgstr ""
 
-#: application/modules/default/views/scripts/input/createForm.phtml:55
+#: application/modules/default/views/scripts/input/createForm.phtml:48
 #: application/modules/default/views/scripts/input/inputEditForm.phtml:27
 msgid "Off"
-msgstr "Aus"
+msgstr ""
 
-#: application/modules/default/views/scripts/input/createForm.phtml:92
+#: application/modules/default/views/scripts/input/createForm.phtml:85
 #: application/modules/default/views/scripts/input/inputEditForm.phtml:63
 msgid "Use My location"
-msgstr "Verwende meinen Standort"
+msgstr "Meinen Ort verwenden"
 
-#: application/modules/default/views/scripts/input/createForm.phtml:155
+#: application/modules/default/views/scripts/input/createForm.phtml:148
 msgid "Click here for another contribution"
 msgstr "Klicke hier für einen weiteren Beitrag"
 
@@ -1501,11 +1499,11 @@ msgstr "Die Beitragsphase ist bereits vorbei."
 
 #: application/modules/default/views/scripts/input/show.phtml:96
 msgid "List"
-msgstr ""
+msgstr "Liste"
 
 #: application/modules/default/views/scripts/input/show.phtml:103
 msgid "Map"
-msgstr ""
+msgstr "Karte"
 
 #: application/modules/default/views/scripts/input/show.phtml:128
 msgid "There are no contributions with location on this question."
@@ -1546,9 +1544,10 @@ msgstr "Meine Beiträge"
 msgid "Edit"
 msgstr "Bearbeiten"
 
+# not clear what it is. TS180212
 #: application/modules/default/views/scripts/user/activity.phtml:55
 msgid "in"
-msgstr ""
+msgstr "in"
 
 #: application/modules/default/views/scripts/user/activity.phtml:66
 #: application/modules/default/views/scripts/user/activity.phtml:111
@@ -1791,11 +1790,7 @@ msgstr ""
 "Positionen und Vorschläge, die uns Jugendliche und Jugendgruppen in den "
 "letzten Wochen und Monaten zurückgemeldet haben."
 
-#: application/modules/default/views/scripts/voting/index.phtml:37
-msgid "Join now!"
-msgstr "Mitmachen!"
-
-#: application/modules/default/views/scripts/voting/index.phtml:43
+#: application/modules/default/views/scripts/voting/index.phtml:36
 msgid ""
 "The Voting is anonymous. We just need your email address to check if you are "
 "allowed to participate in the Voting."
@@ -1837,7 +1832,7 @@ msgstr "Vorschau Abstimmung"
 
 #: application/modules/default/views/scripts/voting/preview.phtml:21
 msgid "Login for voting"
-msgstr ""
+msgstr "Zur Abstimmung einloggen"
 
 #: application/modules/default/views/scripts/voting/preview.phtml:25
 msgid "Continue voting"
@@ -1952,14 +1947,36 @@ msgstr ""
 
 #: application/modules/default/views/scripts/voting/vote.phtml:232
 msgid "Supervotes used:"
-msgstr "Vergebene \"Besonders wichtig\"-Stimmen"
+msgstr "Vergebene \"Besonders wichtig\"-Stimmen:"
 
 #: application/modules/default/views/scripts/voting/vote.phtml:253
 msgid "Remove"
 msgstr "Entfernen"
 
+#~ msgid "Geolocation is not available in your browser"
+#~ msgstr "Ortserkennung ist in deinem Browser nicht möglich."
+
+#~ msgid "Your user profile was updated"
+#~ msgstr "Das Nutzerprofil wurde aktualisiert."
+
+#~ msgid "DBJR TOOL Admin"
+#~ msgstr "ePartool Administration"
+
+# The part “or probably created in another voting session by another user.” is not clear. It may confuse users because they might think the system was hacked?
+#~ msgid ""
+#~ "This vote cannot be changed, because it was confirmed already or probably "
+#~ "created in another voting session by another user."
+#~ msgstr ""
+#~ "Diese Stimme kann nicht verändert werden, weil sie schon bestätigt wurde."
+
 #~ msgid "e.g."
 #~ msgstr "z.B. "
+
+#~ msgid "Authentication successful."
+#~ msgstr "Anmeldung erfolgreich."
+
+#~ msgid "Join now!"
+#~ msgstr "Mitmachen!"
 
 #~ msgid "An error occurred. Unable to load follow-up timeline."
 #~ msgstr "Ein Fehler trat auf. Zeitleiste kann nicht geladen werden."

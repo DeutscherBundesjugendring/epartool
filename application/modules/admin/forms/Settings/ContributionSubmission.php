@@ -14,7 +14,7 @@ class Admin_Form_Settings_ContributionSubmission extends Dbjr_Form_Admin
         }
         $license = $this->createElement('select', 'license');
         $license
-            ->setLabel('License')
+            ->setLabel('License/Information')
             ->setRequired(true)
             ->setMultiOptions($licenseOptions);
         $this->addElement($license);

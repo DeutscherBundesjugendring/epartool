@@ -1,15 +1,15 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Dbjr Tool\n"
-"POT-Creation-Date: 2018-02-12 14:14+0100\n"
-"PO-Revision-Date: 2018-02-12 14:15+0100\n"
+"POT-Creation-Date: 2018-02-19 16:00+0100\n"
+"PO-Revision-Date: 2018-02-19 16:01+0100\n"
 "Last-Translator: Martin Bohal <mb@mbohal.cz>\n"
 "Language-Team: epartool@dbjr.de\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.8.7.1\n"
+"X-Generator: Poedit 2.0.3\n"
 "X-Poedit-KeywordsList: _;translate;setLabel;setLegend;addMessage;"
 "setConfirmMessage;setDescription\n"
 "X-Poedit-Basepath: ../..\n"
@@ -67,7 +67,7 @@ msgstr "Abstimmungsphase"
 
 #: application/models/HelpText.php:22
 msgid "Consultation Reactions & Impact"
-msgstr ""
+msgstr "Reaktionen und Wirkung"
 
 #: application/models/HelpText.php:23
 msgid "Login"
@@ -216,7 +216,7 @@ msgstr "Bereich:"
 #: application/modules/admin/forms/Article.php:37
 #: application/modules/admin/views/scripts/mail-send/index.phtml:21
 msgid "Please select…"
-msgstr "Bitte auswählen..."
+msgstr "Bitte auswählen…"
 
 #: application/modules/admin/controllers/ArticleController.php:332
 msgid "On subpages, reference name of parent page is used."
@@ -232,7 +232,7 @@ msgstr ""
 #: application/modules/admin/controllers/CloseController.php:76
 #: application/modules/admin/controllers/CloseController.php:172
 msgid "Please wait: saving data."
-msgstr "Die Daten werden geschrieben, Bitte warten Sie!"
+msgstr "Die Daten werden geschrieben, Bitte warten Sie."
 
 #: application/modules/admin/controllers/CloseController.php:154
 #, php-format
@@ -250,11 +250,11 @@ msgstr "Es wurden Datensätze erstellt/aktualisiert."
 
 #: application/modules/admin/controllers/CloseController.php:233
 msgid "No consultation named."
-msgstr "Keine Beteiligungsrunde angegeben!"
+msgstr "Keine Beteiligungsrunde angegeben."
 
 #: application/modules/admin/controllers/CloseController.php:310
 msgid "Invalid question id."
-msgstr "Frage-ID ungültig"
+msgstr "Frage-ID ungültig."
 
 #: application/modules/admin/controllers/ConsultationController.php:40
 #: application/modules/admin/controllers/IndexController.php:29
@@ -281,22 +281,22 @@ msgstr "Neue Beteiligungsrunde erstellt."
 #: application/modules/admin/controllers/VotingController.php:18
 #: application/modules/admin/controllers/VotingController.php:402
 msgid "No consultation provided."
-msgstr "Keine Beteiligungsrunde angegeben!"
+msgstr "Keine Beteiligungsrunde angegeben."
 
 #: application/modules/admin/controllers/ConsultationController.php:343
 msgid "Custom phase names have been saved."
-msgstr "Die angepassten "
+msgstr "Die angepassten."
 
 #: application/modules/admin/controllers/ConsultationController.php:411
 #: application/modules/admin/controllers/ConsultationController.php:439
-#: application/modules/admin/controllers/SettingsController.php:311
+#: application/modules/admin/controllers/SettingsController.php:309
 msgid "Form settings were updated."
 msgstr "Die Formulareinstellungen wurden aktualisiert."
 
 #: application/modules/admin/controllers/ConsultationController.php:415
 #: application/modules/admin/controllers/ConsultationController.php:443
 #: application/modules/admin/controllers/ConsultationController.php:451
-#: application/modules/admin/controllers/SettingsController.php:315
+#: application/modules/admin/controllers/SettingsController.php:313
 msgid ""
 "Form settings cannot be updated. Please check the errors marked in the form "
 "below and try again."
@@ -328,7 +328,7 @@ msgstr ""
 
 #: application/modules/admin/controllers/ConsultationController.php:592
 msgid "Dou you want to delete this interval?"
-msgstr ""
+msgstr "Dieses Intervall löschen?"
 
 #: application/modules/admin/controllers/FollowupController.php:57
 msgid "New snippet has been successfully created."
@@ -399,12 +399,12 @@ msgstr "%d Beiträge wurden verknüpft."
 #: application/modules/admin/controllers/FollowupController.php:289
 #, php-format
 msgid "%d Reactions & Impact linked."
-msgstr "%d Reaktionen & Wirkung wurden verknüpft"
+msgstr "%d Reaktionen & Wirkung wurden verknüpft."
 
 #: application/modules/admin/controllers/FollowupController.php:298
 #, php-format
 msgid "%d snippets linked."
-msgstr "%d Auszüge wurden verlinkt"
+msgstr "%d Auszüge wurden verlinkt."
 
 #: application/modules/admin/controllers/InputController.php:241
 msgid "Contribution not found."
@@ -487,7 +487,7 @@ msgstr "Beitrag gelöscht."
 
 #: application/modules/admin/controllers/InputController.php:482
 msgid "No question provided."
-msgstr "Keine Frage angegeben!"
+msgstr "Keine Frage angegeben."
 
 #: application/modules/admin/controllers/InputController.php:530
 #: application/modules/admin/forms/Input.php:110
@@ -503,11 +503,11 @@ msgstr "Keine Frage angegeben!"
 #: application/modules/admin/views/scripts/votingprepare/_input-row.phtml:134
 #: application/modules/admin/views/scripts/votingprepare/overview.phtml:109
 msgid "Unknown"
-msgstr "unbekannt"
+msgstr "Unbekannt"
 
 #: application/modules/admin/controllers/InputController.php:531
 msgid "Loading…"
-msgstr ""
+msgstr "Laden…"
 
 #: application/modules/admin/controllers/InputDiscussionController.php:51
 msgid "The discussion contribution was hidden."
@@ -631,31 +631,31 @@ msgid ""
 "Question could not be deleted as there are contributions attached to it."
 msgstr "Die Frage konnte nicht gelöscht werden, da Beiträge zu ihr existieren."
 
-#: application/modules/admin/controllers/SettingsController.php:42
-#: application/modules/admin/controllers/SettingsController.php:165
+#: application/modules/admin/controllers/SettingsController.php:39
+#: application/modules/admin/controllers/SettingsController.php:163
 msgid "Settings were saved."
 msgstr "Die Einstellungen wurden gespeichert."
 
-#: application/modules/admin/controllers/SettingsController.php:49
-#: application/modules/admin/controllers/SettingsController.php:105
-#: application/modules/admin/controllers/SettingsController.php:142
-#: application/modules/admin/controllers/SettingsController.php:172
+#: application/modules/admin/controllers/SettingsController.php:47
+#: application/modules/admin/controllers/SettingsController.php:103
+#: application/modules/admin/controllers/SettingsController.php:140
+#: application/modules/admin/controllers/SettingsController.php:170
 msgid "Form invalid"
 msgstr "Formular ungültig"
 
-#: application/modules/admin/controllers/SettingsController.php:102
+#: application/modules/admin/controllers/SettingsController.php:100
 msgid "Help text was saved."
 msgstr "Der Hilfetext wurde gespeichert."
 
-#: application/modules/admin/controllers/SettingsController.php:135
+#: application/modules/admin/controllers/SettingsController.php:133
 msgid "Footer was updated."
 msgstr "Der Fußbereich wurde aktualisiert."
 
-#: application/modules/admin/controllers/SettingsController.php:199
+#: application/modules/admin/controllers/SettingsController.php:197
 msgid "Your services settings were updated."
 msgstr "Die Diensteeinstellungen wurden aktualisiert."
 
-#: application/modules/admin/controllers/SettingsController.php:207
+#: application/modules/admin/controllers/SettingsController.php:205
 msgid ""
 "Services settings could not be updated. Please check the errors marked in "
 "the form below and try again."
@@ -663,11 +663,11 @@ msgstr ""
 "Die Diensteeinstellungen konnten nicht aktualisiert werden. Bitte die "
 "Fehlermeldung überprüfen und erneut  versuchen."
 
-#: application/modules/admin/controllers/SettingsController.php:264
+#: application/modules/admin/controllers/SettingsController.php:262
 msgid "Theme was updated."
 msgstr "Das Designthema wurde aktualisiert."
 
-#: application/modules/admin/controllers/SettingsController.php:272
+#: application/modules/admin/controllers/SettingsController.php:270
 msgid ""
 "Theme settings cannot be updated. Please check the errors marked in the form "
 "below and try again."
@@ -675,7 +675,7 @@ msgstr ""
 "Die Einstellungen des Designthemas konnten nicht aktualisiert werden. Bitte "
 "die markierten Probleme überprüfen und dann erneut versuchen."
 
-#: application/modules/admin/controllers/SettingsController.php:333
+#: application/modules/admin/controllers/SettingsController.php:331
 msgid ""
 "Do you want to override the current colour scheme? Any previous custom "
 "settings will be lost."
@@ -707,7 +707,7 @@ msgstr "User mit dieser E-Mail-Adresse existiert bereits."
 #: application/modules/admin/controllers/UserController.php:60
 #: application/modules/admin/controllers/UserController.php:102
 msgid "User not found."
-msgstr "Seite nicht gefunden!"
+msgstr "Seite nicht gefunden."
 
 #: application/modules/admin/controllers/UserController.php:119
 msgid "Transfer contributions from"
@@ -786,32 +786,44 @@ msgid "Saving changes failed."
 msgstr "Speichern der Änderungen ist gescheitert."
 
 #: application/modules/admin/controllers/VotingController.php:432
-msgid "Voting has started already. You cannot disable Superbutton"
+msgid "Voting has started already. You cannot disable the Superbutton."
 msgstr ""
+"Die Abstimmungsphase hat bereits begonnen. Der Superbutton kann nicht mehr "
+"deaktiviert werden."
 
 #: application/modules/admin/controllers/VotingController.php:437
-msgid "Voting has started already. You cannot disable No opinion button"
+msgid "Voting has started already. You cannot disable No opinion button."
 msgstr ""
+"Die Abstimmungsphase hat bereits begonnen. Der Button »Keine Meinung« kann "
+"nicht mehr deaktiviert werden."
 
 #: application/modules/admin/controllers/VotingController.php:442
 msgid "Voting has started already. You cannot restrict using of superbutton."
 msgstr ""
+"Die Abstimmungsphase hat bereits begonnen. Die Beschränkung des Superbuttons "
+"kann nicht mehr verändert werden."
 
 #: application/modules/admin/controllers/VotingController.php:447
 msgid "Voting has started already. You cannot change rating factor."
 msgstr ""
+"Die Abstimmungsphase hat bereits begonnen. Der Multiplikator für den "
+"Superbutton kann nicht mehr verändert werden."
 
 #: application/modules/admin/controllers/VotingController.php:456
 msgid ""
 "Voting has started already. You cannot change button type from stars or "
 "hearts type to incompatible yes/no type."
 msgstr ""
+"Die Abstimmungsphase hat bereits begonnen. Das Verfahren kann nicht mehr von "
+"der Skala mit Sternen / Herzen zur Ja/Nein-Fragestellung verändert werden."
 
 #: application/modules/admin/controllers/VotingController.php:466
 msgid ""
 "Voting has started already. You cannot change button type from yes/no to "
-"incompatible stars or hearts type"
+"incompatible stars or hearts type."
 msgstr ""
+"Die Abstimmungsphase hat bereits begonnen. Das Verfahren kann nicht mehr von "
+"der Ja/Nein-Fragestellung zur Skala mit Sternen / Herzen verändert werden."
 
 #: application/modules/admin/controllers/VotingprepareController.php:64
 msgid "Contribution has been removed from related."
@@ -866,7 +878,7 @@ msgstr "Ordner konnte nicht erstellt werden."
 
 #: application/modules/admin/controllers/VotingprepareController.php:307
 msgid "Folder deleted."
-msgstr "Ordner gelöscht"
+msgstr "Ordner gelöscht."
 
 #: application/modules/admin/controllers/VotingprepareController.php:312
 msgid "Folder order has been updated."
@@ -933,7 +945,7 @@ msgstr "Übergeordnete Seite"
 #: application/modules/admin/forms/Article.php:47
 #: application/modules/admin/forms/HelpText.php:17
 msgid "Body"
-msgstr "Body"
+msgstr "Body/Inhalt"
 
 #: application/modules/admin/forms/Article.php:55
 msgid "Sidebar text"
@@ -1102,10 +1114,10 @@ msgstr "Aktivieren"
 #: application/modules/admin/forms/ConsultationGroups.php:134
 #: application/modules/admin/forms/ConsultationGroups.php:193
 #: application/modules/admin/forms/ConsultationGroups.php:226
-#: application/modules/admin/views/scripts/consultation/_groupsForm.phtml:29
-#: application/modules/admin/views/scripts/consultation/_groupsForm.phtml:40
-#: application/modules/admin/views/scripts/consultation/_groupsForm.phtml:128
-#: application/modules/admin/views/scripts/consultation/_groupsForm.phtml:139
+#: application/modules/admin/views/scripts/consultation/_groupsForm.phtml:20
+#: application/modules/admin/views/scripts/consultation/_groupsForm.phtml:31
+#: application/modules/admin/views/scripts/consultation/_groupsForm.phtml:119
+#: application/modules/admin/views/scripts/consultation/_groupsForm.phtml:130
 msgid "From"
 msgstr "Von"
 
@@ -1117,8 +1129,8 @@ msgstr "Aktiviere „keine Angabe“-Option"
 #: application/modules/admin/forms/ConsultationGroups.php:153
 #: application/modules/admin/forms/ConsultationGroups.php:248
 #: application/modules/admin/forms/Mail/Send.php:15
-#: application/modules/admin/views/scripts/consultation/_groupsForm.phtml:49
-#: application/modules/admin/views/scripts/consultation/_groupsForm.phtml:148
+#: application/modules/admin/views/scripts/consultation/_groupsForm.phtml:40
+#: application/modules/admin/views/scripts/consultation/_groupsForm.phtml:139
 #: application/modules/admin/views/scripts/mail-sent/index.phtml:64
 msgid "To"
 msgstr "An"
@@ -1139,7 +1151,7 @@ msgstr "Angepasste Phasennamen aktivieren"
 #: application/modules/admin/forms/User/Edit.php:30
 #, php-format
 msgid "Max %d characters"
-msgstr "max. %d Zeichen"
+msgstr "Max. %d Zeichen"
 
 #: application/modules/admin/forms/ConsultationPhases.php:17
 #: application/modules/admin/views/scripts/article/index.phtml:38
@@ -1337,7 +1349,7 @@ msgstr "User-Bestätigung"
 #: application/modules/admin/views/scripts/votingprepare/_input-row.phtml:125
 #: application/modules/admin/views/scripts/votingprepare/overview.phtml:79
 msgid "Confirmed"
-msgstr "bestätigt"
+msgstr "Bestätigt"
 
 #: application/modules/admin/forms/Input.php:119
 msgid "Admin confirmation"
@@ -1480,8 +1492,8 @@ msgid "Save and continue"
 msgstr "Speichern und fortsetzen"
 
 #: application/modules/admin/forms/Input.php:168
-msgid "Save and view copy"
-msgstr ""
+msgid "Save and open copy"
+msgstr "Speichern und Kopie öffnen"
 
 #: application/modules/admin/forms/Input.php:175
 #: application/modules/admin/views/scripts/input/list-by-question.phtml:187
@@ -1677,10 +1689,8 @@ msgstr ""
 msgid "Allow geo fence for location in contributions"
 msgstr ""
 
-# I believe that this label is the one that indicates the (new) textarea in the backend, which allows to change license text or data privacy information. Right? If yes, please change also the English label to: "Licence / Information"
-# - we have mostly used British English so far, so don't be surprised about "licence"
 #: application/modules/admin/forms/Settings/ContributionSubmission.php:17
-msgid "License"
+msgid "License/Information"
 msgstr "Lizenz/Info"
 
 #: application/modules/admin/forms/Settings/LookAndFeel.php:20
@@ -1828,7 +1838,7 @@ msgstr "Status"
 #: application/modules/admin/forms/User/Edit.php:63
 #: application/modules/admin/views/scripts/voting/participants.phtml:68
 msgid "Unconfirmed"
-msgstr "unbestätigt"
+msgstr "Unbestätigt"
 
 #: application/modules/admin/forms/User/Create.php:67
 #: application/modules/admin/forms/User/Edit.php:103
@@ -1874,15 +1884,15 @@ msgstr "Größe laut eigener Angabe"
 
 #: application/modules/admin/forms/Voting/Settings.php:18
 msgid "Stars"
-msgstr ""
+msgstr "Sterne"
 
 #: application/modules/admin/forms/Voting/Settings.php:19
 msgid "Hearts"
-msgstr ""
+msgstr "Herzen"
 
 #: application/modules/admin/forms/Voting/Settings.php:20
 msgid "Yes/No"
-msgstr ""
+msgstr "Ja/Nein"
 
 #: application/modules/admin/forms/Voting/Settings.php:27
 #: application/modules/admin/views/scripts/voting/settings.phtml:94
@@ -1937,7 +1947,7 @@ msgstr "Phasen"
 #: application/modules/admin/views/helpers/ConsultationEditNavigation.php:38
 #: application/modules/admin/views/scripts/consultation/groups.phtml:30
 msgid "Groups"
-msgstr "Gruppen\t"
+msgstr "Gruppen"
 
 #: application/modules/admin/views/helpers/ConsultationNavigation.php:16
 msgid "Dashboard"
@@ -2038,7 +2048,7 @@ msgstr "Datei wechseln"
 
 #: library/Dbjr/Form/Decorator/BootstrapMedia.php:81
 msgid "Remove media"
-msgstr ""
+msgstr "Datei entfernen"
 
 #: library/Dbjr/Form/Decorator/CancelLink.php:9
 #: application/modules/admin/views/scripts/input/inputForm.phtml:156
@@ -2054,46 +2064,45 @@ msgstr "Abbrechen"
 msgid "or"
 msgstr "oder"
 
+# What are we supposed to localise here? [TS180212]
+# This is not to be translated.
 #: library/Dbjr/Form/Element/Button.php:72
 msgid "<span class=\"glyphicon glyphicon-trash\"></span>"
 msgstr ""
 
 #: library/Plugin/Auth/AccessControl.php:34
 msgid "Please insert user name!"
-msgstr ""
+msgstr "Bitte Nutzerkennung eingeben!"
 
 #: library/Plugin/Auth/AccessControl.php:36
 msgid "Please insert password!"
-msgstr ""
+msgstr "Bitte Passwort eingeben!"
 
 #: library/Plugin/Auth/AccessControl.php:47
+#: library/Plugin/Auth/AuthAdapter.php:48
 msgid "Login successful!"
-msgstr ""
+msgstr "Login erfolgreich!"
 
 #: library/Plugin/Auth/AccessControl.php:51
 msgid "Login failed!"
-msgstr ""
+msgstr "Login hat nicht geklappt!"
 
 #: library/Plugin/Auth/AccessControl.php:62
 #: library/Plugin/Auth/AccessControl.php:90
 msgid "Please log in first!"
-msgstr ""
+msgstr "Bitte zuerst einloggen!"
 
 #: library/Plugin/Auth/AccessControl.php:87
 msgid "No admission rights for this page!"
-msgstr ""
+msgstr "Keine Zugangsberechtigung für diese Seite!"
 
 #: library/Plugin/Auth/AuthAdapter.php:44
 msgid "A record with the supplied identity could not be found."
-msgstr ""
-
-#: library/Plugin/Auth/AuthAdapter.php:48
-msgid "Authentication successful."
-msgstr ""
+msgstr "Es konnte kein Eintrag zur gesuchten Identität gefunden werden."
 
 #: library/Plugin/Auth/AuthAdapter.php:52
 msgid "Supplied credential is invalid."
-msgstr ""
+msgstr "Zugangsdaten ungültig."
 
 #: application/modules/admin/views/scripts/_helpers/helpText.phtml:3
 #: application/modules/admin/views/scripts/_partials/pageLinks.phtml:8
@@ -2221,56 +2230,56 @@ msgstr ""
 "Link zu einer Seite, die weitere Informationen zu den "
 "Veröffentlichungshinweisen/Lizenz zur Verfügung stellt."
 
-#: application/modules/admin/views/scripts/consultation/_groupsForm.phtml:18
+#: application/modules/admin/views/scripts/consultation/_groupsForm.phtml:9
 msgid "Categories Of Age Groups"
 msgstr "Kategorien von Altersgruppen"
 
-#: application/modules/admin/views/scripts/consultation/_groupsForm.phtml:21
-#: application/modules/admin/views/scripts/consultation/_groupsForm.phtml:121
+#: application/modules/admin/views/scripts/consultation/_groupsForm.phtml:12
+#: application/modules/admin/views/scripts/consultation/_groupsForm.phtml:112
 msgid ""
 "Intervals include the border numbers. Eg. 10–12 includes everything between "
 "10 and 12, including 10 and 12."
 msgstr "Die Intervalle schließen die kleinste und größte Zahl jeweils mit ein."
 
-#: application/modules/admin/views/scripts/consultation/_groupsForm.phtml:32
-#: application/modules/admin/views/scripts/consultation/_groupsForm.phtml:131
+#: application/modules/admin/views/scripts/consultation/_groupsForm.phtml:23
+#: application/modules/admin/views/scripts/consultation/_groupsForm.phtml:122
 msgid "Up To"
 msgstr "Bis"
 
+#: application/modules/admin/views/scripts/consultation/_groupsForm.phtml:35
 #: application/modules/admin/views/scripts/consultation/_groupsForm.phtml:44
-#: application/modules/admin/views/scripts/consultation/_groupsForm.phtml:53
-#: application/modules/admin/views/scripts/consultation/_groupsForm.phtml:74
-#: application/modules/admin/views/scripts/consultation/_groupsForm.phtml:94
+#: application/modules/admin/views/scripts/consultation/_groupsForm.phtml:65
+#: application/modules/admin/views/scripts/consultation/_groupsForm.phtml:85
 msgid "Years"
 msgstr "Jahre"
 
-#: application/modules/admin/views/scripts/consultation/_groupsForm.phtml:61
-#: application/modules/admin/views/scripts/consultation/_groupsForm.phtml:82
-#: application/modules/admin/views/scripts/consultation/_groupsForm.phtml:160
-#: application/modules/admin/views/scripts/consultation/_groupsForm.phtml:196
+#: application/modules/admin/views/scripts/consultation/_groupsForm.phtml:52
+#: application/modules/admin/views/scripts/consultation/_groupsForm.phtml:73
+#: application/modules/admin/views/scripts/consultation/_groupsForm.phtml:151
+#: application/modules/admin/views/scripts/consultation/_groupsForm.phtml:187
 msgid "Delete interval"
 msgstr "Von"
 
-#: application/modules/admin/views/scripts/consultation/_groupsForm.phtml:98
-#: application/modules/admin/views/scripts/consultation/_groupsForm.phtml:212
+#: application/modules/admin/views/scripts/consultation/_groupsForm.phtml:89
+#: application/modules/admin/views/scripts/consultation/_groupsForm.phtml:203
 msgid "Infinity"
-msgstr "unbegrenzt"
+msgstr "Unbegrenzt"
 
-#: application/modules/admin/views/scripts/consultation/_groupsForm.phtml:110
-#: application/modules/admin/views/scripts/consultation/_groupsForm.phtml:224
+#: application/modules/admin/views/scripts/consultation/_groupsForm.phtml:101
+#: application/modules/admin/views/scripts/consultation/_groupsForm.phtml:215
 msgid "Add interval"
 msgstr "Intervall hinzufügen"
 
-#: application/modules/admin/views/scripts/consultation/_groupsForm.phtml:118
+#: application/modules/admin/views/scripts/consultation/_groupsForm.phtml:109
 msgid "Categories of Group Sizes"
 msgstr "Kategorien von Gruppengrößen"
 
+#: application/modules/admin/views/scripts/consultation/_groupsForm.phtml:134
 #: application/modules/admin/views/scripts/consultation/_groupsForm.phtml:143
-#: application/modules/admin/views/scripts/consultation/_groupsForm.phtml:152
-#: application/modules/admin/views/scripts/consultation/_groupsForm.phtml:170
-#: application/modules/admin/views/scripts/consultation/_groupsForm.phtml:176
-#: application/modules/admin/views/scripts/consultation/_groupsForm.phtml:188
-#: application/modules/admin/views/scripts/consultation/_groupsForm.phtml:208
+#: application/modules/admin/views/scripts/consultation/_groupsForm.phtml:161
+#: application/modules/admin/views/scripts/consultation/_groupsForm.phtml:167
+#: application/modules/admin/views/scripts/consultation/_groupsForm.phtml:179
+#: application/modules/admin/views/scripts/consultation/_groupsForm.phtml:199
 msgid "Persons"
 msgstr "Personen"
 
@@ -2350,11 +2359,6 @@ msgstr "Alle Beitragenden"
 msgid "Number of contributors in current consultation"
 msgstr "Anzahl der Beitragenden in dieser Beteiligungsrunde"
 
-# "even if ..." means that they are counted as 2 individuals/groups in case they came back?
-# Maybe it should be written like:
-# Accumulated number of individuals and groups (returning users are counted several times).
-# In German the following bracket would then be added
-# (Wiederkehrende werden jeweils separat gezählt)
 #: application/modules/admin/views/scripts/consultation/report.phtml:33
 msgid ""
 "Accumulated number of individuals and groups, even if they contributed in "
@@ -2379,8 +2383,6 @@ msgstr "davon unbestätigt oder anonym"
 msgid "of which were blocked by organisers"
 msgstr "davon administrativ unsichtbar geschaltet/blockiert"
 
-# Is that the number of contributions that could theoretically be voted on (including the ones that are not allowed) - or the number of contributions that were set as voting=yes?
-# In the staging deploy I don't understand it...
 #: application/modules/admin/views/scripts/consultation/report.phtml:50
 msgid "Contributions that were available to vote on"
 msgstr "Beiträge, die zur Abstimmung zur Verfügung standen"
@@ -2388,7 +2390,7 @@ msgstr "Beiträge, die zur Abstimmung zur Verfügung standen"
 #: application/modules/admin/views/scripts/consultation/report.phtml:51
 #: application/modules/admin/views/scripts/consultation/report.phtml:74
 msgid "All contributions except ones with voting disabled"
-msgstr " Alle Beiträge, außer zur Abstimmung nicht zugelassene"
+msgstr "Alle Beiträge, außer zur Abstimmung nicht zugelassene"
 
 #: application/modules/admin/views/scripts/consultation/report.phtml:64
 msgid "See Contribution"
@@ -2453,7 +2455,7 @@ msgstr "Es gibt noch keine Reaktionen & Wirkung."
 
 #: application/modules/admin/views/scripts/followup/index.phtml:42
 msgid "Time Added"
-msgstr "Hinzugefügt:"
+msgstr "Hinzugefügt"
 
 #: application/modules/admin/views/scripts/followup/index.phtml:43
 msgid "Stakeholder"
@@ -2573,7 +2575,7 @@ msgstr "Alle Beiträge anzeigen"
 
 #: application/modules/admin/views/scripts/index/index.phtml:149
 msgid "No contributions yet."
-msgstr "Noch keine Beiträge"
+msgstr "Noch keine Beiträge."
 
 #: application/modules/admin/views/scripts/index/index.phtml:156
 msgid "Latest Discussion Posts"
@@ -2648,7 +2650,7 @@ msgstr "Ablehnen"
 
 #: application/modules/admin/views/scripts/input-discussion/index.phtml:112
 msgid "Remove user confirmation?"
-msgstr "User-Bestätigung entfernen"
+msgstr "User-Bestätigung entfernen?"
 
 #: application/modules/admin/views/scripts/input-discussion/index.phtml:123
 msgid "Mark as hidden"
@@ -2716,7 +2718,7 @@ msgstr "Neuer Beitrag"
 
 #: application/modules/admin/views/scripts/input/edit.phtml:31
 msgid "Edit copied contribution"
-msgstr "Kopierten Beitrag bearbeiten"
+msgstr ""
 
 #: application/modules/admin/views/scripts/input/edit.phtml:33
 msgid "Edit Contribution"
@@ -2773,11 +2775,11 @@ msgstr ""
 
 #: application/modules/admin/views/scripts/input/inputForm.phtml:34
 msgid "Add location"
-msgstr ""
+msgstr "Ortsangabe hinzufügen"
 
 #: application/modules/admin/views/scripts/input/inputForm.phtml:60
 msgid "Use My location"
-msgstr "Verwende meinen Standort"
+msgstr "Meinen Standort verwenden"
 
 #: application/modules/admin/views/scripts/input/inputForm.phtml:82
 msgid "Video"
@@ -3150,9 +3152,6 @@ msgid ""
 "which contributions can be submitted. The dots will automatically connect to "
 "an area (in red)."
 msgstr ""
-"Setze durch Anklicken Punkte auf die Karte, um das Gebiet einzugrenzen, aus "
-"dem Beiträge eingebracht werden können. Die Punkte verbinden sich "
-"automatisch zu einer roten Fläche."
 
 #: application/modules/admin/views/scripts/question/edit.phtml:80
 msgid "Destroy geo fence"
@@ -3309,7 +3308,7 @@ msgstr "Nutzerbeiträge transferieren"
 
 #: application/modules/admin/views/scripts/user/transfer-contributions.phtml:21
 msgid "Last contribution on:"
-msgstr "Letzter Beitrag"
+msgstr "Letzter Beitrag:"
 
 #: application/modules/admin/views/scripts/user/transfer-contributions.phtml:24
 msgid "No contributions yet"
@@ -3339,7 +3338,7 @@ msgstr "Abstimmungsrechte für"
 
 #: application/modules/admin/views/scripts/voting/index.phtml:38
 msgid "Send an email to all"
-msgstr ""
+msgstr "E-Mail an alle senden"
 
 #: application/modules/admin/views/scripts/voting/index.phtml:42
 msgid "Voting Permissions"
@@ -3347,7 +3346,7 @@ msgstr "Abstimmungsrechte"
 
 #: application/modules/admin/views/scripts/voting/index.phtml:47
 msgid "new users added recently."
-msgstr "neue Berechtigte kürzlich hinzugefügt"
+msgstr "neue Berechtigte kürzlich hinzugefügt."
 
 #: application/modules/admin/views/scripts/voting/index.phtml:60
 msgid "Voting Weight"
@@ -3404,7 +3403,7 @@ msgstr "Zurück zu Abstimmungsteilnehmer_innen"
 
 #: application/modules/admin/views/scripts/voting/participantedit.phtml:26
 msgid "Edit Voting Participant:"
-msgstr "Abstimmungsteilnehmer_in bearbeiten"
+msgstr "Abstimmungsteilnehmer_in bearbeiten:"
 
 #: application/modules/admin/views/scripts/voting/participantedit.phtml:32
 msgid ""
@@ -3480,7 +3479,7 @@ msgstr "Erinnerung senden"
 
 #: application/modules/admin/views/scripts/voting/participants.phtml:184
 msgid "There are no participants yet."
-msgstr "Es gibt noch keine Teilnehmer_innen"
+msgstr "Es gibt noch keine Teilnehmer_innen."
 
 #: application/modules/admin/views/scripts/voting/results.phtml:31
 msgid "Download table as file"
@@ -3492,7 +3491,7 @@ msgstr "Abstimmungsergebnisse"
 
 #: application/modules/admin/views/scripts/voting/results.phtml:73
 msgid "Weighted points"
-msgstr "gewichtete Punkte"
+msgstr "Gewichtete Punkte"
 
 #: application/modules/admin/views/scripts/voting/results.phtml:73
 msgid "votes"
@@ -3513,7 +3512,7 @@ msgstr "Abstimmungseinstellungen"
 
 #: application/modules/admin/views/scripts/voting/settings.phtml:33
 msgid "Voting buttons preview"
-msgstr ""
+msgstr "Vorschau Abstimmungsbuttons"
 
 #: application/modules/admin/views/scripts/voting/settings.phtml:50
 #: application/modules/admin/views/scripts/voting/settings.phtml:106
@@ -3524,7 +3523,7 @@ msgstr ""
 #: application/modules/admin/views/scripts/voting/settings.phtml:112
 #: application/modules/admin/views/scripts/voting/settings.phtml:160
 msgid "Disagree"
-msgstr ""
+msgstr "Stimme nicht zu"
 
 #: application/modules/admin/views/scripts/voting/settings.phtml:62
 #: application/modules/admin/views/scripts/voting/settings.phtml:118
@@ -3540,7 +3539,7 @@ msgstr ""
 #: application/modules/admin/views/scripts/voting/settings.phtml:130
 #: application/modules/admin/views/scripts/voting/settings.phtml:173
 msgid "Agree"
-msgstr ""
+msgstr "Stimme zu"
 
 #: application/modules/admin/views/scripts/voting/settings.phtml:82
 #: application/modules/admin/views/scripts/voting/settings.phtml:137
@@ -3549,7 +3548,7 @@ msgstr ""
 
 #: application/modules/admin/views/scripts/voting/settings.phtml:167
 msgid "Unsure"
-msgstr ""
+msgstr "Unsicher"
 
 #: application/modules/admin/views/scripts/votingprepare/_input-row.phtml:64
 msgid "Related"
@@ -3557,7 +3556,7 @@ msgstr "Bezug"
 
 #: application/modules/admin/views/scripts/votingprepare/_input-row.phtml:68
 msgid "Add related contributions"
-msgstr "Beiträge mit Beziehung hinzufügen."
+msgstr "Beiträge mit Beziehung hinzufügen"
 
 #: application/modules/admin/views/scripts/votingprepare/_input-row.phtml:88
 #: application/modules/admin/views/scripts/votingprepare/_input-row.phtml:89
@@ -3684,7 +3683,7 @@ msgstr "Beiträge von der Abstimmung ausschließen?"
 
 #: application/modules/admin/views/scripts/votingprepare/overview.phtml:324
 msgid "Ban from voting"
-msgstr "von der Abstimmung ausschließen"
+msgstr "Von der Abstimmung ausschließen"
 
 #: application/modules/admin/views/scripts/votingprepare/overview.phtml:335
 msgid "Delete contributions?"
@@ -3709,6 +3708,41 @@ msgstr "Beitrag aufteilen"
 #: application/modules/admin/views/scripts/votingprepare/split.phtml:24
 msgid "Original Contribution"
 msgstr "Ursprünglicher Beitrag"
+
+#~ msgid "Voting has started already. You cannot disable No opinion button"
+#~ msgstr ""
+#~ "Die Abstimmungsphase hat bereits begonnen. Der Button »Keine Meinung« "
+#~ "kann nicht mehr deaktiviert werden."
+
+#~ msgid "Voting has started already. You cannot disable Superbutton"
+#~ msgstr ""
+#~ "Die Abstimmungsphase hat bereits begonnen. Der Superbutton kann nicht "
+#~ "mehr deaktiviert werden."
+
+#~ msgid ""
+#~ "Voting has started already. You cannot change button type from yes/no to "
+#~ "incompatible stars or hearts type"
+#~ msgstr ""
+#~ "Die Abstimmungsphase hat bereits begonnen. Das Verfahren kann nicht mehr "
+#~ "von der Ja/Nein-Fragestellung zur Skala mit Sternen / Herzen verändert "
+#~ "werden."
+
+# Wouldn't it be "edit" or "open" copy? Instead of "view"?
+# [TS180212]
+#~ msgid "Save and view copy"
+#~ msgstr "Speichern und Kopie öffnen"
+
+# I believe that this label is the one that indicates the (new) textarea in the backend, which allows to change license text or data privacy information. Right? If yes, please change also the English label to: "Licence / Information"
+# - we have mostly used British English so far, so don't be surprised about "licence"
+#~ msgid "License"
+#~ msgstr "Lizenz/Info"
+
+# Where does that appear? Is it authentification to some external service? Or just "login successful"? If the latter is the case, the original label needs simpler language. [TS180212]
+#~ msgid "Authentication successful."
+#~ msgstr "Authentifizierung erfolgreich."
+
+#~ msgid "Skip"
+#~ msgstr "Überspringen"
 
 #~ msgid "Voting invitations"
 #~ msgstr "Abstimmungseinladungen"

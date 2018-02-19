@@ -165,7 +165,7 @@ class Admin_Form_Input extends Dbjr_Form_Admin
         } elseif ($this->afterSubmitAction === self::AFTER_SUBMIT_SPLIT_NEXT) {
             $submit->setLabel('Save and continue');
         } elseif ($this->afterSubmitAction === self::AFTER_SUBMIT_VIEW_COPY) {
-            $submit->setLabel('Save and view copy');
+            $submit->setLabel('Save and open copy');
         }
         $this->addElement($submit);
 

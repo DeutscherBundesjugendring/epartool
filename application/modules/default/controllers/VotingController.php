@@ -357,7 +357,7 @@ class VotingController extends Zend_Controller_Action
         } elseif (is_array($votingSuccess) && isset($votingSuccess['error'])) {
             if ($votingSuccess['error'] === Model_Votes_Individual::ERROR_INVALID_CONFIRMATION_HASH) {
                 $this->view->error = "1";
-                $this->view->error_comment = $this->view->translate('This vote cannot be changed, because it was confirmed already or probably created in another voting session by another user.');
+                $this->view->error_comment = $this->view->translate('This vote cannot be changed, because it was confirmed already.');
 
                 return;
             }
@@ -457,7 +457,7 @@ class VotingController extends Zend_Controller_Action
         } elseif (isset($votingSuccess['error'])
             && $votingSuccess['error'] === Model_Votes_Individual::ERROR_INVALID_CONFIRMATION_HASH) {
             $this->view->error = "1";
-            $this->view->error_comment = $this->view->translate('This vote cannot be changed, because it was confirmed already or probably created in another voting session by another user.');
+            $this->view->error_comment = $this->view->translate('This vote cannot be changed, because it was confirmed already.');
 
             return;
         } else {
@@ -522,7 +522,7 @@ class VotingController extends Zend_Controller_Action
         } elseif (is_array($votingSuccess) && isset($votingSuccess['error'])) {
             if ($votingSuccess['error'] === Model_Votes_Individual::ERROR_INVALID_CONFIRMATION_HASH) {
                 $this->view->response = "error";
-                $this->view->message = $this->view->translate('This vote cannot be changed, because it was confirmed already or probably created in another voting session by another user.');
+                $this->view->message = $this->view->translate('This vote cannot be changed, because it was confirmed already.');
                 $this->getResponse()->setHttpResponseCode(401);
             }
         } else {
