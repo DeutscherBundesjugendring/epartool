@@ -344,7 +344,6 @@ class Api_FollowupController extends Dbjr_Api_BaseController
         foreach ($rows as $row) {
             $snippets[$row['fid']] = [
                 'fid' => (int) $row['fid'],
-                'embed' => $row['embed'],
                 'expl' => $row['expl'],
                 'ffid' => (int) $row['ffid'],
                 'lkyea' => (int) $row['lkyea'],
