@@ -51,41 +51,31 @@
 
     <!-- Regular votes -->
     <?php $linkParameters['action'] = 'thesisvote'; ?>
-    <?php krsort($this->labels); ?>
-    <?php foreach ($this->labels as $points => $label): ?>
-        <?php $linkParameters['pts'] = $points; ?>
-        <li class="offset-bottom-small">
-            <a href="<?=$this->url($linkParameters);?>#vote" class="link-unstyled link-unstyled-alt">
-
-                <?php
-                if ($this->settings['button_type'] === 'yesno') {
-                    $voteLabels = [
-                        '-1' => 'disagree',
-                        '0' => 'unsure',
-                        '1' => 'agree',
-                    ];
-                } else {
-                    $voteLabels = [
-                        '0' => 'strongly-disagree',
-                        '1' => 'disagree',
-                        '2' => 'somewhat-disagree',
-                        '3' => 'somewhat-agree',
-                        '4' => 'agree',
-                        '5' => 'strongly-agree',
-                    ];
-                }
-
-                $btnLabel = '';
-                if (array_key_exists($points, $voteLabels)) {
-                    $btnLabel = sprintf($btnLabelPattern, $this->settings['button_type'], $voteLabels[$points]);
-                }
-                ?>
-                <span class="icon-offset offset-bottom-small">
-                    <?=$this->partial('_svg/button.svg.phtml', ['btnLabel' => $btnLabel]);?>
-                </span>
-                <strong><?=$this->translate($label);?></strong>
-            </a>
-        </li>
+    <?php krsort($this->buttonsDefault); ?>
+    <?php foreach ($this->buttonsDefault as $points => $button): ?>
+        <?php if (isset($this->buttons[$points]) && $this->buttons[$points]['enabled']): ?>
+            <?php $linkParameters['pts'] = $points; ?>
+            <li class="offset-bottom-small">
+                <a href="<?=$this->url($linkParameters);?>#vote" class="link-unstyled link-unstyled-alt">
+                    <span class="icon-offset offset-bottom-small">
+                        <?=$this->partial('_svg/button.svg.phtml', [
+                            'btnLabel' =>
+                                sprintf(
+                                    '_svg/' . Service_Voting::BUTTON_FILENAME_PATTERN,
+                                    $this->settings['button_type'],
+                                    Service_Voting::BUTTONS_SET[$this->settings['button_type']]['buttons'][$points]['id']
+                                )
+                        ]);?>
+                    </span>
+                    <strong>
+                        <?=($this->buttons[$points]['label']
+                            ?: $this->translate(
+                                Service_Voting::BUTTONS_SET[$this->settings['button_type']]['buttons'][$points]['label']
+                            ));?>
+                    </strong>
+                </a>
+            </li>
+        <?php endif; ?>
     <?php endforeach; ?>
 
     <!-- No opinion -->

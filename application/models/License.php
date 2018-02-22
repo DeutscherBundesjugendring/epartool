@@ -9,6 +9,7 @@ class Model_License extends Dbjr_Db_Table_Abstract
     {
         $select = $this->select();
         $select->where('locale = ?', $locale);
+
         return $this->fetchAll($select);
     }
 }

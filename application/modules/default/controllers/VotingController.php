@@ -285,7 +285,8 @@ class VotingController extends Zend_Controller_Action
         $this->view->votedInputs = $votedInputs;
         $this->view->videoServicesStatus = (new Model_Projects())
             ->find((new Zend_Registry())->get('systemconfig')->project)->current();
-        $this->view->labels = Service_Voting::BUTTONS_SET[$settings['button_type']];
+        $this->view->buttonsDefault = Service_Voting::BUTTONS_SET[$settings['button_type']]['buttons'];
+        $this->view->buttons = (new Model_VotingButtonSet())->getSet($kid, $settings['button_type']);
 
     }
 
@@ -375,7 +376,8 @@ class VotingController extends Zend_Controller_Action
             );
             $this->view->feedback = $feedback;
             $this->view->settings = $settings;
-            $this->view->labels = Service_Voting::BUTTONS_SET[$settings['button_type']];
+            $this->view->buttonsDefault = Service_Voting::BUTTONS_SET[$settings['button_type']]['buttons'];
+            $this->view->buttons = (new Model_VotingButtonSet())->getSet($kid, $settings['button_type']);
         }
 
     }
@@ -431,7 +433,7 @@ class VotingController extends Zend_Controller_Action
             $tid,
             $votingRightsSession->subUid,
             (int) $votingRightsSession->uid,
-            max(array_keys(Service_Voting::BUTTONS_SET[$settings['button_type']])),
+            max(array_keys(Service_Voting::BUTTONS_SET[$settings['button_type']]['buttons'])),
             $settings['btn_important_factor'],
             $settings['btn_important_max'],
             $votingRightsSession->confirmationHash
@@ -467,7 +469,8 @@ class VotingController extends Zend_Controller_Action
 
         $this->view->feedback = $feedback;
         $this->view->settings = $settings;
-        $this->view->labels = Service_Voting::BUTTONS_SET[$settings['button_type']];
+        $this->view->buttonsDefault = Service_Voting::BUTTONS_SET[$settings['button_type']]['buttons'];
+        $this->view->buttons = (new Model_VotingButtonSet())->getSet($kid, $settings['button_type']);
     }
 
     /**
@@ -508,7 +511,7 @@ class VotingController extends Zend_Controller_Action
 
         // next lower level
         $votingsettings =  $this->getVotingSettings();
-        $pts = max(array_keys(Service_Voting::BUTTONS_SET[$votingsettings['button_type']]));
+        $pts = max(array_keys(Service_Voting::BUTTONS_SET[$votingsettings['button_type']]['buttons']));
         $votingSuccess = (new Model_Votes_Individual())->updateVote(
             $tid,
             $subUid,
@@ -643,7 +646,8 @@ class VotingController extends Zend_Controller_Action
         $this->view->thesesCountVoted = count($thesesVoted);
         $this->view->settings = $settings;
         $this->view->votingBasket= $this ->getVotingBasket($subUid);
-        $this->view->labels = Service_Voting::BUTTONS_SET[$settings['button_type']];
+        $this->view->buttonsDefault = Service_Voting::BUTTONS_SET[$settings['button_type']]['buttons'];
+        $this->view->buttons = (new Model_VotingButtonSet())->getSet($kid, $settings['button_type']);
         $this->view->buttonSkipLabel = Service_Voting::BUTTON_SKIP;
         $this->view->buttonUndecidedLabel = Service_Voting::BUTTON_UNDECIDED;
 
@@ -774,7 +778,7 @@ class VotingController extends Zend_Controller_Action
             $tid,
             $votingRightsSession->subUid,
             (int) $votingRightsSession->uid,
-            max(array_keys(Service_Voting::BUTTONS_SET[$settings['button_type']])),
+            max(array_keys(Service_Voting::BUTTONS_SET[$settings['button_type']]['buttons'])),
             $settings['btn_important_factor'],
             $settings['btn_important_max'],
             $votingRightsSession->confirmationHash
@@ -919,7 +923,9 @@ class VotingController extends Zend_Controller_Action
 
             $this->view->form = $form;
             $this->view->settings = $settings;
-            $this->view->labels = Service_Voting::BUTTONS_SET[$settings['button_type']];
+            $this->view->buttonsDefault = Service_Voting::BUTTONS_SET[$settings['button_type']]['buttons'];
+            $this->view->buttons = (new Model_VotingButtonSet())
+                ->getSet($this->_consultation->kid, $settings['button_type']);
             if (empty($votesData)) {
                 $this->_flashMessenger->addMessage('No unconfirmed votes to process.', 'info');
             } else {

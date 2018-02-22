@@ -3,41 +3,77 @@
     method="<?=$this->element->getMethod();?>"
     class="offset-bottom"
     enctype="<?=$this->element->getEnctype();?>"
+    id="js-voting-button-sets-settings-form"
 >
     <?php
-    $translator = Zend_Registry::get('Zend_Translate');
-    $elementName = 'button_type';
-    $elementObject = $this->element->$elementName;
+        $translator = Zend_Registry::get('Zend_Translate');
+        $elementName = 'button_type';
+        $elementObject = $this->element->{$elementName};
     ?>
-    <div class="row" id="<?=$elementName?>-element" class="checkbox radio">
-        <?php $iterator = 0; ?>
+    <div class="row" id="<?=$elementName;?>-element" class="checkbox radio offset-top-large">
         <?php foreach ($elementObject->options as $name => $translation): ?>
-            <?php $iterator++; ?>
             <?php $btnInnerImage = ($name === 'yesno' ? 'agree' : 'somewhat-agree'); ?>
-            <label class="col-md-3 text-center offset-bottom" for="<?=$elementName . '-' . $name?>">
+            <label class="col-sm-4 text-center offset-bottom" for="<?=$elementName . '-' . $name;?>">
                 <div>
-                    <?=$this->partial('_svg/button.svg.phtml', ['btnLabel' => sprintf('_svg/' . Service_Voting::BUTTON_FILENAME_PATTERN, $name, $btnInnerImage)]);?>
+                    <?=$this->partial('_svg/button.svg.phtml', [
+                        'btnLabel' => sprintf('_svg/' . Service_Voting::BUTTON_FILENAME_PATTERN, $name, $btnInnerImage),
+                    ]);?>
                 </div>
                 <input type="radio"
-                       name="<?=$elementName?>"
-                       id="<?=$elementName . '-' . $name?>"
-                       value="<?=$name?>"
-                       <?=($elementObject->getValue() == $name) ? 'checked="checked"' : ''?>
+                       class="js-button-set-selector"
+                       name="<?=$elementName;?>"
+                       id="<?=$elementName . '-' . $name;?>"
+                       value="<?=$name;?>"
+                       <?=($elementObject->getValue() == $name) ? 'checked="checked"' : '';?>
                 >
                 <?=$translator->translate($translation)?>
-                (<?=count(Service_Voting::BUTTONS_SET[$name])?>
-                <?=$translator->translate('options')?>)
             </label>
         <?php endforeach; ?>
     </div>
 
+    <hr />
+    <?php foreach ($this->element->buttonSets->getSubForms() as $buttonType => $buttonsSet): ?>
+        <div id="js-button-set-<?=$buttonType;?>" class="js-button-set">
+        <?php foreach ($buttonsSet->getSubForms() as $points => $button): ?>
+            <div class="row">
+                <div class="col-sm-2 offset-top">
+                    <div class="form-control-static">
+                        <?=$this->partial('_svg/button.svg.phtml', [
+                            'btnLabel' => sprintf(
+                                '_svg/' . Service_Voting::BUTTON_FILENAME_PATTERN,
+                                $buttonType,
+                                Service_Voting::BUTTONS_SET[$buttonType]['buttons'][$points]['id']
+                            ),
+                            'width' => '80',
+                            'height' => '76',
+                        ]);?>
+                    </div>
+                </div>
+                <div class="col-sm-3 offset-top">
+                    <?=$button->enabled;?>
+                </div>
+                <div class="col-sm-5">
+                    <?=$button->label;?>
+                </div>
+                <div class="col-sm-2 offset-top">
+                    <div class="form-control-static">
+                        <?=$this->translate('Points');?>: <?=$points;?>
+                    </div>
+                </div>
+            </div>
+        <?php endforeach; ?>
+        </div>
+    <?php endforeach; ?>
+
+
     <?=$this->element->btn_no_opinion?>
     <?=$this->element->is_btn_important?>
-    <?=$this->element->btn_important_label?>
-    <?=$this->element->btn_important_max?>
-    <?=$this->element->btn_important_factor?>
+    <div id="js-btn-important-inputs">
+        <?=$this->element->btn_important_label?>
+        <?=$this->element->btn_important_max?>
+        <?=$this->element->btn_important_factor?>
+    </div>
     <?=$this->element->csrf_token_settingsvotingsubmissionformadmin?>
     <?=$this->element->submit?>
-    <?=$this->element->preview?>
 
 </form>

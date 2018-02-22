@@ -7,13 +7,6 @@ class Dbjr1302 extends AbstractMigration
     public function up()
     {
         $this->execute(<<<EOD
-ALTER TABLE `vt_settings`
-DROP `btn_numbers`,
-DROP `btn_labels`;
-EOD
-        );
-
-        $this->execute(<<<EOD
 CREATE TABLE `voting_buttons_type` (
   `buttons_type` varchar(191) COLLATE 'utf8mb4_unicode_ci' NOT NULL
 ) ENGINE='InnoDB';

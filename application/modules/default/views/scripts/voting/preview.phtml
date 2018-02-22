@@ -3,8 +3,9 @@
         Application_View_Helper_PageTitle::VOTING_PAGE,
         $this->consultation
     );
-    
-    $this->layout()->labels = $this->labels;
+
+    $this->layout()->buttonsDefault = $this->buttonsDefault;
+    $this->layout()->buttons = $this->buttons;
     $this->layout()->settings = $this->settings;
 ?>
 

@@ -1,6 +1,7 @@
 <?php
     $settings = $this->layout()->settings;
-    $labels = $this->layout()->labels;
+    $buttonsDefault = $this->layout()->buttonsDefault;
+    $buttons = $this->layout()->buttons;
 ?>
 
 <ul class="nav nav-justified nav-voting text-center small">
@@ -19,18 +20,23 @@
             </a>
         </li>
     <?php endif; ?>
-    <?php krsort($labels); ?>
-    <?php foreach ($labels as $points => $label): ?>
-        <li class="voting-button-<?=$settings['button_type'];?>-<?=$points;?><?=($this->points !== null && (int)$this->points === $points) ? ' active' : '';?>">
-            <a href="#"
-               data-tid="<?=$this->tid;?>"
-               data-kid="<?=$settings['kid'];?>"
-               data-rating="<?=$points;?>"
-               class="js-voting-rate"
-            >
-                <?=$this->translate($label);?>
-            </a>
-        </li>
+    <?php krsort($buttonsDefault); ?>
+    <?php foreach ($buttonsDefault as $points => $button): ?>
+        <?php if (isset($buttons[$points]) && $buttons[$points]['enabled']): ?>
+            <li class="voting-button-<?=$settings['button_type'];?>-<?=$points;?><?=($this->points !== null && (int)$this->points === $points) ? ' active' : '';?>">
+                <a href="#"
+                   data-tid="<?=$this->tid;?>"
+                   data-kid="<?=$settings['kid'];?>"
+                   data-rating="<?=$points;?>"
+                   class="js-voting-rate"
+                >
+                    <?=($buttons[$points]['label']
+                        ?: $this->translate(
+                            Service_Voting::BUTTONS_SET[$settings['button_type']]['buttons'][$points]['label']
+                        ));?>
+                </a>
+            </li>
+        <?php endif; ?>
     <?php endforeach; ?>
 
     <?php if ($settings['btn_no_opinion']): ?>

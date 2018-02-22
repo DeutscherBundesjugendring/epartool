@@ -18,7 +18,7 @@
   var initSortablePartners;
   var initSortableVotingDirs;
   var mediaSelectPopup;
-  var bindPreviewVotingButtons;
+  var bindVotingButtonSetsSettings;
   var themeSettings;
   var bindToggleAnonymousContributionSwitch;
   var bindAutoVotingInfo;
@@ -45,7 +45,7 @@
     initSortablePartners();
     initMediaIndexFileLazyLoad();
     changeContributionStatus();
-    bindPreviewVotingButtons();
+    bindVotingButtonSetsSettings();
     bindAutoVotingInfo();
     bindGeoFenceForContributionLocation();
     $('[data-toggle="tooltip"]').tooltip();
@@ -530,50 +530,75 @@
     });
   }
 
-  bindPreviewVotingButtons = function () {
-    $('#button_type-element input[type="radio"]').on('click', function () {
-      $this = $(this);
-      $('#votingButtonsPreviewContent').html($('#votingButtonsPreviewType'
-        + $this.val().charAt(0).toUpperCase() + $this.val().slice(1)).html());
+  bindVotingButtonSetsSettings = function () {
+    var $buttonSelector = $('.js-button-set-selector');
+    var $jsButtonSet = $('.js-button-set');
+    $jsButtonSet.hide();
+    $buttonSelector.on('click', function () {
+      $jsButtonSet.hide();
+      var $buttonSet = $('#js-button-set-' + $(this).val());
+      if ($buttonSet) {
+        $buttonSet.show();
+      }
     });
 
-    $('#btn_no_opinion-element input[type="radio"]').on('click', function () {
-      if ($(this).val() === '1') {
-        $('#votingButtonsPreviewContent > ul > li.voting-button-no-opinion').show();
-        $('#votingButtonsPreview > div > ul > li.voting-button-no-opinion').show();
+    $('.js-button-enabled[data-mandatory="0"]').on('click', function () {
+      var $this = $(this);
+      var group = $this.data('group');
+      if (!$this.is(':checked')) {
+        if ($('.js-button-enabled[data-group="' + $this.data('group') + '"]:checked').length < 2) {
+          alert(jsTranslations['voting_button_set_at_least_two_buttons_enabled_error']);
+          $this.prop('checked', true);
+
+          return;
+        }
+
+        $('#' + $this.attr('id').replace('enabled', 'label')).prop('disabled', true);
 
         return;
       }
-      $('#votingButtonsPreviewContent > ul > li.voting-button-no-opinion').hide();
-      $('#votingButtonsPreview > div > ul > li.voting-button-no-opinion').hide();
+
+      $('#' + $this.attr('id').replace('enabled', 'label')).prop('disabled', false);
     });
 
-    $('#is_btn_important-element input[type="radio"]').on('click', function () {
+    $('.js-button-enabled[data-mandatory="1"]').prop('disabled', true).prop('checked', true);
+
+    $('.js-button-label').each(function(i, el) {
+      var $el = $(el);
+      var $enabled = $('#' + $el.attr('id').replace('label', 'enabled'));
+      $el.prop('disabled', !$enabled.is(':checked'));
+    });
+
+    $('#is_btn_important-element input').on('click', function () {
       if ($(this).val() === '1') {
-        $('#votingButtonsPreviewContent > ul > li.voting-button-superbutton').show();
-        $('#votingButtonsPreview > div > ul > li.voting-button-superbutton').show();
+        $('#js-btn-important-inputs input').prop('disabled', false);
 
         return;
       }
-      $('#votingButtonsPreviewContent > ul > li.voting-button-superbutton').hide();
-      $('#votingButtonsPreview > div > ul > li.voting-button-superbutton').hide();
+      $('#js-btn-important-inputs input').prop('disabled', true);
     });
 
-    var $previewOfSelected = $('#button_type-element input[type="radio"]:checked');
-    if ($previewOfSelected.length > 0) {
-      $('#votingButtonsPreviewContent').empty().append($('#votingButtonsPreviewType'
-        + $previewOfSelected.val().charAt(0).toUpperCase() + $previewOfSelected.val().slice(1)).children().clone());
+    if ($('#is_btn_important-element input:checked').val() === '0') {
+      $('#js-btn-important-inputs input').prop('disabled', true)
     }
 
-    if ($('#is_btn_important-element input[type="radio"]:checked').val() === '0') {
-      $('#votingButtonsPreviewContent > ul > li.voting-button-superbutton').hide();
-      $('#votingButtonsPreview > div > ul > li.voting-button-superbutton').hide();
+    var $buttonSet = $('#js-button-set-' + $buttonSelector.filter(':checked').val());
+    if ($buttonSet) {
+      $buttonSet.show();
     }
 
-    if ($('#btn_no_opinion-element input[type="radio"]:checked').val() === '0') {
-      $('#votingButtonsPreviewContent > ul > li.voting-button-no-opinion').hide();
-      $('#votingButtonsPreview > div > ul > li.voting-button-no-opinion').hide();
-    }
+    $('#js-voting-button-sets-settings-form').on('submit', function() {
+      if ($jsButtonSet.not(':hidden').find('.js-button-enabled').length < 2) {
+        alert(jsTranslations['voting_button_set_at_least_two_buttons_enabled_error']);
+
+        return false;
+      }
+      $(this).find('input[type="submit"]').prop('disabled', true);
+      $jsButtonSet.find('.js-button-enabled').prop('disabled', false);
+      $('.js-button-label').prop('disabled', false);
+
+      return true;
+    });
   }
 
   bindAutoVotingInfo = function () {

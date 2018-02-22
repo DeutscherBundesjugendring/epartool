@@ -17,25 +17,79 @@ class Service_Voting
 
     const BUTTONS_SET = [
         self::BUTTONS_TYPE_STARS => [
-            0 => 'Strongly disagree',
-            1 => 'Disagree',
-            2 => 'Somewhat disagree',
-            3 => 'Somewhat agree',
-            4 => 'Agree',
-            5 => 'Strongly agree',
+            'label' => 'Stars',
+            'buttons' => [
+                0 => [
+                    'label' => 'Disagree',
+                    'id' => 'disagree',
+                    'mandatory' => false,
+                ],
+                1 => [
+                    'label' => 'Not that important',
+                    'id' => 'somewhat-disagree',
+                    'mandatory' => false,
+                ],
+                2 => [
+                    'label' => 'Somewhat important',
+                    'id' => 'somewhat-agree',
+                    'mandatory' => false,
+                ],
+                3 => [
+                    'label' => 'Important',
+                    'id' => 'agree',
+                    'mandatory' => false,
+                ],
+                4 => [
+                    'label' => 'Very important',
+                    'id' => 'strongly-agree',
+                    'mandatory' => false,
+                ],
+            ],
         ],
         self::BUTTONS_TYPE_HEARTS => [
-            0 => 'Strongly disagree',
-            1 => 'Disagree',
-            2 => 'Somewhat disagree',
-            3 => 'Somewhat agree',
-            4 => 'Agree',
-            5 => 'Strongly agree',
+            'label' => 'Hearts',
+            'buttons' => [
+                0 => [
+                    'label' => 'Disagree',
+                    'id' => 'disagree',
+                    'mandatory' => false,
+                ],
+                1 => [
+                    'label' => 'Not that important',
+                    'id' => 'somewhat-disagree',
+                    'mandatory' => false,
+                ],
+                2 => [
+                    'label' => 'Somewhat important',
+                    'id' => 'somewhat-agree',
+                    'mandatory' => false,
+                ],
+                3 => [
+                    'label' => 'Important',
+                    'id' => 'agree',
+                    'mandatory' => false,
+                ],
+                4 => [
+                    'label' => 'Very important',
+                    'id' => 'strongly-agree',
+                    'mandatory' => false,
+                ],
+            ],
         ],
         self::BUTTONS_TYPE_YESNO => [
-            -1 => 'Disagree',
-            0 => 'Unsure',
-            1 => 'Agree',
+            'label' => 'Yes/No',
+            'buttons' => [
+                -1 => [
+                    'label' => 'Yes',
+                    'id' => 'disagree',
+                    'mandatory' => true,
+                ],
+                1 => [
+                    'label' => 'No',
+                    'id' => 'agree',
+                    'mandatory' => true,
+                ],
+            ],
         ],
     ];
 
@@ -56,7 +110,7 @@ class Service_Voting
         }
         $votingSettings = (new Model_Votes_Settings())->getById($consultationId);
 
-        return (array_key_exists($points, self::BUTTONS_SET[$votingSettings['button_type']]));
+        return (array_key_exists($points, self::BUTTONS_SET[$votingSettings['button_type']]['buttons']));
     }
 
     /**
@@ -314,5 +368,95 @@ class Service_Voting
         (new Service_Email)
             ->queueForSend($mailer)
             ->sendQueued();
+    }
+
+    /**
+     * @param int $consultationId
+     * @param array $buttonSetsSettings
+     * @return array
+     * @throws Service_Exception_InvalidButtonSetException
+     */
+    public function prepareButtonSets(int $consultationId, array $buttonSetsSettings)
+    {
+        $newVotingButtonSetSettings = [];
+        foreach ($buttonSetsSettings as $set => $buttonsSettings) {
+            try {
+                $newVotingButtonSetSettings = array_merge(
+                    $newVotingButtonSetSettings,
+                    $this->prepareButtonSet($consultationId, $buttonsSettings, $set)
+                );
+            } catch(Service_Exception_InvalidButtonSetException $e) {
+                if (isset($votingButtonSetSettings[$set]) && count($votingButtonSetSettings[$set])) {
+                    throw $e;
+                }
+            }
+        }
+
+        return $newVotingButtonSetSettings;
+    }
+
+    /**
+     * @param int $consultationId
+     * @param array $buttonSetSettings
+     * @param string $button_type
+     * @throws \Service_Exception_InvalidButtonSetException
+     * @return array
+     */
+    public function prepareButtonSet(int $consultationId, array $buttonSetSettings, string $button_type): array
+    {
+        $votingButtonSetSettings = [];
+        $activeButtons = 0;
+
+        foreach ($buttonSetSettings as $points => $buttonSettings) {
+            if (!array_key_exists($button_type, self::BUTTONS_SET)) {
+                throw new Service_Exception_InvalidButtonSetException();
+            }
+            if (self::BUTTONS_SET[$button_type]['buttons'][$points]['mandatory']
+                && !$buttonSettings['buttonSets'][$button_type][str_replace('-', '_', $points)]['enabled']
+            ) {
+                throw new Service_Exception_InvalidButtonSetException();
+            }
+            if ($buttonSettings['buttonSets'][$button_type][str_replace('-', '_', $points)]['enabled']) {
+                $activeButtons++;
+            }
+            $votingButtonSetSettings[] = [
+                'consultation_id' => $consultationId,
+                'button_type' => $button_type,
+                'points' => $points,
+                'enabled' => $buttonSettings['buttonSets'][$button_type][str_replace('-', '_', $points)]['enabled'],
+                'label' => $buttonSettings['buttonSets'][$button_type][str_replace('-', '_', $points)]['label'] ?: null,
+            ];
+        }
+
+        if ($activeButtons < 2) {
+            throw new Service_Exception_InvalidButtonSetException();
+        }
+
+        return $votingButtonSetSettings;
+    }
+
+    /**
+     * @param string $buttonSet1
+     * @param string $buttonSet2
+     * @param array $buttonSetsSettings
+     * @return bool
+     */
+    public function areButtonSetsCompatible(string $buttonSet1, string $buttonSet2, array $buttonSetsSettings)
+    {
+        if (!isset($buttonSet1, $buttonSetsSettings) || !isset($buttonSet2, $buttonSetsSettings)) {
+            return false;
+        }
+
+        foreach ($buttonSetsSettings[$buttonSet1] as $points => $buttonSettings) {
+            $_points = str_replace('-', '_', $points);
+            if (!isset($buttonSetsSettings[$buttonSet2][$_points])
+                || $buttonSettings['buttonSets'][$buttonSet1][$_points]['enabled']
+                !== $buttonSetsSettings[$buttonSet2][$_points]['buttonSets'][$buttonSet2][$_points]['enabled']
+            ) {
+                return false;
+            }
+        }
+
+        return true;
     }
 }

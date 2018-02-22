@@ -9,17 +9,44 @@ class Admin_Form_Voting_Settings extends Dbjr_Form_Admin
         ]]]);
 
         $translator = Zend_Registry::get('Zend_Translate');
+        $buttonsTypeOptions = [];
+        $buttonSetsForm = new Zend_Form();
+        $this->addSubForm($buttonSetsForm, 'buttonSets');
+        foreach (Service_Voting::BUTTONS_SET as $type => $parameters) {
+            $buttonsTypeOptions[$type] = $parameters['label'];
+            $buttonsForm = new Zend_Form();
+            $buttonsForm->addPrefixPath('Dbjr_Form_Element', 'Dbjr/Form/Element/', 'element');
+            foreach ($parameters['buttons'] as $points => $button) {
+                $buttonForm = new Zend_Form();
+                $buttonForm->addPrefixPath('Dbjr_Form_Element', 'Dbjr/Form/Element/', 'element');
+                $enabled = $buttonForm->createElement('checkbox', 'enabled');
+                $enabled
+                    ->setLabel('Use Button')
+                    ->setRequired(true)
+                    ->setAttrib('class', 'js-button-enabled')
+                    ->setAttrib('data-mandatory', (int) $button['mandatory'])
+                    ->setAttrib('data-group', $type)
+                    ->setOptions(['belongsTo' => 'buttonSets[' . $type . '][' . str_replace('-', '_', $points) . ']']);
+                $buttonForm->addElement($enabled);
+
+                $label = $buttonForm->createElement('text', 'label');
+                $label
+                    ->setLabel('Button Label')
+                    ->setRequired(false)
+                    ->setAttrib('class', 'js-button-label js-button-' . $type . '-label')
+                    ->setAttrib('placeholder', $translator->translate($button['label']))
+                    ->setOptions(['belongsTo' => 'buttonSets[' . $type . '][' . str_replace('-', '_', $points) . ']']);
+                $buttonForm->addElement($label);
+                $buttonsForm->addSubForm($buttonForm, $points);
+            }
+            $buttonsTypeOptions[$type] = $translator->translate($parameters['label']);
+            $buttonSetsForm->addSubForm($buttonsForm, $type);
+        }
 
         $buttonType = $this->createElement('radio', 'button_type');
         $buttonType
             ->setRequired(true)
-            ->setMultiOptions(
-                [
-                    Service_Voting::BUTTONS_TYPE_STARS => $translator->translate('Stars'),
-                    Service_Voting::BUTTONS_TYPE_HEARTS => $translator->translate('Hearts'),
-                    Service_Voting::BUTTONS_TYPE_YESNO => $translator->translate('Yes/No'),
-                ]
-            );
+            ->setMultiOptions($buttonsTypeOptions);
         $this->addElement($buttonType);
 
         $buttonNoOpinion = $this->createElement('radio', 'btn_no_opinion');
@@ -81,14 +108,6 @@ class Admin_Form_Voting_Settings extends Dbjr_Form_Admin
         $submit
             ->setAttrib('class', 'btn-primary btn-raised')
             ->setLabel('Submit');
-        $this->addElement($submit);
-
-        $submit = $this->createElement('button', 'preview');
-        $submit
-            ->setAttrib('class', 'btn-raised btn-default')
-            ->setAttrib('data-toggle', 'modal')
-            ->setAttrib('data-target', '#votingButtonsPreviewModal')
-            ->setLabel('Preview');
         $this->addElement($submit);
     }
 }

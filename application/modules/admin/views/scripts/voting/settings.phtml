@@ -10,6 +10,13 @@
 
     </div>
 </section>
+<script type="text/javascript">
+    var jsTranslations = {
+    <?php foreach ($this->jsTranslations as $key => $translatedString): ?>
+        <?=$key?>: '<?=$translatedString?>',
+    <?php endforeach; ?>
+    };
+</script>
 <section class="section-content">
     <div class="container">
         <div class="row">
@@ -40,154 +47,6 @@
                     </div>
                 </div>
 
-                <div class="hidden" id="votingButtonsPreview">
-                    <div id="votingButtonsPreviewTypeStars">
-                        <ul class="list-unstyled row clearfix" id="votingButtonsPreviewStars">
-                            <li class="col-sm-4 offset-bottom text-center voting-button-strongly-disagree">
-                                <div>
-                                    <?=$this->partial('_svg/button.svg.phtml', ['btnLabel' => sprintf('_svg/' . Service_Voting::BUTTON_FILENAME_PATTERN, 'stars', 'strongly-disagree')]);?>
-                                </div>
-                                <?=$this->translate('Strongly Disagree');?>
-                            </li>
-                            <li class="col-sm-4 offset-bottom text-center voting-button-disagree">
-                                <div>
-                                    <?=$this->partial('_svg/button.svg.phtml', ['btnLabel' => sprintf('_svg/' . Service_Voting::BUTTON_FILENAME_PATTERN, 'stars', 'disagree')]);?>
-                                </div>
-                                <?=$this->translate('Disagree');?>
-                            </li>
-                            <li class="col-sm-4 offset-bottom text-center voting-button-somewhat-disagree">
-                                <div>
-                                    <?=$this->partial('_svg/button.svg.phtml', ['btnLabel' => sprintf('_svg/' . Service_Voting::BUTTON_FILENAME_PATTERN, 'stars', 'somewhat-disagree')]);?>
-                                </div>
-                                <?=$this->translate('Somewhat disagree');?>
-
-                            </li>
-                            <li class="col-sm-4 offset-bottom text-center voting-button-somewhat-agree">
-                                <div>
-                                    <?=$this->partial('_svg/button.svg.phtml', ['btnLabel' => sprintf('_svg/' . Service_Voting::BUTTON_FILENAME_PATTERN, 'stars', 'somewhat-agree')]);?>
-                                </div>
-                                <?=$this->translate('Somewhat agree');?>
-
-                            </li>
-                            <li class="col-sm-4 offset-bottom text-center voting-button-agree">
-                                <div>
-                                    <?=$this->partial('_svg/button.svg.phtml', ['btnLabel' => sprintf('_svg/' . Service_Voting::BUTTON_FILENAME_PATTERN, 'stars', 'agree')]);?>
-                                </div>
-                                <?=$this->translate('Agree');?>
-                            </li>
-                            <li class="col-sm-4 offset-bottom text-center voting-button-strongly-agree">
-                                <div>
-                                    <?=$this->partial('_svg/button.svg.phtml', ['btnLabel' => sprintf('_svg/' . Service_Voting::BUTTON_FILENAME_PATTERN, 'stars', 'strongly-agree')]);?>
-                                </div>
-                                <?=$this->translate('Strongly agree');?>
-                            </li>
-                            <li class="col-sm-4 offset-bottom text-center voting-button-superbutton">
-                                <div>
-                                    <?=$this->partial('_svg/button.svg.phtml', ['btnLabel' => sprintf('_svg/' . Service_Voting::BUTTON_FILENAME_PATTERN, 'stars', 'superbutton')]);?>
-                                </div>
-                                <?=$this->translate('Superbutton');?>
-                            </li>
-                            <li class="col-sm-4 offset-bottom text-center voting-button-no-opinion">
-                                <div>
-                                    <?=$this->partial('_svg/button.svg.phtml', ['btnLabel' => sprintf('_svg/' . Service_Voting::BUTTON_FILENAME_PATTERN, 'stars', 'no-opinion')]);?>
-                                </div>
-                                <?=$this->translate('No Opinion');?>
-
-                            </li>
-                        </ul>
-                    </div>
-
-                    <div id="votingButtonsPreviewTypeHearts">
-                        <ul class="list-unstyled row clearfix" id="votingButtonsPreviewHearts">
-                            <li class="col-sm-4 offset-bottom text-center voting-button-strongly-disagree">
-                                <div>
-                                    <?=$this->partial('_svg/button.svg.phtml', ['btnLabel' => sprintf('_svg/' . Service_Voting::BUTTON_FILENAME_PATTERN, 'hearts', 'strongly-disagree')]);?>
-                                </div>
-                                <?=$this->translate('Strongly Disagree');?>
-                            </li>
-                            <li class="col-sm-4 offset-bottom text-center voting-button-disagree">
-                                <div>
-                                    <?=$this->partial('_svg/button.svg.phtml', ['btnLabel' => sprintf('_svg/' . Service_Voting::BUTTON_FILENAME_PATTERN, 'hearts', 'disagree')]);?>
-                                </div>
-                                <?=$this->translate('Disagree');?>
-                            </li>
-                            <li class="col-sm-4 offset-bottom text-center voting-button-somewhat-disagree">
-                                <div>
-                                    <?=$this->partial('_svg/button.svg.phtml', ['btnLabel' => sprintf('_svg/' . Service_Voting::BUTTON_FILENAME_PATTERN, 'hearts', 'somewhat-disagree')]);?>
-                                </div>
-                                <?=$this->translate('Somewhat disagree');?>
-                            </li>
-                            <li class="col-sm-4 offset-bottom text-center voting-button-somewhat-agree">
-                                <div>
-                                    <?=$this->partial('_svg/button.svg.phtml', ['btnLabel' => sprintf('_svg/' . Service_Voting::BUTTON_FILENAME_PATTERN, 'hearts', 'somewhat-agree')]);?>
-                                </div>
-                                <?=$this->translate('Somewhat agree');?>
-                            </li>
-                            <li class="col-sm-4 offset-bottom text-center voting-button-agree">
-                                <div>
-                                    <?=$this->partial('_svg/button.svg.phtml', ['btnLabel' => sprintf('_svg/' . Service_Voting::BUTTON_FILENAME_PATTERN, 'hearts', 'agree')]);?>
-                                </div>
-                                <?=$this->translate('Agree');?>
-
-                            </li>
-                            <li class="col-sm-4 offset-bottom text-center voting-button-strongly-agree">
-                                <div>
-                                    <?=$this->partial('_svg/button.svg.phtml', ['btnLabel' => sprintf('_svg/' . Service_Voting::BUTTON_FILENAME_PATTERN, 'hearts', 'strongly-agree')]);?>
-                                </div>
-                                <?=$this->translate('Strongly agree');?>
-                            </li>
-                            <li class="col-sm-4 offset-bottom text-center voting-button-superbutton">
-                                <div>
-                                    <?=$this->partial('_svg/button.svg.phtml', ['btnLabel' => sprintf('_svg/' . Service_Voting::BUTTON_FILENAME_PATTERN, 'hearts', 'superbutton')]);?>
-                                </div>
-                                <?=$this->translate('Superbutton');?>
-                            </li>
-                            <li class="col-sm-4 offset-bottom text-center voting-button-no-opinion">
-                                <div>
-                                    <?=$this->partial('_svg/button.svg.phtml', ['btnLabel' => sprintf('_svg/' . Service_Voting::BUTTON_FILENAME_PATTERN, 'hearts', 'no-opinion')]);?>
-                                </div>
-                                <?=$this->translate('No Opinion');?>
-                            </li>
-                        </ul>
-                    </div>
-
-                    <div id="votingButtonsPreviewTypeYesno">
-                        <ul class="list-unstyled row clearfix" id="votingButtonsPreviewYesno">
-                            <li class="col-sm-4 offset-bottom text-center voting-button-disagree">
-                                <div>
-                                    <?=$this->partial('_svg/button.svg.phtml', ['btnLabel' => sprintf('_svg/' . Service_Voting::BUTTON_FILENAME_PATTERN, 'yesno', 'disagree')]);?>
-                                </div>
-                                <?=$this->translate('Disagree');?>
-
-                            </li>
-                            <li class="col-sm-4 offset-bottom text-center voting-button-unsure">
-                                <div>
-                                    <?=$this->partial('_svg/button.svg.phtml', ['btnLabel' => sprintf('_svg/' . Service_Voting::BUTTON_FILENAME_PATTERN, 'yesno', 'unsure')]);?>
-                                </div>
-                                <?=$this->translate('Unsure');?>
-                            </li>
-                            <li class="col-sm-4 offset-bottom text-center voting-button-agree">
-                                <div>
-                                    <?=$this->partial('_svg/button.svg.phtml', ['btnLabel' => sprintf('_svg/' . Service_Voting::BUTTON_FILENAME_PATTERN, 'yesno', 'agree')]);?>
-                                </div>
-                                <?=$this->translate('Agree');?>
-                            </li>
-                            <li class="col-sm-4 offset-bottom text-center voting-button-superbutton">
-                                <div>
-                                    <?=$this->partial('_svg/button.svg.phtml', ['btnLabel' => sprintf('_svg/' . Service_Voting::BUTTON_FILENAME_PATTERN, 'yesno', 'superbutton')]);?>
-                                </div>
-                                <?=$this->translate('Superbutton');?>
-                            </li>
-                            <li class="col-sm-4 offset-bottom text-center voting-button-no-opinion">
-                                <div>
-                                    <?=$this->partial('_svg/button.svg.phtml', ['btnLabel' => sprintf('_svg/' . Service_Voting::BUTTON_FILENAME_PATTERN, 'yesno', 'no-opinion')]);?>
-                                </div>
-                                <?=$this->translate('No Opinion');?>
-
-                            </li>
-                        </ul>
-                    </div>
-                </div>
             </div>
         </div>
     </div>
