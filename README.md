@@ -1,8 +1,8 @@
-#ePartool Readme
+# ePartool
 
 The tool is written with multi-project support. It means that one database can be used by several projects running as separate instances. Some entities such as consultations and articles can be shared, others are project specific.
 
-## Requirements:
+## <a name="requirements"></a>Requirements
 
 * PHP 7.0
 * PHP extensions:
@@ -22,16 +22,16 @@ The preferred installation method is using the bundled installation wizard.
 2. Visit site in browser. If the application is not installed, the installation wizard starts automatically.
 3. After installation is completed, remove the `install` directory.
 
-### No wizard
+### No Wizard
 #### Filesystem
-The tool uses the Robo task runner to perform the build. It is invoked by running the `$ robo build` command in the root folder where the `RoboFile.php` is located. The following tools are needed:
+The tool uses the [Robo](http://robo.li) task runner to perform the build. It is invoked by running the `$ robo build` command in the root folder where the `RoboFile.php` is located. The following tools are needed:
 
-* [Robo](http://robo.li/)
-* [Composer](https://getcomposer.org/)
-* [Node.js + npm](http://nodejs.org/)
-* [Bower](http://bower.io/)
-* [Grunt](http://gruntjs.com/)
-* [Webpack](https://webpack.github.io/)
+* [Robo](http://robo.li)
+* [Composer](https://getcomposer.org)
+* [Node.js + npm](http://nodejs.org)
+* [Bower](http://bower.io)
+* [Grunt](http://gruntjs.com)
+* [Webpack](https://webpack.github.io)
 
 Once the application has been built, several environment-specific settings have to be configured.
 
@@ -39,17 +39,17 @@ Once the application has been built, several environment-specific settings have 
 You can use the file `application/configs/config.local-example.ini` as a template and edit the values.
 * Optionally set the `APPLICATION_ENV` in `index.php` to `development`.
 * Folder permissions:
-    + read: `/`
-    + read+write: `/runtime/logs/`
-    + read+write: `/runtime/sessions/`
-    + read+write: `/runtime/cache/`
-    + read+write: `/www/media/consultations/`
-    + read+write: `/www/media/folders/`
-    + read-write: `/www/image_cache/`
-* Remove the install directory.
+    * read: `/`
+    * read+write: `/runtime/logs/`
+    * read+write: `/runtime/sessions/`
+    * read+write: `/runtime/cache/`
+    * read+write: `/www/media/consultations/`
+    * read+write: `/www/media/folders/`
+    * read+write: `/www/image_cache/`
+* Remove the `install` directory.
 
-#### DB
-* Create database (see [Requirements](#Requirements))
+#### Database
+* Create database (see [Requirements](#requirements))
 * Run the following SQL files and commands in the specified order:
     1. `data/create-installation.sql`
     2. `$ robo phinx:migrate production` 
@@ -60,12 +60,11 @@ You can use the file `application/configs/config.local-example.ini` as a templat
 
 Due to security reasons the `create-admin.sql` script creates an admin with no password. Password can be reset using the forgotten password feature of the application itself or the file can be manually tweaked to insert the correct password hash directly.
 
-### After install tasks
+### After Install Tasks
 Regardless of the installation method, the following tasks must be done:
 
-* Configure a cronjob to send a GET request to the page `/cron/execute/key/<secret_cron_key>`. `<secret_cron_key>` is defined in `application/config/config.local.ini`. This is not needed for dev environments as the cronjobs can be triggered by visiting the path manually. Setting the cronjob to trigger hourly should be enough.
-* In case it is not possible to setup cron job on your server, the fallback cron system will be activated by leaving the `cron.key` setting empty.
-* Fallback cron is disabled in development.
+* Configure a Cron job to send a GET request to the page `/cron/execute/key/<secret_cron_key>`. `<secret_cron_key>` is defined in `application/config/config.local.ini`. This is not needed for development environments as the Cron jobs can be triggered by visiting the path manually. Setting the Cron job to trigger hourly should be enough.
+* In case it is not possible to setup Cron job on your server, the fallback Cron system will be activated by leaving the `cron.key` setting empty. Fallback Cron is disabled in development.
 * Copy the file `VERSION-example.txt` to `VERSION.txt` and optionally update the new file. The content is used to inform the users of which version of the tool they are using.
 
 
@@ -73,13 +72,13 @@ Regardless of the installation method, the following tasks must be done:
 
 Upgrading the tool version consists of the following steps:
 1. Updating the project files
-2. Building the application
+2. Building the application using `$ robo build`
 3. Running `$ robo phinx:migrate production` to apply database patches
 
 
-## Dev mode
+## Development
 
-The recommended way to develop the tool is using docker. The application in development mode is served at `http://devel.localhost`. First run of docker can take a few minutes.
+The recommended way to develop the tool is using [Docker](https://www.docker.com). The application in development mode is served at `http://devel.localhost`. First run of Docker can take a few minutes.
 
 ### Linux
 The `docker-compose` tool is needed.
