@@ -64,7 +64,8 @@ Due to security reasons the `create-admin.sql` script creates an admin with no p
 Regardless of the installation method, the following tasks must be done:
 
 * Configure a cronjob to send a GET request to the page `/cron/execute/key/<secret_cron_key>`. `<secret_cron_key>` is defined in `application/config/config.local.ini`. This is not needed for dev environments as the cronjobs can be triggered by visiting the path manually. Setting the cronjob to trigger hourly should be enough.
-* In case it is not possible to setup cron job on your server, the fallback cron system will be activated.
+* In case it is not possible to setup cron job on your server, the fallback cron system will be activated by leaving the `cron.key` setting empty.
+* Fallback cron is disabled in development.
 * Copy the file `VERSION-example.txt` to `VERSION.txt` and optionally update the new file. The content is used to inform the users of which version of the tool they are using.
 
 

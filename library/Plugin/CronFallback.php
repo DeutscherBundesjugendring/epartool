@@ -11,6 +11,11 @@ class Plugin_CronFallback extends Zend_Controller_Plugin_Abstract
      */
     public function postDispatch(Zend_Controller_Request_Abstract $request)
     {
+        // jiri@visionapps.cz - 22.02.2018: Fallback cron is deactivated in development.
+        if (APPLICATION_ENV !== 'production') {
+            return;
+        }
+
         if ($request->getControllerName() === 'cron') {
             return;
         }
@@ -63,6 +68,9 @@ class Plugin_CronFallback extends Zend_Controller_Plugin_Abstract
 
         $parts=parse_url($url);
 
+        // jiri@visionapps.cz - 22.02.2018: PHP can not resolve DNS devel.localhost in development.
+        // It is possible to add "IP_of_web_container devel.localhost" to /etc/hosts
+        // in php docker container for testing and debugging
         $fp = fsockopen(
             $parts['host'],
             isset($parts['port']) ? $parts['port'] : 80,
