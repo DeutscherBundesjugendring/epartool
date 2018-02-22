@@ -5,139 +5,168 @@ $this->layout()->pageTitle = $this->pageTitle(
 );
 ?>
 <div class="main-content">
+    <div class="row">
+        <div class="col-md-10 col-md-offset-1">
 
-    <article class="article">
-        <h1><?=sprintf($this->translate('Search for "%s"'), $this->needle)?></h1>
+            <h1><?=$this->translate('Search results');?></h1>
 
-        <h2><?=$this->translate('Search in basic information')?></h2>
-        <?php if (count($this->resultsGeneral) > 0): ?>
+            <?php $resultsGeneralCount = count($this->resultsGeneral); ?>
+            <?php $resultsConsultationsCount = count($this->resultsConsultations); ?>
+            <?php $resultsFollowUpsCount = count($this->resultsFollowUps); ?>
+            <?php $resultsTotalCount = $resultsGeneralCount + $resultsConsultationsCount + $resultsFollowUpsCount; ?>
+
+            <?php if ($resultsTotalCount > 0): ?>
+                <p>
+                    <?=$resultsTotalCount;?> results found for <strong><?=$this->needle;?></strong>
+                </p>
+            <?php else: ?>
+                <p>
+                    <span class="glyphicon glyphicon-info-sign icon-offset" aria-hidden="true"></span>
+                    <?=$this->translate('There are no relevant search results on this term.');?>
+                </p>
+            <?php endif; ?>
+
+            <hr class="offset-bottom-large" />
+
+            <?php if ($resultsGeneralCount > 0): ?>
+                <h2 class="text-uppercase offset-bottom"><?=$this->translate('Search in basic information')?></h2>
                 <?php $staticArticles = array('about', 'imprint', 'faq', 'privacy', 'contact');?>
-                <ul>
-                    <?php foreach ($this->resultsGeneral as $article): ?>
-                        <li>
-                            <a
-                                href="<?=in_array($article['ref_nm'], $staticArticles) ? $this->baseUrl() . '/' . $article['ref_nm'] : $this->baseUrl() . '/article/show/aid/' . $article['art_id']?>"
-                                title="<?=$this->escape($article['desc']);?>"
-                            >
+                <?php foreach ($this->resultsGeneral as $article): ?>
+                    <?php
+                        $resultUrl = in_array($article['ref_nm'], $staticArticles)
+                            ? $this->baseUrl() . '/' . $article['ref_nm']
+                            : $this->baseUrl() . '/article/show/aid/' . $article['art_id'];
+                    ?>
+                    <div class="search-result">
+                        <h3 class="search-result-title">
+                            <a href="<?=$resultUrl;?>">
                                 <?=$this->escape($article['desc']);?>
                             </a>
-                       </li>
-                    <?php endforeach?>
-                </ul>
-        <?php else: ?>
-            <ul>
-                <li><?=$this->translate('There are no relevant search results on this term.')?></li>
-            </ul>
-        <?php endif ?>
+                        </h3>
+                        <cite class="search-result-url"><?=$resultUrl;?></cite>
+                    </div>
+                <?php endforeach; ?>
+                <hr class="offset-bottom-large" />
+            <?php endif; ?>
 
-        <h2><?=$this->translate('Search in participation rounds')?></h2>
-        <?php if (count($this->resultsConsultations) > 0): ?>
-            <?php foreach ($this->resultsConsultations as $consultation): ?>
-                <?php if (
-                    count($consultation['articles']) > 0
-                    || count($consultation['questions']) > 0
-                    || count($consultation['inputs']) > 0
-                ): ?>
-                    <h3><?=$this->escape($consultation['titel'])?></h3>
+            <?php if ($resultsConsultationsCount > 0): ?>
+                <h2 class="text-uppercase offset-bottom"><?=$this->translate('Search in consultations')?></h2>
+                <?php foreach ($this->resultsConsultations as $consultation): ?>
+                    <?php if (
+                        count($consultation['articles']) > 0
+                        || count($consultation['questions']) > 0
+                        || count($consultation['inputs']) > 0
+                    ): ?>
+                        <div class="offset-bottom-large">
+                            <h2><?=$this->escape($consultation['titel'])?></h2>
+                            <div class="search-results-group">
 
-                    <?php if (count($consultation['articles']) > 0): ?>
-                        <h4><?=$this->translate('Information pages')?></h4>
-                        <ul>
-                            <?php foreach ($consultation['articles'] AS $article): ?>
-                                <li>
-                                    <a
-                                        href="<?php echo $this->baseUrl()?>/article/show/kid/<?php echo $consultation['cid']?>/aid/<?php echo $article['art_id']?>"
-                                        title="<?=$this->escape($article['desc']);?>"
-                                    >
-                                        <?=$this->escape($article['desc']);?>
-                                    </a>
-                                   </li>
-                            <?php endforeach?>
-                        </ul>
-                    <?php endif?>
-                        <?php if (count($consultation['questions']) > 0): ?>
-                            <h4><?=$this->translate('Questions');?></h4>
-                            <ul>
-                                <?php foreach ($consultation['questions'] AS $question): ?>
-                                    <li>
-                                        <a
-                                            href="<?php echo $this->baseUrl()?>/input/show/kid/<?php echo $consultation['cid']?>/qid/<?php echo $question['qi']?>"
-                                            title="<?=$this->escape($question['q']);?>"
-                                        >
-                                            <?=$this->escape($question['q']);?>
-                                        </a>
-                                        <br />
-                                        <?=$this->escape(strip_tags($question['q_xpl']));?>...
-                                    </li>
-                                <?php endforeach?>
-                            </ul>
-                    <?php endif?>
+                                <?php if (count($consultation['articles']) > 0): ?>
+                                    <?php foreach ($consultation['articles'] as $article): ?>
+                                        <div class="search-result">
+                                            <?php $resultUrl = $this->baseUrl() . '/article/show/kid/' . $consultation['cid'] . '/aid/' . $article['art_id']; ?>
+                                            <div class="search-result-header">
+                                                <h3 class="search-result-title">
+                                                    <a href="<?=$resultUrl;?>">
+                                                        <?=$this->escape($article['desc']);?>
+                                                    </a>
+                                                </h3>
+                                            </div>
+                                            <cite class="search-result-url"><?=$resultUrl;?></cite>
+                                       </div>
+                                    <?php endforeach; ?>
+                                <?php endif; ?>
+                                    <?php if (count($consultation['questions']) > 0): ?>
+                                        <h4 class="offset-top-large offset-bottom"><?=$this->translate('Questions');?></h4>
+                                        <?php foreach ($consultation['questions'] as $question): ?>
+                                            <?php $resultUrl = $this->baseUrl() . '/input/show/kid/' . $consultation['cid'] . '/qid/' . $question['qi']; ?>
+                                            <div class="search-result">
+                                                <div class="search-result-header">
+                                                    <h3 class="search-result-title">
+                                                        <a href="<?=$resultUrl;?>">
+                                                            <?=$this->escape($question['q']);?>
+                                                        </a>
+                                                    </h3>
+                                                </div>
+                                                <?=$this->escape(strip_tags($question['q_xpl']));?>…
+                                            </div>
+                                        <?php endforeach; ?>
+                                <?php endif; ?>
 
-                    <?php if (count($consultation['inputs']) > 0): ?>
-                        <h4><?=$this->translate('User Contributions');?></h4>
-                        <ul>
-                            <?php foreach ($consultation['inputs'] AS $input): ?>
-                                <li>
-                                    <a
-                                        href="<?php echo $this->baseUrl()?>/input/show/kid/<?php echo $consultation['cid']?>/qid/<?php echo $input['qi']?>#input-<?php echo $input['tid']?>"
-                                        title="<?=$this->escape(strip_tags($input['thes']));?>"
-                                    >
-                                        <?=$this->escape(strip_tags($input['thes']));?>
-                                    </a>
-                                    <br />
-                                    <?=$this->escape($this->perex(strip_tags($input['expl']), 150));?>
-                                </li>
-                            <?php endforeach?>
-                        </ul>
-                    <?php endif?>
-                <?php endif?>
-            <?php endforeach?>
-        <?php endif?>
+                                <?php if (count($consultation['inputs']) > 0): ?>
+                                    <h4 class="offset-top-large offset-bottom"><?=$this->translate('User Contributions');?></h4>
+                                    <?php foreach ($consultation['inputs'] as $input): ?>
+                                        <?php $resultUrl = $this->baseUrl() . '/input/show/kid/' . $consultation['cid'] . '/qid/' . $input['qi'] . '#input-' . $input['tid']; ?>
+                                        <div class="search-result">
+                                            <div class="search-result-header">
+                                                <a href="<?=$resultUrl;?>">
+                                                    <?=$this->escape(strip_tags($input['thes']));?>
+                                                </a>
+                                            </div>
+                                            <cite class="search-result-url"><?=$resultUrl;?></cite>
+                                            <?=$this->escape($this->perex(strip_tags($input['expl']), 150));?>
+                                        </div>
+                                    <?php endforeach; ?>
+                                <?php endif; ?>
 
-        <h2><?=$this->translate('Search in Reactions & Impact');?></h2>
-        <ul class="followup-search media-list">
-            <?php foreach ($this->resultsFollowUps as $followUp): ?>
-                <li>
-                    <div class="followup-preview media">
-                        <a
-                            href="<?php echo $this->baseUrl() . '/media/' . Service_Media::MEDIA_DIR_CONSULTATIONS . '/' . $followUp['consultationId'] . '/' . $followUp['filename']?>"
-                            class="followup-image pull-left"
-                        >
-                            <img
-                                src="<?php echo $this->baseUrl() . '/media/' . Service_Media::MEDIA_DIR_CONSULTATIONS . '/' . $followUp['consultationId'] . '/' . $followUp['filenameThumb']?>"
-                                alt="<?=$this->escape($followUp['title']);?>"
-                            />
-                        </a>
-                        <div class="media-body">
-                            <a href="<?php echo $this->baseUrl() . '/media/' . Service_Media::MEDIA_DIR_CONSULTATIONS . '/' . $followUp['consultationId'] . '/' . $followUp['filename']?>">
-                                <h3 class="followup-title"><?=$this->escape($followUp['title']);?></h3>
-                            </a>
-                            <time class="followup-time">
-                                <?php if ($followUp['isOnlyMonthYearShowed']): ?>
-                                    <?php echo $this->formatDate($followUp['timeReleased'], Zend_Date::MONTH_NAME . ' ' . Zend_Date::YEAR)?>
-                                <?php else:?>
-                                    <?php echo $this->formatDate($followUp['timeReleased'])?>
-                                <?php endif?>
-                            </time><br />
-                            <p class="followup-author"><?php echo $followUp['releasedBy']?></p>
-
-                            <h4><?=$this->translate('Reactions');?></h4>
-                            <ul>
-                                <?php foreach ($followUp['snippets'] as $snippet): ?>
-                                    <li>
-                                        <p class="followup-snippet">
-                                            <?=$this->wysiwyg($snippet['text']);?>
-                                        </p>
-                                    </li>
-                                <?php endforeach?>
-                            </ul>
+                            </div>
                         </div>
-                    </div><!-- .followup-preview -->
-                </li>
-            <?php endforeach?>
-        </ul>
+                    <?php endif; ?>
+                <?php endforeach; ?>
 
-     </article>
+                <hr class="offset-bottom-large" />
+            <?php endif; ?>
+
+            <?php if ($resultsFollowUpsCount > 0): ?>
+                <h2 class="text-uppercase offset-top-large offset-bottom"><?=$this->translate('Search in Reactions & Impact');?></h2>
+                <ul class="followup-search media-list">
+                    <?php foreach ($this->resultsFollowUps as $followUp): ?>
+                        <li>
+                            <div class="followup-preview media">
+                                <a
+                                    href="<?php echo $this->baseUrl() . '/media/' . Service_Media::MEDIA_DIR_CONSULTATIONS . '/' . $followUp['consultationId'] . '/' . $followUp['filename']?>"
+                                    class="followup-image pull-left"
+                                >
+                                    <img
+                                        src="<?php echo $this->baseUrl() . '/media/' . Service_Media::MEDIA_DIR_CONSULTATIONS . '/' . $followUp['consultationId'] . '/' . $followUp['filenameThumb']?>"
+                                        class="search-result-media"
+                                        alt="<?=$this->escape($followUp['title']);?>"
+                                    />
+                                </a>
+                                <div class="media-body">
+                                    <h3 class="followup-title">
+                                        <a href="<?php echo $this->baseUrl() . '/media/' . Service_Media::MEDIA_DIR_CONSULTATIONS . '/' . $followUp['consultationId'] . '/' . $followUp['filename']?>">
+                                            <?=$this->escape($followUp['title']);?>
+                                        </a>
+                                    </h3>
+                                    <time class="followup-time">
+                                        <?php if ($followUp['isOnlyMonthYearShowed']): ?>
+                                            <?php echo $this->formatDate($followUp['timeReleased'], Zend_Date::MONTH_NAME . ' ' . Zend_Date::YEAR)?>
+                                        <?php else:?>
+                                            <?php echo $this->formatDate($followUp['timeReleased'])?>
+                                        <?php endif; ?>
+                                    </time><br />
+                                    <p class="followup-author"><?php echo $followUp['releasedBy']?></p>
+
+                                    <h4><?=$this->translate('Reactions');?></h4>
+                                    <ul>
+                                        <?php foreach ($followUp['snippets'] as $snippet): ?>
+                                            <li>
+                                                <p class="followup-snippet">
+                                                    <?=$this->wysiwyg($snippet['text']);?>
+                                                </p>
+                                            </li>
+                                        <?php endforeach; ?>
+                                    </ul>
+                                </div>
+                            </div>
+                        </li>
+                    <?php endforeach; ?>
+                </ul>
+            <?php endif; ?>
+
+        </div>
+    </div>
 
     <?=$this->partial('_partials/pageLinks.phtml');?>
 
