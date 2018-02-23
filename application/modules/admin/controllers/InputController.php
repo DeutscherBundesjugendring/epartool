@@ -106,7 +106,7 @@ class Admin_InputController extends Zend_Controller_Action
         }
 
         $adminActionCsrfSess = new Zend_Session_Namespace('adminActionCsrf');
-        $adminActionCsrfSess->token = md5(mt_rand(1, 100000) . time());
+        $adminActionCsrfSess->token = md5(uniqid());
 
         $this->view->sortForm = $form;
         $this->view->question = $question;
@@ -156,7 +156,7 @@ class Admin_InputController extends Zend_Controller_Action
         );
 
         $adminActionCsrfSess = new Zend_Session_Namespace('adminActionCsrf');
-        $adminActionCsrfSess->token = md5(mt_rand(1, 100000) . time());
+        $adminActionCsrfSess->token = md5(uniqid());
         $this->_helper->json([
             'iconClass' => $button[$property][$nextStatus[$property][$contribution[$properties[$property]]]]['iconClass'],
             'labelClass' => $button[$property][$nextStatus[$property][$contribution[$properties[$property]]]]['labelClass'],

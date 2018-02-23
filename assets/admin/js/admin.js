@@ -9,6 +9,7 @@
   var bindTableRowsToggle;
   var bindToggleAll;
   var changeContributionStatus;
+  var changeVotesGroupMember;
   var contributorAgesSettings;
   var groupsSizesSettings;
   var initMap;
@@ -46,6 +47,8 @@
     initMediaIndexFileLazyLoad();
     changeContributionStatus();
     bindVotingButtonSetsSettings();
+    changeVotesGroupMember();
+    bindPreviewVotingButtons();
     bindAutoVotingInfo();
     bindGeoFenceForContributionLocation();
     $('[data-toggle="tooltip"]').tooltip();
@@ -328,25 +331,27 @@
 
   changeContributionStatus = function() {
     return $('.js-contribution-change-status').on('click', function(e) {
-      var buttonIcon, buttonLabel, container, dataAttributeName, kid, property, thisButton, tid, tokenEl;
+      var buttonIcon, buttonLabel, container, dataAttributeName, kid, property, thisButton, tid, $tokenEl;
+      var $this = $(this);
+      var $allButtons = $('.js-contribution-change-status');
       e.preventDefault();
-      tokenEl = $('#contribution-table');
-      if (tokenEl.data('token') === '') {
+      $tokenEl = $('#contribution-table');
+      if ($tokenEl.data('token') === '') {
         return;
       }
-      kid = $(this).data('kid');
-      tid = $(this).data('tid');
-      property = $(this).data('property');
+      kid = $this.data('kid');
+      tid = $this.data('tid');
+      property = $this.data('property');
       dataAttributeName = 'voting';
       if (property === 'blocking') {
         dataAttributeName = 'admin-confirmation';
       }
-      container = $(this).closest('tr');
-      thisButton = $(this);
-      buttonLabel = $(this).find('.label');
-      buttonIcon = $(this).find('.glyphicon').clone();
+      container = $this.closest('tr');
+      thisButton = $this;
+      buttonLabel = $this.find('.label');
+      buttonIcon = $this.find('.glyphicon').clone();
       $.ajax({
-        url: baseUrl + '/admin/input/change-status/kid/' + kid + '/tid/' + tid + '/token/' + tokenEl.data('token') + '/property/' + property,
+        url: baseUrl + '/admin/input/change-status/kid/' + kid + '/tid/' + tid + '/token/' + $tokenEl.data('token') + '/property/' + property,
         type: 'POST',
         contentType: 'application/json',
         dataType: 'json',
@@ -360,8 +365,8 @@
           thisButton.attr('style', '');
         },
         beforeSend: function() {
-          tokenEl.data('token', '');
-          $('.js-contribution-change-status').attr('style', 'opacity:0.7');
+          $tokenEl.data('token', '');
+          $allButtons.attr('style', 'opacity:0.7');
           buttonLabel.attr('class', 'label label-info');
           buttonLabel.html(' ' + jsTranslations['contribution_label_loading']);
           buttonIcon.attr('class', 'glyphicon glyphicon-refresh');
@@ -373,8 +378,8 @@
           buttonLabel.attr('class', 'label label-' + response.labelClass);
           buttonLabel.html(' ' + response.label);
           buttonLabel.prepend(buttonIcon);
-          tokenEl.data('token', response.token);
-          $('.js-contribution-change-status').attr('style', '');
+          $tokenEl.data('token', response.token);
+          $allButtons.attr('style', '');
           newStatus = response.status;
           if (dataAttributeName === 'admin-confirmation') {
             if (newStatus === '1') {
@@ -399,6 +404,56 @@
             }
           }
           container.data(dataAttributeName, newStatus);
+        }
+      });
+    });
+  };
+
+  changeVotesGroupMember = function() {
+    return $('.js-votes-group-change-member').on('click', function(e) {
+      var buttonIcon, buttonLabel, kid, thisButton, uid, subUid, $tokenEl;
+      var $this = $(this);
+      var $allButtons = $('.js-votes-group-change-member');
+      e.preventDefault();
+      $tokenEl = $('#votes-groups-table');
+      if ($tokenEl.data('token') === '') {
+        return;
+      }
+      kid = $this.data('kid');
+      uid = $this.data('uid');
+      subUid = $this.data('subUid');
+      thisButton = $this;
+      buttonLabel = $this.find('.label');
+      buttonIcon = $this.find('.glyphicon').clone();
+      $.ajax({
+        url: baseUrl + '/admin/voting/change-member/kid/' + kid + '/uid/' + uid + '/subuid/' + subUid + '/token/' + $tokenEl.data('token'),
+        type: 'POST',
+        contentType: 'application/json',
+        dataType: 'json',
+        cache: false,
+        async: true,
+        error: function() {
+          buttonLabel.attr('class', 'label label-default');
+          buttonLabel.html(' ' + jsTranslations['votes_group_label_unknown']);
+          buttonIcon.attr('class', 'glyphicon glyphicon-question-sign');
+          buttonLabel.prepend(buttonIcon);
+          thisButton.attr('style', '');
+        },
+        beforeSend: function() {
+          $tokenEl.data('token', '');
+          $allButtons.attr('style', 'opacity:0.7');
+          buttonLabel.attr('class', 'label label-info');
+          buttonLabel.html(' ' + jsTranslations['votes_group_label_loading']);
+          buttonIcon.attr('class', 'glyphicon glyphicon-refresh');
+          buttonLabel.prepend(buttonIcon);
+        },
+        success: function(response) {
+          buttonIcon.attr('class', 'glyphicon glyphicon-' + response.iconClass);
+          buttonLabel.attr('class', 'label label-' + response.labelClass);
+          buttonLabel.html(' ' + response.label);
+          buttonLabel.prepend(buttonIcon);
+          $tokenEl.data('token', response.token);
+          $allButtons.attr('style', '');
         }
       });
     });

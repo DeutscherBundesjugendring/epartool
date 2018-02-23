@@ -226,12 +226,17 @@ class Admin_VotingController extends Zend_Controller_Action
      */
     public function participantsAction()
     {
+        $adminActionCsrfSess = new Zend_Session_Namespace('adminActionCsrf');
+        $adminActionCsrfSess->token = md5(uniqid());
+
         $this->view->inputs = (new Model_Inputs())->getCountByConsultationFiltered(
             $this->_consultation->kid,
             [['field' => 'is_votable', 'operator' => '=', 'value' => true]]
         );
         $this->view->groups = (new Model_Votes_Groups())->getByConsultation($this->_consultation->kid);
         $this->view->form = new Admin_Form_ListControl();
+        $this->view->csrfToken = $adminActionCsrfSess->token;
+        $this->view->jsTranslations = $this->getJsTranslations();
     }
 
     /**
@@ -569,13 +574,57 @@ class Admin_VotingController extends Zend_Controller_Action
         return $mailer;
     }
 
+    public function changeMemberAction()
+    {
+        $token = $this->_request->getParam('token', null);
+        $consultationId = $this->_request->getParam('kid', null);
+        $uid = $this->_request->getParam('uid', null);
+        $subUid = $this->_request->getParam('subuid', null);
+
+        if ((new Zend_Session_Namespace('adminActionCsrf'))->token !== $token || !$uid || !$subUid ) {
+            $response = $this->getResponse();
+            $response->setHttpResponseCode(403);
+            $response->sendResponse();
+        }
+
+        $nextStatus = ['1' => null, '0'=> '1', null => '0'];
+        $button = [
+            '0' => ['label' => 'Denied', 'iconClass' => 'remove', 'labelClass' => 'danger'],
+            '1' => ['label' => 'Confirmed', 'iconClass' => 'ok', 'labelClass' => 'success'],
+            null => ['label' => 'Unconfirmed', 'iconClass' => 'question-sign', 'labelClass' => 'warning'],
+        ];
+        $votesGroupsModel = new Model_Votes_Groups();
+        $where = [
+            'uid = ?' => $uid,
+            'sub_uid = ?' => $subUid,
+            'kid = ?' => $consultationId,
+        ];
+        $votesGroup = $votesGroupsModel->fetchRow($where);
+        $votesGroupsModel->update(['is_member' => $nextStatus[$votesGroup['is_member']]], $where);
+
+        $adminActionCsrfSess = new Zend_Session_Namespace('adminActionCsrf');
+        $adminActionCsrfSess->token = md5(uniqid());
+        $this->_helper->json([
+            'iconClass' => $button[$nextStatus[$votesGroup['is_member']]]['iconClass'],
+            'labelClass' => $button[$nextStatus[$votesGroup['is_member']]]['labelClass'],
+            'label' => Zend_Registry::get('Zend_Translate')->translate(
+                $button[$nextStatus[$votesGroup['is_member']]]['label']
+            ),
+            'token' => $adminActionCsrfSess->token,
+        ]);
+    }
+
     /**
      * @return string[]
      */
     private function getJsTranslations()
     {
         return [
-            'voting_button_set_at_least_two_buttons_enabled_error' => $this->view->translate('At least two voting buttons in the set must be enabled'),
+            'voting_button_set_at_least_two_buttons_enabled_error' => $this->view->translate(
+                'At least two voting buttons in the set must be enabled'
+            ),
+            'votes_group_label_unknown' => $this->view->translate('Unknown'),
+            'votes_group_label_loading' => $this->view->translate('Loading…'),
         ];
     }
 }
