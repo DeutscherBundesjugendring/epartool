@@ -10,11 +10,19 @@ class Model_Votes_Settings extends Dbjr_Db_Table_Abstract
     protected $_name = 'vt_settings';
     protected $_primary = 'kid';
 
-    public function add($consultationID)
+    /**
+     * @param int $consultationId
+     * @return bool
+     */
+    public function add($consultationId)
     {
-        $data = array('kid' => $consultationID);
+        $data = array('kid' => $consultationId);
 
-        return (int) $this->insert($data);
+        $result = (int) $this->insert($data);
+
+        $resultButtonSets = (new Model_VotingButtonSet())->createDefault($consultationId);
+        
+        return $result && $resultButtonSets;
     }
 
     /**

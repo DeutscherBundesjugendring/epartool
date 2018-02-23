@@ -10,6 +10,8 @@ class Service_Voting
     const BUTTONS_TYPE_STARS = 'stars';
     const BUTTONS_TYPE_HEARTS = 'hearts';
     const BUTTONS_TYPE_YESNO = 'yesno';
+    
+    const BUTTONS_TYPE_DEFAULT = self::BUTTONS_TYPE_STARS;
 
     const BUTTON_SKIP = 'Skip';
 

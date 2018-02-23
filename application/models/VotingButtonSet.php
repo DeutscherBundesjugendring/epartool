@@ -53,4 +53,29 @@ class Model_VotingButtonSet extends Dbjr_Db_Table_Abstract
 
         return $this->delete($where);
     }
+
+    /**
+     * @param int $consultationId
+     * @return bool
+     */
+    public function createDefault(int $consultationId)
+    {
+        $adapter = $this->getAdapter();
+        $adapter->beginTransaction();
+        $enabledCount = 0;
+        $defaultEnabledCount = 3;
+        $result = true;
+        foreach (Service_Voting::BUTTONS_SET[Service_Voting::BUTTONS_TYPE_DEFAULT]['buttons'] as $points => $button) {
+            $result = $result && (bool) $this->insert([
+                'consultation_id' => $consultationId,
+                'button_type' => Service_Voting::BUTTONS_TYPE_DEFAULT,
+                'points' => $points,
+                'enabled' => (int) (($enabledCount++ < $defaultEnabledCount) || $button['mandatory']),
+                'label' => null,
+            ]);
+        }
+        $adapter->commit();
+
+        return $result;
+    }
 }

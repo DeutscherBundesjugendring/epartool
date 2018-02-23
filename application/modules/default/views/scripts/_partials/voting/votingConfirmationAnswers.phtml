@@ -1,6 +1,7 @@
 <?php
     $settings = $this->layout()->settings;
-    $labels = $this->layout()->labels;
+    $buttons = $this->layout()->buttons;
+    $buttonsDefault = $this->layout()->buttonsDefault;
 ?>
 
 <ul class="nav nav-justified nav-voting text-center small">
@@ -14,11 +15,19 @@
             </span>
         </li>
     <?php endif; ?>
-    <?php krsort($labels); ?>
-    <?php foreach ($labels as $points => $label): ?>
-        <li class="voting-button-<?=$settings['button_type'];?>-<?=$points;?><?=($this->points !== null && (int)$this->points === $points) ? ' active' : '';?>">
-            <span><?=$this->translate($label);?></span>
-        </li>
+    <?php krsort($buttonsDefault); ?>
+    <?php foreach ($buttonsDefault as $points => $button): ?>
+        <?php \Tracy\Debugger::barDump($button); ?>
+        <?php if (isset($buttons[$points]) && $buttons[$points]['enabled']): ?>
+            <li class="voting-button-<?=$settings['button_type'];?>-<?=$points;?><?=($this->points !== null && (int)$this->points === $points) ? ' active' : '';?>">
+                <span>
+                    <?=($buttons[$points]['label']
+                        ?: $this->translate(
+                            Service_Voting::BUTTONS_SET[$settings['button_type']]['buttons'][$points]['label']
+                        ));?>
+                </span>
+            </li>
+        <?php endif; ?>
     <?php endforeach; ?>
 
     <?php if ($settings['btn_no_opinion']) : ?>
