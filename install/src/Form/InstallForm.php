@@ -64,8 +64,7 @@ class InstallForm extends Dbjr_Form_Web
         $cronKey = $this->createElement('text', 'cronKey');
         $cronKey
             ->setLabel('Cron key')
-            ->setDescription('Random string used in the cronjob url.')
-            ->setRequired(true);
+            ->setDescription('Random string used in the cronjob url. Leave empty to use the `poor man\'s cron` (tasks get triggered with certain probability by page loads).');
         $this->addElement($cronKey);
 
         $securityToken = $this->createElement('text', 'securityToken');
