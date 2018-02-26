@@ -36,7 +36,7 @@
         <div id="js-button-set-<?=$buttonType;?>" class="js-button-set">
         <?php foreach ($buttonsSet->getSubForms() as $points => $button): ?>
             <div class="row">
-                <div class="col-sm-2 offset-top">
+                <div class="col-sm-2">
                     <div class="form-control-static">
                         <?=$this->partial('_svg/button.svg.phtml', [
                             'btnLabel' => sprintf(
@@ -67,12 +67,16 @@
 
 
     <?=$this->element->btn_no_opinion?>
-    <?=$this->element->is_btn_important?>
-    <div id="js-btn-important-inputs">
-        <?=$this->element->btn_important_label?>
-        <?=$this->element->btn_important_max?>
-        <?=$this->element->btn_important_factor?>
+
+    <div class="form-block-bordered">
+        <?=$this->element->is_btn_important?>
+        <div id="js-btn-important-inputs">
+            <?=$this->element->btn_important_label?>
+            <?=$this->element->btn_important_max?>
+            <?=$this->element->btn_important_factor?>
+        </div>
     </div>
+
     <?=$this->element->csrf_token_settingsvotingsubmissionformadmin?>
     <?=$this->element->submit?>
 
