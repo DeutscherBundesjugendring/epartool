@@ -4,20 +4,21 @@ $rootPath = dirname(dirname(__FILE__));
 define('APPLICATION_ENV', 'production');
 define('APPLICATION_PATH', realpath($rootPath . '/application'));
 
-if (!realpath(dirname(__FILE__) . '/../application/configs/config.local.ini')) {
-    $url = sprintf(
-        'http%s://%s',
-        (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? 's' : '',
-        $_SERVER['HTTP_HOST']
-    );
-    if ($_SERVER['REQUEST_URI']) {
-        $url .= $_SERVER['REQUEST_URI'];
+$dir = dirname(__FILE__) . '/../';
+if (!realpath($dir . '/application/configs/config.local.ini')) {
+    if (!empty($_GET['r'])) {
+        die('Cannot find installation wizard.');
     }
-    $url .= 'install';
+    $url = sprintf(
+        'http%s://%s%s/install/?r=1',
+        (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? 's' : '',
+        $_SERVER['HTTP_HOST'],
+        preg_replace(sprintf('#^%s#', $_SERVER['DOCUMENT_ROOT']), '', realpath($dir))
+    );
     header('Location: ' . $url);
     die('You are being redirected to the installation wizard.'
-        . ' If nothing happens please navigate to the <a href="/install">installation wizard</a> manualy');
-} elseif (realpath(dirname(__FILE__) . '/../install')) {
+        . sprintf(' If nothing happens please navigate to the <a href="%s">installation wizard</a> manualy', $url));
+} elseif (realpath($dir . '/install')) {
     die('Please remove the /install folder. Not removing it is a security risk.');
 }
 
