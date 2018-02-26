@@ -36,7 +36,7 @@ RUN             apt-get update && apt-get install -y \
                 && curl -sL https://deb.nodesource.com/setup_8.x | bash - \
                 && apt-get install -y nodejs \
                 && npm install -g grunt-cli \
-                && npm install -g webpack \
+                && npm install -g webpack@3.11.0 \
                 && npm install -g bower
 
 
