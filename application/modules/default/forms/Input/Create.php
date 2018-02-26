@@ -72,9 +72,9 @@ class Default_Form_Input_Create extends Dbjr_Form_Web
      * @param array                        $theses Array of inputs that are already in the session
      * @return Default_Form_Input_Create           Fluent interface
      */
-    public function generateInputFields($theses, $addExtraField = true)
+    public function generateInputFields(array $theses, $addExtraField = true)
     {
-        if (!$theses) {
+        if (!count($theses)) {
             $theses = [['thes' => '', 'expl' => '', 'video_service' => '', 'video_id' => '']];
         }
 

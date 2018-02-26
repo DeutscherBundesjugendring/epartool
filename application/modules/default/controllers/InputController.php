@@ -109,7 +109,8 @@ class InputController extends Zend_Controller_Action
                 $contributions = [];
                 $sessInputs = (new Zend_Session_Namespace('inputs'));
                 if (isset($sessInputs->confirmKey)) {
-                    $contributions = $inputModel->getByConfirmKeyAndQuestion($sessInputs->confirmKey, $question['qi']);
+                    $contributions = $inputModel->getByConfirmKeyAndQuestion($sessInputs->confirmKey, $question['qi'])
+                        ->toArray();
                 }
                 $form->generateInputFields($contributions);
                 $form->setAction($listType === null
@@ -135,7 +136,8 @@ class InputController extends Zend_Controller_Action
             $contributions = [];
             $sessInputs = (new Zend_Session_Namespace('inputs'));
             if (isset($sessInputs->confirmKey)) {
-                $contributions = $inputModel->getByConfirmKeyAndQuestion($sessInputs->confirmKey, $question['qi']);
+                $contributions = $inputModel->getByConfirmKeyAndQuestion($sessInputs->confirmKey, $question['qi'])
+                    ->toArray();
             }
             $form->generateInputFields($contributions, !$question['location_enabled']);
             $form->setAction($listType === null
