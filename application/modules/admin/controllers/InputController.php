@@ -361,7 +361,7 @@ class Admin_InputController extends Zend_Controller_Action
         }
 
         $inputModel = new Model_Inputs();
-        $form = new Admin_Form_CreateInput($cancelUrl);
+        $form = new Admin_Form_CreateInput(new Service_RequestInfo(), $cancelUrl);
         $form->setVideoEnabled(false);
         $form->setLocationEnabled(false);
 
