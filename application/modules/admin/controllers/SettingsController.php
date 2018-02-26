@@ -28,6 +28,7 @@ class Admin_SettingsController extends Zend_Controller_Action
                 $db->beginTransaction();
                 try {
                     $projectModel->update(array_intersect_key($data, [
+                        'locale' => true,
                         'title' => true,
                         'motto' => true,
                         'description' => true,
