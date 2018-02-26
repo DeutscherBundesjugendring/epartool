@@ -389,6 +389,8 @@ class Admin_InputController extends Zend_Controller_Action
                     'New contribution cannot be created. Please check the errors marked in the form below and try again.',
                     'error'
                 );
+                $data['latitude'] = $data['latitude'] === '' ? null : $data['latitude'];
+                $data['longitude'] = $data['longitude'] === '' ? null : $data['longitude'];
                 $form->populate($data);
             }
         } else {
