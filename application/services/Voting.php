@@ -10,7 +10,7 @@ class Service_Voting
     const BUTTONS_TYPE_STARS = 'stars';
     const BUTTONS_TYPE_HEARTS = 'hearts';
     const BUTTONS_TYPE_YESNO = 'yesno';
-    
+
     const BUTTONS_TYPE_DEFAULT = self::BUTTONS_TYPE_STARS;
 
     const BUTTON_SKIP = 'Skip';
@@ -82,12 +82,12 @@ class Service_Voting
             'label' => 'Yes/No',
             'buttons' => [
                 -1 => [
-                    'label' => 'Yes',
+                    'label' => 'No',
                     'id' => 'disagree',
                     'mandatory' => true,
                 ],
                 1 => [
-                    'label' => 'No',
+                    'label' => 'Yes',
                     'id' => 'agree',
                     'mandatory' => true,
                 ],
