@@ -8,8 +8,7 @@
   var bindEmailTemplateSelect;
   var bindTableRowsToggle;
   var bindToggleAll;
-  var changeContributionStatus;
-  var changeVotesGroupMember;
+  var toggleEntityFlag;
   var contributorAgesSettings;
   var groupsSizesSettings;
   var initMap;
@@ -45,9 +44,8 @@
     initSortableVotingDirs();
     initSortablePartners();
     initMediaIndexFileLazyLoad();
-    changeContributionStatus();
     bindVotingButtonSetsSettings();
-    changeVotesGroupMember();
+    toggleEntityFlag();
     bindPreviewVotingButtons();
     bindAutoVotingInfo();
     bindGeoFenceForContributionLocation();
@@ -329,104 +327,32 @@
     });
   };
 
-  changeContributionStatus = function() {
-    return $('.js-contribution-change-status').on('click', function(e) {
-      var buttonIcon, buttonLabel, container, dataAttributeName, kid, property, thisButton, tid, $tokenEl;
+  toggleEntityFlag = function() {
+    return $('.js-entity-toggle-flag').on('click', function(e) {
+      var buttonIcon;
+      var buttonLabel;
+      var itemId;
+      var property;
+      var $container;
+      var $tokenEl;
       var $this = $(this);
-      var $allButtons = $('.js-contribution-change-status');
+      var $allButtons = $('.js-entity-toggle-flag');
       e.preventDefault();
-      $tokenEl = $('#contribution-table');
+      $tokenEl = $($this.data('tokenElement'));
       if ($tokenEl.data('token') === '') {
         return;
       }
-      kid = $this.data('kid');
-      tid = $this.data('tid');
-      property = $this.data('property');
-      dataAttributeName = 'voting';
-      if (property === 'blocking') {
-        dataAttributeName = 'admin-confirmation';
-      }
-      container = $this.closest('tr');
-      thisButton = $this;
-      buttonLabel = $this.find('.label');
-      buttonIcon = $this.find('.glyphicon').clone();
-      $.ajax({
-        url: baseUrl + '/admin/input/change-status/kid/' + kid + '/tid/' + tid + '/token/' + $tokenEl.data('token') + '/property/' + property,
-        type: 'POST',
-        contentType: 'application/json',
-        dataType: 'json',
-        cache: false,
-        async: true,
-        error: function() {
-          buttonLabel.attr('class', 'label label-default');
-          buttonLabel.html(' ' + jsTranslations['contribution_label_unknown']);
-          buttonIcon.attr('class', 'glyphicon glyphicon-question-sign');
-          buttonLabel.prepend(buttonIcon);
-          thisButton.attr('style', '');
-        },
-        beforeSend: function() {
-          $tokenEl.data('token', '');
-          $allButtons.attr('style', 'opacity:0.7');
-          buttonLabel.attr('class', 'label label-info');
-          buttonLabel.html(' ' + jsTranslations['contribution_label_loading']);
-          buttonIcon.attr('class', 'glyphicon glyphicon-refresh');
-          buttonLabel.prepend(buttonIcon);
-        },
-        success: function(response) {
-          var newStatus;
-          buttonIcon.attr('class', 'glyphicon glyphicon-' + response.iconClass);
-          buttonLabel.attr('class', 'label label-' + response.labelClass);
-          buttonLabel.html(' ' + response.label);
-          buttonLabel.prepend(buttonIcon);
-          $tokenEl.data('token', response.token);
-          $allButtons.attr('style', '');
-          newStatus = response.status;
-          if (dataAttributeName === 'admin-confirmation') {
-            if (newStatus === '1') {
-              newStatus = 'n';
-            }
-            if (newStatus === '0') {
-              newStatus = 'y';
-            }
-            if (newStatus === null) {
-              newStatus = 'u';
-            }
-          }
-          if (dataAttributeName === 'voting') {
-            if (newStatus === '1') {
-              newStatus = 'y';
-            }
-            if (newStatus === '0') {
-              newStatus = 'n';
-            }
-            if (newStatus === null) {
-              newStatus = 'u';
-            }
-          }
-          container.data(dataAttributeName, newStatus);
-        }
+      itemId = '';
+      $.each($this.data('itemId'), function (key, value) {
+        itemId += '/' + key + '/' + value;
       });
-    });
-  };
-
-  changeVotesGroupMember = function() {
-    return $('.js-votes-group-change-member').on('click', function(e) {
-      var buttonIcon, buttonLabel, kid, thisButton, uid, subUid, $tokenEl;
-      var $this = $(this);
-      var $allButtons = $('.js-votes-group-change-member');
-      e.preventDefault();
-      $tokenEl = $('#votes-groups-table');
-      if ($tokenEl.data('token') === '') {
-        return;
-      }
-      kid = $this.data('kid');
-      uid = $this.data('uid');
-      subUid = $this.data('subUid');
-      thisButton = $this;
+      property = $this.data('property');
+      $container = $this.closest('tr');
       buttonLabel = $this.find('.label');
       buttonIcon = $this.find('.glyphicon').clone();
+
       $.ajax({
-        url: baseUrl + '/admin/voting/change-member/kid/' + kid + '/uid/' + uid + '/subuid/' + subUid + '/token/' + $tokenEl.data('token'),
+        url: baseUrl + '/admin/' + $this.data('itemAction') + itemId + '/token/' + $tokenEl.data('token') + '/property/' + property,
         type: 'POST',
         contentType: 'application/json',
         dataType: 'json',
@@ -434,26 +360,38 @@
         async: true,
         error: function() {
           buttonLabel.attr('class', 'label label-default');
-          buttonLabel.html(' ' + jsTranslations['votes_group_label_unknown']);
+          buttonLabel.html(' ' + jsTranslations['entity_toggle_flag_label_unknown']);
           buttonIcon.attr('class', 'glyphicon glyphicon-question-sign');
           buttonLabel.prepend(buttonIcon);
-          thisButton.attr('style', '');
+          $this.css('opacity', 1);
         },
         beforeSend: function() {
           $tokenEl.data('token', '');
-          $allButtons.attr('style', 'opacity:0.7');
+          $allButtons.css('opacity', 0.7);
           buttonLabel.attr('class', 'label label-info');
-          buttonLabel.html(' ' + jsTranslations['votes_group_label_loading']);
+          buttonLabel.html(' ' + jsTranslations['entity_toggle_flag_label_loading']);
           buttonIcon.attr('class', 'glyphicon glyphicon-refresh');
           buttonLabel.prepend(buttonIcon);
         },
         success: function(response) {
-          buttonIcon.attr('class', 'glyphicon glyphicon-' + response.iconClass);
-          buttonLabel.attr('class', 'label label-' + response.labelClass);
-          buttonLabel.html(' ' + response.label);
+          var newValue;
+          buttonIcon.attr('class', 'glyphicon glyphicon-' + response.data.button.iconClass);
+          buttonLabel.attr('class', 'label label-' + response.data.button.labelClass);
+          buttonLabel.html(' ' + response.data.button.label);
           buttonLabel.prepend(buttonIcon);
           $tokenEl.data('token', response.token);
-          $allButtons.attr('style', '');
+          $allButtons.css('opacity', 1);
+          newValue = response.data.value;
+          if ($container.data(property)) {
+            var map = $container.data(property + 'Map');
+            if (map) {
+              $container.data(property, map[newValue]);
+
+              return;
+            }
+
+            $container.data(property, newValue);
+          }
         }
       });
     });

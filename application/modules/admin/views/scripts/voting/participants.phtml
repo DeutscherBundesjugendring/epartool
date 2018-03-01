@@ -75,15 +75,16 @@
                                             <td>
                                                 <span
                                                     role="button"
-                                                    class="js-votes-group-change-member"
-                                                    data-kid="<?=$this->consultation['kid'];?>"
-                                                    data-uid="<?=$group['uid'];?>"
-                                                    data-sub-uid="<?=$group['sub_uid'];?>"
+                                                    class="js-entity-toggle-flag"
+                                                    data-item-id='{"kid": <?=$this->consultation['kid'];?>, "uid": <?=$group['uid'];?>, "subuid": "<?=$group['sub_uid'];?>"}'
+                                                    data-item-action="voting/change-member"
+                                                    data-property="member"
+                                                    data-token-element="#votes-groups-table"
                                                 >
                                                     <?php if ($group['is_member'] === null): ?>
-                                                    <span class="label label-warning">
+                                                        <span class="label label-warning">
                                                             <span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span>
-                                                        <?=$this->translate('Unconfirmed');?>
+                                                            <?=$this->translate('Unconfirmed');?>
                                                         </span>
                                                     <?php elseif ($group['is_member']): ?>
                                                         <span class="label label-success">

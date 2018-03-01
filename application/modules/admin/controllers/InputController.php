@@ -105,67 +105,56 @@ class Admin_InputController extends Zend_Controller_Action
             $this->view->inputs = $inputModel->getComplete($wheres);
         }
 
-        $adminActionCsrfSess = new Zend_Session_Namespace('adminActionCsrf');
-        $adminActionCsrfSess->token = md5(uniqid());
-
         $this->view->sortForm = $form;
         $this->view->question = $question;
         $this->view->form = new Admin_Form_ListControl();
         $this->view->tags = (new Model_Tags())->getAll()->toArray();
         $this->view->inputsWithDiscussion = $inputModel->getInputsWithDiscussionIds(['qi=?' => $qid]);
-        $this->view->csrfToken = $adminActionCsrfSess->token;
+        $this->view->csrfToken = (new Service_Token())->get();
         $this->view->jsTranslations = $this->getJsTranslations();
     }
 
     public function changeStatusAction()
     {
+        if (!$this->getRequest()->isXmlHttpRequest() || !$this->getRequest()->isPost()) {
+            $response = $this->getResponse();
+            $response->setHttpResponseCode(400);
+            $response->sendResponse();
+        }
+
         $token = $this->_request->getParam('token', null);
-        $tid = $this->_request->getParam('tid', null);
-
-        $properties = ['voting' => 'is_votable', 'blocking' => 'is_confirmed'];
+        $contributionId = $this->_request->getParam('tid', null);
         $property = $this->_request->getParam('property', null);
+        $tokenService = new Service_Token();
 
-        if ((new Zend_Session_Namespace('adminActionCsrf'))->token !== $token
-            || !$tid || !isset($properties[$property])) {
+        if (!$tokenService->verify($token) || !$contributionId ) {
             $response = $this->getResponse();
             $response->setHttpResponseCode(403);
             $response->sendResponse();
         }
 
-        $nextStatus = [
-            'blocking' => ['1' => null, '0'=> '1', null => '0'],
-            'voting' => ['1' => '0', '0' => null, null => '1'],
-        ];
-        $button = [
-            'blocking' => [
-                '0' => ['label' => 'Blocked', 'iconClass' => 'remove', 'labelClass' => 'danger'],
-                '1' => ['label' => 'Confirmed', 'iconClass' => 'ok', 'labelClass' => 'success'],
-                null => ['label' => 'Unknown', 'iconClass' => 'question-sign', 'labelClass' => 'default'],
-                ],
-            'voting' => [
-                '1' => ['label' => 'Yes', 'iconClass' => 'ok', 'labelClass' => 'success'],
-                '0' => ['label' => 'No', 'iconClass' => 'remove', 'labelClass' => 'danger'],
-                null => ['label' => 'Unknown', 'iconClass' => 'question-sign', 'labelClass' => 'default'],
-                ],
-        ];
-        $contributionModel = new Model_Inputs();
-        $contribution = $contributionModel->find($tid)->current();
-        $contributionModel->update(
-            [$properties[$property] => $nextStatus[$property][$contribution[$properties[$property]]]],
-            ['tid = ?' => $tid]
-        );
+        $result = null;
+        try {
+            if ($property === 'blocking') {
+                $result = (new Service_PropertyAjaxUpdate(Zend_Registry::get('Zend_Translate')))
+                    ->toggleContributionIsConfirmed($contributionId);
+            } elseif ($property === 'voting') {
+                $result = (new Service_PropertyAjaxUpdate(Zend_Registry::get('Zend_Translate')))
+                    ->toggleContributionIsVotable($contributionId);
+            } else {
+                throw new Service_Exception_PropertyAjaxUpdateException('Invalid property name');
+            }
 
-        $adminActionCsrfSess = new Zend_Session_Namespace('adminActionCsrf');
-        $adminActionCsrfSess->token = md5(uniqid());
-        $this->_helper->json([
-            'iconClass' => $button[$property][$nextStatus[$property][$contribution[$properties[$property]]]]['iconClass'],
-            'labelClass' => $button[$property][$nextStatus[$property][$contribution[$properties[$property]]]]['labelClass'],
-            'label' => Zend_Registry::get('Zend_Translate')->translate(
-                $button[$property][$nextStatus[$property][$contribution[$properties[$property]]]]['label']
-            ),
-            'status' => $nextStatus[$property][$contribution[$properties[$property]]],
-            'token' => $adminActionCsrfSess->token,
-        ]);
+            $this->_helper->json([
+                'data' => $result,
+                'token' => $tokenService->get(),
+            ]);
+        } catch (Service_Exception_PropertyAjaxUpdateException $e) {
+            $this->getResponse()->setHttpResponseCode(400);
+            $this->_helper->json([
+                'error' => 'Cannot update contribution',
+            ]);
+        }
     }
 
     /**
@@ -529,8 +518,8 @@ class Admin_InputController extends Zend_Controller_Action
     private function getJsTranslations()
     {
         return [
-            'contribution_label_unknown' => $this->view->translate('Unknown'),
-            'contribution_label_loading' => $this->view->translate('Loading…'),
+            'entity_toggle_flag_label_unknown' => $this->view->translate('Unknown'),
+            'entity_toggle_flag_label_loading' => $this->view->translate('Loading…'),
             'point_is_not_in_polygon' => $this->view->translate('Location cannot be out of marked geo fence.'),
         ];
     }

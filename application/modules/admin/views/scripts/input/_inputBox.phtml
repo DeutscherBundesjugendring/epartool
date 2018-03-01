@@ -1,6 +1,8 @@
 <tr
-    data-admin-confirmation="<?=$this->escape($this->adminConfirmationFlags[$this->input['is_confirmed']]);?>"
+    data-blocking-map='{"1": "n", "0": "y", "null": "u"}'
+    data-blocking="<?=$this->escape($this->adminConfirmationFlags[$this->input['is_confirmed']]);?>"
     data-user-confirmation="<?=$this->escape($this->userConfirmationFlags[$this->input['is_confirmed_by_user']]);?>"
+    data-voting-map='{"1": "y", "0": "n", "null": "u"}'
     data-voting="<?=$this->escape($this->votableFlags[$this->input['is_votable']]);?>"
     data-tags='<?=json_encode(array_map(function($el) {return $el['tg_nr'];}, $this->input['tags']));?>'
 >
@@ -68,10 +70,11 @@
         <p>
             <?=$this->translate('Admin Confirmation');?><br />
             <span
-                class="js-contribution-change-status"
-                data-kid="<?=$this->kid;?>"
-                data-tid="<?=$this->input['tid'];?>"
+                class="js-entity-toggle-flag"
+                data-item-id='{"kid": <?=$this->kid;?>, "tid": <?=$this->input['tid'];?>}'
+                data-item-action="input/change-status"
                 data-property="blocking"
+                data-token-element="#contribution-table"
             >
                 <?php if ($this->input['is_confirmed'] === null): ?>
                     <span class="label label-default">
@@ -113,10 +116,11 @@
         <p>
             <?=$this->translate('Voting');?><br />
             <span
-                class="js-contribution-change-status"
-                data-kid="<?=$this->kid;?>"
-                data-tid="<?=$this->input['tid'];?>"
+                class="js-entity-toggle-flag"
+                data-item-id='{"kid": <?=$this->kid;?>, "tid": <?=$this->input['tid'];?>}'
+                data-item-action="input/change-status"
                 data-property="voting"
+                data-token-element="#contribution-table"
             >
                 <?php if ($this->input['is_votable'] === null): ?>
                     <span class="label label-default">
