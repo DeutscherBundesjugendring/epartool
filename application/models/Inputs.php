@@ -116,11 +116,15 @@ class Model_Inputs extends Dbjr_Db_Table_Abstract
         $modelInputsTags = new Model_InputsTags();
         $modelInputsTags->deleteByInputsId($id);
         if (isset($data['tags']) && !empty($data['tags'])) {
-            $inserted = $modelInputsTags->insertByInputsId($id, $data['tags']);
+            $modelInputsTags->insertByInputsId($id, $data['tags']);
         }
 
         $projectSettings = (new Model_Projects())->find(Zend_Registry::get('systemconfig')->project)->current();
-        $question = (new Model_Questions())->find($data['qi'])->current();
+        $row = $this->find($id)->current();
+        if (!$row) {
+            return 0;
+        }
+        $question = (new Model_Questions())->find($row['qi'])->current();
         if (!$question) {
             return 0;
         }
@@ -146,7 +150,6 @@ class Model_Inputs extends Dbjr_Db_Table_Abstract
             $data['longitude'] = null;
         }
 
-        $row = $this->find($id)->current();
         unset($data['tid']);
         $row->setFromArray($data);
 

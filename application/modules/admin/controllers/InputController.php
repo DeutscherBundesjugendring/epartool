@@ -424,12 +424,12 @@ class Admin_InputController extends Zend_Controller_Action
                         $this->_flashMessenger->addMessage($msg, 'success');
                         break;
                     case 'block':
-                        $nr = $inputModel->editBulk($data['inp_list'], array('is_confirmed' => false));
+                        $nr = $inputModel->editBulk($data['inp_list'], ['is_confirmed' => false]);
                         $msg = sprintf($this->view->translate('%d contributions have been blocked.'), $nr);
                         $this->_flashMessenger->addMessage($msg, 'success');
                         break;
                     case 'publish':
-                        $nr = $inputModel->editBulk($data['inp_list'], array('is_confirmed' => true));
+                        $nr = $inputModel->editBulk($data['inp_list'], ['is_confirmed' => true]);
                         $msg = sprintf($this->view->translate('%d contributions have been unblocked.'), $nr);
                         $this->_flashMessenger->addMessage($msg, 'success');
                         break;
