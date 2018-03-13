@@ -496,14 +496,16 @@ class InputController extends Zend_Controller_Action
                 throw $e;
             }
 
-            if ($successShown && !$errorShown && isset($post['next_question'])) {
+            if (!$errorShown && isset($post['next_question'])) {
                 $nextQuestion = (new Model_Questions())->getNext($qid);
                 $this->redirect('/input/show/kid/' . $kid . ($nextQuestion ? '/qid/' . $nextQuestion['qi'] : ''));
-            } elseif ($successShown && !$errorShown && isset($post['finished'])) {
-                if ($this->consultation['anonymous_contribution']) {
-                    $this->redirect('/input/finished/kid/' . $kid);
-                } else {
-                    $this->redirect('/user/register/kid/' . $kid);
+            } elseif (!$errorShown && isset($post['finished'])) {
+                if ($inputModel->getByConfirmKey($confirmKey)->count()) {
+                    if ($this->consultation['anonymous_contribution']) {
+                        $this->redirect('/input/finished/kid/' . $kid);
+                    } else {
+                        $this->redirect('/user/register/kid/' . $kid);
+                    }
                 }
             }
             $form->populate($post);
