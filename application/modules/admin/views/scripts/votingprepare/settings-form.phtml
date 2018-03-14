@@ -32,8 +32,9 @@
     </div>
 
     <hr />
+
     <?php foreach ($this->element->buttonSets->getSubForms() as $buttonType => $buttonsSet): ?>
-        <div id="js-button-set-<?=$buttonType;?>" class="js-button-set">
+        <div class="js-button-set js-button-set-<?=$buttonType;?>">
         <?php foreach ($buttonsSet->getSubForms() as $points => $button): ?>
             <div class="row">
                 <div class="col-sm-2">
@@ -65,11 +66,54 @@
         </div>
     <?php endforeach; ?>
 
+    <hr />
 
-    <?=$this->element->btn_no_opinion?>
+    <div class="row">
+        <div class="col-sm-2">
+            <?php foreach ($this->element->buttonSets->getSubForms() as $buttonType => $buttonsSet): ?>
+                <div class="js-button-set js-button-set-<?=$buttonType;?>">
+                    <div class="offset-top">
+                        <?=$this->partial('_svg/button.svg.phtml', [
+                            'btnLabel' => sprintf(
+                                '_svg/' . Service_Voting::BUTTON_FILENAME_PATTERN,
+                                $buttonType,
+                                'no-opinion'
+                            ),
+                            'width' => '80',
+                            'height' => '76',
+                        ]);?>
+                    </div>
+                </div>
+            <?php endforeach; ?>
+        </div>
+        <div class="col-sm-10">
+            <?=$this->element->btn_no_opinion?>
+        </div>
+    </div>
 
     <div class="form-block-bordered">
-        <?=$this->element->is_btn_important?>
+        <div class="row offset-bottom">
+            <div class="col-sm-2">
+                <?php foreach ($this->element->buttonSets->getSubForms() as $buttonType => $buttonsSet): ?>
+                    <div class="js-button-set js-button-set-<?=$buttonType;?>">
+                        <div class="offset-top">
+                            <?=$this->partial('_svg/button.svg.phtml', [
+                                'btnLabel' => sprintf(
+                                    '_svg/' . Service_Voting::BUTTON_FILENAME_PATTERN,
+                                    $buttonType,
+                                    'superbutton'
+                                ),
+                                'width' => '80',
+                                'height' => '76',
+                            ]);?>
+                        </div>
+                    </div>
+                <?php endforeach; ?>
+            </div>
+            <div class="col-sm-10">
+                <?=$this->element->is_btn_important?>
+            </div>
+        </div>
         <div id="js-btn-important-inputs">
             <?=$this->element->btn_important_label?>
             <?=$this->element->btn_important_max?>

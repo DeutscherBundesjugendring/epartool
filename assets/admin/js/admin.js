@@ -46,7 +46,6 @@
     initMediaIndexFileLazyLoad();
     bindVotingButtonSetsSettings();
     toggleEntityFlag();
-    bindPreviewVotingButtons();
     bindAutoVotingInfo();
     bindGeoFenceForContributionLocation();
     $('[data-toggle="tooltip"]').tooltip();
@@ -529,7 +528,7 @@
     $jsButtonSet.hide();
     $buttonSelector.on('click', function () {
       $jsButtonSet.hide();
-      var $buttonSet = $('#js-button-set-' + $(this).val());
+      var $buttonSet = $('.js-button-set-' + $(this).val());
       if ($buttonSet) {
         $buttonSet.show();
       }
@@ -575,7 +574,7 @@
       $('#js-btn-important-inputs input').prop('disabled', true)
     }
 
-    var $buttonSet = $('#js-button-set-' + $buttonSelector.filter(':checked').val());
+    var $buttonSet = $('.js-button-set-' + $buttonSelector.filter(':checked').val());
     if ($buttonSet) {
       $buttonSet.show();
     }
