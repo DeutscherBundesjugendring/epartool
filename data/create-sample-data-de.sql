@@ -22,7 +22,7 @@ VALUES
         'Unsere erste Beteiligungsrunde',
         'Hier kommt der Kurztitel hin!',
         'Denkt euch einen Titel aus!',
-        'consultation_thumb_micro_scholl.jpg',
+        'consultations/1/consultation_thumb_micro_scholl.jpg',
         'Foto: CC-BY-SA by Michael Scholl, info@dbjr.de',
         '<p><em>In diese Box schreibt ihr eine kurze Beschreibung eurer Beteiligungsrunde. Z.B. die Hauptfrage oder einige Worte zum Thema. Achtet darauf euch auf einige wenige Sätze zu beschränken, damit nichts abgeschnitten wird :-) <em>',
         'de',
