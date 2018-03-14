@@ -108,7 +108,13 @@ if (!empty($_POST)) {
             );
 
             $config = new Config(new Zend_Config_Writer_Ini(), $configPath);
+            $baseUrl = preg_replace(
+                sprintf('#^%s#', $_SERVER['DOCUMENT_ROOT']),
+                '',
+                realpath(dirname(__FILE__) . '/../')
+            );
             $config->writeConfigLocalIni(
+                $baseUrl === '' ? '/' : $baseUrl,
                 [
                     'host' => $_POST['dbHost'],
                     'name' => $_POST['dbName'],

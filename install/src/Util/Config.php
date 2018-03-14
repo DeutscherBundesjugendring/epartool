@@ -21,6 +21,7 @@ class Config
     }
 
     /**
+     * @param string $subDir
      * @param array $db
      * @param array $email
      * @param string $projectCode
@@ -33,6 +34,7 @@ class Config
      * @param string $vimeoAccessToken
      */
     public function writeConfigLocalIni(
+        $subDir,
         array $db,
         array $email,
         $projectCode,
@@ -92,6 +94,8 @@ class Config
         $confLocalIni->production->webservice->facebook->appSecret = $facebookSecret;
         $confLocalIni->production->webservice->vimeo = [];
         $confLocalIni->production->webservice->vimeo->accessToken = $vimeoAccessToken;
+        $confLocalIni->production->resources->frontController = [];
+        $confLocalIni->production->resources->frontController->baseUrl = $subDir;
         $this->writer->write($this->configPath . '/config.local.ini', $confLocalIni);
     }
 }
