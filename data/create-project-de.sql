@@ -997,21 +997,10 @@ VALUES
 
 
 
-INSERT INTO `footer` (`proj`) VALUES (@project_code);
-INSERT INTO `footer` (`proj`) VALUES (@project_code);
-INSERT INTO `footer` (`proj`) VALUES (@project_code);
-INSERT INTO `footer` (`proj`) VALUES (@project_code);
-
-INSERT INTO `parameter` (`name`, `proj`) VALUES ('site.title', @project_code);
-INSERT INTO `parameter` (`name`, `proj`) VALUES ('site.description', @project_code);
-INSERT INTO `parameter` (`name`, `proj`) VALUES ('site.motto', @project_code);
-INSERT INTO `parameter` (`name`, `proj`) VALUES ('contact.name', @project_code);
-INSERT INTO `parameter` (`name`, `proj`) VALUES ('contact.email', @project_code);
-INSERT INTO `parameter` (`name`, `proj`) VALUES ('contact.www', @project_code);
-INSERT INTO `parameter` (`name`, `proj`) VALUES ('contact.street', @project_code);
-INSERT INTO `parameter` (`name`, `proj`) VALUES ('contact.town', @project_code);
-INSERT INTO `parameter` (`name`, `proj`) VALUES ('contact.zip', @project_code);
-
+INSERT INTO `footer` (`proj`, `text`) VALUES (@project_code, '');
+INSERT INTO `footer` (`proj`, `text`) VALUES (@project_code, '');
+INSERT INTO `footer` (`proj`, `text`) VALUES (@project_code, '<p>Das Tool für ePartizipation</p>\r\n\r\n<p><a href=\"https://tooldoku.dbjr.de\" target=\"_blank\" title=\"Link zur ePartool-Entwicklungswebsite\"><img alt=\"ePartool-Logo\" height=\"35\" src=\"{{BASE_URL}}/www/media/folders/misc/epartool_logo.png\" width=\"140\" /></a></p>\r\n');
+INSERT INTO `footer` (`proj`, `text`) VALUES (@project_code, '<p><strong>Name</strong></p>\r\n\r\n<p>Adresse<br />\r\nPLZ, Ort</p>\r\n\r\n<p><a href=\"https://www.dbjr.de/\">www.dbjr.de (ersetzen)</a></p>\r\n');
 
 INSERT INTO `articles`
     (`kid`, `proj`, `desc`, `is_showed`, `ref_nm`, `artcl`, `sidebar`, `parent_id`)

@@ -83,6 +83,7 @@ class RoboFile extends Tasks
         $this->taskExec('cp install/images/consultation_thumb_micro_scholl.jpg www/media/consultations/1')->run();
         $this->taskExec('mkdir www/media/folders/misc || exit 0')->run();
         $this->taskExec('cp www/images/logo@2x.png www/media/folders/misc/logo.png')->run();
+        $this->taskExec('cp install/images/epartool_logo.png www/media/folders/misc')->run();
         $this->taskExec('zip')
             ->args('--recurse-paths')
             ->args('--quiet')
