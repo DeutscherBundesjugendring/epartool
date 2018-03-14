@@ -375,12 +375,12 @@ class Admin_MediaController extends Zend_Controller_Action
             if ((new Service_Media())->delete($filename, $this->_kid, $this->_folder)) {
                 $this
                     ->_flashMessenger
-                    ->addMessage(sprintf('The file %s has been deleted.', $filename), 'success');
+                    ->addMessage(sprintf($this->view->translate('The file %s has been deleted.'), $filename), 'success');
             } else {
-                $this->_flashMessenger->addMessage('File could not be deleted.', 'error');
+                $this->_flashMessenger->addMessage($this->view->translate('File could not be deleted.'), 'error');
             }
         } else {
-            $this->_flashMessenger->addMessage('File could not be deleted.', 'error');
+            $this->_flashMessenger->addMessage($this->view->translate('File could not be deleted.'), 'error');
         }
 
         $this->redirect(

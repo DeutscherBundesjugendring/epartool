@@ -80,7 +80,10 @@ class Dbjr_Form_Element_Button extends Zend_Form_Element_Button
             $this->setAttrib('data-toggle', 'confirm');
         }
         if ($this->_confirmMessage) {
-            $this->setAttrib('data-confirm-message', $this->_confirmMessage);
+            $translator = Zend_Registry::get(('Zend_Translate'));
+            $this->setAttrib('data-confirm-message', $translator->translate($this->_confirmMessage));
+            $this->setAttrib('data-confirm-yes', $translator->translate('Yes'));
+            $this->setAttrib('data-confirm-no', $translator->translate('No'));
         }
 
         $origCssClass = $this->getAttrib('class') ? ' ' . $this->getAttrib('class') : '';

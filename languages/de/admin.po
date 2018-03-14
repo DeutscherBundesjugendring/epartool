@@ -1,15 +1,15 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Dbjr Tool\n"
-"POT-Creation-Date: 2018-03-08 14:16+0100\n"
-"PO-Revision-Date: 2018-03-08 14:19+0100\n"
+"POT-Creation-Date: 2018-03-14 09:32+0100\n"
+"PO-Revision-Date: 2018-03-14 09:34+0100\n"
 "Last-Translator: Martin Bohal <mb@mbohal.cz>\n"
 "Language-Team: epartool@dbjr.de\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.0.6\n"
+"X-Generator: Poedit 1.8.7.1\n"
 "X-Poedit-KeywordsList: _;translate;setLabel;setLegend;addMessage;"
 "setConfirmMessage;setDescription\n"
 "X-Poedit-Basepath: ../..\n"
@@ -612,6 +612,11 @@ msgstr "Die Datei konnte nicht hochgeladen werden."
 #: application/modules/admin/controllers/MediaController.php:354
 msgid "File already exists."
 msgstr "Datei ist schon vorhanden."
+
+#: application/modules/admin/controllers/MediaController.php:378
+#, php-format
+msgid "The file %s has been deleted."
+msgstr "Die Datei %s wurde gelöscht."
 
 #: application/modules/admin/controllers/MediaController.php:380
 #: application/modules/admin/controllers/MediaController.php:383
@@ -1380,6 +1385,7 @@ msgstr "Voting aktivieren"
 
 #: application/modules/admin/forms/Input.php:137
 #: application/modules/admin/forms/Input.php:177
+#: library/Dbjr/Form/Element/Button.php:86
 #: application/modules/admin/views/scripts/article/index.phtml:88
 #: application/modules/admin/views/scripts/article/index.phtml:128
 #: application/modules/admin/views/scripts/consultation/index.phtml:44
@@ -1434,6 +1440,7 @@ msgstr "Nein"
 
 #: application/modules/admin/forms/Input.php:138
 #: application/modules/admin/forms/Input.php:176
+#: library/Dbjr/Form/Element/Button.php:85
 #: application/modules/admin/views/scripts/article/index.phtml:87
 #: application/modules/admin/views/scripts/article/index.phtml:127
 #: application/modules/admin/views/scripts/consultation/index.phtml:43
