@@ -253,7 +253,7 @@ class Admin_ArticleController extends Zend_Controller_Action
 
                 $this->view->prevView = $prevView;
                 $this->view->articlePreviewForm = $articlePreviewForm;
-                $this->view->article = $data;
+                $this->view->article = array_merge((new Model_Articles())->getById($data['art_id']), $data);
                 $this->render('preview');
             } elseif (isset($data['backFromPreview'])) {
                 if ($data['isNew'] == 1) {
