@@ -110,6 +110,7 @@ class RoboFile extends Tasks
             ->option('--include', 'www/.htaccess')
             ->option('--include', 'www/media/consultations/1/consultation_thumb_micro_scholl.jpg')
             ->option('--include', 'www/media/folders/misc/logo.png')
+            ->option('--include', 'www/media/folders/misc/epartool_logo.png')
             ->option('--exclude', 'application/configs/config.local.ini')
             ->option('--exclude', 'runtime/cache/*')
             ->option('--exclude', 'runtime/sessions/*')
