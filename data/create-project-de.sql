@@ -3,13 +3,18 @@ SET @project_code = 'xx';
 SET @project_name = 'ePartool (default)';
 SET @locale = 'de_DE';
 
-INSERT INTO `proj` (`proj`, `title`, `vot_q`, `locale`, `license`) VALUES
+INSERT INTO `proj` (`proj`, `title`, `vot_q`, `locale`, `license`, `motto`, `description`, `contact_www`, `contact_name`, `contact_email`) VALUES
     (
         @project_code,
         @project_name,
         'Wie wichtig findest Du diesen Beitrag für die weitere politische Diskussion zum Thema?',
         'de_DE',
-        (SELECT `number` FROM `license` WHERE `number` = 1 AND `locale` = @locale)
+        (SELECT `number` FROM `license` WHERE `number` = 1 AND `locale` = @locale),
+        'Hier könnt ihr eine kurze Erklärung über diese Beteiligungsplattform eintragen. Die Beschreibung darf auch mehrzeilig sein.',
+        'Beteiligung mit dem ePartool',
+        '',
+        '',
+        ''
     );
 
 INSERT INTO `email_template` (`name`, `type_id`, `project_code`, `subject`, `body_html`, `body_text`)
@@ -607,10 +612,6 @@ VALUES
     ),
     (
         (SELECT `id` FROM `email_template` WHERE `name`='voting_confirmation_single' AND `project_code` = @project_code),
-        (SELECT `id` FROM `email_placeholder` WHERE `name`='rejection_url')
-    ),
-    (
-        (SELECT `id` FROM `email_template` WHERE `name`='voting_confirmation_single' AND `project_code` = @project_code),
         (SELECT `id` FROM `email_placeholder` WHERE `name`='consultation_title_short')
     ),
     (
@@ -1077,11 +1078,6 @@ INSERT INTO `help_text` (`name`, `body`, `project_code`, `module`) VALUES
 ('help-text-admin-consultation-follow-up-snippets', 'Sample follow-up-snippets text.', @project_code, 'admin'),
 ('help-text-admin-question', 'Sample question text.', @project_code, 'admin'),
 ('help-text-admin-contribution', 'Sample contribution text.', @project_code, 'admin');
-
--- Migration 2016-09-26_14-50_DBJR-963.sql
-DELETE FROM email_template_has_email_placeholder
-WHERE email_template_id = (SELECT id FROM email_template WHERE name = 'voting_confirmation_single')
-AND email_placeholder_id = (SELECT id FROM email_placeholder WHERE name = 'rejection_url');
 
 -- Migration 20161123214112_dbjr1020.php
 INSERT INTO `help_text` (`name`, `body`, `project_code`, `module`) VALUES
