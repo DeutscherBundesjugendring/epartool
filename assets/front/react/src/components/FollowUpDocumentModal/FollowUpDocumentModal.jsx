@@ -76,8 +76,8 @@ const FollowUpDocumentModal = (props) => {
                   </h2>
                   <p className="small">
                     {props.dateMonthYearOnly
-                      ? moment(props.date).format('MMMM YYYY')
-                      : moment(props.date).format('D MMMM YYYY')
+                      ? moment(props.date).format('M. YYYY')
+                      : moment(props.date).format('D. M. YYYY')
                     }
                     <span className="offset-left offset-right">|</span>
                     {props.author}
