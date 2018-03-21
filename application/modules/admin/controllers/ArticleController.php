@@ -237,6 +237,7 @@ class Admin_ArticleController extends Zend_Controller_Action
         if ($this->getRequest()->isPost()) {
             $data = $this->getRequest()->getPost();
             if (isset($data['preview'])) {
+                $this->getResponse()->setHeader('X-XSS-Protection', 0);
                 $articlePreviewForm = new Admin_Form_ArticlePreview();
                 $data['proj'] = serialize(isset($data['proj']) ? $data['proj'] : []);
                 $articlePreviewForm->populate($data);
