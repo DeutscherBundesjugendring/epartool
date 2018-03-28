@@ -97,3 +97,16 @@ Installation guide for specific operating system can be found on following websi
 
 * `./docker-compose-sync.sh start` to start server
 * `./docker-compose-sync.sh stop` to stop server
+
+### GEO functionality
+This functionality requires some third party components, which are included.
+
+Interactive maps are provided by javascript library [Leaflet](http://leafletjs.com). Map tiles source url is set in application config.ini in the section osm.data_server_url. This is the endpoint, where the JS library retrieves map tiles from.
+
+Static maps images with marker for previews are rendered with built-in PHP service, which uses the same endpoint for retrieving and caching the map tiles.
+ 
+There is no need to have any account or another kind of authorization to access map tiles on free servers. There are also no strict quotas for usage. For better insurance of availability it is possible to host OSM data on the own server or use some commercial solution.
+
+If the application runs over secured connection (https), the geolocation service provided by a web browser API is used in JS library to locate users. In case the application runs over http, this functionality will be probably unavailable.
+
+Open Street Map (OSM) are licensed by [Open Data Commons Open Database License (ODbL)](https://opendatacommons.org/licenses/odbl) and by [Creative Commons 2.0 (CC-BY-SA)](https://creativecommons.org/licenses/by-sa/2.0)
