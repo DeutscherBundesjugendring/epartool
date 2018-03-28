@@ -13,6 +13,55 @@ class Model_Mail_Placeholder extends Dbjr_Db_Table_Abstract
     protected $_primary = 'id';
 
     /**
+     * @param string $name
+     * @throws \Exception
+     * @throws \Zend_Exception
+     * @return mixed
+     */
+    public static function getPlaceholderInfo($name)
+    {
+        $translator = Zend_Registry::get('Zend_Translate');
+        $descriptions = [
+            'voter_email' => $translator->translate('The email of the original voter.'),
+            'to_name' => $translator->translate('The name of the recipient. If the name is not known, teh value of {{to_email}} is used.'),
+            'to_email' => $translator->translate('The email address of the recipient.'),
+            'password_reset_url' => $translator->translate('The url where user can reset their password.'),
+            'confirmation_url' => $translator->translate('The confirmation link for the user to visit.'),
+            'rejection_url' => $translator->translate('The rejection link for the user to visit.'),
+            'consultation_title_short' => $translator->translate('The short version of the consultation title.'),
+            'consultation_title_long' => $translator->translate('The long version of the consultation title.'),
+            'input_phase_end' => $translator->translate('The end of the input phase.'),
+            'input_phase_start' => $translator->translate('The start of the input phase.'),
+            'voting_phase_end' => $translator->translate('The end of the voting phase.'),
+            'voting_phase_start' => $translator->translate('The start of the voting phase.'),
+            'inputs_html' => $translator->translate('The users inputs in html formatting.'),
+            'inputs_text' => $translator->translate('The users inputs in plain text formatting.'),
+            'voting_weight' => $translator->translate('The voting weight of the relevant user.'),
+            'voting_url' => $translator->translate('the url where voting takes place.'),
+            'group_category' => $translator->translate('The type of the relevant group'),
+            'from_name' => $translator->translate('The name of the sender.'),
+            'from_address' => $translator->translate('The email address of the sender.'),
+            'contact_name' => $translator->translate('The name from the contact info.'),
+            'contact_www' => $translator->translate('The www from the contact info.'),
+            'contact_email' => $translator->translate('The email address from the contact info.'),
+            'send_date' => $translator->translate('The date the email was send'),
+            'website_url' => $translator->translate('Link to the relevant page on the website.'),
+            'question_text' => $translator->translate('The number and the text of the relevant question.'),
+            'unsubscribe_url' => $translator->translate('Link to remove user from the relevant subscription or mailing list.'),
+            'contribution_text' => $translator->translate('The text of the contribution.'),
+            'input_thes' => $translator->translate('The theses part of the input.'),
+            'input_expl' => $translator->translate('The explanation part of the input.'),
+            'video_url' => $translator->translate('Link to the video contribution.'),
+        ];
+
+        if (!isset($descriptions[$name])) {
+            throw new \Exception(sprintf('Description of placeholder %s is not defined.', $name));
+        }
+
+        return $descriptions[$name];
+    }
+
+    /**
      * @param string $templateName
      * @return \Zend_Db_Table_Rowset_Abstract
      * @throws \Zend_Db_Table_Exception

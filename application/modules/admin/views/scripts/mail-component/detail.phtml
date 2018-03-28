@@ -35,7 +35,7 @@
                         <?php foreach ($this->placeholders as $placeholder): ?>
                             <tr>
                                 <th class="col-sm-3"><?php echo Dbjr_Mail::TOKEN_OPEN . $placeholder->name . Dbjr_Mail::TOKEN_CLOSE?></th>
-                                <td><?=$this->escape($placeholder->description);?></td>
+                                <td><?=$this->emailPlaceholderDescription($placeholder->name);?></td>
                             </tr>
                         <?php endforeach; ?>
                     </table>
