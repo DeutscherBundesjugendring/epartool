@@ -5,3 +5,20 @@
 
     </div>
 </div><!-- .row -->
+
+<script type="text/javascript">
+    function buf2hex(buffer) {
+        return Array.prototype.map.call(new Uint8Array(buffer), x => ('00' + x.toString(16)).slice(-2)).join('');
+    }
+
+    document.addEventListener("DOMContentLoaded", function() {
+        document.getElementById('js-generate-cron-key-button').addEventListener("click", function() {
+            var cryptoObj = window.crypto || window.msCrypto;
+            var randomValuesArray = new Int32Array(10);
+            cryptoObj.getRandomValues(randomValuesArray);
+            cryptoObj.subtle.digest('SHA-256', randomValuesArray.buffer).then(function (buffer) {
+                document.getElementById('js-generate-cron-key-field').value = buf2hex(buffer).substring(32);
+            })
+        });
+    });
+</script>

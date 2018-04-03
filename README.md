@@ -63,7 +63,7 @@ Due to security reasons the `create-admin.sql` script creates an admin with no p
 ### After Install Tasks
 Regardless of the installation method, the following tasks must be done:
 
-* Configure a Cron job to send a GET request to the page `/cron/execute/key/<secret_cron_key>`. `<secret_cron_key>` is defined in `application/config/config.local.ini`. This is not needed for development environments as the Cron jobs can be triggered by visiting the path manually. Setting the Cron job to trigger hourly should be enough.
+* Configure a Cron job to send a GET request to the page `/cron/execute/key/<secret_cron_key>`. `<secret_cron_key>` is defined in `application/config/config.local.ini` and is used to prevent unauthorized users from triggering the task. This is not needed for development environments as the Cron jobs can be triggered by visiting the path manually. Setting the Cron job to trigger hourly should be enough.
 * In case it is not possible to setup Cron job on your server, the fallback Cron system will be activated by leaving the `cron.key` setting empty. Fallback Cron is disabled in development.
 * Copy the file `VERSION-example.txt` to `VERSION.txt` and optionally update the new file. The content is used to inform the users of which version of the tool they are using.
 

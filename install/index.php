@@ -137,7 +137,7 @@ if (!empty($_POST)) {
                 ],
                 'xx',
                 $_POST['cronKey'],
-                $_POST['securityToken'],
+                mb_substr(hash('sha256', random_bytes(20)), 32),
                 $_POST['googleId'],
                 $_POST['googleSecret'],
                 $_POST['facebookId'],

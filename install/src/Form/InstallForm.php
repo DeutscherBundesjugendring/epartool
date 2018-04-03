@@ -64,22 +64,22 @@ class InstallForm extends Dbjr_Form_Web
         $cronKey = $this->createElement('text', 'cronKey');
         $cronKey
             ->setLabel('Cron key')
-            ->setDescription('Random string used in the cronjob url. Leave empty to use the `poor man\'s cron` (tasks get triggered with certain probability by page loads).');
+            ->setDescription('Random string used in the cronjob url is used to prevent unauthorized users from triggering the task. Leave empty to use the `poor man\'s cron` (tasks get triggered with certain probability by page loads). Click to Generate button below to create cryptographically secure random string or insert your own.')
+            ->setAttrib('id', 'js-generate-cron-key-field');
         $this->addElement($cronKey);
 
-        $securityToken = $this->createElement('text', 'securityToken');
-        $securityToken
-            ->setLabel('Security token')
-            ->setDescription('Random string used for generating unique values.')
-            ->setRequired(true);
-        $this->addElement($securityToken);
+        $generateCronKey = $this->createElement('button', 'generateCronKey');
+        $generateCronKey
+            ->setLabel('Generate cron key')
+            ->setAttrib('class', 'btn')
+            ->setAttrib('id', 'js-generate-cron-key-button');
+        $this->addElement($generateCronKey);
 
         $this->addDisplayGroup(
-            ['locale', 'cronKey', 'securityToken'],
+            ['locale', 'cronKey', 'generateCronKey'],
             'toolSettings',
             ['legend' => $trans->translate('Application'), 'class' => 'offset-bottom']
         );
-
 
 
         $emailFromAddress = $this->createElement('email', 'emailFromAddress');
