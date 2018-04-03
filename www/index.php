@@ -13,7 +13,11 @@ if (!realpath($dir . '/application/configs/config.local.ini')) {
         'http%s://%s%s/install/?r=1',
         (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? 's' : '',
         $_SERVER['HTTP_HOST'],
-        preg_replace(sprintf('#^%s#', $_SERVER['DOCUMENT_ROOT']), '', realpath($dir))
+        preg_replace(
+            sprintf('#^%s#', rtrim(str_replace('.', '\.', $_SERVER['DOCUMENT_ROOT']), '/')),
+            '',
+            realpath($dir)
+        )
     );
     header('Location: ' . $url);
     die('You are being redirected to the installation wizard.'
