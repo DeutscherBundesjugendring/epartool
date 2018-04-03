@@ -23,7 +23,7 @@ class Model_Mail_Placeholder extends Dbjr_Db_Table_Abstract
         $translator = Zend_Registry::get('Zend_Translate');
         $descriptions = [
             'voter_email' => $translator->translate('The email of the original voter.'),
-            'to_name' => $translator->translate('The name of the recipient. If the name is not known, teh value of {{to_email}} is used.'),
+            'to_name' => $translator->translate('The name of the recipient. If the name is not known, the value of {{to_email}} is used.'),
             'to_email' => $translator->translate('The email address of the recipient.'),
             'password_reset_url' => $translator->translate('The url where user can reset their password.'),
             'confirmation_url' => $translator->translate('The confirmation link for the user to visit.'),
