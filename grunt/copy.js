@@ -6,6 +6,12 @@ module.exports = {
     files: [
       {
         expand: true,
+        cwd: '<%= paths.src.admin %>/fonts',
+        src: ['**/*.{woff,woff2}'],
+        dest: '<%= paths.dist %>/fonts'
+      },
+      {
+        expand: true,
         cwd: '<%= paths.src.front %>/fonts',
         src: ['**/*.{eot,svg,ttf,woff}'],
         dest: '<%= paths.dist %>/fonts'
