@@ -107,6 +107,7 @@ class RoboFile extends Tasks
             ->option('--include', 'www/vendor/*')
             ->option('--include', 'www/index.php')
             ->option('--include', 'www/robots.txt')
+            ->option('--include', 'www/runMigrations.php')
             ->option('--include', 'www/.htaccess')
             ->option('--include', 'www/media/consultations/1/consultation_thumb_micro_scholl.jpg')
             ->option('--include', 'www/media/folders/misc/logo.png')
@@ -146,7 +147,9 @@ class RoboFile extends Tasks
             ->option('--include', 'www/vendor/*')
             ->option('--include', 'www/index.php')
             ->option('--include', 'www/robots.txt')
+            ->option('--include', 'www/runMigrations.php')
             ->option('--exclude', 'application/configs/config.local.ini')
+            ->option('--exclude', 'application/configs/phinx.local.yml')
             ->option('--exclude', '*.git*')
             ->option('--exclude', '*.keep')
             ->run();

@@ -1077,12 +1077,10 @@ INSERT INTO `help_text` (`name`, `body`, `project_code`, `module`) VALUES
 ('help-text-admin-consultation-follow-up', 'Sample follow-up text.', @project_code, 'admin'),
 ('help-text-admin-consultation-follow-up-snippets', 'Sample follow-up-snippets text.', @project_code, 'admin'),
 ('help-text-admin-question', 'Sample question text.', @project_code, 'admin'),
-('help-text-admin-contribution', 'Sample contribution text.', @project_code, 'admin');
-
--- Migration 20161123214112_dbjr1020.php
-INSERT INTO `help_text` (`name`, `body`, `project_code`, `module`) VALUES
+('help-text-admin-contribution', 'Sample contribution text.', @project_code, 'admin'),
 ('help-text-admin-consultation-settings-general', 'Sample consultation settings general page text.', @project_code, 'admin'),
 ('help-text-admin-consultation-settings-participants-data', 'Sample consultation settings participants data page text.', @project_code, 'admin'),
 ('help-text-admin-consultation-settings-voting', 'Sample consultation settings voting page text.', @project_code, 'admin'),
 ('help-text-admin-consultation-settings-phases', 'Sample consultation settings phases page text.', @project_code, 'admin'),
 ('help-text-admin-consultation-settings-groups', 'Sample consultation settings groups page text.', @project_code, 'admin');
+

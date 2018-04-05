@@ -18,7 +18,7 @@ The tool is written with multi-project support. It means that one database can b
 ### Wizard
 The preferred installation method is using the bundled installation wizard.
 
-1. Obtain the installation package by download or by running the `$ robo build` command in the root folder where the `RoboFile.php` is located. 
+1. Obtain the installation package by download or create it by running the `$ robo create:install-zip` command in the root folder of the cloned repository where the `RoboFile.php` is located. 
 2. Visit site in browser. If the application is not installed, the installation wizard starts automatically.
 3. After installation is completed, remove the `install` directory.
 
@@ -35,8 +35,11 @@ The tool uses the [Robo](http://robo.li) task runner to perform the build. It is
 
 Once the application has been built, several environment-specific settings have to be configured.
 
-* Create the environment specific configuration file `application/configs/config.local.ini`.
-You can use the file `application/configs/config.local-example.ini` as a template and edit the values.
+* Create the environment specific configuration files.
+    * `application/configs/config.local.ini`
+    * `application/configs/phinx.local.yml`
+You can use files `application/configs/config.local-example.ini` and `application/configs/phinx.local-example.yml` as a template and edit the values.
+
 * Optionally set the `APPLICATION_ENV` in `index.php` to `development`.
 * Folder permissions:
     * read: `/`
@@ -70,11 +73,39 @@ Regardless of the installation method, the following tasks must be done:
 
 ## Upgrading
 
+### Wizard
+Before you start updating your project, it is recommended to shut it down and display to users the error page with HTTP status 503 (Temporarily unavailable).
+
+**Check if there is the table named `phinxlog` in your database. If not, your version is not probably compatible with update**
+
+#### Using FTP and Browser
+1. Obtain the update package by download or create it by running the `$ robo create:update-zip` command in the root folder of the cloned repository where the `RoboFile.php` is located.
+2. Backup the filesystem and the database. Download all content of your project via your favorite FTP client to a temporary directory on your local machine and make an export of your database with phpmyadmin, adminer or other favorite webtool.
+3. Update project files. Remove all files from destination directory, where the project runs except config files `application/configs/config.local-example.ini`, `application/configs/phinx.local-example.yml`, media directory in `www/media` and `.htaccess` files in the root of the project and in the `www` directory. Then copy all files from extracted update package directory (dbjr-tool-update_v#.#.#) to the prepared destination folder. Don't forget to copy hidden files with name starting with "." in the update package folder if there are any.
+4. Comment out line with die() in www/runMigrations.php script to allow run DB migrations. You can edit this script in your FTP client or locally and then upload it if your client does not provide this functionality.
+5. Run DB migrations by visiting the site /www/runMigrations.php in the browser. Be aware of result of this operation displayed in the browser. In case the execution time limit in PHP is reached and phinx migration manager could not complete all migrations, the project may stop working. Please try to execute migrations again to complete the rest of them and pay attention to what phinx migration manager returns in its output to the browser.
+6. Uncomment line with die() to prevent running DB migrations script.
+
+#### Using SSH and BASH
+1. Obtain the update package by download or create it by running the `$ robo create:update-zip` command in the root folder of the cloned repository where the `RoboFile.php` is located.
+2. Backup the filesystem and the database.
+`$ cp -R path/to/project_dir path/to/project_dir_backup`
+`$ mysqldump -h 127.0.0.1 database_name > path/to/project_dir_backup/db_dump.sql`
+3. Update project files. Remove all files from project directory. Then copy all files from extracted update package directory to the project directory. Don't forget to copy hidden files with name starting with "." in the update package folder. `$ mv tool-update/* project_dir/`
+4. Restore configuration, media and .htaccess from backup
+`$ cp path/to/project_dir_backup/application/config/phinx.local.yml path/to/project_dir/application/config/phinx.local.yml`
+`$ cp path/to/project_dir_backup/application/config/config.local.ini path/to/project_dir/application/config/config.local.ini`
+`$ cp -R path/to/project_dir_backup/www/media path/to/project_dir/www/media`
+`$ cp path/to/project_dir_backup/.htaccess path/to/project_dir/.htaccess`
+`$ cp path/to/project_dir_backup/www/.htaccess path/to/project_dir/www/.htaccess`
+5. Run DB migrations by running `$ robo phinx:migrate production`
+
+
+### No Wizard
 Upgrading the tool version consists of the following steps:
 1. Updating the project files
 2. Building the application using `$ robo build`
 3. Running `$ robo phinx:migrate production` to apply database patches
-
 
 ## Development
 
