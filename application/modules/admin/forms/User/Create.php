@@ -52,11 +52,10 @@ class Admin_Form_User_Create extends Dbjr_Form_Admin
         $block = $this->createElement('select', 'is_confirmed');
         $block
             ->setLabel('Status')
-            ->setRequired(true)
             ->setMultiOptions(
                 [
-                    '0' => $translator->translate('Blocked'),
                     '' => $translator->translate('Unconfirmed'),
+                    '0' => $translator->translate('Blocked'),
                     '1' => $translator->translate('Confirmed'),
                 ]
             )

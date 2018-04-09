@@ -63,15 +63,13 @@ class Admin_Form_User_Edit extends Dbjr_Form_Admin
         $block = $this->createElement('select', 'is_confirmed');
         $block
             ->setLabel('Status')
-            ->setRequired(true)
             ->setMultiOptions(
                 [
-                    'b' => $translator->translate('Blocked'),
-                    'u' => $translator->translate('Unconfirmed'),
-                    'c' => $translator->translate('Confirmed'),
+                    '' => $translator->translate('Unconfirmed'),
+                    '0' => $translator->translate('Blocked'),
+                    '1' => $translator->translate('Confirmed'),
                 ]
-            )
-            ->setValue('b');
+            );
         $this->addElement($block);
 
         $pass = $this->createElement('password', 'password');

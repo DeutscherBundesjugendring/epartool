@@ -28,7 +28,9 @@ class Admin_UserController extends Zend_Controller_Action
                 // check if email allready exists
                 $emailAddress =$form->getValue('email');
                 if (!$userModel->emailExists($emailAddress)) {
-                    $userRow = $userModel->createRow($form->getValues());
+                    $values = $form->getValues();
+                    $values['is_confirmed'] = ($values['is_confirmed'] === '' ? null : (int) $values['is_confirmed']);
+                    $userRow = $userModel->createRow($values);
                     $userPasswort = $form->getValue('pwd');
                     if (!empty($userPasswort)) {
                         $userRow->pwd = md5($userPasswort);
@@ -72,7 +74,7 @@ class Admin_UserController extends Zend_Controller_Action
                 } else {
                     unset($values['password']);
                 }
-                $values['is_confirmed'] = (int) $values['is_confirmed'];
+                $values['is_confirmed'] = ($values['is_confirmed'] === '' ? null : (int) $values['is_confirmed']);
                 $user->setFromArray($values);
                 $user->save();
                 $this->_flashMessenger->addMessage('Changes saved.', 'success');
