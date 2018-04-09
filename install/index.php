@@ -145,6 +145,9 @@ if (!empty($_POST)) {
                 $_POST['vimeoAccessToken']
             );
 
+            $frontController = Zend_Controller_Front::getInstance();
+            $frontController->setBaseUrl($baseUrl);
+            $frontController->getRouter()->addDefaultRoutes();
             $view->render('step-3.phtml');
         } catch (PDOException $e) {
             $form->getElement('dbHost')->addError('The specified db credentials are invalid.');
