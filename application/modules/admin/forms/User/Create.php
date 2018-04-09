@@ -18,6 +18,13 @@ class Admin_Form_User_Create extends Dbjr_Form_Admin
             ->setDescription(sprintf($translator->translate('Max %d characters'), 80));
         $this->addElement($name);
 
+        $nick = $this->createElement('text', 'nick');
+        $nick
+            ->setLabel('Nick')
+            ->setAttrib('maxlength', 255)
+            ->setDescription(sprintf($translator->translate('Max %d characters'), 255));
+        $this->addElement($nick);
+
         $email = $this->createElement('email', 'email');
         $email
             ->setLabel('Email')
