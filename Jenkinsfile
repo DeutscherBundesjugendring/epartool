@@ -26,20 +26,6 @@ def deployBranches = [
         siteUrl: 'http://dbjr.dev.visionapps.cz',
         credentials: 'deploy_lutra',
     ],
-//    master: [
-//        host: 'synergic@lutra.visionapps.cz',
-//        folder: 'mao2017_staging',
-//        dbName: 'mao2017_staging',
-//        siteUrl: 'http://mao2017.staging.visionapps.cz',
-//        credentials: 'deploy_lutra',
-//    ],
-//    production: [
-//        host: 'synergicprod@meles.visionapps.cz',
-//        folder: 'mao2017',
-//        dbName: 'mao2017',
-//        siteUrl: 'http://2017.mesicabsolventu.cz',
-//        credentials: 'deploy_meles',
-//    ],
 ]
 
 
@@ -157,25 +143,16 @@ def deploy(deployBranch, targetFolder, deployTar, deployFolder, backupFolder) {
 def createDeployTar(deployTar) {
     sh """tar \
         -zcf ${deployTar} \
-        --add-file=application \
         --exclude=application/configs/config.local.ini \
         --exclude=application/configs/phinx.local.yml \
-        --add-file=bin \
-        --add-file=data \
-        --add-file=languages \
-        --add-file=languages_zend \
-        --add-file=library \
-        --add-file=runtime \
         --exclude=runtime/logs/* \
         --exclude=runtime/cache/* \
         --exclude=runtime/sessions/* \
-        --add-file=vendor \
-        --add-file=www \
         --exclude=www/index_dev.php \
         --exclude=www/index_test.php \
         --exclude=www/image_cache/* \
         --exclude=www/media/* \
-        --add-file=RoboFile.php"""
+        application bin data languages languages_zend library runtime vendor www RoboFile.php"""
 }
 
 def notifyOfDeploy(deployBranches, currentBranch) {
