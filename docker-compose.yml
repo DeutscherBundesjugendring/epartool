@@ -6,8 +6,6 @@ adminer:
         - 127.0.0.1:81:80
 db:
     build: docker/MySql
-    ports:
-        - "127.0.0.1:3306:3306"
     environment:
         MYSQL_ROOT_PASSWORD: pass
 php:
