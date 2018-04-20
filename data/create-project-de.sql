@@ -24,7 +24,7 @@ VALUES
         (SELECT `id` FROM `email_template_type` WHERE `name`='system'),
         @project_code,
         'Passwort neu vergeben',
-        '<p>Hallo {{to_name}},</p>\n<p>du möchtest dein Passwort zurücksetzen oder neu vergeben. Um ein neues Kennwort festzulegen, klicke bitte auf folgenden Link:<br />{{password_reset_url}}</p>',
+        '<p>Hallo {{to_name}},</p>\n<p>du möchtest dein Passwort zurücksetzen oder neu vergeben. Um ein neues Kennwort festzulegen, klicke bitte auf folgenden Link:<br /><a href="{{password_reset_url}}">{{password_reset_url}}</a></p>',
         'Hallo {{to_name}},\ndu möchtest dein Passwort zurücksetzen oder neu vergeben. Um ein neues Kennwort festzulegen, klicke bitte auf folgenden Link:\n\n{{password_reset_url}}'
     ),
     (
