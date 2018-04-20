@@ -12,6 +12,7 @@ use Util\FileSystem;
 use Util\View;
 
 error_reporting(0);
+set_time_limit(0);
 
 $scriptPath = realpath(dirname(__FILE__) . '/views/scripts');
 $helperPath = realpath(dirname(__FILE__) . '/../application/views/helpers');
