@@ -154,3 +154,14 @@ There is no need to have any account or another kind of authorization to access 
 If the application runs over secured connection (https), the geolocation service provided by a web browser API is used in JS library to locate users. In case the application runs over http, this functionality will be probably unavailable.
 
 Open Street Map (OSM) are licensed by [Open Data Commons Open Database License (ODbL)](https://opendatacommons.org/licenses/odbl) and by [Creative Commons 2.0 (CC-BY-SA)](https://creativecommons.org/licenses/by-sa/2.0)
+
+## External dependencies
+This application uses external libraries and third party software. The list of all required software packages is available in special definition files.
+* `composer.json`
+* `package.json`
+* `bower.json`
+
+Licenses of used libraries and other third party software are available usually on the package manager web page or in the package repository.
+* For information about Composer package (defined in `composer.json`) visit please [packagist.org](https://packagist.org) and insert the name of the package
+* For information about Npm package (defined in `package.json`) visit please [www.npmjs.com](https://www.npmjs.com)
+* For information about Bower package (defined in `bower.json`) visit [bower.io/search](https://bower.io/search)
