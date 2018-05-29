@@ -9,7 +9,7 @@ RUN             apt-get update && apt-get install -y \
                     git \
                     bzip2 \
                     mysql-client \
-                    libpng12-dev \
+                    libpng-dev \
                     libjpeg-dev \
                     zip \
                     zlib1g-dev \
