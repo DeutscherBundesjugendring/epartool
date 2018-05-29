@@ -7,6 +7,7 @@ FROM            php:7.0-fpm
 
 RUN             apt-get update && apt-get install -y \
                     git \
+                    gnupg2 \
                     bzip2 \
                     mysql-client \
                     libpng-dev \
