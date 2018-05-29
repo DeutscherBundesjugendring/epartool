@@ -17,7 +17,6 @@ module.exports = function (grunt) {
     },
 
     devUrl: 'devel.localhost',
-    devBrowser: 'google chrome'
   };
 
   require('time-grunt')(grunt);
