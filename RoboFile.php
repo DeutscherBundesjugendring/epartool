@@ -84,6 +84,8 @@ class RoboFile extends Tasks
         $this->taskExec('mkdir www/media/folders/misc || exit 0')->run();
         $this->taskExec('cp www/images/logo@2x.png www/media/folders/misc/logo.png')->run();
         $this->taskExec('cp install/images/epartool_logo.png www/media/folders/misc')->run();
+        $this->taskExec('cp install/images/Gruppenstunde_ImP-2013_Cover.jpg www/media/folders/misc')->run();
+        $this->taskExec('cp install/images/Methodenkarten-250x310.jpg www/media/folders/misc')->run();
         $this->taskExec('zip')
             ->args('--recurse-paths')
             ->args('--quiet')
@@ -112,6 +114,8 @@ class RoboFile extends Tasks
             ->option('--include', 'www/media/consultations/1/consultation_thumb_micro_scholl.jpg')
             ->option('--include', 'www/media/folders/misc/logo.png')
             ->option('--include', 'www/media/folders/misc/epartool_logo.png')
+            ->option('--include', 'www/media/folders/misc/Gruppenstunde_ImP-2013_Cover.jpg')
+            ->option('--include', 'www/media/folders/misc/Methodenkarten-250x310.jpg')
             ->option('--exclude', 'application/configs/config.local.ini')
             ->option('--exclude', 'runtime/cache/*')
             ->option('--exclude', 'runtime/sessions/*')
@@ -119,8 +123,6 @@ class RoboFile extends Tasks
             ->option('--exclude', '*.git*')
             ->option('--exclude', '*.keep')
             ->run();
-        $this->taskExec('rm www/media/consultations/1/consultation_thumb_micro_scholl.jpg')->run();
-        $this->taskExec('rm www/media/folders/misc/logo.png')->run();
     }
 
     public function createUpdateZip()
