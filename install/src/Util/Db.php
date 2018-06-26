@@ -22,7 +22,7 @@ class Db {
     public function __construct($dbName, $dbHost, $dbUserName, $dbPass)
     {
         $this->dbName = $dbName;
-        $this->pdo = new PDO(sprintf('mysql:dbname=%s;host=%s;charset=utf8', $dbName, $dbHost), $dbUserName, $dbPass);
+        $this->pdo = new PDO(sprintf('mysql:dbname=%s;host=%s;charset=utf8mb4', $dbName, $dbHost), $dbUserName, $dbPass);
     }
 
     /**
