@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Dbjr Tool\n"
 "POT-Creation-Date: 2018-07-09 12:40+0200\n"
-"PO-Revision-Date: 2018-07-09 12:50+0200\n"
+"PO-Revision-Date: 2018-07-09 16:26+0200\n"
 "Last-Translator: Martin Bohal <mb@mbohal.cz>\n"
 "Language-Team: epartool@dbjr.de\n"
 "Language: de\n"
@@ -1369,7 +1369,7 @@ msgstr "Mehr Beteiligungsrunden anzeigen"
 
 #: application/modules/default/views/scripts/index/search.phtml:11
 msgid "Search results"
-msgstr ""
+msgstr "Suchergebnisse"
 
 #: application/modules/default/views/scripts/index/search.phtml:25
 msgid "There are no relevant search results on this term."
@@ -1381,7 +1381,7 @@ msgstr "Suche in Grundinformationen"
 
 #: application/modules/default/views/scripts/index/search.phtml:53
 msgid "Search in consultations"
-msgstr ""
+msgstr "Suche in Beteiligungsrunden"
 
 #: application/modules/default/views/scripts/index/search.phtml:97
 msgid "User Contributions"
