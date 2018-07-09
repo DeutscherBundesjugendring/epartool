@@ -37,7 +37,7 @@ class Model_Mail_Placeholder extends Dbjr_Db_Table_Abstract
             'inputs_html' => $translator->translate('The users inputs in html formatting.'),
             'inputs_text' => $translator->translate('The users inputs in plain text formatting.'),
             'voting_weight' => $translator->translate('The voting weight of the relevant user.'),
-            'voting_url' => $translator->translate('the url where voting takes place.'),
+            'voting_url' => $translator->translate('The url where voting takes place.'),
             'group_category' => $translator->translate('The type of the relevant group'),
             'from_name' => $translator->translate('The name of the sender.'),
             'from_address' => $translator->translate('The email address of the sender.'),

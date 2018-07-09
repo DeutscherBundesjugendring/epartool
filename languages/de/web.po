@@ -1,15 +1,15 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Dbjr Tool\n"
-"POT-Creation-Date: 2018-03-08 14:02+0100\n"
-"PO-Revision-Date: 2018-03-08 14:04+0100\n"
+"POT-Creation-Date: 2018-07-09 12:40+0200\n"
+"PO-Revision-Date: 2018-07-09 12:50+0200\n"
 "Last-Translator: Martin Bohal <mb@mbohal.cz>\n"
 "Language-Team: epartool@dbjr.de\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.0.6\n"
+"X-Generator: Poedit 2.0.8\n"
 "X-Poedit-KeywordsList: _;translate;setLabel;setLegend;addMessage;"
 "setConfirmMessage;setDescription\n"
 "X-Poedit-Basepath: ../..\n"
@@ -177,7 +177,7 @@ msgstr "Der Ort muss innerhalb der freigegebenen Zone liegen."
 msgid "Contributions were saved."
 msgstr "Beiträge wurden gespeichert."
 
-#: application/modules/default/controllers/InputController.php:512
+#: application/modules/default/controllers/InputController.php:514
 msgid ""
 "There are no contributions to save. Please add at least one contribution "
 "before you click on finish."
@@ -185,7 +185,7 @@ msgstr ""
 "Es gibt nichts zu speichern. Bitte zumindest einen Beitrag hinzufügen, bevor "
 "du auf »Beenden« klickst."
 
-#: application/modules/default/controllers/InputController.php:523
+#: application/modules/default/controllers/InputController.php:525
 msgid ""
 "Please make sure the data you entered are correct and that all linked videos "
 "are public. Then please try resubmitting the form."
@@ -193,52 +193,52 @@ msgstr ""
 "Bitter sicherstellen, dass die eingegebenen Daten korrekt und alle "
 "verlinkten Videos öffentlich sind. Dann erneut übermitteln."
 
-#: application/modules/default/controllers/InputController.php:561
-#: application/modules/default/controllers/InputController.php:583
-#: application/modules/default/controllers/InputController.php:615
+#: application/modules/default/controllers/InputController.php:563
+#: application/modules/default/controllers/InputController.php:585
+#: application/modules/default/controllers/InputController.php:617
 msgid "This confirmation link is invalid!"
 msgstr "Der eingegebene Bestätigungslink ist ungültig!"
 
-#: application/modules/default/controllers/InputController.php:574
+#: application/modules/default/controllers/InputController.php:576
 msgid "Thank you! Your inputs have been confirmed!"
 msgstr "Vielen Dank! Deine Beiträge wurden bestätigt!"
 
-#: application/modules/default/controllers/InputController.php:590
+#: application/modules/default/controllers/InputController.php:592
 msgid "It is not allowed to confirm inputs once the input phase is over."
 msgstr ""
 "Beiträge können nicht mehr bestätigt werden, wenn der Beitragszeitraum "
 "abgelaufen ist."
 
-#: application/modules/default/controllers/InputController.php:613
+#: application/modules/default/controllers/InputController.php:615
 msgid "The contributions have already been marked as refused!"
 msgstr "Die Beiträge wurden als abgelehnt markiert!"
 
-#: application/modules/default/controllers/InputController.php:621
+#: application/modules/default/controllers/InputController.php:623
 msgid "It is not allowed to reject inputs once the input phase is over."
 msgstr ""
 "Beiträge können nicht mehr abgelehnt werden, wenn der Beitragszeitraum "
 "abgelaufen ist."
 
-#: application/modules/default/controllers/InputController.php:662
+#: application/modules/default/controllers/InputController.php:664
 msgid "Contribution does not exist"
 msgstr "Beitrag existiert nicht"
 
-#: application/modules/default/controllers/InputController.php:680
+#: application/modules/default/controllers/InputController.php:682
 msgid "Contribution updated."
 msgstr "Beitrag aktualisiert."
 
-#: application/modules/default/controllers/InputController.php:683
+#: application/modules/default/controllers/InputController.php:685
 msgid "Something went wrong: contribution could not be updated."
 msgstr "Etwas lief schief: Beitrag konnte nicht aktualisiert werden."
 
-#: application/modules/default/controllers/InputController.php:695
-#: application/modules/default/controllers/InputController.php:855
+#: application/modules/default/controllers/InputController.php:697
+#: application/modules/default/controllers/InputController.php:857
 #: application/modules/default/controllers/UserController.php:169
 #: application/modules/default/controllers/UserController.php:220
 msgid "Please check your data!"
 msgstr "Bitte prüfe Deine Eingaben!"
 
-#: application/modules/default/controllers/InputController.php:714
+#: application/modules/default/controllers/InputController.php:716
 msgid ""
 "Video service used for embedding video in this contribution was disabled. "
 "Video will be deleted after save contribution."
@@ -246,7 +246,7 @@ msgstr ""
 "Der verwendete Videodienst zur Einbindung in diesem Beitrag wurde "
 "deaktiviert. Das Video wird nach dem Speichern gelöscht."
 
-#: application/modules/default/controllers/InputController.php:725
+#: application/modules/default/controllers/InputController.php:727
 msgid ""
 "Sorry, the contribution phase for this consultation round is already over."
 "You may only change your contributions within that period."
@@ -871,7 +871,7 @@ msgstr "Lade…"
 
 #: application/modules/default/views/helpers/JsTranslations.php:22
 msgid "You are being logged in. Please wait…"
-msgstr "Du wirst eingeloggt. Bitte warten..."
+msgstr "Du wirst eingeloggt. Bitte warten…"
 
 #: application/modules/default/views/helpers/JsTranslations.php:24
 msgid "Your contributions have not been saved."
@@ -912,7 +912,7 @@ msgstr "Infos"
 
 #: application/modules/default/views/helpers/SecondNavigation.php:30
 #: application/modules/default/views/scripts/_partials/consultationPreviews.phtml:113
-#: application/modules/default/views/scripts/index/search.phtml:59
+#: application/modules/default/views/scripts/index/search.phtml:80
 #: application/modules/default/views/scripts/user/notifications.phtml:65
 msgid "Questions"
 msgstr "Fragen"
@@ -1057,28 +1057,28 @@ msgstr "Anmeldedaten sind inkorrekt."
 msgid "ePartool Administration"
 msgstr "ePartool Administration"
 
-#: application/layouts/scripts/backend.phtml:42
+#: application/layouts/scripts/backend.phtml:41
 #: application/layouts/scripts/frontend.phtml:101
 msgid "Menu"
 msgstr "Menü"
 
-#: application/layouts/scripts/backend.phtml:50
+#: application/layouts/scripts/backend.phtml:49
 msgid "ePartool admin dashboard"
 msgstr "ePartool Admin Dashboard"
 
-#: application/layouts/scripts/backend.phtml:64
+#: application/layouts/scripts/backend.phtml:63
 msgid "Open site in a new tab"
 msgstr "Öffne Site in einem neuen Tab"
 
-#: application/layouts/scripts/backend.phtml:66
+#: application/layouts/scripts/backend.phtml:65
 msgid "Homepage"
 msgstr "Startseite"
 
-#: application/layouts/scripts/backend.phtml:85
+#: application/layouts/scripts/backend.phtml:84
 msgid "Log off"
 msgstr "Ausloggen"
 
-#: application/layouts/scripts/backend.phtml:113
+#: application/layouts/scripts/backend.phtml:112
 msgid "Go to ePartool's developer site"
 msgstr "Zur ePartool-Entwickler-Website"
 
@@ -1158,6 +1158,7 @@ msgstr "Eingeloggt als"
 
 #: application/modules/default/views/scripts/_helpers/user-box.phtml:26
 #: application/modules/default/views/scripts/_partials/userMenu.phtml:5
+#: application/modules/default/views/scripts/user/profile.phtml:4
 msgid "My Profile"
 msgstr "Mein Profil"
 
@@ -1366,36 +1367,31 @@ msgstr "Zurück zur Fragenübersicht"
 msgid "Show more consultations"
 msgstr "Mehr Beteiligungsrunden anzeigen"
 
-#: application/modules/default/views/scripts/index/search.phtml:10
-#, php-format
-msgid "Search for \"%s\""
-msgstr "Suche nach \"%s\""
+#: application/modules/default/views/scripts/index/search.phtml:11
+msgid "Search results"
+msgstr ""
 
-#: application/modules/default/views/scripts/index/search.phtml:12
-msgid "Search in basic information"
-msgstr "Suche in Grundinformationen"
-
-#: application/modules/default/views/scripts/index/search.phtml:29
+#: application/modules/default/views/scripts/index/search.phtml:25
 msgid "There are no relevant search results on this term."
 msgstr "Es wurden keine relevanten Ergebnisse für diesen Suchbegriff gefunden."
 
-#: application/modules/default/views/scripts/index/search.phtml:33
-msgid "Search in participation rounds"
-msgstr "Suche in Beteiligungsrunden"
+#: application/modules/default/views/scripts/index/search.phtml:32
+msgid "Search in basic information"
+msgstr "Suche in Grundinformationen"
 
-#: application/modules/default/views/scripts/index/search.phtml:44
-msgid "Information pages"
-msgstr "Informationsseiten"
+#: application/modules/default/views/scripts/index/search.phtml:53
+msgid "Search in consultations"
+msgstr ""
 
-#: application/modules/default/views/scripts/index/search.phtml:77
+#: application/modules/default/views/scripts/index/search.phtml:97
 msgid "User Contributions"
 msgstr "Beiträge"
 
-#: application/modules/default/views/scripts/index/search.phtml:97
+#: application/modules/default/views/scripts/index/search.phtml:121
 msgid "Search in Reactions & Impact"
 msgstr "Suche in Reaktionen & Wirkung"
 
-#: application/modules/default/views/scripts/index/search.phtml:124
+#: application/modules/default/views/scripts/index/search.phtml:151
 msgid "Reactions"
 msgstr "Reaktionen"
 
@@ -1622,10 +1618,6 @@ msgstr ""
 "Du kannst dein Passwort zurücksetzen, wenn du hier deine hinterlegte E-Mail-"
 "Adresse einträgst. Du bekommst dann umgehend eine E-Mail, mit Hilfe derer du "
 "dir ein neues Passwort aussuchen kannst."
-
-#: application/modules/default/views/scripts/user/profile.phtml:4
-msgid "Mein Profile"
-msgstr "Mein Profil"
 
 #: application/modules/default/views/scripts/user/profile.phtml:12
 msgid "Profile"
@@ -1952,6 +1944,18 @@ msgstr "Vergebene \"Besonders wichtig\"-Stimmen:"
 #: application/modules/default/views/scripts/voting/vote.phtml:254
 msgid "Remove"
 msgstr "Entfernen"
+
+#~ msgid "Search for \"%s\""
+#~ msgstr "Suche nach \"%s\""
+
+#~ msgid "Search in participation rounds"
+#~ msgstr "Suche in Beteiligungsrunden"
+
+#~ msgid "Information pages"
+#~ msgstr "Informationsseiten"
+
+#~ msgid "Mein Profile"
+#~ msgstr "Mein Profil"
 
 #~ msgid "Something went wrong"
 #~ msgstr "Etwas ist schiefgelaufen."
