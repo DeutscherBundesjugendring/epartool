@@ -1,0 +1,10 @@
+db:
+    build: docker/MySql
+    environment:
+        MYSQL_ROOT_PASSWORD: pass
+web:
+    image: visionappscz/apache-php:7.1
+    links:
+        - db
+    volumes:
+        - .:/www

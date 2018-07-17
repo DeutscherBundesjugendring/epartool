@@ -1,0 +1,90 @@
+[production]
+
+; Project code
+; Must consist of two alphanumeric characters and must be unique database wide
+project = "xx"
+
+; If app is running in subfolder, set it here as "/subdir-name" . Otherwise leave it as "/".
+resources.frontController.baseUrl = "/xxxx"
+
+; DB settings - these credentials has to be stored even in phinx.local.yml
+resources.db.params.host = "db"
+resources.db.params.dbname = "docker_installer"
+resources.db.params.username = "root"
+resources.db.params.password = "pass"
+
+; Security token for generating random unique values - mandatory
+security.token = "secret_security_token"
+
+; Url key for executing cronjobs
+cron.key = "secret_cron_key"
+
+; Credentials for webservice login.
+; Used for video hosting and social logins
+webservice.google.clientId = ""
+webservice.google.clientSecret = ""
+webservice.facebook.appId = "839864792747623"
+webservice.facebook.appSecret = "c702022097f58d511aeff64fcae79673"
+webservice.vimeo.accessToken = "abcdefabcdefabcdefabcdefabcdefab"
+
+; Email headers for outgoing mail
+resources.mail.defaultFrom.email = example@example.com
+resources.mail.defaultFrom.name = "Example project"
+resources.mail.defaultReplyTo.email = example@example.com
+resources.mail.defaultReplyTo.name = "Example project"
+
+; Email transport settings
+; Comment out to use system mail
+resources.mail.transport.type = "smtp"
+; resources.mail.transport.auth = "login"
+resources.mail.transport.port = 1025
+; resources.mail.transport.ssl = "tls"
+resources.mail.transport.host = "mail"
+; resources.mail.transport.password = "smtp_password"
+; resources.mail.transport.username = "smtp_username"
+
+; CORS settings - contains list of allowed addresses from where can be loaded external resources
+; allow address for specific type of resource
+; for details see https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy
+
+; Serves as a fallback for the other fetch directives
+; cors.default-src[] = "*.example.com"
+
+; Specifies valid sources of application manifest files - <link rel=manifest>
+; cors.manifest-src[] = "*.example.com"
+
+; Specifies valid sources for loading media using the <audio> and <video> elements - <video> <audio> <source> <track>
+; cors.media-src[] = "*.example.com"
+
+; Specifies valid sources for the <object>, <embed>, and <applet> elements
+; cors.object-src[] = "*.example.com"
+
+; Restricts the URLs which can be used as the target of a form submissions from a given context
+; cors.form-action[] = "*.example.com"
+
+; Specifies valid sources of images and favicons
+; cors.img-src[] = "data: *.example.com"
+
+; Specifies valid sources for fonts loaded using @font-face
+; cors.font-src[] = "*.example.com"
+
+; Specifies valid sources for JavaScript
+; cors.script-src[] = "*.example.com"
+
+; Specifies valid sources for stylesheets - <link rel=stylesheet>
+; cors.style-src[] = "*.example.com"
+
+; Restricts the URLs which can be loaded using script interfaces - XmlHttpRequest() WebSocket() EventSource() sendBeacon() fetch()
+; cors.connect-src[] = "example.com"
+
+; Defines the valid sources for web workers and nested browsing contexts loaded using elements such as <frame> and <iframe>
+; cors.child-src[] = "*.example.com"
+
+[development : production]
+
+[test : production]
+; DB settings
+resources.db.params.host = "db"
+resources.db.params.dbname = "docker_test"
+resources.db.params.username = "root"
+resources.db.params.password = "pass"

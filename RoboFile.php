@@ -184,11 +184,9 @@ class RoboFile extends Tasks
     {
         $this->stopOnFail(true);
         $this->taskExec('bower install')->run();
-        $this->taskComposerInstall()->run();
         $this->taskNpmInstall()->run();
         $this->taskExec('grunt')->run();
-        $this->taskExec('NODE_ENV=production webpack -p')->run();
-        $this->taskExec('webpack')->run();
+        $this->taskExec('npm run build')->run();
     }
 
     private function clearCache()

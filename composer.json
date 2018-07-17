@@ -29,5 +29,8 @@
     "robmorgan/phinx": "^0.6.4",
     "facebook/graph-sdk": "^5.6",
     "hannesvdvreken/pip": "^1.0"
+  },
+  "require-dev": {
+    "consolidation/robo": "^1.3"
   }
 }

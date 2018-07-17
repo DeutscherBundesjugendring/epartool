@@ -8,29 +8,15 @@ db:
     build: docker/MySql
     environment:
         MYSQL_ROOT_PASSWORD: pass
-php:
-    build: docker/PHP7
-    volumes:
-        - .:/www
-    working_dir: /www
+web:
+    image: visionappscz/apache-php:7.1
     links:
         - db
         - mail
-tools:
-    build: docker/Tools
-    volumes:
-        - .:/www
-    working_dir: /www
-    links:
-        - db
-web:
-    build: docker/Apache
-    volumes:
-        - .:/www
-    links:
-        - php
     ports:
         - 80:80
+    volumes:
+        - .:/www
 mail:
     image: mailhog/mailhog
     ports:

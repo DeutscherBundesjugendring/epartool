@@ -40,10 +40,8 @@ node {
 
         stage('Prepare docker containers') {
             timeout(20) {
-                sh 'docker-compose build tools'
-                sh 'docker-compose up -d db'
-                sleep 10
-                sh 'docker-compose up -d tools'
+                sh 'docker-compose -f docker-compose-build.yml build web'
+                sh 'docker-compose -f docker-compose-build.yml up -d web'
             }
         }
 
@@ -53,7 +51,7 @@ node {
                 sh 'rm -f application/configs/phinx.local.yml'
                 sh 'cp application/configs/config.local-example.ini application/configs/config.local.ini'
                 sh 'cp application/configs/phinx.local-example.yml application/configs/phinx.local.yml'
-                sh 'docker-compose run tools bash -c "sh /root/init-container.sh /www && su www-data -c \'robo test:install\'"'
+                sh 'docker-compose exec -T --user www-data web bash -c "composer install --optimize-autoloader && vendor/bin/robo test:install"'
             }
         }
 
