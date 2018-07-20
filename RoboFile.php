@@ -78,6 +78,8 @@ class RoboFile extends Tasks
 
     public function createInstallZip()
     {
+        $fileName = sprintf('ePartool-install_%s.zip', $this->getVersion());
+
         $this->stopOnFail(true);
         $this->build();
         $this->taskExec('cp install/images/consultation_thumb_micro_scholl.jpg www/media/consultations/1')->run();
@@ -89,7 +91,7 @@ class RoboFile extends Tasks
         $this->taskExec('zip')
             ->args('--recurse-paths')
             ->args('--quiet')
-            ->args(sprintf('dbjr-tool-install_%s.zip', $this->getVersion()))
+            ->args($fileName)
             ->args('.')
             ->option('--include', 'VERSION.txt')
             ->option('--include', 'README.md')
@@ -127,12 +129,14 @@ class RoboFile extends Tasks
 
     public function createUpdateZip()
     {
+        $fileName = sprintf('ePartool-update_%s.zip', $this->getVersion());
+
         $this->stopOnFail(true);
         $this->build();
         $this->taskExec('zip')
             ->args('--recurse-paths')
             ->args('--quiet')
-            ->args(sprintf('dbjr-tool-update_%s.zip', $this->getVersion()))
+            ->args($fileName)
             ->args('.')
             ->option('--include', 'VERSION.txt')
             ->option('--include', 'README.md')
