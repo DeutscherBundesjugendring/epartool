@@ -96,6 +96,7 @@ class Model_Users extends Dbjr_Db_Table_Abstract
         if (!$this->emailExists($data['email'])) {
             $data['uid'] = $this->add(
                 [
+                    'name' => $data['name'] ?: Service_User::generateName($data['email']),
                     'is_confirmed' => null,
                     'email' => $data['email'],
                     'is_subscribed_newsletter' => (int) false,
