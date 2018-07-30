@@ -70,7 +70,7 @@ node {
                 sh 'docker-compose exec -T --user www-data web bash -c "composer install --optimize-autoloader && vendor/bin/robo test:install"'
 
                 version = sh(returnStdout: true, script: "git tag --list --points-at HEAD")
-                if (version == 'null') {
+                if (version == null) {
                     version = 'develop'
                 }
                 echo "Build version is ${version}"
