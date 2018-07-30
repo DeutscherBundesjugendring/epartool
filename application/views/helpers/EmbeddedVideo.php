@@ -15,10 +15,10 @@ class Application_View_Helper_EmbeddedVideo extends Zend_View_Helper_Abstract
         if (method_exists($this, $service)) {
             return $this->$service($id);
         }
-        
+
         throw new Exception('Service ' . $service . ' for embedding video is not defined.');
     }
-    
+
     /**
      * @param string $id
      * @return string
@@ -34,7 +34,7 @@ class Application_View_Helper_EmbeddedVideo extends Zend_View_Helper_Abstract
                 ></div>
             </div>';
     }
-    
+
     /**
      * @param string $id
      * @return string
@@ -53,7 +53,7 @@ class Application_View_Helper_EmbeddedVideo extends Zend_View_Helper_Abstract
                 ></iframe>
             </div>';
     }
-    
+
     /**
      * @param string $id
      * @return string
@@ -66,7 +66,7 @@ class Application_View_Helper_EmbeddedVideo extends Zend_View_Helper_Abstract
                     type="text/html"
                     width="640"
                     height="480"
-                    src="https://www.youtube.com/embed/' . $id . '?autoplay=0"
+                    src="https://www.youtube-nocookie.com/embed/' . $id . '?autoplay=0"
                     frameborder="0"
                 ></iframe>
             </div>';
