@@ -3,7 +3,6 @@
 class Admin_ArticleController extends Zend_Controller_Action
 {
     protected $_flashMessenger = null;
-
     protected $_adminIndexURL = null;
 
     private $_kid;
