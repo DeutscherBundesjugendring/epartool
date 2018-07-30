@@ -22,7 +22,7 @@ def wizardTargetFolder = '~/webapps'
 //  - dbName: Name of the database to back up
 //  - siteUrl: Url where the deployed site is accessible
 def deployBranches = [
-    develop: [
+    master: [
         host: 'synergic@lutra.visionapps.cz',
         folder: 'dbjr_dev',
         dbName: 'dbjr_dev',
@@ -44,7 +44,13 @@ node {
      try {
         stage('Checkout code') {
             timeout(1) {
-                checkout scm
+                checkout([
+                    $class: 'GitSCM',
+                    branches: scm.branches,
+                    doGenerateSubmoduleConfigurations: scm.doGenerateSubmoduleConfigurations,
+                    extensions: [[$class: 'CloneOption', noTags: false, shallow: false, depth: 0, reference: '']],
+                    userRemoteConfigs: scm.userRemoteConfigs,
+                 ])
             }
         }
 
@@ -63,10 +69,11 @@ node {
                 sh 'cp application/configs/phinx.local-example.yml application/configs/phinx.local.yml'
                 sh 'docker-compose exec -T --user www-data web bash -c "composer install --optimize-autoloader && vendor/bin/robo test:install"'
 
-                version = sh "git tag --list --points-at HEAD"
-                if (version == null) {
+                version = sh(returnStdout: true, script: "git tag --list --points-at HEAD")
+                if (version == 'null') {
                     version = 'develop'
                 }
+                echo "Build version is ${version}"
                 writeFile(file: 'VERSION.txt', text: version, encoding: 'UTF-8')
             }
         }
