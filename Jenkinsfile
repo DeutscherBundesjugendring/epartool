@@ -32,25 +32,9 @@ def deployBranches = [
 ]
 
 def wizardDeployBranches = [
-    develop: [
-        host: 'synergicprod@felis.visionapps.cz',
-        folder: 'epartool_download_web523',
-        installFileName: 'ePartool-install_develop.zip',
-        updateFileName: 'ePartool-update_develop.zip',
-        credentials: 'deploy_felis',
-    ],
     master: [
         host: 'synergicprod@felis.visionapps.cz',
-        folder: 'epartool_download_web523/staging',
-        installFileName: null,
-        updateFileName: null ,
-        credentials: 'deploy_felis',
-    ],
-    production: [
-        host: 'synergicprod@felis.visionapps.cz',
-        folder: 'epartool_download_web523/production',
-        installFileName: null,
-        updateFileName: null ,
+        folder: 'epartool_download_web523',
         credentials: 'deploy_felis',
     ],
 ]
@@ -78,20 +62,22 @@ node {
                 sh 'cp application/configs/config.local-example.ini application/configs/config.local.ini'
                 sh 'cp application/configs/phinx.local-example.yml application/configs/phinx.local.yml'
                 sh 'docker-compose exec -T --user www-data web bash -c "composer install --optimize-autoloader && vendor/bin/robo test:install"'
+
+                version = sh "git tag --list --points-at HEAD"
+                if (version == null) {
+                    version = 'develop'
+                }
+                writeFile(file: 'VERSION.txt', text: version, encoding: 'UTF-8')
             }
         }
 
-        if (wizardDeployBranches.containsKey(env.BRANCH_NAME)) {
-            stage('Publish wizards') {
-                timeout(5) {
+        stage('Publish') {
+            timeout(15) {
+                if (wizardDeployBranches.containsKey(env.BRANCH_NAME)) {
                     publishWizards(wizardDeployBranches[env.BRANCH_NAME], wizardTargetFolder)
                 }
-            }
-        }
 
-        if (deployBranches.containsKey(env.BRANCH_NAME)) {
-            stage('Deploy') {
-                timeout(5) {
+                if (deployBranches.containsKey(env.BRANCH_NAME)) {
                     createDeployTar(deployTar)
                     deploy(deployBranches[env.BRANCH_NAME], targetFolder, deployTar, deployFolder, backupFolder)
                     notifyOfDeploy(deployBranches, env.BRANCH_NAME)
@@ -188,20 +174,13 @@ def createDeployTar(deployTar) {
 }
 
 def publishWizards(wizardDeployBranch, wizardTargetFolder) {
+    version = readFile('VERSION.txt').trim()
+
     sh 'docker-compose exec -T --user www-data web bash -c "php vendor/bin/robo create:install-zip && php vendor/bin/robo create:update-zip"'
-    version = getVersion()
 
     installZipFileName="ePartool-install_${version}.zip"
-    if (wizardDeployBranch.installFileName) {
-        sh "mv ${installZipFileName} ${wizardDeployBranch.installFileName}"
-        installZipFileName=wizardDeployBranch.installFileName
-    }
-
     updateZipFileName="ePartool-update_${version}.zip"
-    if (wizardDeployBranch.updateFileName) {
-        sh "mv ${updateZipFileName} ${wizardDeployBranch.updateFileName}"
-        updateZipFileName=wizardDeployBranch.updateFileName
-    }
+
     sshagent (credentials: [wizardDeployBranch.credentials]) {
         sh "scp ${installZipFileName} ${wizardDeployBranch.host}:${wizardTargetFolder}/${wizardDeployBranch.folder}"
         sh "scp ${updateZipFileName} ${wizardDeployBranch.host}:${wizardTargetFolder}/${wizardDeployBranch.folder}"
@@ -216,9 +195,4 @@ def notifyOfDeploy(deployBranches, currentBranch) {
         color: 'good',
         message: "DBJR: Větev `${currentBranch}` byla nasazena na: ${deployBranches[currentBranch].siteUrl} :sunny:"
     )
-}
-
-def getVersion() {
-    version = readFile "${pwd()}/VERSION.txt"
-    return version.trim();
 }
