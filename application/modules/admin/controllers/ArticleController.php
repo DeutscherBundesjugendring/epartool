@@ -164,7 +164,8 @@ class Admin_ArticleController extends Zend_Controller_Action
 
                         if ($articleRow['ref_nm'] === 'article_explanation') {
                             if ($mainArticleSum === 1 && $articleRow['is_showed'] && isset($article['is_showed'])
-                                && !$values['is_showed']) {
+                                && !$values['is_showed']
+                            ) {
                                 $this->_flashMessenger->addMessage('This article could not be hidden.', 'error');
                                 $this->redirect($this->view->url(['action' => 'index']), ['prependBase' => false]);
                             }
