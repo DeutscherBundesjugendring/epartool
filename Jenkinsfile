@@ -41,6 +41,8 @@ node {
      try {
         stage('Checkout code') {
             timeout(1) {
+                // Normal 'checkout scm' does not pull tags. We need this to ensure that tags are pulled.
+                // See: https://issues.jenkins-ci.org/browse/JENKINS-45164
                 checkout([
                     $class: 'GitSCM',
                     branches: scm.branches,
