@@ -7,6 +7,8 @@ use Robo\Tasks;
  */
 class RoboFile extends Tasks
 {
+    const UPDATE_WARNING = 'I hope you you have all dependencies up to date. If not, run vendor/bin/robo build to install/update them.';
+
     const CONFIG_FILE = 'application/configs/config.ini';
     const CONFIG_LOCAL_FILE = 'application/configs/config.local.ini';
     const PHINX_CONFIG_FILE = 'application/configs/phinx.local.yml';
@@ -46,14 +48,9 @@ class RoboFile extends Tasks
     {
         $this->stopOnFail(true);
         $this->createConfigs();
-        $this->build();
         $this->createDatabase('test');
+        $this->build();
         $this->test();
-    }
-
-    public function install()
-    {
-        $this->say('Install method is not supported.');
     }
 
     public function phpcs()
@@ -76,12 +73,31 @@ class RoboFile extends Tasks
             ->run();
     }
 
+    public function createDeployTar()
+    {
+        $this->say(self::UPDATE_WARNING);
+
+        $this->taskExec('tar \
+            -zcf deployment.tar.gz \
+            --exclude=application/configs/config.local.ini \
+            --exclude=application/configs/phinx.local.yml \
+            --exclude=runtime/logs/* \
+            --exclude=runtime/cache/* \
+            --exclude=runtime/sessions/* \
+            --exclude=www/index_dev.php \
+            --exclude=www/index_test.php \
+            --exclude=www/image_cache/* \
+            --exclude=www/media/* \
+            application bin data languages languages_zend library runtime vendor www RoboFile.php')
+            ->run();
+    }
+
     public function createInstallZip()
     {
+        $this->say(self::UPDATE_WARNING);
         $fileName = sprintf('ePartool-install_%s.zip', $this->getVersion());
 
         $this->stopOnFail(true);
-        $this->build();
         $this->taskExec('cp install/images/consultation_thumb_micro_scholl.jpg www/media/consultations/1')->run();
         $this->taskExec('mkdir www/media/folders/misc || exit 0')->run();
         $this->taskExec('cp www/images/logo@2x.png www/media/folders/misc/logo.png')->run();
@@ -129,10 +145,10 @@ class RoboFile extends Tasks
 
     public function createUpdateZip()
     {
+        $this->say(self::UPDATE_WARNING);
         $fileName = sprintf('ePartool-update_%s.zip', $this->getVersion());
 
         $this->stopOnFail(true);
-        $this->build();
         $this->taskExec('zip')
             ->args('--recurse-paths')
             ->args('--quiet')
@@ -207,7 +223,7 @@ class RoboFile extends Tasks
         }
 
         $file = self::APP_DIR . '/configs/phinx.local.yml';
-        $fileTemplate = self::APP_DIR . '/configs/phinx.local-example.ini';
+        $fileTemplate = self::APP_DIR . '/configs/phinx.local-example.yml';
         if (!realpath($file)) {
             copy($fileTemplate, $file);
         }
@@ -223,12 +239,12 @@ class RoboFile extends Tasks
         $credentials = $this->loadDbCredentials('config.local', $environment);
         $this
             ->taskExec(sprintf(
-            'mysql -u %s -h %s -p%s -e \'DROP DATABASE IF EXISTS %s\';',
-            $credentials['username'],
-            $credentials['host'],
-            $credentials['password'],
-            $credentials['dbname']
-        ))
+                'mysql -u %s -h %s -p%s -e \'DROP DATABASE IF EXISTS %s\';',
+                $credentials['username'],
+                $credentials['host'],
+                $credentials['password'],
+                $credentials['dbname']
+            ))
             ->run();
         $this
             ->taskExec(sprintf(
@@ -237,7 +253,7 @@ class RoboFile extends Tasks
                 $credentials['host'],
                 $credentials['password'],
                 $credentials['dbname']
-                ))
+            ))
             ->run();
 
         require_once 'install/src/Util/Db.php';
