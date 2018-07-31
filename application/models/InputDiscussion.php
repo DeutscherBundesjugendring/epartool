@@ -42,6 +42,7 @@ class Model_InputDiscussion extends Dbjr_Db_Table_Abstract
 
     /**
      * @param $uid
+     * @throws Zend_Db_Table_Exception
      * @return string
      */
     public function getCountByUser($uid)
