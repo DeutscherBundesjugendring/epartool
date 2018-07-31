@@ -48,9 +48,7 @@ class RoboFile extends Tasks
     {
         $this->stopOnFail(true);
         $this->createConfigs();
-        // Commented out by martin@visionapps.cz on 2018-07-31
-        // Presently there are no tests that use the db
-        // $this->createDatabase('test');
+        $this->createDatabase('test');
         $this->build();
         $this->test();
     }
