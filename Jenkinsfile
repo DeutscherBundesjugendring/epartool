@@ -85,7 +85,7 @@ node {
 
                 if (deployBranches.containsKey(env.BRANCH_NAME)) {
                     sh 'docker-compose exec -T --user www-data web bash -c "php vendor/bin/robo create:deploy-tar"'
-                    deploy(deployBranches[env.BRANCH_NAME], targetFolder, deployTar, deployFolder, backupFolder)
+                    deploy(deployBranches[env.BRANCH_NAME], targetFolder, deployFolder, backupFolder)
                     notifyOfDeploy(env.BRANCH_NAME, deployBranches[env.BRANCH_NAME].siteUrl)
                 }
             }
@@ -116,7 +116,7 @@ node {
 
 
 
-def deploy(deployBranch, targetFolder, deployTar, deployFolder, backupFolder) {
+def deploy(deployBranch, targetFolder, deployFolder, backupFolder) {
     sshagent (credentials: [deployBranch.credentials]) {
         sh """ssh ${deployBranch.host} /bin/bash << EOF
             cd ${targetFolder}/${deployBranch.folder}
@@ -140,13 +140,13 @@ def deploy(deployBranch, targetFolder, deployTar, deployFolder, backupFolder) {
             mv ${targetFolder}/${deployBranch.folder}/${deployFolder} ${targetFolder}/${deployBranch.folder}.deploy
         """
 
-        sh "scp ${deployTar} ${deployBranch.host}:${targetFolder}/${deployBranch.folder}.deploy"
+        sh "scp deployment.tar.gz ${deployBranch.host}:${targetFolder}/${deployBranch.folder}.deploy"
 
         sh """ssh ${deployBranch.host} /bin/bash << EOF
             cd ${targetFolder}/${deployBranch.folder}.deploy
 
-            echo 'Extracting deployTar'
-            tar -mxzf ${deployTar}
+            echo 'Extracting deployment.tar.gz'
+            tar -mxzf deployment.tar.gz
 
             echo 'Backing up old deploy'
             cp application/static/503.php ${targetFolder}/${deployBranch.folder}/www/index.php
@@ -159,7 +159,7 @@ def deploy(deployBranch, targetFolder, deployTar, deployFolder, backupFolder) {
 
             echo 'Switching to new deploy'
             mv ${targetFolder}/${deployBranch.folder}.deploy ${targetFolder}/${deployBranch.folder}
-            rm -f ${targetFolder}/${deployBranch.folder}/${deployTar}
+            rm -f ${targetFolder}/${deployBranch.folder}/deployment.tar.gz
         """
     }
 }
