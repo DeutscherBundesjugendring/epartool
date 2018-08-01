@@ -31,4 +31,4 @@ title: Contributions
 
 ## User created contribution
 
-![user contribution create](/images/user_contribution_create.png)
+![user contribution create]({{ site.baseurl }}/images/user_contribution_create.png)
