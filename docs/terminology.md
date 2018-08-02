@@ -74,7 +74,7 @@ title: Terminology
 * Groups `consultations`
 * Each is a separate website with its own administration and URL
 * Projects sharing the same DB should always use the same language as they share some entities (i.e. `tags`).
-* See: [Managing Projects]({% link projects.md %}#managing-projects)
+* See: [Managing Projects]({{ site.baseurl }}{% link projects.md %}#managing-projects)
 
 
 ## reaction_file
