@@ -330,7 +330,7 @@ Viele Grüße
 Das Team des ePartool'
     ),
     (
-        'notification_new*input_discussion_contrib_created',
+        'notification_new_input_discussion_contrib_created',
         (SELECT `id` FROM `email_template_type` WHERE `name`='system'),
         @project_code,
         'Neuer Diskussionsbeitrag wurde erstellt',
@@ -362,7 +362,7 @@ Das Team des ePartool'
 <p>Viele Grüße<br />
 Das Team des ePartool</p>',
         'Hallo {{to_name}},
-bitte bestätige deine Registrierung als neue_r Empfänger*in für automatische Benachrichtigungen bei neuen Diskussionsbeiträgen und denn dazugehörigen Nutzeraccount. Klicke hierfür auf folgenden Bestätigungslink:
+bitte bestätige deine Registrierung als neue*r Empfänger*in für automatische Benachrichtigungen bei neuen Diskussionsbeiträgen und denn dazugehörigen Nutzeraccount. Klicke hierfür auf folgenden Bestätigungslink:
 {{confirmation_url}}
 
 Viele Grüße
