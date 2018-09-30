@@ -6,8 +6,8 @@ To create a release:
 2. Login into Jenkins and run build on the master branch.
 3. Go to the [releases page](https://github.com/DeutscherBundesjugendring/epartool/releases), open the release detail and click `Edit Tag`. Then do the following: 
 
-    * Update release description summerizing all changes that took place since the last release.
-    * If the relese is a prerelease (`rc`) mark it as such with the provided checkbox.
+    * Update release description summarizing all changes that took place since the last release.
+    * If the release is a prerelease (`rc`) mark it as such with the provided checkbox.
     * Save the changes
     
 You are done!
