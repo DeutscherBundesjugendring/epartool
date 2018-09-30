@@ -1,15 +1,15 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Dbjr Tool\n"
-"POT-Creation-Date: 2018-07-09 13:00+0200\n"
-"PO-Revision-Date: 2018-07-09 13:00+0200\n"
+"POT-Creation-Date: 2018-09-21 10:18+0200\n"
+"PO-Revision-Date: 2018-09-21 10:19+0200\n"
 "Last-Translator: Martin Bohal <mb@mbohal.cz>\n"
 "Language-Team: epartool@dbjr.de\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.0.8\n"
+"X-Generator: Poedit 2.1.1\n"
 "X-Poedit-KeywordsList: _;translate;setLabel;setLegend;addMessage;"
 "setConfirmMessage;setDescription\n"
 "X-Poedit-Basepath: ../..\n"
@@ -259,20 +259,20 @@ msgstr ""
 msgid "Link to the video contribution."
 msgstr ""
 
-#: application/modules/admin/controllers/ArticleController.php:71
-#: application/modules/admin/controllers/ArticleController.php:131
+#: application/modules/admin/controllers/ArticleController.php:70
+#: application/modules/admin/controllers/ArticleController.php:130
 msgid "None"
 msgstr "Keine"
 
-#: application/modules/admin/controllers/ArticleController.php:91
+#: application/modules/admin/controllers/ArticleController.php:90
 msgid "New article has been created."
 msgstr "Neuer Artikel wurde erstellt."
 
-#: application/modules/admin/controllers/ArticleController.php:93
+#: application/modules/admin/controllers/ArticleController.php:92
 msgid "Creating new article failed."
 msgstr "Die Erstellung des neuen Artikels konnte nicht durchgeführt werden."
 
-#: application/modules/admin/controllers/ArticleController.php:101
+#: application/modules/admin/controllers/ArticleController.php:100
 #: application/modules/admin/controllers/ArticleController.php:180
 #: application/modules/admin/controllers/ConsultationController.php:161
 #: application/modules/admin/controllers/ConsultationController.php:199
@@ -293,7 +293,7 @@ msgid "Form is not valid, please check the values entered."
 msgstr ""
 "Das Formular ist nicht richtig ausgefüllt. Bitte überprüfe die Eingaben."
 
-#: application/modules/admin/controllers/ArticleController.php:145
+#: application/modules/admin/controllers/ArticleController.php:144
 msgid "This article does not exist."
 msgstr "Dieser Artikel existiert nicht."
 
@@ -830,7 +830,7 @@ msgstr "%d Beiträge wurde gelöscht."
 
 #: application/modules/admin/controllers/UserController.php:39
 msgid "New user has been successfully added."
-msgstr "Neue_r User_in wurde erfolgreich hinzugefügt."
+msgstr "Neue*r User*in wurde erfolgreich hinzugefügt."
 
 #: application/modules/admin/controllers/UserController.php:43
 msgid "User with this email address already exists."
@@ -855,12 +855,12 @@ msgstr "Beiträge wurden übertragen."
 
 #: application/modules/admin/controllers/UserController.php:189
 msgid "User has been deleted."
-msgstr "Nutzer_in wurde gelöscht."
+msgstr "Nutzer*in wurde gelöscht."
 
 #: application/modules/admin/controllers/UserController.php:195
 msgid "User cannot be deleted because other entities depend on it."
 msgstr ""
-"Nutzer_in kann nicht gelöscht werden, solange noch Inhalte damit verbunden "
+"Nutzer*in kann nicht gelöscht werden, solange noch Inhalte damit verbunden "
 "sind."
 
 #: application/modules/admin/controllers/VotingController.php:51
@@ -877,7 +877,7 @@ msgstr "Änderungen für <b>%s</b> gespeichert."
 #: application/modules/admin/controllers/VotingController.php:111
 #: application/modules/admin/controllers/VotingController.php:157
 msgid "No user provided."
-msgstr "Kein_e Nutzer_in angegeben."
+msgstr "Kein*e Nutzer*in angegeben."
 
 #: application/modules/admin/controllers/VotingController.php:130
 msgid "The voting permission was created."
@@ -893,23 +893,23 @@ msgstr ""
 
 #: application/modules/admin/controllers/VotingController.php:252
 msgid "Voting participant has been confirmed."
-msgstr "Abstimmungsteilnehmer_in wurde bestätigt."
+msgstr "Abstimmungsteilnehmer*in wurde bestätigt."
 
 #: application/modules/admin/controllers/VotingController.php:255
 msgid "Voting participant has been denied."
-msgstr "Abstimmungsteilnehmer_in wurde abgelehnt."
+msgstr "Abstimmungsteilnehmer*in wurde abgelehnt."
 
 #: application/modules/admin/controllers/VotingController.php:260
 msgid "Voting participant has been deleted."
-msgstr "Abstimmungsteilnehmer_in wurde gelöscht."
+msgstr "Abstimmungsteilnehmer*in wurde gelöscht."
 
 #: application/modules/admin/controllers/VotingController.php:263
 msgid "Reminder to Voter has been sent."
-msgstr "Erinnerung an Abstimmende_n wurde versandt."
+msgstr "Erinnerung an Abstimmende*n wurde versandt."
 
 #: application/modules/admin/controllers/VotingController.php:267
 msgid "Reminder to Group leader has been sent."
-msgstr "Erinnerung an Gruppenverantwortliche_n wurde versandt."
+msgstr "Erinnerung an Gruppenverantwortliche*n wurde versandt."
 
 #: application/modules/admin/controllers/VotingController.php:374
 msgid "No question was selected."
@@ -1392,7 +1392,7 @@ msgstr "Zeige „Benachrichtigung über Ergebnisse“"
 
 #: application/modules/admin/forms/CreateInput.php:27
 msgid "Contribution Author"
-msgstr "Beitragsverfasser_in"
+msgstr "Beitragsverfasser*in"
 
 #: application/modules/admin/forms/Directory.php:10
 #: application/modules/admin/forms/Mail/Component.php:14
@@ -1412,7 +1412,7 @@ msgstr "Name"
 
 #: application/modules/admin/forms/Followup/File.php:28
 msgid "Author"
-msgstr "Verfasser_in"
+msgstr "Verfasser*in"
 
 #: application/modules/admin/forms/Followup/File.php:34
 #: application/modules/admin/forms/Followup/Snippet.php:24
@@ -1674,7 +1674,7 @@ msgstr "Nach Erstellung sortieren"
 
 #: application/modules/admin/forms/InputSort.php:13
 msgid "Sort by number of supporters"
-msgstr "Nach Anzahl der Unterstützer_innen sortieren"
+msgstr "Nach Anzahl der Unterstützer*innen sortieren"
 
 #: application/modules/admin/forms/InputSort.php:23
 msgid "Sort"
@@ -1967,7 +1967,7 @@ msgstr "User"
 #: application/modules/admin/forms/User/Edit.php:56
 #: application/modules/admin/views/scripts/user/index.phtml:67
 msgid "Editor"
-msgstr "Redakteur_in"
+msgstr "Redakteur*in"
 
 #: application/modules/admin/forms/User/Create.php:46
 #: application/modules/admin/forms/User/Edit.php:57
@@ -2395,7 +2395,7 @@ msgstr "Jahre"
 #: application/modules/admin/views/scripts/consultation/_groupsForm.phtml:151
 #: application/modules/admin/views/scripts/consultation/_groupsForm.phtml:187
 msgid "Delete interval"
-msgstr "Von"
+msgstr "Intervall löschen"
 
 #: application/modules/admin/views/scripts/consultation/_groupsForm.phtml:89
 #: application/modules/admin/views/scripts/consultation/_groupsForm.phtml:203
@@ -2535,7 +2535,7 @@ msgstr "Beitrag ansehen"
 
 #: application/modules/admin/views/scripts/consultation/report.phtml:70
 msgid "Number of confirmed user contributions"
-msgstr "Anzahl bestätigter Beiträge von Nutzer_innen"
+msgstr "Anzahl bestätigter Beiträge von Nutzer*innen"
 
 #: application/modules/admin/views/scripts/consultation/report.phtml:73
 msgid "Number of contributions for voting"
@@ -2866,7 +2866,7 @@ msgstr "Beitrag bearbeiten"
 
 #: application/modules/admin/views/scripts/input/edit.phtml:45
 msgid "List of contributions from this author"
-msgstr "Alle Beiträge dieser_s Teilnehmenden"
+msgstr "Alle Beiträge dieser/s Teilnehmenden"
 
 #: application/modules/admin/views/scripts/input/index.phtml:35
 msgid "There are no contributions yet."
@@ -3034,7 +3034,7 @@ msgstr "Letzte Aktivität"
 
 #: application/modules/admin/views/scripts/input/list-by-user.phtml:41
 msgid "Contact person"
-msgstr "Ansprechpartner_in"
+msgstr "Ansprechpartner*in"
 
 #: application/modules/admin/views/scripts/input/list-by-user.phtml:47
 msgid "Group name"
@@ -3425,7 +3425,7 @@ msgstr "User"
 
 #: application/modules/admin/views/scripts/user/index.phtml:22
 msgid "There are no users yet."
-msgstr "Es gibt noch keine Nutzer_in."
+msgstr "Es gibt noch keine Nutzer*in."
 
 #: application/modules/admin/views/scripts/user/index.phtml:40
 msgid "Last Activity"
@@ -3445,7 +3445,7 @@ msgstr "User bearbeiten"
 
 #: application/modules/admin/views/scripts/user/index.phtml:85
 msgid "Transfer contributions to another user"
-msgstr "Beiträge an andere_n Nutzer_in übertragen"
+msgstr "Beiträge an andere*n Nutzer*in übertragen"
 
 #: application/modules/admin/views/scripts/user/index.phtml:94
 msgid "Are you sure? All contributions by this user will be made anonymous."
@@ -3475,11 +3475,11 @@ msgstr "Neue Berechtigung"
 
 #: application/modules/admin/views/scripts/voting/create-rights.phtml:30
 msgid "There are no users without voting permissions."
-msgstr "Es gibt keine Nutzer_innen ohne Stimmrechte."
+msgstr "Es gibt keine Nutzer*innen ohne Stimmrechte."
 
 #: application/modules/admin/views/scripts/voting/create-rights.phtml:32
 msgid "Create a new user"
-msgstr "Neue_n Nutzer_in erstellen"
+msgstr "Neue*n Nutzer*in erstellen"
 
 #: application/modules/admin/views/scripts/voting/editrights.phtml:23
 msgid "Voting Permissions for"
@@ -3515,7 +3515,7 @@ msgstr "Angegebene Größe"
 
 #: application/modules/admin/views/scripts/voting/index.phtml:97
 msgid "Show all contributions by this user"
-msgstr "Alle Beiträge von Nutzer_in anzeigen"
+msgstr "Alle Beiträge von Nutzer*in anzeigen"
 
 #: application/modules/admin/views/scripts/voting/index.phtml:104
 msgid "Edit permissions"
@@ -3548,11 +3548,11 @@ msgstr "Keine neuen Berechtigungen vorhanden."
 
 #: application/modules/admin/views/scripts/voting/participantedit.phtml:22
 msgid "Back to Voting Participants"
-msgstr "Zurück zu Abstimmungsteilnehmer_innen"
+msgstr "Zurück zu Abstimmungsteilnehmer*innen"
 
 #: application/modules/admin/views/scripts/voting/participantedit.phtml:26
 msgid "Edit Voting Participant:"
-msgstr "Abstimmungsteilnehmer_in bearbeiten:"
+msgstr "Abstimmungsteilnehmer*in bearbeiten:"
 
 #: application/modules/admin/views/scripts/voting/participantedit.phtml:32
 msgid ""
@@ -3560,17 +3560,17 @@ msgid ""
 "participant will be transferred to currently edited participant. Eventually, "
 "the selected participant will be removed."
 msgstr ""
-"Bitte wähle doppelte_n Teilnehmer_in aus, die/den du löschen willst. Die "
+"Bitte wähle doppelte*n Teilnehmer*in aus, die/den du löschen willst. Die "
 "Daten der/des Teilnehmenden werden zu aktuell ausgewählter/m Teilnehmenden "
-"transferiert. Anschließend wird Teilnehmende_r gelöscht."
+"transferiert. Anschließend wird Teilnehmende*r gelöscht."
 
 #: application/modules/admin/views/scripts/voting/participants.phtml:30
 msgid "Voting Participants"
-msgstr "Abstimmungsteilnehmer_innen"
+msgstr "Abstimmungsteilnehmende"
 
 #: application/modules/admin/views/scripts/voting/participants.phtml:36
 msgid "Total participants"
-msgstr "Alle Teilnehmer_innen"
+msgstr "Alle Teilnehmende"
 
 #: application/modules/admin/views/scripts/voting/participants.phtml:50
 msgid "Group"
@@ -3578,7 +3578,7 @@ msgstr "Gruppe"
 
 #: application/modules/admin/views/scripts/voting/participants.phtml:51
 msgid "Participant"
-msgstr "Teilnehmer_in"
+msgstr "Teilnehmer*in"
 
 #: application/modules/admin/views/scripts/voting/participants.phtml:53
 msgid "Votes Left"
@@ -3590,25 +3590,25 @@ msgstr "Abgelehnt"
 
 #: application/modules/admin/views/scripts/voting/participants.phtml:107
 msgid "Merge participants"
-msgstr "Abstimmungsteilnehmer_innen zusammenführen"
+msgstr "Abstimmungsteilnehmende zusammenführen"
 
 #: application/modules/admin/views/scripts/voting/participants.phtml:123
 msgid "Confirm voting participant?"
-msgstr "Abstimmungsteilnehmer_in zulassen?"
+msgstr "Abstimmungsteilnehmer*in zulassen?"
 
 #: application/modules/admin/views/scripts/voting/participants.phtml:126
 #: application/modules/admin/views/scripts/voting/participants.phtml:129
 msgid "Confirm participant"
-msgstr "Teilnehmer_in bestätigen"
+msgstr "Teilnehmer*in bestätigen"
 
 #: application/modules/admin/views/scripts/voting/participants.phtml:140
 msgid "Deny voting participant?"
-msgstr "Abstimmungsteilnehmer_in ablehnen?"
+msgstr "Abstimmungsteilnehmer*in ablehnen?"
 
 #: application/modules/admin/views/scripts/voting/participants.phtml:143
 #: application/modules/admin/views/scripts/voting/participants.phtml:146
 msgid "Deny participant"
-msgstr "Teilnehmer_in ablehnen"
+msgstr "Teilnehmer*in ablehnen"
 
 #: application/modules/admin/views/scripts/voting/participants.phtml:157
 msgid "Delete voting participant?"
@@ -3617,7 +3617,7 @@ msgstr "Bewertungen löschen?"
 #: application/modules/admin/views/scripts/voting/participants.phtml:160
 #: application/modules/admin/views/scripts/voting/participants.phtml:163
 msgid "Delete participant"
-msgstr "Teilnehmer_in löschen"
+msgstr "Teilnehmer*in löschen"
 
 #: application/modules/admin/views/scripts/voting/participants.phtml:173
 #: application/modules/admin/views/scripts/voting/participants.phtml:176
@@ -3628,7 +3628,7 @@ msgstr "Erinnerung senden"
 
 #: application/modules/admin/views/scripts/voting/participants.phtml:204
 msgid "There are no participants yet."
-msgstr "Es gibt noch keine Teilnehmer_innen."
+msgstr "Es gibt noch keine Teilnehmenden."
 
 #: application/modules/admin/views/scripts/voting/results.phtml:31
 msgid "Download table as file"
@@ -3962,7 +3962,7 @@ msgstr "Ursprünglicher Beitrag"
 #~ msgstr "Externe E-Mail an alle Berechtigten senden"
 
 #~ msgid "User Name"
-#~ msgstr "Name von Nutzer_in"
+#~ msgstr "Name von Nutzer*in"
 
 #~ msgid "Voting weight"
 #~ msgstr "Stimmgewicht"
@@ -3971,7 +3971,7 @@ msgstr "Ursprünglicher Beitrag"
 #~ msgstr "Partner"
 
 #~ msgid "There are no participants to be invited."
-#~ msgstr "Es stehen keine Teilnehmer_innen zur Auswahl für eine Einladung."
+#~ msgstr "Es stehen keine Teilnehmer*innen zur Auswahl für eine Einladung."
 
 #~ msgid "Consultation reactions & impact"
 #~ msgstr "Reaktionen & Wirkung"
@@ -4285,11 +4285,11 @@ msgstr "Ursprünglicher Beitrag"
 
 # This has no full stop at the end, but the very similar "Reminder to Group leader has been sent." does end with it. Is that on purpose or shouldn't it be both the same way?
 #~ msgid "Reminder to Voter has been sent"
-#~ msgstr "Erinnerung an Abstimmende_n wurde versandt"
+#~ msgstr "Erinnerung an Abstimmende*n wurde versandt"
 
 # I guess it means confirmed *user* contributions? Would you please add this "user" to the English version as well?
 #~ msgid "Number of confirmed contributions"
-#~ msgstr "Anzahl bestätigter Beiträge von Nutzer_innen"
+#~ msgstr "Anzahl bestätigter Beiträge von Nutzer*innen"
 
 # Not 100% sure what is meant here. Probably "Display group size"?
 # "sum" is most probably wrong, it should be "amount" at least.
@@ -4349,7 +4349,7 @@ msgstr "Ursprünglicher Beitrag"
 
 # Please change to "Sort by number of supporters"
 #~ msgid "Sort By Supported"
-#~ msgstr "Nach Anzahl der Unterstützer_innen sortieren"
+#~ msgstr "Nach Anzahl der Unterstützer*innen sortieren"
 
 #~ msgid "There is no consultation round with this ID."
 #~ msgstr "Es gibt keine Beteiligungsrunde mit dieser ID."
