@@ -14,5 +14,5 @@ This documentation is nor complete nor perfect. It is a collection of texts that
 [Reactions Time Line]({{ site.baseurl }}{% link reactions_time_line.md %})<br />
 [Users]({{ site.baseurl }}{% link users.md %})<br />
 [Video Services]({{ site.baseurl }}{% link video_services.md %})<br />
-[Voting]({{ site.baseurl }}{% link voting.md %})
-
+[Voting]({{ site.baseurl }}{% link voting.md %})<br />
+[Localization]({{ site.baseurl }}{% link localization.md %})<br />

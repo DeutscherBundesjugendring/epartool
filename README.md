@@ -124,6 +124,9 @@ Upgrading the tool version consists of the following steps:
 
 The recommended way to develop the tool is using [Docker](https://www.docker.com). The application in development mode is served at `http://devel.localhost`. First run of Docker can take a few minutes.
 
+To build the documentation locally follow: https://help.github.com/articles/setting-up-your-github-pages-site-locally-with-jekyll/
+```
+
 ### Linux
 The `docker-compose` tool is needed.
 
