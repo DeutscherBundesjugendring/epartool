@@ -100,8 +100,8 @@ class RoboFile extends Tasks
         $this->stopOnFail(true);
         $this->taskExec('cp install/images/consultation_thumb_micro_scholl.jpg www/media/consultations/1')->run();
         $this->taskExec('mkdir www/media/folders/misc || exit 0')->run();
-        $this->taskExec('cp www/images/logo@2x.png www/media/folders/misc/logo.png')->run();
-        $this->taskExec('cp install/images/epartool_logo.png www/media/folders/misc')->run();
+        $this->taskExec('cp www/images/logo.svg www/media/folders/misc/logo.svg')->run();
+        $this->taskExec('cp install/images/epartool_logo.svg www/media/folders/misc')->run();
         $this->taskExec('cp install/images/Gruppenstunde_ImP-2013_Cover.jpg www/media/folders/misc')->run();
         $this->taskExec('cp install/images/Methodenkarten-250x310.jpg www/media/folders/misc')->run();
         $this->taskExec('zip')
@@ -130,8 +130,8 @@ class RoboFile extends Tasks
             ->option('--include', 'www/runMigrations.php')
             ->option('--include', 'www/.htaccess')
             ->option('--include', 'www/media/consultations/1/consultation_thumb_micro_scholl.jpg')
-            ->option('--include', 'www/media/folders/misc/logo.png')
-            ->option('--include', 'www/media/folders/misc/epartool_logo.png')
+            ->option('--include', 'www/media/folders/misc/logo.svg')
+            ->option('--include', 'www/media/folders/misc/epartool_logo.svg')
             ->option('--include', 'www/media/folders/misc/Gruppenstunde_ImP-2013_Cover.jpg')
             ->option('--include', 'www/media/folders/misc/Methodenkarten-250x310.jpg')
             ->option('--exclude', 'application/configs/config.local.ini')

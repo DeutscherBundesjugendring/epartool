@@ -88,8 +88,9 @@ $license = (new Model_License())->find($projectSettings['license'], $lang . '_' 
                             <?=$this->mediaPresenter('media/' . $this->themeAssets()['logo'], 'front_logo_2x');?> 2x
                         "
                     <?php else : ?>
-                        src="<?=$this->baseUrl('images/logo.png');?>"
-                        srcset="<?=$this->baseUrl('images/logo.png');?>, <?=$this->baseUrl('images/logo@2x.png');?> 2x"
+                        src="<?=$this->baseUrl('images/logo.svg');?>"
+                        width="180"
+                        height="84"
                     <?php endif; ?>
                     class="img-responsive"
                     itemprop="image"
