@@ -16,7 +16,7 @@ web:
     ports:
         - 80:80
     volumes:
-        - .:/www
+        - .:/www:z
 mail:
     image: mailhog/mailhog
     ports:
