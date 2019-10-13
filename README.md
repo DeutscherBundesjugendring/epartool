@@ -104,8 +104,11 @@ Once the application has been built, several environment-specific settings have 
 ### After Install Tasks
 Regardless of the installation method, the following tasks must be done:
 
-* Configure a Cron job to send a GET request to the page `/cron/execute/key/<secret_cron_key>`. `<secret_cron_key>` is defined in `application/config/config.local.ini` and is used to prevent unauthorized users from triggering the task. This is not needed for development environments as the Cron jobs can be triggered by visiting the path manually. Setting the Cron job to trigger hourly should be enough.
-* In case it is not possible to setup Cron job on your server, the fallback Cron system will be activated by leaving the `cron.key` setting empty. Fallback Cron is disabled in development.
+* Set up cronjobs. There are three ways to do it:
+    - Configure an hourly cronjob to run the script `application/cli.php cron` via CLI.
+    - Configure an hourly cronjob to send a GET request to the page `/cron/execute/key/<secret_cron_key>`. `<secret_cron_key>` is defined in `cron.key` entry in`application/config/config.local.ini` and is used to prevent unauthorized users from triggering the task.
+    - In case it is not possible to setup cronjobs on your server, the fallback cron system will be activated by leaving the `cron.key` entry in `application/config/config.local.ini` setting empty. This means that cronjobs might be run with some probability on every request to the site. This feature is disabled in development mode.
+
 * Copy the file `VERSION-example.txt` to `VERSION.txt` and optionally update the new file. The content is used to inform the users of which version of the tool they are using.
 
 
