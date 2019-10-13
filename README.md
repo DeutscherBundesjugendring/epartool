@@ -20,7 +20,7 @@ The preferred installation method is using the bundled installation wizard.
 
 1. Obtain the installation package by download or create it by running the `$ robo create:install-zip` command in the root folder of the cloned repository where the `RoboFile.php` is located. 
 2. Visit site in browser. If the application is not installed, the installation wizard starts automatically.
-3. After installation is completed, remove the `install` directory.
+3. Unless this is a development build remove the `install` directory. This is not necessary if the app is to be accessed on domain matching `http[s]://devel.*` (see [Development](#development)).
 
 ### No Wizard
 #### Filesystem
@@ -49,19 +49,57 @@ Once the application has been built, several environment-specific settings have 
     * read+write: `/www/media/consultations/`
     * read+write: `/www/media/folders/`
     * read+write: `/www/image_cache/`
-* Remove the `install` directory.
+* Unless this is a development build remove the `install` directory. This is not necessary if the app is to be accessed on domain matching `http[s]://devel.*` (see [Development](#development)).
+
+#### Build
+
+1. Install PHP dependencies
+    ```
+    composer install
+    ```
+2. Install JS dependencies
+    ```
+    npm install
+    ```
+3. Install JS dependencies (legacy)
+    ```
+    bower install
+    ```
+4. Install JS dependencies
+    ```
+    npm install
+    ```
+ 5. Build assets
+    ```
+    grunt
+    ```
 
 #### Database
-* Create database (see [Requirements](#requirements))
-* Run the following SQL files and commands in the specified order:
-    1. `data/create-installation.sql`
-    2. `$ robo phinx:migrate production` 
-    3. `data/create-project.sql` (ensure the var `@project_code` is set to whatever is specified in the setting `project` in `application/configs/config.local.ini`)
-* Optionally run the following SQL files:
-    * `data/create-sample-data.sql`
-    * `data/create-admin.sql`
-
-Due to security reasons the `create-admin.sql` script creates an admin with no password. Password can be reset using the forgotten password feature of the application itself or the file can be manually tweaked to insert the correct password hash directly.
+1. Create database (see [Requirements](#requirements))
+2. Run the following SQL files and commands in the specified order:
+    1. Populate database
+        ```
+        mysql -u <db_user> -h <db_host> -p <db_name> < data/create-installation.sql
+        ```
+    2. Run database migrations
+        ```
+        $ vendor/bin/robo phinx:migrate production
+       ```
+    3. Create project. This step can be run multiple times to create multiple projects.
+        ```
+        mysql -u <db_user> -h <db_host> -p <db_name> <  data/create-project.sql
+       ```
+       Ensure the var `@project_code` in the SQL script is set to whatever is specified in the setting `project` in `application/configs/config.local.ini`.
+3. Optionally run the following SQL files:
+    * Create sample data
+        ```
+        data/create-sample-data.sql
+        ```
+    * Create admin user:
+        ```
+        data/create-admin.sql
+       ```
+        Due to security reasons the `create-admin.sql` script creates an admin with no password. Password can be reset using the forgotten password feature of the application itself or the file can be manually tweaked to insert the correct password hash directly.
 
 ### After Install Tasks
 Regardless of the installation method, the following tasks must be done:
@@ -128,7 +166,7 @@ Upgrading the tool version consists of the following steps:
 The recommended way to develop the tool is using [Docker](https://www.docker.com). The application in development mode is served at `http://devel.localhost`. First run of Docker can take a few minutes.
 
 To build the documentation locally follow: https://help.github.com/articles/setting-up-your-github-pages-site-locally-with-jekyll/
-```
+
 
 ### Linux
 The `docker-compose` tool is needed.

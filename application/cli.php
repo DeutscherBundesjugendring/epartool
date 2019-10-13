@@ -2,7 +2,7 @@
 
 if (php_sapi_name() !== 'cli') {
     // @codingStandardsIgnoreLine
-    die('ERROR: This script may only be run form CLI.');
+    die('ERROR: This script may only be run from CLI.');
 }
 
 if (!extension_loaded('pdo_mysql')) {
