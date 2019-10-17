@@ -55,7 +55,6 @@ node {
 
         stage('Prepare docker containers') {
             timeout(20) {
-                sh 'docker-compose -f docker-compose-build.yml build web'
                 sh 'docker-compose -f docker-compose-build.yml up -d web'
             }
         }

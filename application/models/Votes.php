@@ -45,6 +45,9 @@ class Model_Votes extends Dbjr_Db_Table_Abstract
         if (count($questionArray[1])) {
             $currentQuestion = $questionArray['0'];
             $questions = $questionArray['1'];
+            if (!isset($currentQuestion['qi'])) {
+                return [];
+            }
             $votes = (new Model_VotingFinal)->getFinalVotesByQuestion($currentQuestion['qi']);
 
             if (!empty($votes)) {
@@ -94,7 +97,7 @@ class Model_Votes extends Dbjr_Db_Table_Abstract
             // see getQuestionArray($kid,$qid) get the questions
             $questionArray = $this->getQuestionArray($kid, $qid);
             $currentQuestion = $questionArray['0'];
-                $questions = $questionArray['1'];
+            $questions = $questionArray['1'];
 
             // get the inputs/theses for one question
             $inputsModel = new Model_Inputs();
@@ -107,7 +110,7 @@ class Model_Votes extends Dbjr_Db_Table_Abstract
                 $thesesVotes[$thesis['tid']] = $votesIndivModel->getVotingValuesByThesis($thesis['tid'], $kid);
                 $thesesValues[$thesis['tid']] = $thesis;
                 // get reaction_files?
-                $followUps = $followUpModel->getFollowupCountByTids($thesis['tid']);
+                $followUps = $followUpModel->getFollowupCountByTids([$thesis['tid']]);
                 $thesesValues[$thesis['tid']]['is_followups'] = false;
                 if (isset($followUps[$thesis['tid']])) {
                     $theses_values[$thesis['tid']]['is_followups'] = true;
@@ -157,7 +160,7 @@ class Model_Votes extends Dbjr_Db_Table_Abstract
             if (!$qid) {
                 $currentQuestion = $question;
                  break;
-            } elseif ($qid === $question['qi']) {
+            } elseif ((string) $qid === (string) $question['qi']) {
                 $currentQuestion = $question;
                 break;
             }

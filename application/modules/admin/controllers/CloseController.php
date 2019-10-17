@@ -97,7 +97,7 @@ class Admin_CloseController extends Zend_Controller_Action
             $data['kid'] =$this->_consultation["kid"];
             $data['tid'] = $value;
             $data['is_followups'] = false;
-            $followUps = $followUpModel ->  getFollowupCountByTids($value);
+            $followUps = $followUpModel ->getFollowupCountByTids($value);
             if (isset($followUps[$value])) {
                 $data['is_followups'] = true;
             }
