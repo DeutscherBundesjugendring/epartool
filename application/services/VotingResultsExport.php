@@ -1,34 +1,33 @@
 <?php
 
+use  \PhpOffice\PhpSpreadsheet\Spreadsheet;
+
 class Service_VotingResultsExport
 {
-    /**
-     * @param Zend_Db_Table_Row_Abstract $consultation
-     * @param int $questionId
-     * @return PHPExcel
-     */
-    public function exportResults(Zend_Db_Table_Row_Abstract $consultation, $questionId)
+    public function exportResults(Zend_Db_Table_Row_Abstract $consultation, int $questionId): ?Spreadsheet
     {
         $resultsForExport = (new Model_Votes())->getResultsValues($consultation->kid, $questionId);
-        
-        $objPHPExcel = new PHPExcel();
-        
+        if(!$resultsForExport) {
+            return null;
+        }
+        $spreadsheet = new Spreadsheet();
+
         $auth = Zend_Auth::getInstance();
         if ($auth->hasIdentity()) {
-            $objPHPExcel->getProperties()->setCreator($auth->getIdentity()->email)
+            $spreadsheet->getProperties()->setCreator($auth->getIdentity()->email)
                 ->setTitle($consultation->titl_short . ' ' . $questionId);
         }
 
         $translator = Zend_Registry::get('Zend_Translate');
-        
-        $sheet = $objPHPExcel->setActiveSheetIndex(0);
+
+        $sheet = $spreadsheet->setActiveSheetIndex(0);
         $sheet->setCellValue('A1', $consultation->titl)
             ->setCellValue('B1', $resultsForExport['currentQuestion']['q']);
-        
+
         $sheet->setCellValue('A3', $translator->translate('Contribution'))
             ->setCellValue('B3', $translator->translate('Contribution explanation'))
             ->setCellValue('C3', $translator->translate('Rank'));
-        
+
         $row = 4;
         foreach ($resultsForExport['votings'] as $result) {
             $sheet->setCellValue('A' . $row, $result['thes'])->setCellValue('B' . $row, $result['expl'])
@@ -37,15 +36,10 @@ class Service_VotingResultsExport
         }
 
         $sheet->setTitle($this->correctSheetTitle($resultsForExport['currentQuestion']['q']));
-
-        return $objPHPExcel;
+        return $spreadsheet;
     }
-    
-    /**
-     * @param string $title
-     * @return string
-     */
-    private function correctSheetTitle($title)
+
+    private function correctSheetTitle(string $title): string
     {
         $correctedTitle = str_replace(['*', ':', '/', '\\', '?', '[', ']'], '-', $title);
         return mb_substr($correctedTitle, 0, 31);
