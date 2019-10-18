@@ -11,7 +11,6 @@ module.exports = function (grunt) {
         admin: 'assets/admin'
       },
       dist: 'www',
-      bower: 'bower_components',
       npm: 'node_modules',
       temp: '.tmp'
     },

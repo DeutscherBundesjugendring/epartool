@@ -18,7 +18,7 @@ module.exports = {
       dest: '<%= paths.dist %>/images/admin/'
     }, {
       expand: true,
-      cwd: '<%= paths.bower %>/bootstrap.ui/src/images/',
+      cwd: '<%= paths.npm %>/bootstrap.ui/src/images/',
       src: ['*.svg'],
       dest: '<%= paths.dist %>/images/admin/'
     }]

@@ -1,0 +1,75 @@
+//
+// Grid
+//
+// Inspired by http://www.barrelny.com/blog/text-align-justify-and-rwd
+//
+// Creates a justified grid of inline blocks.
+// Requires definition of grid cells (and optional spacers).
+//
+// Example:
+// .gallery {
+//     .grid(20%);
+// }
+//
+// Default column sets can also be applied.
+//
+// Example:
+// .gallery {
+//     .grid();
+//     .grid-cols-5();
+// }
+//
+// jQuery filter using this technique:
+// http://mixitup.io/
+
+
+// The grid
+.grid(@grid-item-width: 22%, @root-font-size: 16px, @line-height: 1.5) {
+  display: block;
+  margin: 0;
+  padding: 0;
+  font-size: 0.1px; // avoid unwanted spacing
+  line-height: 1;
+  text-align: justify;
+  list-style: none; // remove list bullets
+
+  // Add line break to enable justifying of the last line
+  &:after {
+    content: '';
+    width: 100%;
+    display: inline-block;
+  }
+
+  // Grid cells
+  > * {
+    width: @grid-item-width;
+    display: inline-block;
+    vertical-align: top;
+    font-size: @root-font-size; // fallback
+    font-size: 1rem;
+    line-height: @line-height;
+    text-align: left;
+  }
+}
+
+// Grid columns
+.grid-cols-2() {
+  > * {
+    width: 48.8%;
+    margin-bottom: 1em;
+  }
+}
+
+.grid-cols-4() {
+  > * {
+    width: 24%;
+    margin-bottom: 1em;
+  }
+}
+
+.grid-cols-5() {
+  > * {
+    width: 19.1%;
+    margin-bottom: 1em;
+  }
+}

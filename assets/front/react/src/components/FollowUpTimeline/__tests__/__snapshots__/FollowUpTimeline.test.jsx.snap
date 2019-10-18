@@ -7,7 +7,7 @@ exports[`rendering renders correctly with element in one column and one row 1`] 
       well-bordered
       well-accent
       followup-stage
-      undefined
+      false
     "
 >
   <div
@@ -73,7 +73,7 @@ exports[`rendering renders correctly with element in one column and one row and 
       well-bordered
       well-accent
       followup-stage
-      undefined
+      false
     "
 >
   <div
@@ -142,7 +142,7 @@ exports[`rendering renders correctly with elements in more columns and more rows
       well-bordered
       well-accent
       followup-stage
-      undefined
+      false
     "
 >
   <div
@@ -253,7 +253,7 @@ exports[`rendering renders correctly without elements 1`] = `
       well-bordered
       well-accent
       followup-stage
-      undefined
+      false
     "
 >
   <div

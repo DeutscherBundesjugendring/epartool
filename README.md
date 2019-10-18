@@ -29,7 +29,6 @@ The tool uses the [Robo](http://robo.li) task runner to perform the build. It is
 * [Robo](http://robo.li)
 * [Composer](https://getcomposer.org)
 * [Node.js + npm](http://nodejs.org)
-* [Bower](http://bower.io)
 * [Grunt](http://gruntjs.com)
 * [Webpack](https://webpack.github.io)
 
@@ -60,10 +59,6 @@ Once the application has been built, several environment-specific settings have 
 2. Install JS dependencies
     ```
     npm install
-    ```
-3. Install JS dependencies (legacy)
-    ```
-    bower install
     ```
 4. Install JS dependencies
     ```
@@ -203,9 +198,7 @@ Open Street Map (OSM) are licensed by [Open Data Commons Open Database License (
 This application uses external libraries and third party software. The list of all required software packages is available in special definition files.
 * `composer.json`
 * `package.json`
-* `bower.json`
 
 Licenses of used libraries and other third party software are available usually on the package manager web page or in the package repository.
 * For information about Composer package (defined in `composer.json`) visit please [packagist.org](https://packagist.org) and insert the name of the package
 * For information about Npm package (defined in `package.json`) visit please [www.npmjs.com](https://www.npmjs.com)
-* For information about Bower package (defined in `bower.json`) visit [bower.io/search](https://bower.io/search)

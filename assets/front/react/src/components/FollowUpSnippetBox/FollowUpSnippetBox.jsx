@@ -1,27 +1,42 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Reputation from '../Reputation/Reputation';
 
-
-const FollowUpSnippetBox = (props) => {
+const FollowUpSnippetBox = ({
+  dislikeAction,
+  dislikeCount,
+  dislikeLabel,
+  document,
+  likeAction,
+  likeCount,
+  likeLabel,
+  snippetExplanation,
+  type,
+  typeActionLabel,
+  typeEndLabel,
+  typeRejectedLabel,
+  typeSupportingLabel,
+  votingLimitError,
+}) => {
   let glyphClasses = 'followup-type-icon glyphicon';
   let isType = false;
   let glyphTitle = '';
 
-  if (props.type === 'supporting') {
+  if (type === 'supporting') {
     glyphClasses += ' glyphicon-heart';
-    glyphTitle = props.typeSupportingLabel;
+    glyphTitle = typeSupportingLabel;
     isType = true;
-  } else if (props.type === 'action') {
+  } else if (type === 'action') {
     glyphClasses += ' glyphicon-play';
-    glyphTitle = props.typeActionLabel;
+    glyphTitle = typeActionLabel;
     isType = true;
-  } else if (props.type === 'rejected') {
+  } else if (type === 'rejected') {
     glyphClasses += ' glyphicon-minus-sign';
-    glyphTitle = props.typeRejectedLabel;
+    glyphTitle = typeRejectedLabel;
     isType = true;
-  } else if (props.type === 'end') {
+  } else if (type === 'end') {
     glyphClasses += ' glyphicon-lock';
-    glyphTitle = props.typeEndLabel;
+    glyphTitle = typeEndLabel;
     isType = true;
   }
 
@@ -46,8 +61,8 @@ const FollowUpSnippetBox = (props) => {
           </div>
         )}
         <img
-          src={props.document.previewImageLink}
-          alt={props.document.title}
+          src={document.previewImageLink}
+          alt={document.title}
           width="120"
           className="offset-bottom img-responsive"
         />
@@ -55,17 +70,17 @@ const FollowUpSnippetBox = (props) => {
       <div
         className="js-followup-box-content"
         // eslint-disable-next-line react/no-danger
-        dangerouslySetInnerHTML={{ __html: props.snippetExplanation }}
+        dangerouslySetInnerHTML={{ __html: snippetExplanation }}
       />
       <div className="followup-reputation">
         <Reputation
-          dislikeAction={props.dislikeAction}
-          dislikeCount={props.dislikeCount}
-          dislikeLabel={props.dislikeLabel}
-          likeAction={props.likeAction}
-          likeCount={props.likeCount}
-          likeLabel={props.likeLabel}
-          votingLimitError={props.votingLimitError}
+          dislikeAction={dislikeAction}
+          dislikeCount={dislikeCount}
+          dislikeLabel={dislikeLabel}
+          likeAction={likeAction}
+          likeCount={likeCount}
+          likeLabel={likeLabel}
+          votingLimitError={votingLimitError}
         />
       </div>
     </div>
@@ -73,23 +88,23 @@ const FollowUpSnippetBox = (props) => {
 };
 
 FollowUpSnippetBox.propTypes = {
-  type: React.PropTypes.oneOf(['general', 'supporting', 'action', 'rejected', 'end']).isRequired,
-  snippetExplanation: React.PropTypes.string.isRequired,
-  likeAction: React.PropTypes.func.isRequired,
-  likeCount: React.PropTypes.number.isRequired,
-  likeLabel: React.PropTypes.string.isRequired,
-  dislikeAction: React.PropTypes.func.isRequired,
-  dislikeCount: React.PropTypes.number.isRequired,
-  dislikeLabel: React.PropTypes.string.isRequired,
-  document: React.PropTypes.shape({
-    previewImageLink: React.PropTypes.string.isRequired,
-    title: React.PropTypes.string.isRequired,
+  dislikeAction: PropTypes.func.isRequired,
+  dislikeCount: PropTypes.number.isRequired,
+  dislikeLabel: PropTypes.string.isRequired,
+  document: PropTypes.shape({
+    previewImageLink: PropTypes.string.isRequired,
+    title: PropTypes.string.isRequired,
   }).isRequired,
-  typeActionLabel: React.PropTypes.string.isRequired,
-  typeEndLabel: React.PropTypes.string.isRequired,
-  typeRejectedLabel: React.PropTypes.string.isRequired,
-  typeSupportingLabel: React.PropTypes.string.isRequired,
-  votingLimitError: React.PropTypes.string.isRequired,
+  likeAction: PropTypes.func.isRequired,
+  likeCount: PropTypes.number.isRequired,
+  likeLabel: PropTypes.string.isRequired,
+  snippetExplanation: PropTypes.string.isRequired,
+  type: PropTypes.oneOf(['general', 'supporting', 'action', 'rejected', 'end']).isRequired,
+  typeActionLabel: PropTypes.string.isRequired,
+  typeEndLabel: PropTypes.string.isRequired,
+  typeRejectedLabel: PropTypes.string.isRequired,
+  typeSupportingLabel: PropTypes.string.isRequired,
+  votingLimitError: PropTypes.string.isRequired,
 };
 
 export default FollowUpSnippetBox;

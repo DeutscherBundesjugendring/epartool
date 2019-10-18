@@ -1,27 +1,39 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import moment from 'moment';
 
-
-const FollowDocumentBox = (props) => {
+const FollowDocumentBox = ({
+  author,
+  date,
+  dateMonthYearOnly,
+  description,
+  previewImageLink,
+  title,
+  type,
+  typeActionLabel,
+  typeEndLabel,
+  typeRejectedLabel,
+  typeSupportingLabel,
+}) => {
   let glypClasses = 'followup-type-icon glyphicon';
   let isType = false;
   let glypTitle = '';
 
-  if (props.type === 'supporting') {
+  if (type === 'supporting') {
     glypClasses += ' glyphicon-heart';
-    glypTitle = props.typeSupportingLabel;
+    glypTitle = typeSupportingLabel;
     isType = true;
-  } else if (props.type === 'action') {
+  } else if (type === 'action') {
     glypClasses += ' glyphicon-play';
-    glypTitle = props.typeActionLabel;
+    glypTitle = typeActionLabel;
     isType = true;
-  } else if (props.type === 'rejected') {
+  } else if (type === 'rejected') {
     glypClasses += ' glyphicon-minus-sign';
-    glypTitle = props.typeRejectedLabel;
+    glypTitle = typeRejectedLabel;
     isType = true;
-  } else if (props.type === 'end') {
+  } else if (type === 'end') {
     glypClasses += ' glyphicon-lock';
-    glypTitle = props.typeEndLabel;
+    glypTitle = typeEndLabel;
     isType = true;
   }
 
@@ -45,20 +57,17 @@ const FollowDocumentBox = (props) => {
             <span className="followup-type-title">{glypTitle}</span>
           </div>
         )}
-        <h2 className="h4">
-          {props.title}
-        </h2>
+        <h2 className="h4">{title}</h2>
         <p className="text-muted">
-          {props.dateMonthYearOnly
-            ? moment(props.date).format('MMMM YYYY')
-            : moment(props.date).format('D MMMM YYYY')
-          }
+          {dateMonthYearOnly
+            ? moment(date).format('MMMM YYYY')
+            : moment(date).format('D MMMM YYYY')}
           <span className="offset-left offset-right">|</span>
-          {props.author}
+          {author}
         </p>
         <img
-          src={props.previewImageLink}
-          alt={props.title}
+          src={previewImageLink}
+          alt={title}
           width="120"
           className="offset-bottom img-responsive"
         />
@@ -66,24 +75,24 @@ const FollowDocumentBox = (props) => {
       <div
         className="js-followup-box-content"
         // eslint-disable-next-line react/no-danger
-        dangerouslySetInnerHTML={{ __html: props.description }}
+        dangerouslySetInnerHTML={{ __html: description }}
       />
     </div>
   );
 };
 
 FollowDocumentBox.propTypes = {
-  type: React.PropTypes.oneOf(['general', 'supporting', 'action', 'rejected', 'end']).isRequired,
-  title: React.PropTypes.string.isRequired,
-  author: React.PropTypes.string.isRequired,
-  description: React.PropTypes.string.isRequired,
-  date: React.PropTypes.objectOf(Date).isRequired,
-  dateMonthYearOnly: React.PropTypes.bool.isRequired,
-  previewImageLink: React.PropTypes.string.isRequired,
-  typeActionLabel: React.PropTypes.string.isRequired,
-  typeEndLabel: React.PropTypes.string.isRequired,
-  typeRejectedLabel: React.PropTypes.string.isRequired,
-  typeSupportingLabel: React.PropTypes.string.isRequired,
+  author: PropTypes.string.isRequired,
+  date: PropTypes.objectOf(Date).isRequired,
+  dateMonthYearOnly: PropTypes.bool.isRequired,
+  description: PropTypes.string.isRequired,
+  previewImageLink: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired,
+  type: PropTypes.oneOf(['general', 'supporting', 'action', 'rejected', 'end']).isRequired,
+  typeActionLabel: PropTypes.string.isRequired,
+  typeEndLabel: PropTypes.string.isRequired,
+  typeRejectedLabel: PropTypes.string.isRequired,
+  typeSupportingLabel: PropTypes.string.isRequired,
 };
 
 export default FollowDocumentBox;

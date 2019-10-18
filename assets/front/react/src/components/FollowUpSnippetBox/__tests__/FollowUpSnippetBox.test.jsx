@@ -1,14 +1,9 @@
 import { shallow } from 'enzyme';
-import { shallowToJson } from 'enzyme-to-json';
 import React from 'react';
-import injectTapEventPlugin from 'react-tap-event-plugin';
 import FollowUpSnippetBox from '../FollowUpSnippetBox';
 
-
-injectTapEventPlugin();
-
 const types = ['general', 'supporting', 'action', 'rejected', 'end'];
-const getElement = type => (
+const getElement = (type) => (
   <FollowUpSnippetBox
     type={type}
     snippetExplanation="Snippet"
@@ -34,7 +29,7 @@ describe('rendering', () => {
   types.forEach((type) => {
     it('renders correctly', () => {
       const tree = shallow(React.cloneElement(getElement(type)));
-      expect(shallowToJson(tree)).toMatchSnapshot();
+      expect(tree).toMatchSnapshot();
     });
   });
 });

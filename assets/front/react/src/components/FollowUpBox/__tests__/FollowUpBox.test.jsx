@@ -1,12 +1,7 @@
 import { shallow } from 'enzyme';
-import { shallowToJson } from 'enzyme-to-json';
 import sinon from 'sinon';
 import React from 'react';
-import injectTapEventPlugin from 'react-tap-event-plugin';
 import FollowUpBox from '../FollowUpBox';
-
-
-injectTapEventPlugin();
 
 describe('rendering', () => {
   it('renders correctly without arrows', () => {
@@ -23,10 +18,11 @@ describe('rendering', () => {
         childAction={() => {}}
         showLessLabel="Show less"
         showMoreLabel="Show more"
-      />
+      />,
+      { disableLifecycleMethods: true },
     );
 
-    expect(shallowToJson(tree)).toMatchSnapshot();
+    expect(tree).toMatchSnapshot();
   });
 
   it('renders correctly with right arrow', () => {
@@ -43,10 +39,11 @@ describe('rendering', () => {
         childAction={() => {}}
         showLessLabel="Show less"
         showMoreLabel="Show more"
-      />
+      />,
+      { disableLifecycleMethods: true },
     );
 
-    expect(shallowToJson(tree)).toMatchSnapshot();
+    expect(tree).toMatchSnapshot();
   });
 
   it('renders correctly with left arrow', () => {
@@ -63,10 +60,11 @@ describe('rendering', () => {
         childAction={() => {}}
         showLessLabel="Show less"
         showMoreLabel="Show more"
-      />
+      />,
+      { disableLifecycleMethods: true },
     );
 
-    expect(shallowToJson(tree)).toMatchSnapshot();
+    expect(tree).toMatchSnapshot();
   });
 
   it('renders correctly with both arrows', () => {
@@ -83,10 +81,11 @@ describe('rendering', () => {
         childAction={() => {}}
         showLessLabel="Show less"
         showMoreLabel="Show more"
-      />
+      />,
+      { disableLifecycleMethods: true },
     );
 
-    expect(shallowToJson(tree)).toMatchSnapshot();
+    expect(tree).toMatchSnapshot();
   });
 });
 
@@ -107,10 +106,11 @@ describe('functionality', () => {
         modalAction={spy}
         showLessLabel="Show less"
         showMoreLabel="Show more"
-      />
+      />,
+      { disableLifecycleMethods: true },
     );
 
-    component.find('div').first().simulate('touchTap', { preventDefault: () => {} });
+    component.find('div').first().simulate('click', { preventDefault: () => {} });
     expect(spy.calledOnce).toEqual(true);
   });
 });

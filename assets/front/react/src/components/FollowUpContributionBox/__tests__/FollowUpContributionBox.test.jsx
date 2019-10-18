@@ -1,8 +1,6 @@
 import { shallow } from 'enzyme';
-import { shallowToJson } from 'enzyme-to-json';
 import React from 'react';
 import FollowUpContributionBox from '../FollowUpContributionBox';
-
 
 describe('rendering', () => {
   it('renders correctly with contribution text only', () => {
@@ -11,10 +9,10 @@ describe('rendering', () => {
         contributionThesis="Contribution thesis"
         question="Question"
         votable={false}
-      />
+      />,
     );
 
-    expect(shallowToJson(tree)).toMatchSnapshot();
+    expect(tree).toMatchSnapshot();
   });
 
   it('renders correctly with all texts, embedded video, location and voting', () => {
@@ -22,7 +20,7 @@ describe('rendering', () => {
       <FollowUpContributionBox
         contributionThesis="Contribution thesis"
         contributionExplanation="Contribution explanation"
-        locationEnabled={true}
+        locationEnabled
         latitude={1.1}
         longitude={1.2}
         question="Question"
@@ -33,9 +31,9 @@ describe('rendering', () => {
         votingText="Voting results"
         votingResults="0 votes"
         votingLink="http://www.example.com/"
-      />
+      />,
     );
 
-    expect(shallowToJson(tree)).toMatchSnapshot();
+    expect(tree).toMatchSnapshot();
   });
 });

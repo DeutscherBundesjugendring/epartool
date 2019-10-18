@@ -3,10 +3,7 @@
 module.exports = {
 
   options: {
-    paths: [
-      '<%= paths.bower %>',
-      '<%= paths.npm %>',
-    ],
+    paths: ['<%= paths.npm %>'],
   },
   admin: {
     files: {

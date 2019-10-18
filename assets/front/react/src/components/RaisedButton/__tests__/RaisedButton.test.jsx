@@ -1,39 +1,34 @@
 import { shallow } from 'enzyme';
-import { shallowToJson } from 'enzyme-to-json';
 import sinon from 'sinon';
 import React from 'react';
-import injectTapEventPlugin from 'react-tap-event-plugin';
 import RaisedButton from '../RaisedButton';
-
-
-injectTapEventPlugin();
 
 describe('rendering', () => {
   it('renders correctly', () => {
     const tree = shallow(
-      <RaisedButton label="text" onTouchTap={() => {}} />
+      <RaisedButton label="text" onClick={() => {}} />,
     );
 
-    expect(shallowToJson(tree)).toMatchSnapshot();
+    expect(tree).toMatchSnapshot();
   });
 
   it('renders correctly disabled button', () => {
     const tree = shallow(
-      <RaisedButton label="text" onTouchTap={() => {}} disabled />
+      <RaisedButton label="text" onClick={() => {}} disabled />,
     );
 
-    expect(shallowToJson(tree)).toMatchSnapshot();
+    expect(tree).toMatchSnapshot();
   });
 });
 
 describe('functionality', () => {
-  it('calls onTouchTap', () => {
+  it('calls onClick', () => {
     const spy = sinon.spy();
     const component = shallow(
-      <RaisedButton label="text" onTouchTap={spy} />
+      <RaisedButton label="text" onClick={spy} />,
     );
 
-    component.simulate('touchTap', { stopPropagation: () => {} });
+    component.simulate('click', { stopPropagation: () => {} });
     expect(spy.calledOnce).toEqual(true);
   });
 });

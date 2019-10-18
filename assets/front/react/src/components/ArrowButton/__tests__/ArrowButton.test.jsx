@@ -1,55 +1,50 @@
 import { shallow } from 'enzyme';
-import { shallowToJson } from 'enzyme-to-json';
 import sinon from 'sinon';
 import React from 'react';
-import injectTapEventPlugin from 'react-tap-event-plugin';
 import ArrowButton from '../ArrowButton';
-
-
-injectTapEventPlugin();
 
 describe('rendering', () => {
   it('renders correctly right', () => {
     const tree = shallow(
-      <ArrowButton label="1" direction="outward" onTouchTap={() => {}} />
+      <ArrowButton label="1" direction="outward" onClick={() => {}} />,
     );
 
-    expect(shallowToJson(tree)).toMatchSnapshot();
+    expect(tree).toMatchSnapshot();
   });
 
   it('renders correctly left', () => {
     const tree = shallow(
-      <ArrowButton label="1" direction="inward" onTouchTap={() => {}} />
+      <ArrowButton label="1" direction="inward" onClick={() => {}} />,
     );
 
-    expect(shallowToJson(tree)).toMatchSnapshot();
+    expect(tree).toMatchSnapshot();
   });
 
   it('renders correctly right disabled', () => {
     const tree = shallow(
-      <ArrowButton label="1" direction="outward" onTouchTap={() => {}} disabled />
+      <ArrowButton label="1" direction="outward" onClick={() => {}} disabled />,
     );
 
-    expect(shallowToJson(tree)).toMatchSnapshot();
+    expect(tree).toMatchSnapshot();
   });
 
   it('renders correctly left disabled', () => {
     const tree = shallow(
-      <ArrowButton label="1" direction="inward" onTouchTap={() => {}} disabled />
+      <ArrowButton label="1" direction="inward" onClick={() => {}} disabled />,
     );
 
-    expect(shallowToJson(tree)).toMatchSnapshot();
+    expect(tree).toMatchSnapshot();
   });
 });
 
 describe('functionality', () => {
-  it('calls onTouchTap', () => {
+  it('calls onClick', () => {
     const spy = sinon.spy();
     const component = shallow(
-      <ArrowButton label="1" direction="outward" onTouchTap={spy} />
+      <ArrowButton label="1" direction="outward" onClick={spy} />,
     );
 
-    component.simulate('touchTap', { stopPropagation: () => {} });
+    component.simulate('click', { stopPropagation: () => {} });
     expect(spy.calledOnce).toEqual(true);
   });
 });

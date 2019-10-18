@@ -1,33 +1,39 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 /* global osmStaticMapUrlTemplate */
 
-const StaticMap = props => (
+const StaticMap = ({
+  height,
+  latitude,
+  longitude,
+  width,
+}) => (
   <div className="map-static map-static-landscape">
     <img
-      width={props.width}
-      height={props.height}
+      width={width}
+      height={height}
       src={
-        osmStaticMapUrlTemplate.replace(/__latitude__/g, props.latitude)
-          .replace(/__longitude__/g, props.longitude)
-          .replace('__width__', props.width)
-          .replace('__height__', props.height)
+        osmStaticMapUrlTemplate.replace(/__latitude__/g, latitude)
+          .replace(/__longitude__/g, longitude)
+          .replace('__width__', width)
+          .replace('__height__', height)
       }
-      alt={`GPS: ${props.latitude}, ${props.longitude}`}
+      alt={`GPS: ${latitude}, ${longitude}`}
     />
   </div>
 );
 
 StaticMap.defaultProps = {
-  width: 240,
   height: 120,
+  width: 240,
 };
 
 StaticMap.propTypes = {
-  latitude: React.PropTypes.number.isRequired,
-  longitude: React.PropTypes.number.isRequired,
-  width: React.PropTypes.number,
-  height: React.PropTypes.number,
+  height: PropTypes.number,
+  latitude: PropTypes.number.isRequired,
+  longitude: PropTypes.number.isRequired,
+  width: PropTypes.number,
 };
 
 export default StaticMap;

@@ -18,7 +18,7 @@ exports[`rendering renders correctly 1`] = `
     <ThumbButton
       disabled={false}
       label="like"
-      onTouchTap={[Function]}
+      onClick={[Function]}
       type="like"
     />
   </div>
@@ -38,7 +38,7 @@ exports[`rendering renders correctly 1`] = `
     <ThumbButton
       disabled={false}
       label="dislike"
-      onTouchTap={[Function]}
+      onClick={[Function]}
       type="dislike"
     />
   </div>
@@ -63,7 +63,7 @@ exports[`rendering renders correctly disabled voting 1`] = `
     <ThumbButton
       disabled={false}
       label="like"
-      onTouchTap={[Function]}
+      onClick={[Function]}
       type="like"
     />
   </div>
@@ -83,7 +83,7 @@ exports[`rendering renders correctly disabled voting 1`] = `
     <ThumbButton
       disabled={false}
       label="dislike"
-      onTouchTap={[Function]}
+      onClick={[Function]}
       type="dislike"
     />
   </div>

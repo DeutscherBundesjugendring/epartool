@@ -27,7 +27,7 @@ exports[`rendering renders correctly with long date without snippets 1`] = `
           <button
             aria-label="Close"
             className="close close-inverse"
-            onTouchTap={[Function]}
+            onClick={[Function]}
             type="button"
           >
             <span
@@ -65,7 +65,7 @@ exports[`rendering renders correctly with long date without snippets 1`] = `
                 <p
                   className="small"
                 >
-                  1 January 2017
+                  2. 4. 2017
                   <span
                     className="offset-left offset-right"
                   >
@@ -75,7 +75,8 @@ exports[`rendering renders correctly with long date without snippets 1`] = `
                 </p>
                 <button
                   className="btn btn-default btn-default-alt btn-sm"
-                  onTouchTap={[Function]}
+                  onClick={[Function]}
+                  type="button"
                 >
                   <span
                     className="glyphicon glyphicon-file icon-offset"
@@ -122,7 +123,7 @@ exports[`rendering renders correctly with long date without snippets 2`] = `
           <button
             aria-label="Close"
             className="close close-inverse"
-            onTouchTap={[Function]}
+            onClick={[Function]}
             type="button"
           >
             <span
@@ -173,7 +174,7 @@ exports[`rendering renders correctly with long date without snippets 2`] = `
                 <p
                   className="small"
                 >
-                  1 January 2017
+                  2. 4. 2017
                   <span
                     className="offset-left offset-right"
                   >
@@ -183,7 +184,8 @@ exports[`rendering renders correctly with long date without snippets 2`] = `
                 </p>
                 <button
                   className="btn btn-default btn-default-alt btn-sm"
-                  onTouchTap={[Function]}
+                  onClick={[Function]}
+                  type="button"
                 >
                   <span
                     className="glyphicon glyphicon-file icon-offset"
@@ -230,7 +232,7 @@ exports[`rendering renders correctly with long date without snippets 3`] = `
           <button
             aria-label="Close"
             className="close close-inverse"
-            onTouchTap={[Function]}
+            onClick={[Function]}
             type="button"
           >
             <span
@@ -281,7 +283,7 @@ exports[`rendering renders correctly with long date without snippets 3`] = `
                 <p
                   className="small"
                 >
-                  1 January 2017
+                  2. 4. 2017
                   <span
                     className="offset-left offset-right"
                   >
@@ -291,7 +293,8 @@ exports[`rendering renders correctly with long date without snippets 3`] = `
                 </p>
                 <button
                   className="btn btn-default btn-default-alt btn-sm"
-                  onTouchTap={[Function]}
+                  onClick={[Function]}
+                  type="button"
                 >
                   <span
                     className="glyphicon glyphicon-file icon-offset"
@@ -338,7 +341,7 @@ exports[`rendering renders correctly with long date without snippets 4`] = `
           <button
             aria-label="Close"
             className="close close-inverse"
-            onTouchTap={[Function]}
+            onClick={[Function]}
             type="button"
           >
             <span
@@ -389,7 +392,7 @@ exports[`rendering renders correctly with long date without snippets 4`] = `
                 <p
                   className="small"
                 >
-                  1 January 2017
+                  2. 4. 2017
                   <span
                     className="offset-left offset-right"
                   >
@@ -399,7 +402,8 @@ exports[`rendering renders correctly with long date without snippets 4`] = `
                 </p>
                 <button
                   className="btn btn-default btn-default-alt btn-sm"
-                  onTouchTap={[Function]}
+                  onClick={[Function]}
+                  type="button"
                 >
                   <span
                     className="glyphicon glyphicon-file icon-offset"
@@ -446,7 +450,7 @@ exports[`rendering renders correctly with long date without snippets 5`] = `
           <button
             aria-label="Close"
             className="close close-inverse"
-            onTouchTap={[Function]}
+            onClick={[Function]}
             type="button"
           >
             <span
@@ -497,7 +501,7 @@ exports[`rendering renders correctly with long date without snippets 5`] = `
                 <p
                   className="small"
                 >
-                  1 January 2017
+                  2. 4. 2017
                   <span
                     className="offset-left offset-right"
                   >
@@ -507,7 +511,8 @@ exports[`rendering renders correctly with long date without snippets 5`] = `
                 </p>
                 <button
                   className="btn btn-default btn-default-alt btn-sm"
-                  onTouchTap={[Function]}
+                  onClick={[Function]}
+                  type="button"
                 >
                   <span
                     className="glyphicon glyphicon-file icon-offset"
@@ -554,7 +559,7 @@ exports[`rendering renders correctly with one snippet 1`] = `
           <button
             aria-label="Close"
             className="close close-inverse"
-            onTouchTap={[Function]}
+            onClick={[Function]}
             type="button"
           >
             <span
@@ -592,7 +597,7 @@ exports[`rendering renders correctly with one snippet 1`] = `
                 <p
                   className="small"
                 >
-                  1 January 2017
+                  2. 4. 2017
                   <span
                     className="offset-left offset-right"
                   >
@@ -602,7 +607,8 @@ exports[`rendering renders correctly with one snippet 1`] = `
                 </p>
                 <button
                   className="btn btn-default btn-default-alt btn-sm"
-                  onTouchTap={[Function]}
+                  onClick={[Function]}
+                  type="button"
                 >
                   <span
                     className="glyphicon glyphicon-file icon-offset"
@@ -660,7 +666,7 @@ exports[`rendering renders correctly with one snippet 1`] = `
                       disabled={false}
                       id={null}
                       label="Follow path"
-                      onTouchTap={[Function]}
+                      onClick={[Function]}
                     />
                   </div>
                 </div>
@@ -701,7 +707,7 @@ exports[`rendering renders correctly with short date without snippets 1`] = `
           <button
             aria-label="Close"
             className="close close-inverse"
-            onTouchTap={[Function]}
+            onClick={[Function]}
             type="button"
           >
             <span
@@ -739,7 +745,7 @@ exports[`rendering renders correctly with short date without snippets 1`] = `
                 <p
                   className="small"
                 >
-                  January 2017
+                  4. 2017
                   <span
                     className="offset-left offset-right"
                   >
@@ -749,7 +755,8 @@ exports[`rendering renders correctly with short date without snippets 1`] = `
                 </p>
                 <button
                   className="btn btn-default btn-default-alt btn-sm"
-                  onTouchTap={[Function]}
+                  onClick={[Function]}
+                  type="button"
                 >
                   <span
                     className="glyphicon glyphicon-file icon-offset"
