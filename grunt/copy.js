@@ -18,30 +18,30 @@ module.exports = {
       },
       {
         expand: true,
-        cwd: '<%= paths.bower %>/bootstrap/dist/fonts',
+        cwd: '<%= paths.npm %>/bootstrap/dist/fonts',
         src: ['*'],
         dest: '<%= paths.dist %>/fonts/glyphicons'
       }
     ]
   },
-  bower: {
+  components: {
     files: [
-      {'<%= paths.dist %>/vendor/html5shiv.min.js': '<%= paths.bower %>/html5shiv/dist/html5shiv.min.js'},
+      {'<%= paths.dist %>/vendor/html5shiv.min.js': '<%= paths.npm %>/html5shiv/dist/html5shiv.min.js'},
       {
         expand: true,
-        cwd: '<%= paths.bower %>/ckeditor',
+        cwd: '<%= paths.npm %>/ckeditor',
         src: ['**/*'],
         dest: '<%= paths.dist %>/vendor/ckeditor'
       },
       {
         expand: true,
-        cwd: '<%= paths.bower %>/select2',
+        cwd: '<%= paths.npm %>/select2',
         src: ['**/*'],
         dest: '<%= paths.dist %>/vendor/select2'
       },
       {
         expand: true,
-        cwd: '<%= paths.bower %>/bootstrap-colorpicker',
+        cwd: '<%= paths.npm %>/bootstrap-colorpicker',
         src: ['**/*'],
         dest: '<%= paths.dist %>/vendor/bootstrap-colorpicker'
       },
@@ -69,19 +69,19 @@ module.exports = {
     files: [
       {
         expand: true,
-        cwd: '<%= paths.bower %>/bootstrap.ui/dist/css',
+        cwd: '<%= paths.npm %>/bootstrap.ui/dist/css',
         src: ['*'],
         dest: 'install/www/css'
       },
       {
         expand: true,
-        cwd: '<%= paths.bower %>/bootstrap.ui/dist/fonts',
+        cwd: '<%= paths.npm %>/bootstrap.ui/dist/fonts',
         src: ['*'],
         dest: 'install/www/fonts'
       },
       {
         expand: true,
-        cwd: '<%= paths.bower %>/bootstrap.ui/src/images',
+        cwd: '<%= paths.npm %>/bootstrap.ui/src/images',
         src: ['*'],
         dest: 'install/www/images'
       },

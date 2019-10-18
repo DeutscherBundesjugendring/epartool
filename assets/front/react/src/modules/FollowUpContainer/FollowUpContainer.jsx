@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import FollowUpTimeline from '../../components/FollowUpTimeline/FollowUpTimeline';
 import FollowUpDocumentModal from '../../components/FollowUpDocumentModal/FollowUpDocumentModal';
 import downloadFile from '../../service/downloadFile';
@@ -21,12 +22,12 @@ class FollowUpContainer extends React.Component {
     super(props);
 
     this.state = {
-      rows: [[]],
-      opened: {},
       hasError: false,
       isInitialLoad: true,
       isLoading: false,
       modal: null,
+      opened: {},
+      rows: [[]],
     };
 
     this.collapseHandler = this.collapseHandler.bind(this);
@@ -35,26 +36,34 @@ class FollowUpContainer extends React.Component {
   }
 
   componentDidMount() {
-    const { followUpType, followUpId } = this.props;
+    const {
+      followUpType,
+      followUpId,
+    } = this.props;
 
     fetchFollowUpElement(followUpType, followUpId)
       .then((response) => {
         const resolvedElement = this.prepareResolveElement(
           followUpType,
           followUpId,
-          response
+          response,
         );
 
-        this.setState({ rows: [[resolvedElement]], isInitialLoad: false });
+        this.setState({
+          isInitialLoad: false,
+          rows: [[resolvedElement]],
+        });
+
+        return response;
       })
       .catch(this.handleError);
   }
 
-
   getElementRowIndex(followUpType, followUpId) {
+    const { rows } = this.state;
     let colIndex = null;
 
-    this.state.rows.forEach((row, index) => {
+    rows.forEach((row, index) => {
       row.forEach((element) => {
         if (!colIndex && followUpType === element.props.type && followUpId === element.props.id) {
           colIndex = index;
@@ -73,31 +82,37 @@ class FollowUpContainer extends React.Component {
     fetchFollowUpElementParents(followUpType, followUpId)
       .then((multipleResponse) => {
         multipleResponse.forEach((response) => {
+          const { rows } = this.state;
           const resolvedElement = this.prepareResolveElement(
             response.type,
             parseInt(response.id, 10),
-            response
+            response,
           );
 
-          let rows = Object.assign([], this.state.rows);
+          let rowsArr = Object.assign([], rows);
           if (clearParentalRows) {
             clearParentalRows = false;
 
-            rows = rows.slice(rowIndex);
-            rows.unshift([]);
+            rowsArr = rowsArr.slice(rowIndex);
+            rowsArr.unshift([]);
 
-            rows[1] = rows[1].filter((element) => {
+            rowsArr[1] = rowsArr[1].filter((element) => {
               if (followUpType === element.props.type && followUpId === element.props.id) {
                 return element;
               }
               return null;
             });
           }
-          rows[0].push(resolvedElement);
+          rowsArr[0].push(resolvedElement);
 
-          this.setState({ rows, isLoading: false });
+          this.setState({
+            isLoading: false,
+            rows: rowsArr,
+          });
           this.newRowHandler(0);
         });
+
+        return multipleResponse;
       })
       .catch(this.handleError);
   }
@@ -110,30 +125,36 @@ class FollowUpContainer extends React.Component {
     fetchFollowUpElementChildren(followUpType, followUpId)
       .then((multipleResponse) => {
         multipleResponse.forEach((response) => {
+          const { rows } = this.state;
           const resolvedElement = this.prepareResolveElement(
             response.type,
             parseInt(response.id, 10),
-            response
+            response,
           );
 
-          let rows = Object.assign([], this.state.rows);
+          let rowsArr = Object.assign([], rows);
           if (clearChildRows) {
             clearChildRows = false;
 
-            rows = rows.slice(0, rowIndex + 1);
-            rows.push([]);
+            rowsArr = rowsArr.slice(0, rowIndex + 1);
+            rowsArr.push([]);
 
-            rows[rowIndex] = rows[rowIndex].filter((element) => {
+            rowsArr[rowIndex] = rowsArr[rowIndex].filter((element) => {
               if (followUpType === element.props.type && followUpId === element.props.id) {
                 return element;
               }
               return null;
             });
           }
-          rows[rowIndex + 1].push(resolvedElement);
-          this.setState({ rows, isLoading: false });
+          rowsArr[rowIndex + 1].push(resolvedElement);
+          this.setState({
+            isLoading: false,
+            rows: rowsArr,
+          });
           this.newRowHandler(rowIndex + 1);
         });
+
+        return multipleResponse;
       })
       .catch(this.handleError);
   }
@@ -142,81 +163,87 @@ class FollowUpContainer extends React.Component {
     elementResponse,
     rewriteSnippetId = null,
     rewriteSnippetLike = null,
-    rewriteSnippetDislike = null
+    rewriteSnippetDislike = null,
   ) {
     if (elementResponse.type === 'snippet' || elementResponse.type === 'document') {
       this.setState({ isLoading: true });
       const documentPromise = fetchFollowUpDocument(elementResponse.data.ffid);
       const documentSnippetsPromise = fetchFollowUpDocumentSnippets(elementResponse.data.ffid);
 
-      Promise.all([documentPromise, documentSnippetsPromise]).then((responses) => {
-        const [documentResponse, snippetResponse] = responses;
-
-        const resolvedElement = (
-          <FollowUpDocumentModal
-            type={documentResponse.type}
-            title={documentResponse.titl}
-            author={documentResponse.who}
-            description={documentResponse.ref_view}
-            date={new Date(documentResponse.when)}
-            dateMonthYearOnly={!!documentResponse.is_only_month_year_showed}
-            previewImageLink={documentResponse.gfx_who}
-            downloadAction={() => {
-              downloadFile(documentResponse.ref_doc);
-            }}
-            downloadLabel={followupTranslations.downloadLabel}
-            typeActionLabel={followupTranslations.typeActionLabel}
-            typeEndLabel={followupTranslations.typeEndLabel}
-            typeRejectedLabel={followupTranslations.typeRejectedLabel}
-            typeSupportingLabel={followupTranslations.typeSupportingLabel}
-            snippets={snippetResponse.map(response => ({
-              snippetExplanation: response.expl,
-              likeAction: () => this.modalSnippetLike(response.fid, elementResponse),
-              likeCount: parseInt(
-                rewriteSnippetId === response.fid && rewriteSnippetLike
-                  ? rewriteSnippetLike
-                  : response.lkyea,
-                10
-              ),
-              likeLabel: followupTranslations.likeLabel,
-              dislikeAction: () => this.modalSnippetDislike(response.fid, elementResponse),
-              dislikeCount: parseInt(
-                rewriteSnippetId && rewriteSnippetDislike
-                  ? rewriteSnippetDislike
-                  : response.lknay,
-                10
-              ),
-              dislikeLabel: followupTranslations.dislikeLabel,
-              followPathAction: () => {
-                if (elementResponse.id === response.fid) {
-                  window.removeModalOpenFromBody();
-                  this.setState({ modal: null });
-                } else {
-                  window.location = `${baseUrl}/followup/show-by-snippet/kid/${documentResponse.kid}/fid/${response.fid}`;
-                }
-              },
-              followPathLabel: elementResponse.id === response.fid
+      Promise.all([documentPromise, documentSnippetsPromise])
+        .then((responses) => {
+          const [documentResponse, snippetResponse] = responses;
+          const resolvedElement = (
+            <FollowUpDocumentModal
+              type={documentResponse.type}
+              title={documentResponse.titl}
+              author={documentResponse.who}
+              description={documentResponse.ref_view}
+              date={new Date(documentResponse.when)}
+              dateMonthYearOnly={!!documentResponse.is_only_month_year_showed}
+              previewImageLink={documentResponse.gfx_who}
+              downloadAction={() => {
+                downloadFile(documentResponse.ref_doc);
+              }}
+              downloadLabel={followupTranslations.downloadLabel}
+              typeActionLabel={followupTranslations.typeActionLabel}
+              typeEndLabel={followupTranslations.typeEndLabel}
+              typeRejectedLabel={followupTranslations.typeRejectedLabel}
+              typeSupportingLabel={followupTranslations.typeSupportingLabel}
+              snippets={snippetResponse.map((response) => ({
+                dislikeAction: () => this.modalSnippetDislike(response.fid, elementResponse),
+                dislikeCount: parseInt(
+                  rewriteSnippetId && rewriteSnippetDislike
+                    ? rewriteSnippetDislike
+                    : response.lknay,
+                  10,
+                ),
+                dislikeLabel: followupTranslations.dislikeLabel,
+                followPathAction: () => {
+                  if (elementResponse.id === response.fid) {
+                    window.removeModalOpenFromBody();
+                    this.setState({ modal: null });
+                  } else {
+                    window.location = `${baseUrl}/followup/show-by-snippet/kid/${documentResponse.kid}/fid/${response.fid}`;
+                  }
+                },
+                followPathLabel: elementResponse.id === response.fid
                   ? followupTranslations.backToTimeline
                   : followupTranslations.followPath,
-              showFollowPathButton: response.parents_count !== 0 || response.children_count !== 0,
-              votingLimitError: followupTranslations.votingLimitError,
-            }))}
-            closeAction={() => {
-              window.removeModalOpenFromBody();
-              this.setState({ modal: null });
-            }}
-          />
-        );
+                likeAction: () => this.modalSnippetLike(response.fid, elementResponse),
+                likeCount: parseInt(
+                  rewriteSnippetId === response.fid && rewriteSnippetLike
+                    ? rewriteSnippetLike
+                    : response.lkyea,
+                  10,
+                ),
+                likeLabel: followupTranslations.likeLabel,
+                showFollowPathButton: response.parents_count !== 0 || response.children_count !== 0,
+                snippetExplanation: response.expl,
+                votingLimitError: followupTranslations.votingLimitError,
+              }))}
+              closeAction={() => {
+                window.removeModalOpenFromBody();
+                this.setState({ modal: null });
+              }}
+            />
+          );
 
-        window.addModalOpenToBody();
-        this.setState({ modal: resolvedElement, isLoading: false });
-      })
-      .catch(this.handleError);
+          window.addModalOpenToBody();
+          this.setState({
+            isLoading: false,
+            modal: resolvedElement,
+          });
+
+          return responses;
+        })
+        .catch(this.handleError);
     }
   }
 
   collapseHandler(followUpType, followUpId, isToggle = true) {
-    const newOpenedMap = Object.assign({}, this.state.opened);
+    const { opened } = this.state;
+    const newOpenedMap = { ...opened };
     newOpenedMap[followUpType + followUpId] = isToggle
       ? !this.isOpened(followUpType, followUpId)
       : false;
@@ -224,22 +251,25 @@ class FollowUpContainer extends React.Component {
   }
 
   rowCollapse(rowIndex) {
-    this.state.rows[rowIndex].forEach((element) => {
+    const { rows } = this.state;
+    rows[rowIndex].forEach((element) => {
       this.collapseHandler(element.props.type, element.props.id, false);
     });
   }
 
   isOpened(followUpType, followUpId) {
-    return !!this.state.opened[followUpType + followUpId];
+    const { opened } = this.state;
+    return !!opened[followUpType + followUpId];
   }
 
   modalSnippetLike(followUpId, response) {
     likeFollowUpDocumentSnippet(followUpId)
       .then((likeReponse) => {
+        const { rows } = this.state;
         this.getDocumentModal(response, followUpId, likeReponse.lkyea);
 
-        let changedRows = Object.assign([], this.state.rows);
-        changedRows = changedRows.map(row => (
+        let changedRows = Object.assign([], rows);
+        changedRows = changedRows.map((row) => (
           row.map((element) => {
             if (element.props.type === 'snippet' && element.props.id === parseInt(followUpId, 10)) {
               const responseCopy = Object.assign([], response);
@@ -253,6 +283,7 @@ class FollowUpContainer extends React.Component {
         ));
 
         this.setState({ rows: changedRows });
+        return likeReponse;
       })
       .catch(this.handleError);
   }
@@ -260,10 +291,11 @@ class FollowUpContainer extends React.Component {
   modalSnippetDislike(followUpId, response) {
     dislikeFollowUpDocumentSnippet(followUpId)
       .then((dislikeResponse) => {
+        const { rows } = this.state;
         this.getDocumentModal(response, followUpId, null, dislikeResponse.lknay);
 
-        let changedRows = Object.assign([], this.state.rows);
-        changedRows = changedRows.map(row => (
+        let changedRows = Object.assign([], rows);
+        changedRows = changedRows.map((row) => (
           row.map((element) => {
             if (element.props.type === 'snippet' && element.props.id === parseInt(followUpId, 10)) {
               const responseCopy = Object.assign([], response);
@@ -277,22 +309,25 @@ class FollowUpContainer extends React.Component {
         ));
 
         this.setState({ rows: changedRows });
+        return dislikeResponse;
       })
       .catch(this.handleError);
   }
 
   newRowHandler(rowIndex) {
+    const { rows } = this.state;
     document.getElementById(`row${rowIndex}`).scrollIntoView();
-    this.state.rows.forEach(
-      (rowElement, ind) => this.rowCollapse(ind)
+    rows.forEach(
+      (rowElement, ind) => this.rowCollapse(ind),
     );
   }
 
   snippetLike(followUpType, followUpId, response) {
     likeFollowUpDocumentSnippet(followUpId)
       .then((likeResponse) => {
-        let changedRows = Object.assign([], this.state.rows);
-        changedRows = changedRows.map(row => (
+        const { rows } = this.state;
+        let changedRows = Object.assign([], rows);
+        changedRows = changedRows.map((row) => (
           row.map((element) => {
             if (element.props.type === 'snippet' && element.props.id === followUpId) {
               const responseCopy = Object.assign([], response);
@@ -306,6 +341,7 @@ class FollowUpContainer extends React.Component {
         ));
 
         this.setState({ rows: changedRows });
+        return likeResponse;
       })
       .catch(this.handleError);
   }
@@ -313,8 +349,9 @@ class FollowUpContainer extends React.Component {
   snippetDislike(followUpType, followUpId, response) {
     dislikeFollowUpDocumentSnippet(followUpId)
       .then((dislikeResponse) => {
-        let changedRows = Object.assign([], this.state.rows);
-        changedRows = changedRows.map(row => (
+        const { rows } = this.state;
+        let changedRows = Object.assign([], rows);
+        changedRows = changedRows.map((row) => (
           row.map((element) => {
             if (element.props.type === 'snippet' && element.props.id === followUpId) {
               const responseCopy = Object.assign([], response);
@@ -328,6 +365,7 @@ class FollowUpContainer extends React.Component {
         ));
 
         this.setState({ rows: changedRows });
+        return dislikeResponse;
       })
       .catch(this.handleError);
   }
@@ -341,9 +379,9 @@ class FollowUpContainer extends React.Component {
       () => this.collapseHandler(followUpType, followUpId),
       () => this.isOpened(followUpType, followUpId),
       followUpType === 'snippet' ? {
-        snippetLikeAction: () => this.snippetLike(followUpType, followUpId, response),
         snippetDislikeAction: () => this.snippetDislike(followUpType, followUpId, response),
-      } : null
+        snippetLikeAction: () => this.snippetLike(followUpType, followUpId, response),
+      } : null,
     );
   }
 
@@ -352,7 +390,15 @@ class FollowUpContainer extends React.Component {
   }
 
   render() {
-    if (this.state.hasError) {
+    const {
+      hasError,
+      isLoading,
+      isInitialLoad,
+      rows,
+      modal,
+    } = this.state;
+    const { consultationId } = this.props;
+    if (hasError) {
       return (
         <p className="alert alert-error text-center">
           {followupTranslations.generalError}
@@ -363,23 +409,23 @@ class FollowUpContainer extends React.Component {
     return (
       <FollowUpTimeline
         collapseHandler={this.collapseHandler}
-        infoLink={`${baseUrl}/followup/index/kid/${this.props.consultationId}`}
+        infoLink={`${baseUrl}/followup/index/kid/${consultationId}`}
         infoLinkTitle={followupTranslations.backToReactionsAndSnippets}
         infoText={followupTranslations.help}
-        isLoading={this.state.isLoading}
-        isInitialLoad={this.state.isInitialLoad}
-        rows={this.state.rows}
+        isLoading={isLoading}
+        isInitialLoad={isInitialLoad}
+        rows={rows}
         shouldCollapse={this.shouldCollapse}
-        modal={this.state.modal}
+        modal={modal}
       />
     );
   }
 }
 
 FollowUpContainer.propTypes = {
-  consultationId: React.PropTypes.number.isRequired,
-  followUpType: React.PropTypes.oneOf(['contribution', 'snippet']).isRequired,
-  followUpId: React.PropTypes.number.isRequired,
+  consultationId: PropTypes.number.isRequired,
+  followUpId: PropTypes.number.isRequired,
+  followUpType: PropTypes.oneOf(['contribution', 'snippet']).isRequired,
 };
 
 export default FollowUpContainer;

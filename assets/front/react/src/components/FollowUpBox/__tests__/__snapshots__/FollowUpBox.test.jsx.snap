@@ -4,12 +4,14 @@ exports[`rendering renders correctly with both arrows 1`] = `
 <div
   className="followup-timeline-box followup-timeline-box-collapsible collapsed"
   id="contribution-1"
+  onClick={null}
+  role="presentation"
 >
   <ArrowButton
     direction="inward"
     disabled={false}
     label="1"
-    onTouchTap={[Function]}
+    onClick={[Function]}
   />
   <div>
     Element
@@ -18,7 +20,7 @@ exports[`rendering renders correctly with both arrows 1`] = `
     direction="outward"
     disabled={false}
     label="1"
-    onTouchTap={[Function]}
+    onClick={[Function]}
   />
   <div
     className="followup-timeline-box-toggle"
@@ -28,7 +30,7 @@ exports[`rendering renders correctly with both arrows 1`] = `
       disabled={false}
       id="contribution-1-button"
       label="Show more"
-      onTouchTap={[Function]}
+      onClick={[Function]}
     />
   </div>
 </div>
@@ -38,12 +40,14 @@ exports[`rendering renders correctly with left arrow 1`] = `
 <div
   className="followup-timeline-box followup-timeline-box-collapsible collapsed"
   id="contribution-1"
+  onClick={null}
+  role="presentation"
 >
   <ArrowButton
     direction="inward"
     disabled={false}
     label="1"
-    onTouchTap={[Function]}
+    onClick={[Function]}
   />
   <div>
     Element
@@ -56,7 +60,7 @@ exports[`rendering renders correctly with left arrow 1`] = `
       disabled={false}
       id="contribution-1-button"
       label="Show more"
-      onTouchTap={[Function]}
+      onClick={[Function]}
     />
   </div>
 </div>
@@ -66,6 +70,8 @@ exports[`rendering renders correctly with right arrow 1`] = `
 <div
   className="followup-timeline-box followup-timeline-box-collapsible collapsed"
   id="contribution-1"
+  onClick={null}
+  role="presentation"
 >
   <div>
     Element
@@ -74,7 +80,7 @@ exports[`rendering renders correctly with right arrow 1`] = `
     direction="outward"
     disabled={false}
     label="1"
-    onTouchTap={[Function]}
+    onClick={[Function]}
   />
   <div
     className="followup-timeline-box-toggle"
@@ -84,7 +90,7 @@ exports[`rendering renders correctly with right arrow 1`] = `
       disabled={false}
       id="contribution-1-button"
       label="Show more"
-      onTouchTap={[Function]}
+      onClick={[Function]}
     />
   </div>
 </div>
@@ -94,6 +100,8 @@ exports[`rendering renders correctly without arrows 1`] = `
 <div
   className="followup-timeline-box followup-timeline-box-collapsible collapsed"
   id="contribution-1"
+  onClick={null}
+  role="presentation"
 >
   <div>
     Element
@@ -106,7 +114,7 @@ exports[`rendering renders correctly without arrows 1`] = `
       disabled={false}
       id="contribution-1-button"
       label="Show more"
-      onTouchTap={[Function]}
+      onClick={[Function]}
     />
   </div>
 </div>

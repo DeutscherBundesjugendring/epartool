@@ -1,28 +1,35 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
-const ThumbButton = (props) => {
+const ThumbButton = ({
+  disabled,
+  label,
+  onClick,
+  type,
+}) => {
   const linkClasses = 'btn btn-default btn-xs';
   let iconClasses = 'glyphicon ';
 
-  if (props.type === 'like') {
+  if (type === 'like') {
     iconClasses += ' glyphicon-thumbs-up';
-  } else if (props.type === 'dislike') {
+  } else if (type === 'dislike') {
     iconClasses += ' glyphicon-thumbs-down';
   }
 
   return (
     <button
-      onTouchTap={(e) => {
+      type="button"
+      onClick={(e) => {
         e.stopPropagation();
-        if (!props.disabled) {
-          props.onTouchTap();
+        if (!disabled) {
+          onClick();
         }
       }}
       className={linkClasses}
-      disabled={props.disabled}
+      disabled={disabled}
     >
       <span className="text-center offset-top-small offset-right-small small">
-        {props.label}
+        {label}
       </span>
       <span className={iconClasses} aria-hidden="true" />
     </button>
@@ -34,11 +41,10 @@ ThumbButton.defaultProps = {
 };
 
 ThumbButton.propTypes = {
-  disabled: React.PropTypes.bool,
-  label: React.PropTypes.string.isRequired,
-  onTouchTap: React.PropTypes.func.isRequired,
-  type: React.PropTypes.oneOf(['like', 'dislike']).isRequired,
+  disabled: PropTypes.bool,
+  label: PropTypes.string.isRequired,
+  onClick: PropTypes.func.isRequired,
+  type: PropTypes.oneOf(['like', 'dislike']).isRequired,
 };
-
 
 export default ThumbButton;

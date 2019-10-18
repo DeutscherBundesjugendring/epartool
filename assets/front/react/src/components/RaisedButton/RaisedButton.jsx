@@ -1,20 +1,23 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
-
-const RaisedButton = (props) => {
+const RaisedButton = ({
+  disabled,
+  id,
+  label,
+  onClick,
+}) => {
   const linkClasses = 'btn btn-default btn-sm';
 
   return (
     <button
-      id={props.id}
-      onTouchTap={(e) => {
-        e.stopPropagation();
-        props.onTouchTap();
-      }}
-      disabled={props.disabled}
+      id={id}
+      type="button"
+      onClick={() => onClick()}
+      disabled={disabled}
       className={linkClasses}
     >
-      {props.label}
+      {label}
     </button>
   );
 };
@@ -25,10 +28,10 @@ RaisedButton.defaultProps = {
 };
 
 RaisedButton.propTypes = {
-  disabled: React.PropTypes.bool,
-  id: React.PropTypes.string,
-  label: React.PropTypes.string.isRequired,
-  onTouchTap: React.PropTypes.func.isRequired,
+  disabled: PropTypes.bool,
+  id: PropTypes.string,
+  label: PropTypes.string.isRequired,
+  onClick: PropTypes.func.isRequired,
 };
 
 export default RaisedButton;

@@ -1,14 +1,11 @@
+import 'core-js';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import injectTapEventPlugin from 'react-tap-event-plugin';
 import resolvePath from './service/resolvePath';
 import FollowUpContainer from './modules/FollowUpContainer/FollowUpContainer';
 import ReactionsAndImpactContainer from './modules/ReactionsAndImpactContainer/ReactionsAndImpactContainer';
 
-
-injectTapEventPlugin();
-
-const path = resolvePath(location.pathname);
+const path = resolvePath(window.location.pathname);
 
 if (path) {
   if (path.type === 'followup-timeline') {
@@ -18,7 +15,7 @@ if (path) {
         followUpType={path.followUpType}
         followUpId={path.followUpId}
       />,
-      document.getElementById('followup-timeline')
+      document.getElementById('followup-timeline'),
     );
   }
 
@@ -39,10 +36,9 @@ if (path) {
         window.addModalOpenToBody();
         ReactDOM.render(
           <ReactionsAndImpactContainer followUpId={followUpId} />,
-          reactionAndImpact
+          reactionAndImpact,
         );
       });
     });
   }
 }
-

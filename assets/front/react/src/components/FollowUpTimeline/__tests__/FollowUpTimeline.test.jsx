@@ -1,8 +1,6 @@
 import { shallow } from 'enzyme';
-import { shallowToJson } from 'enzyme-to-json';
 import React from 'react';
 import FollowUpTimeline from '../FollowUpTimeline';
-
 
 describe('rendering', () => {
   it('renders correctly without elements', () => {
@@ -12,10 +10,10 @@ describe('rendering', () => {
         infoLinkTitle="Link"
         infoText="Text"
         isOpened={() => {}}
-      />
+      />,
     );
 
-    expect(shallowToJson(tree)).toMatchSnapshot();
+    expect(tree).toMatchSnapshot();
   });
 
   it('renders correctly with element in one column and one row', () => {
@@ -26,10 +24,10 @@ describe('rendering', () => {
         infoText="Text"
         isOpened={() => {}}
         rows={[[<div>Left column element</div>]]}
-      />
+      />,
     );
 
-    expect(shallowToJson(tree)).toMatchSnapshot();
+    expect(tree).toMatchSnapshot();
   });
 
   it('renders correctly with element in one column and one row and with modal', () => {
@@ -41,10 +39,10 @@ describe('rendering', () => {
         isOpened={() => {}}
         rows={[[<div>Left column element</div>]]}
         modal={<div>Modal element</div>}
-      />
+      />,
     );
 
-    expect(shallowToJson(tree)).toMatchSnapshot();
+    expect(tree).toMatchSnapshot();
   });
 
   it('renders correctly with elements in more columns and more rows', () => {
@@ -68,9 +66,9 @@ describe('rendering', () => {
             <div>Left column element</div>,
           ],
         ]}
-      />
+      />,
     );
 
-    expect(shallowToJson(tree)).toMatchSnapshot();
+    expect(tree).toMatchSnapshot();
   });
 });

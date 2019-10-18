@@ -2,48 +2,60 @@
 
 exports[`rendering renders correctly facebook embedded video 1`] = `
 <iframe
+  className="followup-video"
   height={120}
   src="https://www.facebook.com/video/embed?video_id=facebook-video-id"
+  title="Video facebook-video-id"
   width={240}
 />
 `;
 
 exports[`rendering renders correctly facebook embedded video with specific size 1`] = `
 <iframe
+  className="followup-video"
   height={1080}
   src="https://www.facebook.com/video/embed?video_id=facebook-video-id"
+  title="Video facebook-video-id"
   width={1920}
 />
 `;
 
 exports[`rendering renders correctly vimeo embedded video 1`] = `
 <iframe
+  className="followup-video"
   height={120}
   src="https://player.vimeo.com/video/vimeo-video-id"
+  title="Video vimeo-video-id"
   width={240}
 />
 `;
 
 exports[`rendering renders correctly vimeo embedded video with specific size 1`] = `
 <iframe
+  className="followup-video"
   height={1080}
   src="https://player.vimeo.com/video/vimeo-video-id"
+  title="Video vimeo-video-id"
   width={1920}
 />
 `;
 
 exports[`rendering renders correctly youtube embedded video 1`] = `
 <iframe
+  className="followup-video"
   height={120}
   src="https://www.youtube.com/embed/youtube-video-id"
+  title="Video youtube-video-id"
   width={240}
 />
 `;
 
 exports[`rendering renders correctly youtube embedded video with specific size 1`] = `
 <iframe
+  className="followup-video"
   height={1080}
   src="https://www.youtube.com/embed/youtube-video-id"
+  title="Video youtube-video-id"
   width={1920}
 />
 `;

@@ -4,7 +4,6 @@ import FollowUpContributionBox from '../components/FollowUpContributionBox/Follo
 import FollowUpDocumentBox from '../components/FollowUpDocumentBox/FollowUpDocumentBox';
 import FollowUpSnippetBox from '../components/FollowUpSnippetBox/FollowUpSnippetBox';
 
-
 /* global followupTranslations */
 /* global baseUrl */
 
@@ -15,7 +14,7 @@ const resolveElement = (
   modalAction,
   collapseAction,
   isOpened,
-  otherActions
+  otherActions,
 ) => {
   const { data } = response;
   let element = null;
