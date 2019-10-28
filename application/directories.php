@@ -1,6 +1,6 @@
-<?php 
+<?php
 
-$rootPath = dirname(dirname(__FILE__));
+$rootPath = dirname(__DIR__);
 
 define('MEDIA_URL', '/www/media');
 define('MEDIA_PATH', realpath($rootPath . '/' . MEDIA_URL));

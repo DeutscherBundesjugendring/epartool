@@ -8,51 +8,35 @@ class Db {
 
     const CRYPT_COST = 10;
 
+    /** @var PDO */
     private $pdo;
 
+    /** @var string */
     private $dbName;
 
-    /**
-     * Db constructor.
-     * @param string $dbName
-     * @param string $dbHost
-     * @param string $dbUserName
-     * @param string $dbPass
-     */
-    public function __construct($dbName, $dbHost, $dbUserName, $dbPass)
+    public function __construct(string $dbName, string $dbHost, string $dbUserName, string $dbPass)
     {
         $this->dbName = $dbName;
         $this->pdo = new PDO(sprintf('mysql:dbname=%s;host=%s;charset=utf8mb4', $dbName, $dbHost), $dbUserName, $dbPass);
     }
 
-    /**
-     * @param string $sqlPath
-     * @param string $adminName
-     * @param string $adminEmail
-     * @param string $adminPassword
-     * @param string $locale
-     * @param callback $phinxMigrate
-     * @throws \Exception
-     */
     public function initDb(
-        $sqlPath,
-        $adminName,
-        $adminEmail,
-        $adminPassword,
-        $locale,
-        $phinxMigrate
-    ) {
+        string $sqlPath,
+        string $adminName,
+        string $adminEmail,
+        string $adminPassword,
+        string $locale,
+        callable $phinxMigrate
+    ): int {
         $this->execSql(sprintf(
             'ALTER DATABASE `%s` DEFAULT CHARACTER SET utf8mb4 DEFAULT COLLATE utf8mb4_unicode_ci',
             $this->dbName
         ));
 
-        $this->execSql(file_get_contents(realpath($sqlPath . '/create-installation.sql')));
-
+        $this->execSql(file_get_contents($sqlPath . '/create-installation.sql'));
         $phinxMigrate();
-
-        $this->execSql(file_get_contents(realpath($sqlPath . '/create-project-de.sql')));
-        $this->execSql(file_get_contents(realpath($sqlPath . '/create-sample-data-de.sql')));
+        $this->execSql(file_get_contents($sqlPath . '/create-project-de.sql'));
+        $this->execSql(file_get_contents($sqlPath . '/create-sample-data-de.sql'));
         $this->execStatement(
             "INSERT INTO `users` (`name`, `email`, `password`, `role`) VALUES (:name, :email, :password, 'admin');",
             [':name' => $adminName, ':email' => $adminEmail, ':password' => $this->encryptPassword($adminPassword)]
@@ -61,40 +45,38 @@ class Db {
             "UPDATE `proj` SET `locale` = :locale;",
             [':locale' => $locale]
         );
+
+        return $this->getConsultationId();
     }
 
-    /**
-     * @param string $password
-     * @return string
-     */
-    private function encryptPassword($password)
+    private function encryptPassword(string $password): string
     {
         $salt = '$2y$' . self::CRYPT_COST . '$' . bin2hex(openssl_random_pseudo_bytes(22));
 
         return crypt($password, $salt);
     }
 
-    /**
-     * @param string $sql
-     * @throws \Exception
-     */
-    private function execSql($sql)
+    private function execSql(string $sql)
     {
         if ($this->pdo->exec($sql) === false) {
             throw new \Exception(print_r($this->pdo->errorInfo(), true));
         }
     }
 
-    /**
-     * @param string $statementSql
-     * @param array $params
-     * @throws \Exception
-     */
-    private function execStatement($statementSql, array $params)
+    private function execStatement(string $statementSql, array $params)
     {
         $statement = $this->pdo->prepare($statementSql);
         if ($statement->execute($params) === false) {
             throw new \Exception(print_r($statement->errorInfo(), true));
         }
+    }
+
+    private function getConsultationId(): int {
+        $rows = $this->pdo->query('SELECT kid FROM cnslt')->fetchAll();
+        if (count($rows) !== 1) {
+            throw new \Exception('Installer should create exactly one consultation, none or more then one were found.');
+        }
+
+        return $rows[0]['kid'];
     }
 }

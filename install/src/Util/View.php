@@ -13,17 +13,14 @@ class View
     private $view;
     private $layout;
 
-    /**
-     * View constructor.
-     * @param string $layoutPath
-     * @param string $scriptPath
-     * @param string $helperPath
-     * @param string $zendLangPath
-     * @param string $langPath
-     * @param string $locale
-     */
-    public function __construct($layoutPath, $scriptPath, $helperPath, $zendLangPath, $langPath, $locale = null)
-    {
+    public function __construct(
+        string $layoutPath,
+        string $scriptPath,
+        string $helperPath,
+        string $zendLangPath,
+        string $langPath,
+        ?string $locale = null
+    ) {
         $this->layout = (new Zend_Layout())
             ->setLayoutPath($layoutPath)
             ->setLayout('base');
@@ -37,19 +34,12 @@ class View
         }
     }
 
-    /**
-     * @param array $params
-     * @throws \Zend_View_Exception
-     */
     public function assign(array $params)
     {
         $this->view->assign($params);
     }
 
-    /**
-     * @param string $template
-     */
-    public function render($template)
+    public function render(string $template)
     {
         $this->layout->content = $this->view->render($template);
         echo $this->layout->render();
@@ -57,17 +47,12 @@ class View
         exit;
     }
 
-    /**
-     * @param string $locale
-     * @param string $zendLangPath
-     * @param string $langPath
-     * @throws \Zend_Validate_Exception
-     */
-    private function setTranslator($locale, $zendLangPath, $langPath)
+    private function setTranslator(string $locale, string $zendLangPath, string $langPath)
     {
         $translator = new Zend_Translate([
             'adapter' => 'array',
             'content' => $zendLangPath,
+            'disableNotices' => true,
             'scan' => Zend_Translate::LOCALE_DIRECTORY,
             'locale' => $locale,
         ]);
@@ -76,6 +61,7 @@ class View
         $translator = new Zend_Translate([
             'adapter' => 'Gettext',
             'content' => $langPath,
+            'disableNotices' => true,
             'scan' => Zend_Translate::LOCALE_FILENAME,
             'locale' => $locale,
         ]);

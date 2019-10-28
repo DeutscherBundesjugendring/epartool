@@ -50,7 +50,9 @@ class Admin_Form_Media_Upload extends Dbjr_Form_Admin
         $this->addElement($folder);
 
 
-        $file = $this->createElement('file', 'file');
+        $file = $this
+            ->createElement('file', 'file')
+            ->setRequired(true);
         $this->addElement($file);
 
 

@@ -48,6 +48,9 @@ class Config
     ) {
         $confLocalIni = new Zend_Config([], true);
         $confLocalIni->production = [];
+        $confLocalIni->development = [];
+        $confLocalIni->setExtend('development', 'production');
+
         $confLocalIni->production->project = $projectCode;
         $confLocalIni->production->resources = [];
         $confLocalIni->production->resources->db = [];
