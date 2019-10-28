@@ -32,8 +32,11 @@ class Admin_MailQueuedController extends Zend_Controller_Action
      */
     public function sendAllAction()
     {
-        (new Service_Email())->sendQueued();
-        $this->_flashMessenger->addMessage('All emails have been successfully sent.', 'success');
+        if ((new Service_Email())->sendQueued()) {
+            $this->_flashMessenger->addMessage('All emails have been successfully sent.', 'success');
+        } else {
+            $this->_flashMessenger->addMessage('There was an error when sending the emails.', 'error');
+        }
         $this->redirect($this->view->url(['action' => 'index']), ['prependBase' => false]);
     }
 }
