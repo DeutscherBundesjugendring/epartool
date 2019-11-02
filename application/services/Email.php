@@ -15,11 +15,7 @@ class Service_Email
         return $this;
     }
 
-    /**
-     * Sends all unsent emails
-     * @return Service_Email   Provides fluent interface
-     */
-    public function sendQueued()
+    public function sendQueued(): bool
     {
         $mailModel = new Model_Mail();
         $emails = $mailModel->fetchAll(
@@ -51,14 +47,17 @@ class Service_Email
                     $mailer->addBcc($recipient->email, $recipient->name);
                 }
             }
-            $mailer->send();
-
-            $mailModel->update(
-                array('time_sent' => Zend_Date::now()->toString('YYYY-MM-dd HH:mm:ss')),
-                array('id=?' => $email->id)
-            );
+            try {
+                $mailer->send();
+                $mailModel->update(
+                    array('time_sent' => Zend_Date::now()->toString('YYYY-MM-dd HH:mm:ss')),
+                    array('id=?' => $email->id)
+                );
+            } catch (Zend_Mail_Protocol_Exception $e) {
+                return false;
+            }
         }
 
-        return $this;
+        return true;
     }
 }

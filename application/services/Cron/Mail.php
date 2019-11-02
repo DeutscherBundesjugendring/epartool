@@ -7,6 +7,8 @@ class Service_Cron_Mail extends Service_Cron
      */
     public function execute()
     {
-        (new Service_Email())->sendQueued();
+        if (!(new Service_Email())->sendQueued()) {
+            throw new Exception('There was an error when sending the emails');
+        }
     }
 }
