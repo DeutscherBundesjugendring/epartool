@@ -4,74 +4,26 @@ namespace Util;
 
 class FileSystem
 {
-    private $configPath;
-    private $logPath;
-    private $sessionPath;
-    private $cachePath;
-    private $imgCachePath;
-    private $consultationsPath;
-    private $foldersPath;
+    /** @var string */
+    private $rootDir;
 
-    /**
-     * FileSystem constructor.
-     * @param string $configPath
-     * @param string $logPath
-     * @param string $sessionPath
-     * @param string $cachePath
-     * @param string $imgCachePath
-     * @param string $consultationsPath
-     * @param string $foldersPath
-     */
-    public function __construct(
-        $configPath,
-        $logPath,
-        $sessionPath,
-        $cachePath,
-        $imgCachePath,
-        $consultationsPath,
-        $foldersPath
-    ) {
-        $this->configPath = $configPath;
-        $this->logPath = $logPath;
-        $this->sessionPath = $sessionPath;
-        $this->cachePath = $cachePath;
-        $this->imgCachePath = $imgCachePath;
-        $this->consultationsPath = $consultationsPath;
-        $this->foldersPath = $foldersPath;
+    public function __construct(string $rootDir) {
+        $this->rootDir = $rootDir;
     }
 
-    /**
-     * @return bool
-     */
-    public function validateWritable()
+    public function getNonWritableFolders(array $folders): array
     {
-        return is_writable($this->configPath)
-        && is_writable($this->logPath)
-        && is_writable($this->sessionPath)
-        && is_writable($this->cachePath)
-        && is_writable($this->imgCachePath)
-        && is_writable($this->consultationsPath)
-        && is_writable($this->foldersPath);
+        return array_filter($folders, function (string $folder) {
+            return !is_writable($this->rootDir . '/' . $folder);
+        });
     }
 
-    /**
-     * @return bool
-     */
-    public function createFolders()
+    public function createFolders(array $folders): bool
     {
-        $folders = [
-            $this->configPath,
-            $this->logPath,
-            $this->sessionPath,
-            $this->cachePath,
-            $this->imgCachePath,
-            $this->consultationsPath,
-            $this->foldersPath,
-        ];
-
-        foreach ($folders as $path) {
+        foreach ($folders as $folder) {
+            $path = $this->rootDir . '/' . $folder;
             if (file_exists($path)) {
-                if (!is_writable($path) && !chmod($path, 0777)) {
+                if (!is_writable($path) && !chmod($path, 0755)) {
                     return false;
                 }
             } elseif (!mkdir($path)) {
@@ -80,5 +32,10 @@ class FileSystem
         }
 
         return true;
+    }
+
+    public function validateWritable(array $folders): bool
+    {
+        return count($this->getNonWritableFolders($folders)) === 0;
     }
 }
