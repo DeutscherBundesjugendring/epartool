@@ -253,7 +253,7 @@ class InstallForm extends Dbjr_Form_Web
 
 
 
-        $hash = $this->createElement('hash', 'csrf_token_instalation', ['salt' => 'unique']);
+        $hash = $this->createElement('hash', 'csrf_token_installation', ['salt' => 'unique']);
         $hash
             ->setSalt(md5(mt_rand(1, 100000) . time()))
             ->setTimeout(360);
