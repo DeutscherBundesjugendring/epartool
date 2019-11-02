@@ -1,65 +1,90 @@
 import React from 'react';
-import ThumbButton from '../../components/ThumbButton/ThumbButton';
+import PropTypes from 'prop-types';
+import ThumbButton from '../ThumbButton/ThumbButton';
 
 class Reputation extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      voted: props.voted,
       expectLikesUpdate: false,
-      votingLimitErrorShowed: false,
       initLikeCount: props.likeCount,
-      initDislikeCount: props.dislikeCount,
+      voted: props.voted,
+      votingLimitErrorShowed: false,
     };
 
     this.like = this.like.bind(this);
     this.dislike = this.dislike.bind(this);
   }
 
-  componentWillReceiveProps(nextProps) {
+  componentDidUpdate(nextProps) {
     // jiri@visionapps.cz 30.05.2017 DBJR-1167
     // Preventing of repeated voting is implemented on backend.
     // This construction is only for informing user and it is not fully reliable in case of
     // parallel voting from more users at the same time
-    if (this.state.expectLikesUpdate && !this.state.votingLimitErrorShowed
-      && nextProps.likeCount === this.state.initLikeCount
-      && nextProps.dislikeCount === this.state.initDislikeCount
+    const {
+      expectLikesUpdate,
+      initDislikeCount,
+      initLikeCount,
+      votingLimitErrorShowed,
+    } = this.state;
+    const { votingLimitError } = this.props;
+
+    if (expectLikesUpdate && !votingLimitErrorShowed
+      && nextProps.likeCount === initLikeCount
+      && nextProps.dislikeCount === initDislikeCount
     ) {
+      // eslint-disable-next-line react/no-did-update-set-state
       this.setState({ votingLimitErrorShowed: true });
-      alert(this.props.votingLimitError); // eslint-disable-line no-alert
+      alert(votingLimitError); // eslint-disable-line no-alert
     }
   }
 
   like() {
-    this.props.likeAction();
-    this.setState({ voted: true, expectLikesUpdate: true });
+    const { likeAction } = this.props;
+    likeAction();
+    this.setState({
+      expectLikesUpdate: true,
+      voted: true,
+    });
   }
 
   dislike() {
-    this.props.dislikeAction();
-    this.setState({ voted: true, expectLikesUpdate: true });
+    const { dislikeAction } = this.props;
+    dislikeAction();
+    this.setState({
+      expectLikesUpdate: true,
+      voted: true,
+    });
   }
 
   render() {
+    const {
+      dislikeLabel,
+      dislikeCount,
+      likeCount,
+      likeLabel,
+    } = this.props;
+
+    const { voted } = this.state;
     return (
       <div>
         <div style={{ display: 'inline-block' }} className="offset-bottom-small offset-right">
-          <span className="badge offset-right-small">{this.props.likeCount}</span>
+          <span className="badge offset-right-small">{likeCount}</span>
           <ThumbButton
             type="like"
-            onTouchTap={this.like}
-            disabled={this.state.voted}
-            label={this.props.likeLabel}
+            onClick={this.like}
+            disabled={voted}
+            label={likeLabel}
           />
         </div>
         <div style={{ display: 'inline-block' }} className="offset-bottom-small">
-          <span className="badge offset-right-small">{this.props.dislikeCount}</span>
+          <span className="badge offset-right-small">{dislikeCount}</span>
           <ThumbButton
             type="dislike"
-            onTouchTap={this.dislike}
-            disabled={this.state.voted}
-            label={this.props.dislikeLabel}
+            onClick={this.dislike}
+            disabled={voted}
+            label={dislikeLabel}
           />
         </div>
       </div>
@@ -72,14 +97,14 @@ Reputation.defaultProps = {
 };
 
 Reputation.propTypes = {
-  dislikeAction: React.PropTypes.func.isRequired,
-  dislikeCount: React.PropTypes.number.isRequired,
-  dislikeLabel: React.PropTypes.string.isRequired,
-  likeAction: React.PropTypes.func.isRequired,
-  likeCount: React.PropTypes.number.isRequired,
-  likeLabel: React.PropTypes.string.isRequired,
-  voted: React.PropTypes.bool,
-  votingLimitError: React.PropTypes.string.isRequired,
+  dislikeAction: PropTypes.func.isRequired,
+  dislikeCount: PropTypes.number.isRequired,
+  dislikeLabel: PropTypes.string.isRequired,
+  likeAction: PropTypes.func.isRequired,
+  likeCount: PropTypes.number.isRequired,
+  likeLabel: PropTypes.string.isRequired,
+  voted: PropTypes.bool,
+  votingLimitError: PropTypes.string.isRequired,
 };
 
 export default Reputation;

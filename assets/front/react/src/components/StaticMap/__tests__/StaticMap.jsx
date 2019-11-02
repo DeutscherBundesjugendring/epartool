@@ -1,10 +1,8 @@
 import { shallow } from 'enzyme';
-import { shallowToJson } from 'enzyme-to-json';
 import React from 'react';
 import StaticMap from '../StaticMap';
 
-global.osmStaticMapUrlTemplate = '%s?center=__latitude__,__longitude__&zoom=8&' +
-  'size=__width__x__height__&markers=__latitude__,__longitude__';
+global.osmStaticMapUrlTemplate = '%s?center=__latitude__,__longitude__&zoom=8&size=__width__x__height__&markers=__latitude__,__longitude__';
 
 describe('rendering', () => {
   it('renders correctly with default size', () => {
@@ -15,7 +13,7 @@ describe('rendering', () => {
       />,
     );
 
-    expect(shallowToJson(tree)).toMatchSnapshot();
+    expect(tree).toMatchSnapshot();
   });
 
   it('renders correctly with specified size', () => {
@@ -28,6 +26,6 @@ describe('rendering', () => {
       />,
     );
 
-    expect(shallowToJson(tree)).toMatchSnapshot();
+    expect(tree).toMatchSnapshot();
   });
 });

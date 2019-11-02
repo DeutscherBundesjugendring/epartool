@@ -7,18 +7,16 @@ use Robo\Tasks;
  */
 class RoboFile extends Tasks
 {
-    const UPDATE_WARNING = 'I hope you you have all dependencies up to date. If not, run vendor/bin/robo build to install/update them.';
-
-    const CONFIG_FILE = 'application/configs/config.ini';
-    const CONFIG_LOCAL_FILE = 'application/configs/config.local.ini';
-    const PHINX_CONFIG_FILE = 'application/configs/phinx.local.yml';
-    const APP_DIR = 'application';
-    const LIB_DIR = 'library';
-    const NODE_MODULES_DIR = 'node_modules';
+    private const UPDATE_WARNING = 'I hope you you have all dependencies up to date. If not, run vendor/bin/robo build to install/update them.';
+    private const PHINX_CONFIG_FILE = 'application/configs/phinx.local.yml';
+    private const APP_DIR = 'application';
+    private const LIB_DIR = 'library';
+    private const NODE_MODULES_DIR = 'node_modules';
 
     public function test()
     {
         $this->stopOnFail(true);
+        $this->taskExec('npm run test')->run();
         $this->lintPhp();
         $this->phpcs();
         $this->codecept();
@@ -203,7 +201,6 @@ class RoboFile extends Tasks
     public function build()
     {
         $this->stopOnFail(true);
-        $this->taskExec('bower install')->run();
         $this->taskNpmInstall()->run();
         $this->taskExec('grunt')->run();
         $this->taskExec('npm run build')->run();

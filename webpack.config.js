@@ -14,28 +14,19 @@ const config = {
   entry: {
     'followup-timeline': [
       'whatwg-fetch',
-      'babel-polyfill',
       './assets/front/react/src/main.jsx',
     ],
   },
   module: {
-    loaders: [
+    rules: [
       {
-        loader: 'babel-loader',
-        test: /\.(js|jsx)$/,
-        exclude: /node_modules/,
-      },
-      {
-        exclude: /node_modules/,
-        test: /\.(jsx|js)$/,
-        loaders: [
-          'babel-loader',
-          'eslint-loader?configFile=.eslintrc',
-        ],
-      },
-      {
-        include: /\.json$/,
-        loaders: ['json-loader'],
+        test: /assets\/front\/react\/src\/.*\.(js|jsx)$/,
+        use: {
+          loader: 'babel-loader',
+          options: {
+            presets: ['@babel/preset-env'],
+          },
+        },
       },
     ],
   },

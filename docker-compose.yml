@@ -9,14 +9,14 @@ db:
     environment:
         MYSQL_ROOT_PASSWORD: pass
 web:
-    image: visionappscz/apache-php:7.1
+    image: visionappscz/apache-php:7.3
     links:
         - db
         - mail
     ports:
         - 80:80
     volumes:
-        - .:/www
+        - .:/www:z
 mail:
     image: mailhog/mailhog
     ports:

@@ -1,19 +1,27 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 /* global embedVideoUrl */
 
 const EmbeddedVideo = (props) => {
+  const {
+    height,
+    videoService,
+    videoId,
+    width,
+  } = props;
   let src = null;
 
-  if (embedVideoUrl[props.videoService] !== undefined) {
-    src = embedVideoUrl[props.videoService].replace('%s', props.videoId);
+  if (embedVideoUrl[videoService] !== undefined) {
+    src = embedVideoUrl[videoService].replace('%s', videoId);
   }
 
   if (src) {
     return (
       <iframe
-        width={props.width}
-        height={props.height}
+        title={`Video ${videoId}`}
+        width={width}
+        height={height}
         src={src}
         className="followup-video"
       />
@@ -24,15 +32,15 @@ const EmbeddedVideo = (props) => {
 };
 
 EmbeddedVideo.defaultProps = {
-  width: 240,
   height: 120,
+  width: 240,
 };
 
 EmbeddedVideo.propTypes = {
-  videoService: React.PropTypes.oneOf(['youtube', 'vimeo', 'facebook']).isRequired,
-  videoId: React.PropTypes.string.isRequired,
-  width: React.PropTypes.number,
-  height: React.PropTypes.number,
+  height: PropTypes.number,
+  videoId: PropTypes.string.isRequired,
+  videoService: PropTypes.oneOf(['youtube', 'vimeo', 'facebook']).isRequired,
+  width: PropTypes.number,
 };
 
 export default EmbeddedVideo;

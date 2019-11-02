@@ -157,7 +157,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         if (empty($translator)) {
             $translator = new Zend_Translate([
                 'adapter' => 'array',
-                'content' => VENDOR_PATH . '/zendframework/zendframework1/resources/languages',
+                'content' => VENDOR_PATH . '/shardj/zf1-future/resources/languages',
                 'scan' => Zend_Translate::LOCALE_DIRECTORY,
                 'disableNotices' => true,
             ]);

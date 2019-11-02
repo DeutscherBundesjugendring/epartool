@@ -1,7 +1,7 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import ArrowButton from '../ArrowButton/ArrowButton';
 import RaisedButton from '../RaisedButton/RaisedButton';
-
 
 class FollowUpBox extends React.Component {
   componentDidMount() {
@@ -20,28 +20,29 @@ class FollowUpBox extends React.Component {
     Lives in this component instead of contributionBox b/c of forceUpdate
     Operating on DOM b/c needs to happen after render
     */
-    if (this.props.type === 'contribution') {
-      const wellArray = document
-        .getElementById(`${this.props.type}-${this.props.id}`)
-        .getElementsByClassName('followup-flow')[0];
+    const {
+      id,
+      isOpened,
+      type,
+    } = this.props;
+
+    const wellArray = window.document
+      .getElementById(`${type}-${id}`)
+      .getElementsByClassName('followup-flow')[0];
+    if (type === 'contribution') {
       // 400px is collapsed followup-timeline-box height, -20px is adjustment for margin
       const newHeight = 400
         - (wellArray.getElementsByClassName('js-followup-box-head')[0].offsetHeight - 20);
-      wellArray.getElementsByClassName('js-followup-box-content')[0].style.height
-        = this.props.isOpened() ? '' : `${newHeight}px`;
+      wellArray.getElementsByClassName('js-followup-box-content')[0].style.height = isOpened() ? '' : `${newHeight}px`;
     } else {
-      const wellArray = document
-        .getElementById(`${this.props.type}-${this.props.id}`)
-        .getElementsByClassName('followup-flow')[0];
       const headEl = wellArray.getElementsByClassName('js-followup-box-head')[0];
       // 400px is collapsed followup-timeline-box height, -20px is adjustment for margin
       // 31.01.2018 - jiri@visionapps.cz - 121px is an experimentally found value to prevent two
       // phase resizing of the box when it is collapsing
       const newHeight = 400 - headEl.offsetHeight - 121;
-      wellArray.getElementsByClassName('js-followup-box-content')[0].style.height =
-        this.props.isOpened()
-          ? ''
-          : `${newHeight}px`;
+      wellArray.getElementsByClassName('js-followup-box-content')[0].style.height = isOpened()
+        ? ''
+        : `${newHeight}px`;
     }
   }
 
@@ -50,53 +51,79 @@ class FollowUpBox extends React.Component {
     Checks for overflow of box
     Operating on DOM b/c needs to happen after render
     */
-    const box = document.getElementById(`${this.props.type}-${this.props.id}`);
+    const {
+      id,
+      type,
+    } = this.props;
+
+    const box = window.document.getElementById(`${type}-${id}`);
     let element = box.getElementsByClassName('followup-flow')[0];
 
-    if (this.props.type === 'contribution') {
+    if (type === 'contribution') {
+      // eslint-disable-next-line prefer-destructuring
       element = element.getElementsByTagName('div')[1];
     }
 
     const canOverflow = element.scrollHeight > element.clientHeight;
     if (canOverflow) {
-      document.getElementById(`${this.props.type}-${this.props.id}-toggle`).style.display = '';
+      window.document.getElementById(`${type}-${id}-toggle`).style.display = '';
     } else {
-      document.getElementById(`${this.props.type}-${this.props.id}-toggle`).style.display = 'none';
+      window.document.getElementById(`${type}-${id}-toggle`).style.display = 'none';
     }
   }
 
   render() {
+    const {
+      childAction,
+      childCount,
+      collapseHandler,
+      element,
+      id,
+      isOpened,
+      modalAction,
+      parentAction,
+      parentCount,
+      showLessLabel,
+      showMoreLabel,
+      type,
+    } = this.props;
+
     return (
       <div
-        id={`${this.props.type}-${this.props.id}`}
-        className={`followup-timeline-box followup-timeline-box-collapsible${this.props.isOpened() ? '' : ' collapsed'}`}
-        onTouchTap={this.props.modalAction}
+        role="presentation"
+        id={`${type}-${id}`}
+        className={`followup-timeline-box followup-timeline-box-collapsible${isOpened() ? '' : ' collapsed'}`}
+        onClick={modalAction}
       >
-        {!!this.props.parentCount && <ArrowButton
+        {!!parentCount && (
+        <ArrowButton
           direction="inward"
-          label={this.props.parentCount.toString()}
-          onTouchTap={this.props.parentAction}
-        />}
-        {this.props.element}
-        {!!this.props.childCount && <ArrowButton
+          label={parentCount.toString()}
+          onClick={parentAction}
+        />
+        )}
+        {element}
+        {!!childCount && (
+        <ArrowButton
           direction="outward"
-          label={this.props.childCount.toString()}
-          onTouchTap={this.props.childAction}
-        />}
+          label={childCount.toString()}
+          onClick={childAction}
+        />
+        )}
         <div
-          id={`${this.props.type}-${this.props.id}-toggle`}
+          id={`${type}-${id}-toggle`}
           className="followup-timeline-box-toggle"
         >
           <RaisedButton
-            id={`${this.props.type}-${this.props.id}-button`}
-            label={this.props.isOpened() ? this.props.showLessLabel : this.props.showMoreLabel}
-            onTouchTap={
+            id={`${type}-${id}-button`}
+            label={isOpened() ? showLessLabel : showMoreLabel}
+            onClick={
               () => {
-                this.props.collapseHandler();
+                collapseHandler();
                 // forceUpdate b/c can't pass in state from FollowUpContainer due to resolveElement
                 this.forceUpdate();
-                if (this.props.isOpened()) {
-                  document.getElementById(`${this.props.type}-${this.props.id}`).scrollIntoView();
+                if (isOpened()) {
+                  window.document.getElementById(`${type}-${id}`).scrollIntoView();
                 }
               }
             }
@@ -107,19 +134,23 @@ class FollowUpBox extends React.Component {
   }
 }
 
+FollowUpBox.defaultProps = {
+  modalAction: null,
+};
+
 FollowUpBox.propTypes = {
-  collapseHandler: React.PropTypes.func.isRequired,
-  id: React.PropTypes.number.isRequired,
-  type: React.PropTypes.oneOf(['contribution', 'snippet', 'document']).isRequired,
-  element: React.PropTypes.element.isRequired,
-  isOpened: React.PropTypes.func.isRequired,
-  parentCount: React.PropTypes.number.isRequired,
-  parentAction: React.PropTypes.func.isRequired,
-  childCount: React.PropTypes.number.isRequired,
-  childAction: React.PropTypes.func.isRequired,
-  modalAction: React.PropTypes.func,
-  showLessLabel: React.PropTypes.string.isRequired,
-  showMoreLabel: React.PropTypes.string.isRequired,
+  childAction: PropTypes.func.isRequired,
+  childCount: PropTypes.number.isRequired,
+  collapseHandler: PropTypes.func.isRequired,
+  element: PropTypes.element.isRequired,
+  id: PropTypes.number.isRequired,
+  isOpened: PropTypes.func.isRequired,
+  modalAction: PropTypes.func,
+  parentAction: PropTypes.func.isRequired,
+  parentCount: PropTypes.number.isRequired,
+  showLessLabel: PropTypes.string.isRequired,
+  showMoreLabel: PropTypes.string.isRequired,
+  type: PropTypes.oneOf(['contribution', 'snippet', 'document']).isRequired,
 };
 
 export default FollowUpBox;

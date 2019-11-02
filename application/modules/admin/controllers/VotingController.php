@@ -375,7 +375,11 @@ class Admin_VotingController extends Zend_Controller_Action
             $this->redirect('/admin/voting/results/kid/' . $this->_consultation['kid']);
         }
 
-        $objPHPExcel = (new Service_VotingResultsExport())->exportResults($this->_consultation, $questionId);
+        $spreadsheet = (new Service_VotingResultsExport())->exportResults($this->_consultation, $questionId);
+        if (!$spreadsheet) {
+            $this->_flashMessenger->addMessage('There are no voting results to export.', 'error');
+            $this->redirect('/admin/voting/results/kid/' . $this->_consultation['kid']);
+        }
         $fileName = $this->_consultation['titl_short'] . ' ' . $questionId . '.ods';
 
         // Redirect output to a client’s web browser (OpenDocument)
@@ -389,7 +393,7 @@ class Admin_VotingController extends Zend_Controller_Action
         header('Last-Modified: '.gmdate('D, d M Y H:i:s').' GMT'); // always modified
         header('Cache-Control: cache, must-revalidate'); // HTTP/1.1
         header('Pragma: public'); // HTTP/1.0
-        $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'OpenDocument');
+        $objWriter = \PhpOffice\PhpSpreadsheet\IOFactory::createWriter($spreadsheet, 'Ods');
         $objWriter->save('php://output');
         exit;
     }

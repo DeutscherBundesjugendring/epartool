@@ -19,17 +19,20 @@
 
             </div>
             <div class="content">
-                <a
-                    href="<?=$this->url([
-                        'action' => 'download-excel',
-                        'kid' => $this->currentQuestion['kid'],
-                        'questionId' => $this->currentQuestion['qi']
-                    ]);?>"
-                    class="btn btn-default pull-right"
-                >
-                    <span class="glyphicon glyphicon-download-alt icon-shift-down offset-right" aria-hidden="true"></span>
-                    <?=$this->translate('Download table as file');?>
-                </a>
+                <?php if ($this->votings): ?>
+                    <a
+                        href="<?=$this->url([
+                            'action' => 'download-excel',
+                            'kid' => $this->currentQuestion['kid'],
+                            'questionId' => $this->currentQuestion['qi']
+                        ]);?>"
+                        class="btn btn-default pull-right"
+                    >
+                        <span class="glyphicon glyphicon-download-alt icon-shift-down offset-right" aria-hidden="true"></span>
+                        <?=$this->translate('Download table as file');?>
+                    </a>
+                <?php endif; ?>
+
                 <h2><?=$this->translate('Voting Results');?></h2>
 
                 <?php if (!empty($this->questions)): ?>

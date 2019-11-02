@@ -1,38 +1,42 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
-
-const FollowUpTimeLine = props => (
+const FollowUpTimeLine = ({
+  infoLink,
+  infoText,
+  infoLinkTitle,
+  isInitialLoad,
+  isLoading,
+  modal,
+  rows,
+}) => (
   <div
     className={`
       well
       well-bordered
       well-accent
       followup-stage
-      ${props.isLoading && 'followup-stage-loading'}
+      ${isLoading && 'followup-stage-loading'}
     `}
   >
 
     <div className="row offset-bottom-large">
       <div className="col-sm-4">
         <a
-          href={props.infoLink}
-          title={props.infoLinkTitle}
+          href={infoLink}
+          title={infoLinkTitle}
           className="followup-back-link followup-link media link-unstyled link-unstyled-alt"
         >
           <div className="media-left">
             <div
-              className={
-                'followup-back-link-question-mark followup-sprite followup-sprite-question-mark'
-              }
+              className="followup-back-link-question-mark followup-sprite followup-sprite-question-mark"
               aria-hidden="true"
             >
               ?
             </div>
           </div>
           <div className="media-body">
-            <strong className="small">
-              {props.infoText}
-            </strong>
+            <strong className="small">{infoText}</strong>
           </div>
         </a>
 
@@ -40,7 +44,8 @@ const FollowUpTimeLine = props => (
     </div>
 
     <div className="followup">
-      {props.isInitialLoad && (<div>
+      {isInitialLoad && (
+      <div>
         <div className="followup-rows-container">
           <div className="followup-row">
             <div className="followup-row-element">
@@ -78,15 +83,15 @@ const FollowUpTimeLine = props => (
             </div>
           </div>
         </div>
-      </div>)}
+      </div>
+      )}
       <div className="followup-rows-container">
-        {props.rows && props.rows.map((elements, rowKey) => (
+        {rows && rows.map((elements, rowKey) => (
+          // eslint-disable-next-line react/no-array-index-key
           <div id={`row${rowKey}`} className="followup-row" key={rowKey}>
             {elements && elements.map((element, elementKey) => (
-              <div
-                className="followup-row-element"
-                key={elementKey}
-              >
+              // eslint-disable-next-line react/no-array-index-key
+              <div className="followup-row-element" key={elementKey}>
                 {element}
               </div>
             ))}
@@ -95,19 +100,26 @@ const FollowUpTimeLine = props => (
       </div>
     </div>
 
-    {props.modal}
+    {modal}
 
   </div>
 );
 
+FollowUpTimeLine.defaultProps = {
+  isInitialLoad: false,
+  isLoading: false,
+  modal: null,
+  rows: [],
+};
+
 FollowUpTimeLine.propTypes = {
-  infoLink: React.PropTypes.string.isRequired,
-  infoLinkTitle: React.PropTypes.string.isRequired,
-  infoText: React.PropTypes.string.isRequired,
-  isInitialLoad: React.PropTypes.bool,
-  isLoading: React.PropTypes.bool,
-  rows: React.PropTypes.arrayOf(React.PropTypes.arrayOf(React.PropTypes.element)),
-  modal: React.PropTypes.element,
+  infoLink: PropTypes.string.isRequired,
+  infoLinkTitle: PropTypes.string.isRequired,
+  infoText: PropTypes.string.isRequired,
+  isInitialLoad: PropTypes.bool,
+  isLoading: PropTypes.bool,
+  modal: PropTypes.element,
+  rows: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.element)),
 };
 
 export default FollowUpTimeLine;
