@@ -15,6 +15,8 @@ The tool is written with multi-project support. It means that one database can b
 
 ## Installation
 
+⚠ If there is a problem loading assets such as JS and CSS files, it is likely caused by error in the `application/configs/config.local.ini` in the directive `resources.frontController.baseUrl`. If app is running in subfolder, it should be set to `/subdir-name` otherwise leave it as `/`.
+
 ### Wizard
 The preferred installation method is using the bundled installation wizard.
 
