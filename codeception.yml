@@ -12,9 +12,3 @@ settings:
 extensions:
     enabled:
         - Codeception\Extension\RunFailed
-modules:
-    config:
-        Db:
-            dsn: 'mysql:host=db;dbname=dbjr_test'
-            user: 'root'
-            password: 'pass'
