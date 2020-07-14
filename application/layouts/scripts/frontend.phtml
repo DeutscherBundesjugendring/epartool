@@ -90,6 +90,8 @@ $license = (new Model_License())->find($projectSettings['license'], $lang . '_' 
                     <?php else : ?>
                         src="<?=$this->baseUrl('images/logo.png');?>"
                         srcset="<?=$this->baseUrl('images/logo.png');?>, <?=$this->baseUrl('images/logo@2x.png');?> 2x"
+                        width="180"
+                        height="84"
                     <?php endif; ?>
                     class="img-responsive"
                     itemprop="image"

@@ -4,7 +4,7 @@ The tool is written with multi-project support. It means that one database can b
 
 ## <a name="requirements"></a>Requirements
 
-* PHP 7.3 or higer
+* PHP 7.3 or higher
 * PHP extensions:
     * GD
     * mbstring
