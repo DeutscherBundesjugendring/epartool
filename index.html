@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="<?=$lang;?>" itemscope itemtype="https://schema.org/Event">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <style>
+            body {
+                width: 600px;
+                margin: 50px auto;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>Redirection error</h1>
+        <p>If you can read this then the redirection on the webserver is not working properly. All requests are to be redirected to the <code>www</code> folder, but this is apparently not happening.</p>
+        <p>Presently only Apache server is supported, if you are using something else, then it should be possible to set it up, but you are on your own.</p>
+        <p>
+            If on Apache, please try:
+            <ul>
+                <li>Ensure the file <code>.htaccess</code> is present in the root of the project, that is in the same folder where this file is.</li>
+                <li>Ensure the file <code>.htaccess</code> has permissions set to be readable by the webserver.</li>
+                <li>Ensure <code>.htaccess</code> file processing is enabled in Apache configuration.</li>
+                <li>If nothing else works, please <a href="https://github.com/DeutscherBundesjugendring/epartool/issues/new">create an issue</a> on <a href="https://github.com/DeutscherBundesjugendring/epartool">GitHub</a>.</li>
+            </ul>
+        </p>
+    </body>
+</html>
