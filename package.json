@@ -4,10 +4,9 @@
     "node": "^10.0.0"
   },
   "scripts": {
-    "build": "webpack -p",
-    "start": "webpack-dev-server",
-    "test": "eslint --ext js,jsx assets/front/react/src && jest -w4",
-    "jest": "jest -w4"
+    "build": "webpack",
+    "test": "eslint --ext js,jsx assets/front/react/src && jest",
+    "jest": "jest"
   },
   "jest": {
     "verbose": true,
