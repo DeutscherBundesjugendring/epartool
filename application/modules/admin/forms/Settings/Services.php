@@ -10,33 +10,49 @@ class Admin_Form_Settings_Services extends Dbjr_Form_Admin
         $this->videoServiceAccess = true;
         $this->setAttrib('class', 'offset-bottom');
 
+        // Add Youtube video toggle
         $youtube = $this->createElement('checkbox', 'video_youtube_enabled');
         $youtube
             ->setLabel('YouTube')
             ->setRequired(false);
         $this->addElement($youtube);
 
-        $systemConfig = (new Zend_Registry ())->get('systemconfig');
+        $webserviceConf = (new Zend_Registry ())->get('systemconfig')->webservice;
 
-        $vimeo = $this->createElement('checkbox', 'video_vimeo_enabled');
-        $vimeo
-            ->setLabel('Vimeo')
-            ->setRequired(false);
-        if (!isset($systemConfig->webservice) || !isset($systemConfig->webservice->vimeo)
-            || !isset($systemConfig->webservice->vimeo->accessToken)) {
-            $vimeo->setAttrib('disabled', 'disabled');
+
+        // Add Vimeo video toggle
+        if ($webserviceConf
+            && $webserviceConf->vimeo
+            && $webserviceConf->vimeo->accessToken
+        ) {
+            $vimeo = $this->createElement('checkbox', 'video_vimeo_enabled');
+            $vimeo
+                ->setLabel('Vimeo')
+                ->setRequired(false);
+        } else {
+            $vimeo = $this->createElement('checkbox', 'video_vimeo_enabled_placeholder');
+            $vimeo
+                ->setLabel('Vimeo')
+                ->setAttrib('disabled', 'disabled');
             $this->videoServiceAccess = false;
         }
         $this->addElement($vimeo);
 
-        $facebook = $this->createElement('checkbox', 'video_facebook_enabled');
-        $facebook
-            ->setLabel('Facebook')
-            ->setRequired(false);
-        if (!isset($systemConfig->webservice) || !isset($systemConfig->webservice->facebook)
-            || !isset($systemConfig->webservice->facebook->appId)
-            || !isset($systemConfig->webservice->facebook->appSecret)) {
-            $facebook->setAttrib('disabled', 'disabled');
+        // Add Facebook video toggle
+        if ($webserviceConf
+            && $webserviceConf->facebook
+            && $webserviceConf->facebook->appId
+            && $webserviceConf->facebook->appSecret
+        ) {
+            $facebook = $this->createElement('checkbox', 'video_facebook_enabled');
+            $facebook
+                ->setLabel('Facebook')
+                ->setRequired(false);
+        } else {
+            $facebook = $this->createElement('checkbox', 'video_facebook_enabled_placeholder');
+            $facebook
+                ->setLabel('Facebook')
+                ->setAttrib('disabled', 'disabled');
             $this->videoServiceAccess = false;
         }
         $this->addElement($facebook);

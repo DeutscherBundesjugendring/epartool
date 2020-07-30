@@ -1,9 +1,5 @@
 <?php
-/**
- * Projects
- * @author Markus Hackel
- *
- */
+
 class Model_Projects extends Dbjr_Db_Table_Abstract
 {
     protected $_name = 'proj';
@@ -13,7 +9,7 @@ class Model_Projects extends Dbjr_Db_Table_Abstract
      * @var bool
      */
     protected $videoServiceStatus;
-    
+
     /**
      * Returns all entries from the proj table
      *
@@ -29,18 +25,28 @@ class Model_Projects extends Dbjr_Db_Table_Abstract
 
         return $this->fetchAll($select);
     }
-    
-    /**
-     * @return bool
-     */
-    public function getVideoServiceStatus()
+
+    public function getVideoServiceStatus(): bool
     {
         if ($this->videoServiceStatus === null) {
-            $project = (new Model_Projects())->find((new Zend_Registry())->get('systemconfig')->project)->current();
-            $this->videoServiceStatus = $project['video_facebook_enabled'] || $project['video_youtube_enabled']
-            || $project['video_vimeo_enabled'];
+            $config = Zend_Registry::get('systemconfig');
+            $project = (new Model_Projects())->find(($config->project))->current();
+            $this->videoServiceStatus =
+                (
+                    $project['video_facebook_enabled']
+                    && $config->webservice
+                    && $config->webservice->facebook
+                    && $config->webservice->facebook->appId
+                    && $config->webservice->facebook->appSecret
+                )
+                || $project['video_youtube_enabled']
+                || (
+                    $project['video_vimeo_enabled']
+                    && $config->webservice
+                    && $config->webservice->vimeo
+                    && $config->webservice->vimeo->accessToken);
         }
-        
+
         return $this->videoServiceStatus;
     }
 }

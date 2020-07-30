@@ -14,16 +14,16 @@
             <div class="content">
 
                 <h2><?=$this->translate('Services');?></h2>
+                <p class="alert alert-info">
+                    <span class="glyphicon glyphicon-info-sign offset-right" aria-hidden="true"></span>
+                    <?=$this->translate('Here you can specify available video services used for attaching of a video to contributions.');?>
+                </p>
                 <?php if (!$this->form->getVideosServiceAccess()) : ?>
                     <p class="alert alert-info">
                         <span class="glyphicon glyphicon-info-sign offset-right" aria-hidden="true"></span>
                         <?=$this->translate('In case one or more services are greyed out and cannot be activated, it is probably due to misconfiguration of service access applications in ePartool configuration files.');?>
                     </p>
                 <?php endif; ?>
-                <p class="alert alert-info">
-                    <span class="glyphicon glyphicon-info-sign offset-right" aria-hidden="true"></span>
-                    <?=$this->translate('Here you can specify available video services used for attaching of a video to contributions.');?>
-                </p>
                 <?=$this->form;?>
             </div>
         </div>

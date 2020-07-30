@@ -304,8 +304,26 @@ class Admin_InputController extends Zend_Controller_Action
         } else {
             $data = $inputRow;
             if ($data['video_service'] !== null) {
-                $project = (new Model_Projects)->find((new Zend_Registry())->get('systemconfig')->project)->current();
-                if (!$project['video_' . $data['video_service'] . '_enabled']) {
+                $config = (new Zend_Registry())->get('systemconfig');
+                $project = (new Model_Projects)->find($config->project)->current();
+                $videoService = $data['video_service'];
+                if (!$project['video_' . $videoService . '_enabled']
+                    || (
+                        $videoService === 'vimeo'
+                        && (!$config->webservice
+                            || !$config->webservice->vimeo
+                            || !$config->webservice->vimeo->accessToken
+                        )
+                    )
+                    || (
+                        $videoService === 'facebook'
+                        && (!$config->webservice
+                            || !$config->webservice->facebook
+                            || !$config->webservice->facebook->appId
+                            || !$config->webservice->facebook->appSecret
+                        )
+                    )
+                ) {
                     $data['video_service'] = null;
                     $data['video_id'] = null;
                     $this->_flashMessenger->addMessage(
