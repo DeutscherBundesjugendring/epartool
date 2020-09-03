@@ -41,7 +41,6 @@
     bindVotingRate();
     bindToggleVotingContributionExplanation();
     bindAddContribution();
-    initFB(document, 'script', 'facebook-jssdk');
     $('.js-has-password-meter').pwstrength({
       'ui': {
         'verdicts': [
@@ -216,25 +215,6 @@
     }
   };
 
-  window.facebookAuthenticateCallback = function() {
-    return FB.getLoginStatus(function(response) {
-      if (response.status === 'connected') {
-        indicateLoginInProgress();
-        return $.post(baseUrl + '/index/facebook-authenticate', {
-          token: response['authResponse']['accessToken'],
-          webserviceLoginCsrf: $('#webserviceLoginCsrf').val()
-        }, function(data) {
-          if (data === 'true') {
-            return location.reload();
-          } else {
-            loginProcessEnd();
-            return $('body').prepend(data);
-          }
-        });
-      }
-    });
-  };
-
   window.googleRegisterCallback = function(authResult) {
     if (authResult.status.method === 'PROMPT') {
       if (authResult['status']['signed_in']) {
@@ -257,28 +237,6 @@
     }
   };
 
-  window.facebookRegisterCallback = function() {
-    return FB.getLoginStatus(function(response) {
-      if (response.status === 'connected') {
-        indicateLoginInProgress();
-        return $.post(baseUrl + '/index/facebook-register', {
-          token: response['authResponse']['accessToken'],
-          webserviceLoginCsrf: $('#webserviceLoginCsrf').val()
-        }, function(data) {
-          var $emailEl, $emailField;
-          loginProcessEnd();
-          if (data !== 'false') {
-            $emailField = $('#email');
-            $emailField.prop('disabled', true).val(data);
-            $emailEl = $('<input name="email" type="hidden" />');
-            $emailEl.val(data);
-            $emailField.closest('form').append($emailEl);
-          }
-        });
-      }
-    });
-  };
-
   indicateLoginInProgress = function() {
     showOverlay();
     return $('body').prepend($('<div id="loginFlashMessage" class="alert alert-info alert-on-overlay"> <span class="icon-offset glyphicon glyphicon-transfer"></span>' + jsTranslations['message_logging_in'] + '</div>'));
@@ -297,22 +255,6 @@
   hideOverlay = function() {
     $('#overlay').remove();
     return $('body').removeClass('has-overlay');
-  };
-
-  initFB = function(d, s, id) {
-    var appId, fjs, js;
-    fjs = d.getElementsByTagName(s)[0];
-    if (d.getElementById(id)) {
-      return;
-    }
-    appId = $('.fb-login-button').data('app-id');
-    if (!appId || appId === '') {
-      return;
-    }
-    js = d.createElement(s);
-    js.id = id;
-    js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&appId=" + appId + "&version=v2.0";
-    return fjs.parentNode.insertBefore(js, fjs);
   };
 
   window.initGoogle = function() {

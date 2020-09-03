@@ -36,20 +36,6 @@
                 </button>
             <?php endif;?>
 
-            <?php if (!empty(Zend_Registry::get('systemconfig')->webservice->facebook->appId)): ?>
-                <div id="fb-root"></div>
-                <div
-                    class="fb-login-button"
-                    data-max-rows="1"
-                    data-size="large"
-                    data-show-faces="false"
-                    data-auto-logout-link="false"
-                    data-onlogin="facebookAuthenticateCallback"
-                    data-scope="public_profile,email"
-                    data-app-id="<?=Zend_Registry::get('systemconfig')->webservice->facebook->appId;?>"
-                ></div>
-            <?php endif;?>
-
             <hr class="divider" />
 
             <a href="<?=$this->url(['controller' => 'user', 'action' => 'passwordrecover'], 'default', true);?>">

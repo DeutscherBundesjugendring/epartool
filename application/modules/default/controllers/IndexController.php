@@ -102,19 +102,9 @@ class IndexController extends Zend_Controller_Action
         $this->renderScript('_partials/consultationPreviews.phtml');
     }
 
-    public function facebookAuthenticateAction()
-    {
-        $this->webserviceAuthenticate('Service_Webservice_Facebook');
-    }
-
     public function googleAuthenticateAction()
     {
         $this->webserviceAuthenticate('Service_Webservice_Google');
-    }
-
-    public function facebookRegisterAction()
-    {
-        $this->webserviceRegister('Service_Webservice_Facebook');
     }
 
     public function googleRegisterAction()
